@@ -1,3 +1,3 @@
-# sealyun
+# [sealyun](http://www.lameleg.com)
 [git service](http://git.sealyun.com:3000/)  |  
-[Home page](http://www.lameleg.com)
+[My GitHub](https://github.com/fanux)
