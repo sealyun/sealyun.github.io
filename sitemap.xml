@@ -184,6 +184,12 @@
   </url>
   
   <url>
+    <loc>https://sealyun.com/post/sealyun-k8s-offline/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
