@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>离线使用kubeadm安装安全高可用kubernetes集群 - My New Hugo Site</title>
+  <title>容器网络概述 - My New Hugo Site</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="使用kubeadm安装安全高可用kubernetes集群 安装包地址 如非高可用安装请忽略此教程，直接看产品页的三步安装。 单个master流程：" />
+  <meta name="description" content="网络概述 端口映射： $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -49,8 +49,8 @@
 
 
 
-<meta property="og:title" content="离线使用kubeadm安装安全高可用kubernetes集群" />
-<meta property="og:description" content="使用kubeadm安装安全高可用kubernetes集群 安装包地址 如非高可用安装请忽略此教程，直接看产品页的三步安装。 单个master流程：" />
+<meta property="og:title" content="容器网络概述" />
+<meta property="og:description" content="网络概述 端口映射： $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lameleg.com/post/dotscale-2014-as-a-sketch/" />
 
@@ -70,20 +70,20 @@
 
 
 
-<meta itemprop="name" content="离线使用kubeadm安装安全高可用kubernetes集群">
-<meta itemprop="description" content="使用kubeadm安装安全高可用kubernetes集群 安装包地址 如非高可用安装请忽略此教程，直接看产品页的三步安装。 单个master流程：">
+<meta itemprop="name" content="容器网络概述">
+<meta itemprop="description" content="网络概述 端口映射： $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主">
 
 
 <meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="3304">
+<meta itemprop="wordCount" content="2384">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="离线使用kubeadm安装安全高可用kubernetes集群"/>
-<meta name="twitter:description" content="使用kubeadm安装安全高可用kubernetes集群 安装包地址 如非高可用安装请忽略此教程，直接看产品页的三步安装。 单个master流程："/>
+<meta name="twitter:title" content="容器网络概述"/>
+<meta name="twitter:description" content="网络概述 端口映射： $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -146,7 +146,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">离线使用kubeadm安装安全高可用kubernetes集群</h1>
+      <h1 class="post-title">容器网络概述</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2014-07-11 </span>
@@ -164,23 +164,29 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#使用kubeadm安装安全高可用kubernetes集群">使用kubeadm安装安全高可用kubernetes集群</a>
+<li>
 <ul>
-<li><a href="#提前准备">提前准备</a></li>
-<li><a href="#安装包介绍">安装包介绍</a></li>
-<li><a href="#初始化节点">初始化节点</a></li>
-<li><a href="#起动etcd集群">起动etcd集群</a></li>
-<li><a href="#kubeadm配置">kubeadm配置</a></li>
-<li><a href="#启动calico等">启动calico等</a></li>
-<li><a href="#启动多个master">启动多个master</a></li>
-<li><a href="#启动loadbalance">启动loadbalance</a></li>
-<li><a href="#修改kubeproxy配置">修改kubeproxy配置</a></li>
-<li><a href="#join-node节点">join node节点</a></li>
-<li><a href="#修改node节点kubelet配置">修改node节点kubelet配置</a></li>
-<li><a href="#kubectl配置">kubectl配置</a>
+<li><a href="#网络概述">网络概述</a>
 <ul>
-<li><a href="#启动多dns副本">启动多DNS副本</a></li>
-<li><a href="#验证与测试">验证与测试</a></li>
+<li><a href="#bridge原理">bridge原理</a></li>
+</ul></li>
+<li><a href="#network-namespace实践">network namespace实践</a>
+<ul>
+<li><a href="#使用ip操作docker-net-namespace">使用ip操作docker net namespace</a></li>
+<li><a href="#docker-bridge的网络">Docker bridge的网络</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#ip-netns-list">ip netns list</a>
+<ul>
+<li>
+<ul>
+<li><a href="#bridge实现源码解析">bridge实现源码解析</a>
+<ul>
+<li><a href="#docker0网桥的建立">docker0网桥的建立</a></li>
+<li><a href="#创建容器时宿主机上的网络操作">创建容器时宿主机上的网络操作</a></li>
+<li><a href="#创建容器时容器内部的网络操作">创建容器时容器内部的网络操作</a></li>
+</ul></li>
+<li><a href="#overlay网络代表flannel原理">overlay网络代表flannel原理</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -192,408 +198,340 @@
     <div class="post-content">
       
 
-<h1 id="使用kubeadm安装安全高可用kubernetes集群">使用kubeadm安装安全高可用kubernetes集群</h1>
-
-<p><a href="https://market.aliyun.com/products/57742013/cmxz025618.html?spm=5176.730005.0.0.TFKV5K#sku=yuncode1961800000">安装包地址</a> 如非高可用安装请忽略此教程，直接看产品页的三步安装。</p>
-
-<blockquote>
-<p><strong>单个master流程：</strong></p>
-</blockquote>
+<h2 id="网络概述">网络概述</h2>
 
 <ol>
-<li>解压后在master 上 cd shell  &amp;&amp; sh init.sh ,然后sh master.sh（注意因为脚本用的相对路径所以不再当前目录会找不到文件）</li>
-<li>在node上 cd shell &amp;&amp; sh init.sh  。然后在node上执行master输出的join命令即可</li>
+<li><p>端口映射：</p>
+
+<pre><code>$ docker run -p 8080:80 nginx:latest
+</code></pre>
+
+<p>如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主机的8080断开去访问nginx了。
+端口映射的原理是作了net转发</p></li>
+
+<li><p>共享主机网络:</p>
+
+<pre><code>$ docker run --net=host nginx:latest
+</code></pre>
+
+<p>这种容器没有自己的网络，完全共享主机的网络，所以可以通过主机ip直接访问容器服务。 坏处是容器与其它容器端口冲突</p></li>
+
+<li><p>link网络</p>
+
+<pre><code>$ docker run --name mysql mysql:latest
+$ docker run --link=mysql nginx:latest
+</code></pre>
+
+<p>这样nginx可以通过容器名去访问mysql，其原理是在nginx容器中的/etc/hosts中加入了mysql主机名解析。这种共享不可跨主机</p></li>
 </ol>
 
-<blockquote>
-<p><strong>高可用如下</strong></p>
-</blockquote>
+<pre><code>$ docker run --rm -it --name c1 centos:latest /bin/bash
+</code></pre>
 
-<h2 id="提前准备">提前准备</h2>
-
-<p>假设构建一个3master+2node的k8s集群，需要5台节点共同的条件如下：</p>
+<pre><code>$ docker run --rm -it --name c2 --link c1  centos:latest /bin/bash
+[root@178d290d873c /]# cat /etc/hosts
+127.0.0.1    localhost
+::1    localhost ip6-localhost ip6-loopback
+fe00::0    ip6-localnet
+ff00::0    ip6-mcastprefix
+ff02::1    ip6-allnodes
+ff02::2    ip6-allrouters
+172.17.0.4    c1 3b7b15fa7e20   # 看这里
+172.17.0.5    178d290d873c
+</code></pre>
 
 <ol>
-<li>（<code>yum install -y docker是1.12.6版本需要改cg</code>）
-17.06安装教程：
-```bash
-#0.删除老旧的
-$ yum remove -y docker*  #如果默认之前yum安装的1.12版本,可以这样删没装可以跳过此步
-#1.安装需要的包
-$ yum install -y yum-utils <br />
- device-mapper-persistent-data <br />
- lvm2
-<br /></li>
+<li><p>none模式
+容器不创建网络，需要自行定义</p></li>
+
+<li><p>overlay网络
+进群中常用的网络模式，使用vxlan等技术作了一层覆盖，使每个容器有自己独立的ip并可跨主机通信。</p></li>
+
+<li><p>共享容器网络</p></li>
 </ol>
 
-<p>#2.添加源,不然默认的找不到
-   $ yum-config-manager <br />
-       &ndash;add-repo <br />
-       <a href="https://download.docker.com/linux/centos/docker-ce.repo">https://download.docker.com/linux/centos/docker-ce.repo</a></p>
+<p>如kubernetes里pod的实现，pod是多个容器的集合，这些容器都共享了同一个容器的网络，那么这些容器就如同在一个host上一样。</p>
 
-<p>#3.根据实际查找当前版本 (可选)
-   $ yum list docker-ce &ndash;showduplicates | sort -r
-   #4.如果确定了版本,直接安装,如果要装17。03直接修改下面数字即可
-   $ yum install  docker-ce-17.06.1.ce  # 主意版本填写包名的格式.
-   #5.开启docker服务,和开机启动
-   $ systemctl start docker &amp;&amp; systemctl enable docker</p>
+<h3 id="bridge原理">bridge原理</h3>
+
+<p>在宿主机上ifconfig:</p>
+
+<pre><code>docker0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 0.0.0.0
+        inet6 fe80::42:a4ff:fe60:b79d  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether 02:42:a4:60:b7:9d  txqueuelen 0  (Ethernet)
+        RX packets 23465  bytes 3407255 (3.2 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 24676  bytes 22031766 (21.0 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+vethcd2d45d: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet6 fe80::c4d6:dcff:fe7d:5f44  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether c6:d6:dc:7d:5f:44  txqueuelen 0  (Ethernet)
+        RX packets 415  bytes 82875 (80.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 372  bytes 379450 (370.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre>
+
+<p>docker0是一个虚拟网桥，类似一个交换机的存在。 veth开头的网卡就是为容器分配的一个设备,但是要注意这不是容器中的设备。由于linux物理网卡只能出现在一个namespace中，所以只能用虚拟设备给容器创建独立的网卡。</p>
+
+<p>docker network inspect bridge 看一下,这是给容器内部分配的地址：</p>
+
+<pre><code>&quot;Containers&quot;: {
+    &quot;ac8c983592f06d585a75184b4dcd012338645fb7fa60b07c722f59ce43ceb807&quot;: {
+        &quot;Name&quot;: &quot;sick_snyder&quot;,
+        &quot;EndpointID&quot;: &quot;0755707344f30c40d686a2b4fdcabf45d6e1a64f8de8618b9a3a8c8e5b203ddc&quot;,
+        &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;,
+        &quot;IPv4Address&quot;: &quot;172.17.0.2/16&quot;,
+        &quot;IPv6Address&quot;: &quot;&quot;
+    }
+}
+</code></pre>
+
+<p>再引入一个概念：linux设备对，类似管道一样，在一端写另一端就可以读,容器内的eth0就与这个veth是一对设备对</p>
+
+<pre><code>           docker0         eth0 -&gt; 宿主机
+        ---------------    ----
+         |          |
+        vethx      vethy
+        ----       ----
+          |          |    ----&gt;设备对
+     +----+---+ +----+---+
+     |  eth0  | |  eth0  |
+     +--------+ +--------+
+      容器1       容器2
+</code></pre>
+
+<p>单有这些还不够，还需要iptables对包作一些处理,下文细说。有了这些理论，再去顺着这个思路去读网络模块的代码</p>
+
+<h2 id="network-namespace实践">network namespace实践</h2>
+
+<h3 id="使用ip操作docker-net-namespace">使用ip操作docker net namespace</h3>
+
+<pre><code>docker inspect --format '{{ .State.Pid }}' test1
+mkdir /var/run/netns   # ip命令的网络命名空间
+ln -s /proc/1231221/ns/net /var/run/netns/test1
+ip netns list
+ip netns exec test1 ip link
+</code></pre>
+
+<p>使用ip命令，如果没有的话安装一下：<code>yum install net-tools</code></p>
+
+<p>基本命令：</p>
+
+<pre><code>ip netns add nstest  # 创建一个net namespace
+ip netns list        # 查看net namespace列表
+ip netns delete nstest # 删除
+ip netns exec [ns name] command # 到对应的ns里去执行命令
+ip netns exec [ns name] bash # 在ns中使用bash,需要要ns中做一系列操作时方便
+</code></pre>
+
+<p>开启ns中的回环设备,以创建的nstest为例</p>
+
+<pre><code>ip netns exec nstest ip link set dev lo up
+</code></pre>
+
+<p>在主机上创建两个虚拟网卡两张网卡是linux设备对</p>
+
+<pre><code>ip link set add veth-a type veth peer name veth-b
+</code></pre>
+
+<p>添加veth-b到nstest中</p>
+
+<pre><code>ip link set veth-b netns nstest
+</code></pre>
+
+<p>验证：</p>
+
+<pre><code>[root@dev-86-208 ~]# ip netns exec nstest ip link
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+251: veth-b@if252: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether aa:0a:7d:01:06:d3 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+</code></pre>
+
+<p>为网卡设置ip并启动：</p>
+
+<pre><code>[root@dev-86-208 ~]# ip addr add 10.0.0.1/24 dev veth-a
+[root@dev-86-208 ~]# ip link set dev veth-a up
+
+[root@dev-86-208 ~]# ip netns exec nstest ip addr add 10.0.0.2/24 dev veth-b
+[root@dev-86-208 ~]# ip netns exec nstest ip link set dev veth-b up
+
+设置完ip，自动添加了这个路由
+[root@dev-86-208 ~]# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         10.1.86.1       0.0.0.0         UG    100    0        0 eth0
+10.0.0.0        0.0.0.0         255.255.255.0   U     0      0        0 veth-a # 目的地址是10.0.0.0/24的就从这张网卡发出
+10.1.86.0       0.0.0.0         255.255.255.0   U     100    0        0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+172.18.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-4b03f208bc30
+
+ns里面的路由表
+[root@dev-86-208 ~]# ip netns exec nstest ip route
+10.0.0.0/24 dev veth-b  proto kernel  scope link  src 10.0.0.2
+</code></pre>
+
+<p>验证相互ping：</p>
+
+<pre><code>[root@dev-86-208 ~]# ip netns exec nstest ping 10.0.0.1
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.043 ms
+64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=0.032 ms
+
+[root@dev-86-208 ~]# ping 10.0.0.2
+PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
+64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.069 ms
+64 bytes from 10.0.0.2: icmp_seq=2 ttl=64 time=0.024 ms
+</code></pre>
+
+<h3 id="docker-bridge的网络">Docker bridge的网络</h3>
+
+<p>我们去创建两个ns（ns1 与 ns2）模拟两个容器，创建四张网卡（两对设备对）模仿容器网卡。</p>
+
+<pre><code> brtest
+   |          +-------------+
+   |-veth1 &lt;--|--&gt; eth1 ns1 |  
+   |          |-------------+
+   |-veth2 &lt;--|--&gt; eth1 ns2 |  
+   |          +-------------+
+````
+再在宿主机上创建一个网桥brtest模拟docker0网桥，将veth1和veth2桥接到上面。
+
+添加namespace:
+</code></pre>
+
+<p>[root@dev-86-208 ~]# ip netns add ns1
+[root@dev-86-208 ~]# ip netns add ns2
+[root@dev-86-208 ~]# ip netns list
+ns2
+ns1
+test1 (id: 3)
+nstest (id: 2)</p>
+
+<p>[root@dev-86-208 ~]# ip netns exec ns1 ip link set dev lo up
+[root@dev-86-208 ~]# ip netns exec ns2 ip link set dev lo up</p>
 
 <pre><code>
-2. 建议二进制方法提前部署好docker-compose，步骤参考后文
+添加网卡对：
+</code></pre>
 
-3. 建议永久关闭selinux和swap以免后续问题
+<p>[root@dev-86-208 ~]# ip link add veth1 type veth peer name eth1
+[root@dev-86-208 ~]# ip link set eth1 netns ns1
+[root@dev-86-208 ~]# ip link add veth2 type veth peer name eth1
+[root@dev-86-208 ~]# ip link set eth1 netns ns2</p>
 
-4. 建议停止并关闭firewalld/iptables等防火墙
+<p>[root@dev-86-208 ~]# ip netns exec ns1 ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+255: eth1@if256: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether ae:93:ba:2c:54:93 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+[root@dev-86-208 ~]# ip netns exec ns2 ip link
+257: eth1@if258: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether 3a:a6:f3:27:9d:83 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</p>
 
-5. 新的节点启动后记得改网络名 `hostnamectl set-hostname masterX` 
+<pre><code>
+配置地址：
+</code></pre>
 
-6. 节点之间要能互通内网环境稳定
+<p>[root@dev-86-208 ~]# ip netns exec ns1 ip addr add 172.17.1.<sup>1</sup>&frasl;<sub>24</sub> dev eth1
+[root@dev-86-208 ~]# ip netns exec ns2 ip addr add 172.17.1.<sup>2</sup>&frasl;<sub>24</sub> dev eth1</p>
 
-7. 安装中出了问题要看日志journalctl -n 10 ,运行中的日志查看`tail -f 10 /var/log/messages` 
+<p>[root@dev-86-208 ~]# ip netns exec ns1 ip link set dev eth1 up
+[root@dev-86-208 ~]# ip netns exec ns2 ip link set dev eth1 up</p>
 
-## 系统架构图
+<pre><code>
+创建网桥：
+</code></pre>
 
-```bash
-          kubectl dashboard
-                 |
-                 V 
-     +------------------------+ join
-     | LB  10.1.245.94        | &lt;--- Nodes
-     +------------------------+
-     |                                                   
-     |--master1 manager1 schedule1   10.1.245.93                                                
-     |--master2 manager2 schedule2   10.1.245.95    =============&gt;  etcd cluster  http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379
-     |--master3 manager3 schedule3   10.1.245.94                                              
+<p>[root@dev-86-208 ~]# brctl addbr brtest
+[root@dev-86-208 ~]# ifconfig brtest
+brtest: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 1e:60:eb:c1:e6:d0  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</p>
+
+<p>[root@dev-86-208 ~]# brctl addif brtest veth1
+[root@dev-86-208 ~]# brctl addif brtest veth2</p>
+
+<p>[root@dev-86-208 ~]# ifconfig brtest up
+[root@dev-86-208 ~]# ifconfig veth1 up      # 主机上这两张网卡工作在数据链路层，因此不需要设置ip也能通
+[root@dev-86-208 ~]# ifconfig veth2 up</p>
+
+<pre><code>恭喜两个eth1之间可以通了：
+</code></pre>
+
+<p>[root@dev-86-208 ~]# ip netns exec ns1 ping 172.17.1.2
+PING 172.17.1.2 (172.17.1.2) 56(84) bytes of data.
+64 bytes from 172.17.1.2: icmp_seq=1 ttl=64 time=0.063 ms
+64 bytes from 172.17.1.2: icmp_seq=2 ttl=64 time=0.022 ms</p>
+
+<p>[root@dev-86-208 ~]# ip netns exec ns2 ping 172.17.1.1
+PING 172.17.1.1 (172.17.1.1) 56(84) bytes of data.
+64 bytes from 172.17.1.1: icmp_seq=1 ttl=64 time=0.038 ms
+64 bytes from 172.17.1.1: icmp_seq=2 ttl=64 time=0.041 ms</p>
+
+<pre><code>当然想在主机上能ping通容器的话需要给brtest加ip：
+</code></pre>
+
+<p>[root@dev-86-208 ~]# ip addr add 172.17.1.<sup>254</sup>&frasl;<sub>24</sub> dev brtest</p>
+
+<p>[root@dev-86-208 ~]# route -n # 上面动作设置了路由
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+172.17.1.0      0.0.0.0         255.255.255.0   U     0      0        0 brtest</p>
+
+<p>[root@dev-86-208 ~]# ping 172.17.1.1
+PING 172.17.1.1 (172.17.1.1) 56(84) bytes of data.
+64 bytes from 172.17.1.1: icmp_seq=1 ttl=64 time=0.046 ms
+64 bytes from 172.17.1.1: icmp_seq=2 ttl=64 time=0.030 ms</p>
+
+<pre><code>以上操作就是docker bridge模式的模型
+
+### 用ip命令配置docker网络
+我们如果需要对容器网络进行配置，如修改ip地址，进入到容器里面显然不合适，而且有时不使用特权模式时是操作不了的，不过我们可以使用ip命令对其进行操作。
 
 </code></pre>
 
-<h2 id="安装包介绍">安装包介绍</h2>
+<p>docker run -itd &ndash;name test ubuntu:14.04 /bin/bash</p>
 
-<p>解压完之后看到如下目录：</p>
-
-<pre><code>├── bin          所需要的k8s相关的bin文件
-│   ├── kubeadm
-│   ├── kubectl
-│   └── kubelet
-├── image        依赖的所有镜像包
-│   └── images.tar
-├── out          所有的配置文件
-│   ├── dashboard  dashboard相关配置
-│   │   ├── dashboard-admin.yaml
-│   │   └── kubernetes-dashboard.yaml
-│   ├── etcd  etcd相关配置
-│   │   ├── etcd-docker-compose-0.yml
-│   │   ├── etcd-docker-compose-1.yml
-│   │   └── etcd-docker-compose-2.yml
-│   ├── haproxy  haproxy相关配置
-│   │   └── haproxy.cfg
-│   ├── heapster   heapster相关yaml配置
-│   │   ├── influxdb
-│   │   │   ├── grafana.yaml
-│   │   │   ├── heapster.yaml
-│   │   │   └── influxdb.yaml
-│   │   └── rbac
-│   │       └── heapster-rbac.yaml
-│   ├── kube    k8s自身配置
-│   │   ├── 10-kubeadm.conf
-│   │   ├── config    kubeadm配置
-│   │   └── kubelet.service
-│   ├── kubeinit.json  忽略
-│   └── net  网络相关配置
-│       ├── calico.yaml
-│       └── calicoctl.yaml
-└── shell    初始化脚本
-    ├── init.sh   初始化节点,安装bin文件，systemd配置等
-    └── master.sh  执行kubeadm init和其它组件
-
+<pre><code>这时namespace其实已经建立了，不过使用ip命令看不到
 </code></pre>
 
-<h2 id="初始化节点">初始化节点</h2>
+<p>docker inspect &ndash;format &lsquo;{{ .State.Pid }}&rsquo; test
+3847
+mkdir /var/run/netns # 如果不存在才创建
+ln -s /proc/3847/ns/net /var/run/netns/test</p>
 
-<p>因为解压后包,然后<code>scp -r xxx root@ip:/root</code> 的方式分发解压后的包到其他节点</p>
-
-<p><strong>集群中所有节点都需要执行<code>cd shell &amp;&amp; sh init.sh</code> （如果只跑单个master那么还需要执行 <code>sh master.sh</code></strong> ，多master勿跑 ）</p>
-
-<blockquote>
-<p>有以下需要注意的事项：<br />
-1. 修改init.sh脚本在后面添加,如果二进制程序没可执行权限<code>chmod +x  /usr/bin/kube*</code>
-2. cgroups驱动需要选择docker17.0x版本，就不需要去调整了，如果是1.1x版本的docker需要<strong>手动修改</strong>kubelet的启动文件里面的cgroups配置为<code>systemd</code>   （修改位置<code>/etc/systemd/system/kubelet.service.d</code>）   与 docker info|grep Cg一致
-3. 提前修改默认的init 或者手动执行<code>sysctl  -w net.ipv4.ip_forward=1</code> 不然第七行报错</p>
-</blockquote>
-
-<p><strong>执行完成后通过命令查看<code>kubectl get pod -n kube-system</code> ,状态全为Running正常</strong></p>
-
-<h2 id="起动etcd集群">起动etcd集群</h2>
-
-<p>etcd集群安装使用docker-compose方式部署</p>
-
-<p>A.使用docker-compose启动，如果没装：</p>
-
-<pre><code class="language-bash">$ pip install docker-compose
+<pre><code>测试：
 </code></pre>
 
-<p>B.使用二进制包启动docker-compose（离线可选）</p>
+<h1 id="ip-netns-list">ip netns list</h1>
 
-<pre><code class="language-bash">$ wget https://github.com/docker/compose/releases/download/1.18.0/docker-compose-Linux-x86_64  #官方推荐是用curl,不建议
-$ mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose &amp;&amp; chmod a+x /usr/local/bin/docker-compose  #也有写+x的.
-#这样就完成了,测试
-$ docker-compose version  #下面是正常输出
-docker-compose version 1.18.0, build 8dd22a9
-docker-py version: 2.6.1
-CPython version: 2.7.13
-OpenSSL version: OpenSSL 1.0.1t  3 May 2016
-</code></pre>
+<p>test</p>
 
-<p>在out/etcd目录下有相关模板<code>etcd-docker-compose-x.yam</code>，启动多个节点时修改成自己的ip地址 其它两个节点照抄，修改ip即可, image那行 应改为  <code>gcr.io/google_containers/etcd-amd64:3.1.11</code> ，实际就是版本号改一下即可。</p>
+<p>[root@dev-86-208 ~]# ip netns exec test1 ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+253: eth0@if254: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+```</p>
 
-<pre><code class="language-yaml">#需要修改所有含有ip的地方，下面的9，10，11，12行改为当前节点ip，15行三个ip顺序改为etcd集群部署的三台节点ip
-version: '2.1'
-services:
-    etcd0:
-        container_name: etcd_infra0
-        image: gcr.io/google_containers/etcd-amd64:3.0.17  #这里最后改为3.1.11
-        command: |
-                etcd --name infra0
-                --initial-advertisie-peer-urls http://10.230.204.160:2380
-                --listen-peer-urls http://10.230.204.160:2380
-                --listen-client-urls http://10.230.204.160:2379,http://127.0.0.1:2379
-                --advertise-client-urls http://10.230.204.160:2379
-                --data-dir /etcd-data.etcd
-                --initial-cluster-token etcd-cluster-1
-                --initial-cluster infra0=http://10.230.204.160:2380,infra1=http://10.230.204.165:2380,infra2=http://10.230.204.151:2380
-                --initial-cluster-state new
-        restart: always
-        volumes:
-           - /data/etcd-data.etcd:/etcd-data.etcd
-        network_mode: &quot;host&quot;
-</code></pre>
+<h3 id="bridge实现源码解析">bridge实现源码解析</h3>
 
-<p>三个节点分别启动：</p>
+<h4 id="docker0网桥的建立">docker0网桥的建立</h4>
 
-<pre><code class="language-bash">$ docker-compose -f out/etcd/etcd-docker-compose-x.yml up -d  
-#正常输出Creating etcd_infrax ... done  x为每个etcd编号
-</code></pre>
+<h4 id="创建容器时宿主机上的网络操作">创建容器时宿主机上的网络操作</h4>
 
-<p>检查是不是安装成功:</p>
+<h4 id="创建容器时容器内部的网络操作">创建容器时容器内部的网络操作</h4>
 
-<pre><code class="language-bash">$ docker exec etcd_infra0 etcdctl member list  #master1上可能运行报错容易提示容器正在重启。。原因暂时未知，其他master上可以
-#成功应该是类似显示
-5ded6dd284b89d31: name=infra1 peerURLs=http://10.230.204.153:2380 clientURLs=http://10.230.204.153:2379 isLeader=true
-6d4b5eee32c1497a: name=infra0 peerURLs=http://10.230.204.150:2380 clientURLs=http://10.230.204.150:2379 isLeader=false
-729d9cd56debb1a1: name=infra2 peerURLs=http://10.230.204.154:2380 clientURLs=http://10.230.204.154:2379 isLeader=false
-
-#如果出现有peerURL不显示说明没有成功，尝试remove重新创建
-$ docker-compose -f  out/etcd/etcd-docker-compose-x.yml down -v
-</code></pre>
-
-<h2 id="kubeadm配置">kubeadm配置</h2>
-
-<p>修改配置 <code>out/kube/config</code>文件</p>
-
-<pre><code class="language-yaml">apiVersion: kubeadm.k8s.io/v1alpha1
-kind: MasterConfiguration
-apiServerCertSANs:    #此处填所有的masterip和lbip和其它你可能需要通过它访问apiserver的地址和域名或者主机名等，如阿里fip，证书中会允许这些ip
-- 172.31.244.231
-- 172.31.244.232
-- 172.31.244.233
-- 172.31.244.234
-- master1
-- master2
-- master3
-- node1
-- 47.75.1.72
-
-etcd:
-  endpoints:   #这里填之前安装的etcd集群地址列表，修改IP地址
-  - http://172.31.244.232:2379
-  - http://172.31.244.233:2379
-  - http://172.31.244.234:2379
-
-apiServerExtraArgs:
-  endpoint-reconciler-type: lease
-
-networking:
-  podSubnet: 192.168.0.0/16  #不用改
-kubernetesVersion: v1.9.2  #不用改
-featureGates:  #不用改
-   CoreDNS: true
-</code></pre>
-
-<p>然后执行：</p>
-
-<pre><code class="language-bash">$ kubeadm init --config out/kube/config
-</code></pre>
-
-<p>把成功后的kubeadm join命令存在文件里，那东西不能丢了</p>
-
-<h2 id="启动calico等">启动calico等</h2>
-
-<p><code>mkdir ~/.kube &amp;&amp; cp /etc/kubernetes/admin.conf ~/.kube/config</code> （如果已经存在请校验一下是否相同,不确定建议删掉重新cp过去）</p>
-
-<p>修改calico配置，把etcd地址换成你安装好的集群地址：
-out/net/calico.yaml:</p>
-
-<pre><code>kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: calico-config
-  namespace: kube-system
-data:
-  # The location of your etcd cluster.  This uses the Service clusterIP
-  # defined below.
-  etcd_endpoints: &quot;http://10.96.232.136:6666&quot; # 这里改成etcd集群地址如 &quot;http://172.31.244.232:2379,http://172.31.244.233:2379,http://172.31.244.234:2379&quot;
-</code></pre>
-
-<pre><code class="language-bash">$ kubectl apply -f out/net/calico.yaml
-$ kubectl apply -f out/heapster/influxdb
-$ kubectl apply -f out/heapster/rbac
-$ kubectl apply -f out/dashboard
-#上面命令可整合为
-$ kubectl apply -f out/net/calico.yaml -f out/heapster/influxdb -f out/heapster/rbac -f out/dashboard
-</code></pre>
-
-<ol>
-<li>然后访问<a href="https://master1IP:32000端口即可，在chrome下无法进入提示证书有误，更换firefox可以，提示说证书日期不对（待修复）">https://master1IP:32000端口即可，在chrome下无法进入提示证书有误，更换firefox可以，提示说证书日期不对（待修复）</a></li>
-</ol>
-
-<h2 id="启动多个master">启动多个master</h2>
-
-<p>第一个master我们称之为master0 (假设其他master已经init.sh过)，现在把第一个master的/etc/kubernetes/pki目录拷贝到别的master节点上</p>
-
-<pre><code class="language-bash">$ mkdir -p /etc/kubernetes
-$ scp -r /etc/kubernetes/pki root@10.1.245.93:/etc/kubernetes/pki
-</code></pre>
-
-<p>删除pki目录下的apiserver.crt 和 apiserver.key文件<code>rm -rf apiserver.crt apiserver.key</code>，注意如果<strong>不删除会只能看到一个master，是不正常的。</strong></p>
-
-<p>同样使用master0上的out/kube/config文件，复制内容，拷贝到master1上，<code>scp out/kube/config  root@10.230.204.151:/root/</code> 执行<code>kubeadm init --config ~/config</code></p>
-
-<p>master2节点同master1</p>
-
-<h2 id="启动loadbalance">启动loadbalance</h2>
-
-<p>我比较推荐使用四层代理 HAproxy配置out/haproxy目录:</p>
-
-<p><code>vi out/haproxy/haproxy.cfg</code></p>
-
-<pre><code class="language-bash">global
-  daemon
-  log 127.0.0.1 local0
-  log 127.0.0.1 local1 notice
-  maxconn 4096
-
-defaults
-  log               global
-  retries           3
-  maxconn           2000
-  timeout connect   5s
-  timeout client    50s
-  timeout server    50s
-
-frontend k8s
-  bind *:6444
-  mode tcp
-  default_backend k8s-backend
-
-backend k8s-backend
-  balance roundrobin
-  mode tcp
-  #下面三个ip替换成三个你自己master的地址
-  server k8s-1 10.1.245.93:6443 check 
-  server k8s-1 10.1.245.94:6443 check
-  server k8s-2 10.1.245.95:6443 check
-</code></pre>
-
-<p>先<code>mkdir /etc/haproxy</code> 然后把这个文件拷贝在<code>cp out/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg</code></p>
-
-<pre><code class="language-bash">$ docker run --net=host -v /etc/haproxy:/usr/local/etc/haproxy --name ha -d haproxy:1.7
-</code></pre>
-
-<h2 id="修改kubeproxy配置">修改kubeproxy配置</h2>
-
-<pre><code class="language-bash">$ kubectl -n kube-system edit configmap kube-proxy
-</code></pre>
-
-<p>找到master地址，修改成LB地址，6444端口  （这里关键在于怎么知道LB的地址到底是哪一个呀？上面配置之后三个masterIP 轮询并不知道哪个是LB地址）</p>
-
-<pre><code class="language-yaml">#找到文件的这一块，第七行server 有个ip地址
-apiVersion: v1
-    kind: Config
-    clusters:
-    - cluster:
-        certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        server: https://10.230.204.151:6443 #修改为 LoadBalanceIP:6444
-      name: default
-    contexts:
-    - context:
-        cluster: default
-        namespace: default
-        user: default
-      name: default
-    current-context: default
-    users:
-    - name: default
-      user:
-        tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-</code></pre>
-
-<h2 id="join-node节点">join node节点</h2>
-
-<p>还是在node节点执行第一个master输出的命令</p>
-
-<pre><code class="language-bash">$ kubeadm join --token &lt;token&gt; 10.1.245.94:6443 --discovery-token-ca-cert-hash sha256:&lt;hash&gt;
-</code></pre>
-
-<h2 id="修改node节点kubelet配置">修改node节点kubelet配置</h2>
-
-<p><code>vi /etc/kubernetes/kubelet.conf</code> 同样把地址修改成LB地址,如：<code>10.1.245.94:6444</code> ，修改如下第五行（展示的例子已经修改过）</p>
-
-<pre><code class="language-yaml">apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data: xxxxxx #此处省略几百字符
-    server: https://10.230.204.160:6444 #修改这里为LB:6444，原本是另外的ip:6443
-  name: default-cluster
-contexts:
-- context:
-    cluster: default-cluster
-    namespace: default
-    user: default-auth
-  name: default-context
-current-context: default-context
-</code></pre>
-
-<h2 id="kubectl配置">kubectl配置</h2>
-
-<p>修改<code>~/.kube/config</code>文件,server的ip改成LB的ip <code>10.1.245.94:6444</code></p>
-
-<p>或者通过命令修改：</p>
-
-<pre><code class="language-bash">$ kubectl config set-cluster kubernetes --server=https://47.52.227.242:6444 --kubeconfig=$HOME/.kube/config
-</code></pre>
-
-<h3 id="启动多dns副本">启动多DNS副本</h3>
-
-<pre><code class="language-bash">$ kubectl edit deploy coredns -n kube-system
-</code></pre>
-
-<p>replicas: 3</p>
-
-<pre><code class="language-bash">[root@master1 ~]$ kubectl get pod -n kube-system -o wide|grep core
-coredns-65dcdb4cf-4j5s8                  1/1       Running   0          39m       192.168.137.65    master1
-coredns-65dcdb4cf-ngx4h                  1/1       Running   0          38s       192.168.180.1     master2
-coredns-65dcdb4cf-qbsr6                  1/1       Running   0          38s       192.168.166.132   node1
-</code></pre>
-
-<p>这样，启动了三个dns</p>
-
-<h3 id="验证与测试">验证与测试</h3>
-
-<pre><code class="language-bash">$ kubectl run test --image busybox sleep 10000
-$ kubectl exec your-busybox-pod-name nslookup kubernetes
-</code></pre>
-
-<p>杀非LB的master，多次测试看创建pod与dns是否正常，还可以telnet 10.96.0.1 443 去验证clusterip是否正常</p>
+<h3 id="overlay网络代表flannel原理">overlay网络代表flannel原理</h3>
 
     </div>
 
@@ -630,12 +568,12 @@ $ kubectl exec your-busybox-pod-name nslookup kubernetes
         
           <a class="prev" href="/post/dotscale-2014-as-a-sketch/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">容器网络概述</span>
+            <span class="prev-text nav-default">容器信号使用</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         
           <a class="next" href="/post/dotscale-2014-as-a-sketch/">
-            <span class="next-text nav-default">配置docker engine使engine挂掉时容器继续运行</span>
+            <span class="next-text nav-default">离线使用kubeadm安装安全高可用kubernetes集群</span>
             <span class="prev-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -650,11 +588,11 @@ $ kubectl exec your-busybox-pod-name nslookup kubernetes
   <script type="text/javascript">
   const gitment = new Gitment({
     id: '2014-07-11 10:54:24 \x2b0200 \x2b0200',
-    title: '离线使用kubeadm安装安全高可用kubernetes集群',
+    title: '容器网络概述',
     link: decodeURI(location.href),
-    desc: '使用kubeadm安装安全高可用kubernetes集群 安装包地址 如非高可用安装请忽略此教程，直接看产品页的三步安装。 单个master流程：',
+    desc: '网络概述 端口映射： $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主',
     owner: 'fanux',
-    repo: 'github.com\/sealyun\/comment',
+    repo: 'fanux.github.io',
     oauth: {
       client_id: '7310a388901af5f3baf0',
       client_secret: 'd1b288d74518baf2258aae64c64f3f2f318642cf'
