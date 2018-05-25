@@ -164,6 +164,13 @@
   </url>
   
   <url>
+    <loc>https://lameleg.com/pro/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
     <lastmod>2014-07-11T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -211,6 +218,13 @@
   
   <url>
     <loc>https://lameleg.com/post/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lameleg.com/pro/</loc>
     <lastmod>2014-07-11T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
