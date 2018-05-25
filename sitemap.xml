@@ -1,148 +1,232 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml-stylesheet type="text/xsl" href="https://lameleg.com/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://lameleg.com/posts/ci-cd/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/calico-architecture/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/calico-network-policy/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/calico/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/container-stop-timeout/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/docker-architech/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/docker-build/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/docker-dev/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/docker-network/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/docker-ovs/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/docker-storage/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/grafana-promethus/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/install-k8s-cluster/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/install-k8s/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/iptables/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/k8s-authenticating/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/k8s-ha-conf/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/k8s-offline-install-ha/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/k8s-rbac/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/keep_containers_alive_deamon_downtme/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/kubeadm-source/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/kubernetes-dns/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/micro-architecture/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/moby_discussion/</loc>
+    <loc>https://lameleg.com/post/dotscale-2014-as-a-sketch/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/offline-install/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lameleg.com/posts/revolution/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lameleg.com/posts/rpc-protobuf/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lameleg.com/posts/runc/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lameleg.com/posts/scratch/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lameleg.com/posts/sealyun-strengths/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lameleg.com/posts/sell/</loc>
+    <loc>https://lameleg.com/categories/docs/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://lameleg.com/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lameleg.com/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lameleg.com/tags/dotscale/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lameleg.com/tags/event/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lameleg.com/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://lameleg.com/posts/</loc>
+    <loc>https://lameleg.com/post/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lameleg.com/tags/sketchnote/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lameleg.com/tags/</loc>
+    <lastmod>2014-07-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   

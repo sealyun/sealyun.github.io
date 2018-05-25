@@ -6,9 +6,37 @@
     <description>Recent content in Tags on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Fri, 11 Jul 2014 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://lameleg.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DotScale</title>
+      <link>https://lameleg.com/tags/dotscale/</link>
+      <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
+      
+      <guid>https://lameleg.com/tags/dotscale/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Event</title>
+      <link>https://lameleg.com/tags/event/</link>
+      <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
+      
+      <guid>https://lameleg.com/tags/event/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sketchnote</title>
+      <link>https://lameleg.com/tags/sketchnote/</link>
+      <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
+      
+      <guid>https://lameleg.com/tags/sketchnote/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
