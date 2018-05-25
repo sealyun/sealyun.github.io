@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://lameleg.com/sitemap.xml
+Sitemap: https://sealyun.com/sitemap.xml
