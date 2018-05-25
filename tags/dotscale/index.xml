@@ -12,15 +12,6 @@
     
     
     <item>
-      <title>CI/CD教程,基于gogs drone构建CI/CD系统</title>
-      <link>https://lameleg.com/post/dotscale-2014-as-a-sketch/</link>
-      <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
-      
-      <guid>https://lameleg.com/post/dotscale-2014-as-a-sketch/</guid>
-      <description>CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中还在重复一些事，那么可能就得想想</description>
-    </item>
-    
-    <item>
       <title>Docker架构分析</title>
       <link>https://lameleg.com/post/dotscale-2014-as-a-sketch/</link>
       <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
@@ -171,6 +162,15 @@
       
       <guid>https://lameleg.com/post/dotscale-2014-as-a-sketch/</guid>
       <description>使用kubeadm安装安全高可用kubernetes集群 系统架构图 kubectl dashboard | V +------------------------+ join | LB 10.1.245.94 | &amp;lt;--- Nodes +------------------------+ | |--master1 manager1 schedule1 10.1.245.93 |--master2 manager2 schedule2 10.1.245.95 =============&amp;gt; etcd cluster http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379 |--master3 manager3 schedule3 10.1.245.94 起动etcd集</description>
+    </item>
+    
+    <item>
+      <title>基于gogs drone构建CI/CD系统</title>
+      <link>https://lameleg.com/post/dotscale-2014-as-a-sketch/</link>
+      <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
+      
+      <guid>https://lameleg.com/post/dotscale-2014-as-a-sketch/</guid>
+      <description>CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中还在重复一些事，那么可能就得想想</description>
     </item>
     
     <item>
