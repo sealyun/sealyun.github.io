@@ -68,7 +68,7 @@
 
 
 
-<meta property="og:updated_time" content="2014-07-11T10:54:24&#43;02:00"/>
+<meta property="og:updated_time" content="2016-07-11T10:54:24&#43;02:00"/>
 
 
 
@@ -155,9 +155,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/docker-ovs/">ovs对接容器网络</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/docker-network/">容器网络概述</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2016-07-11 </span>
       
       
     </div>
@@ -165,10 +165,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      初始化环境 升级内核： rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm yum --enablerepo=elrepo-kernel install kernel-ml-devel kernel-ml awk -F\' '$1==&quot;menuentry &quot; {print $2}' /etc/grub2.cfg grub2-set-default 0 reboot uname -a 安装docker: yum install -y yum-utils yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo yum-config-manager --disable docker-ce-edge yum makecache fast yum install docker-ce service docker start 安装open vswitch: yum -y
+      网络概述 端口映射： $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主
     </div>
     <div class="read-more">
-      <a href="/post/docker-ovs/" class="read-more-link">Read more..</a>
+      <a href="/post/docker-network/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -176,9 +176,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/runc/">runc 架构破析</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/iptables/">iptables教程</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2016-05-11 </span>
       
       
     </div>
@@ -186,10 +186,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      runc 架构破析 这里的spec.Process就是我们真正要运行的容器中的进程。 return r.run(&amp;spec.Process) 把这个塞到libcontainer.Process里去了： lp :=
+      iptables教程 内核空间中的五个包处理位置，和五个函数钩子（规则链） PREROUTING 数据包刚进入网络层 , 路由之前 INPUT 路由判断，流入用户空间 OUTPUT 用户空间发出
     </div>
     <div class="read-more">
-      <a href="/post/runc/" class="read-more-link">Read more..</a>
+      <a href="/post/iptables/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -197,9 +197,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/rpc-protobuf/">golang基于protobuf的rpc使用</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2015-07-11 </span>
       
       
     </div>
@@ -207,10 +207,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      使用kubeadm安装安全高可用kubernetes集群 系统架构图 kubectl dashboard | V +------------------------+ join | LB 10.1.245.94 | &lt;--- Nodes +------------------------+ | |--master1 manager1 schedule1 10.1.245.93 |--master2 manager2 schedule2 10.1.245.95 =============&gt; etcd cluster http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379 |--master3 manager3 schedule3 10.1.245.94 起动etcd集
+      golang基于protobuf的rpc使用 基本安装什么的在此不再赘述，不知道的看这里 proto文件 cat helloworld.proto syntax = &quot;proto3&quot;; option java_multiple_files = true; option java_package = &quot;io.grpc.examples.helloworld&quot;; option java_outer_classname = &quot;HelloWorldProto&quot;; package helloworld; //
     </div>
     <div class="read-more">
-      <a href="/post/install-k8s-cluster/" class="read-more-link">Read more..</a>
+      <a href="/post/rpc-protobuf/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -218,7 +218,7 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/ci-cd/">基于gogs drone构建CI/CD系统</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/kubernetes-dns/">dns之锅TODO</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2014-07-11 </span>
       
@@ -228,10 +228,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中还在重复一些事，那么可能就得想想
+      dns之锅 kubectl run --namespace=kube-system access -it --image busybox -- /bin/sh [root@fortest1513671663-master-00 ~]# kubectl exec access-79f4758b79-qwl8s nslookup kubernetes-dashboard.kube-system.svc -n kube-system Server: 10.96.0.10 Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local Name: kubernetes-dashboard.kube-system.svc Address 1: 10.110.146.248 kubernetes-dashboard.kube-system.svc.cluster.local [root@fortest1513671663-master-00 ~]# kubectl get svc kubernetes-dashboard -n kube-system NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE kubernetes-dashboard NodePort 10.110.146.248 &lt;none&gt; 443:30089/TCP 27m
     </div>
     <div class="read-more">
-      <a href="/post/ci-cd/" class="read-more-link">Read more..</a>
+      <a href="/post/kubernetes-dns/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -239,7 +239,7 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/scratch/">如何让docker镜像尽可能小</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/grafana-promethus/">grafana配置教程</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2014-07-11 </span>
       
@@ -249,10 +249,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      如何让镜像尽可能小 很容器想到from scratch, 就是没任何基础镜像 FROM scratch COPY p / ENTRYPOINT [&quot;/p&quot;] 有几点要注意： ENTRYPOINT 或者CMD 必须要用[]这种模式，如果直接/p会用sh去
+      grafana配置教程 json文件在此 长期更新，直接复制粘贴进去即可
     </div>
     <div class="read-more">
-      <a href="/post/scratch/" class="read-more-link">Read more..</a>
+      <a href="/post/grafana-promethus/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>

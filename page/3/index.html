@@ -68,7 +68,7 @@
 
 
 
-<meta property="og:updated_time" content="2014-07-11T10:54:24&#43;02:00"/>
+<meta property="og:updated_time" content="2017-07-11T10:54:24&#43;02:00"/>
 
 
 
@@ -155,9 +155,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/kubeadm-source/">kubeadm源码分析</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2017-07-11 </span>
       
       
     </div>
@@ -165,10 +165,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      k8s离线安装包 三步安装，简单到难以置信 kubeadm源码分析 说句实在话，kubeadm的代码写的真心一般，质量不是很高。 几个关键点来先说一
+      使用kubeadm安装安全高可用kubernetes集群 系统架构图 kubectl dashboard | V +------------------------+ join | LB 10.1.245.94 | &lt;--- Nodes +------------------------+ | |--master1 manager1 schedule1 10.1.245.93 |--master2 manager2 schedule2 10.1.245.95 =============&gt; etcd cluster http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379 |--master3 manager3 schedule3 10.1.245.94 起动etcd集
     </div>
     <div class="read-more">
-      <a href="/post/kubeadm-source/" class="read-more-link">Read more..</a>
+      <a href="/post/install-k8s-cluster/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -176,9 +176,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/k8s-rbac/">kubernetes RBAC实战</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/ci-cd/">基于gogs drone构建CI/CD系统</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2017-07-11 </span>
       
       
     </div>
@@ -186,10 +186,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      kubernetes RBAC实战 环境准备 先用kubeadm安装好kubernetes集群，包地址在此 好用又方便，服务周到，童叟无欺 本文目的，让名为devuse
+      CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中还在重复一些事，那么可能就得想想
     </div>
     <div class="read-more">
-      <a href="/post/k8s-rbac/" class="read-more-link">Read more..</a>
+      <a href="/post/ci-cd/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -197,9 +197,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/install-k8s/">kubernetes安装</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/container-stop-timeout/">容器信号使用</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2017-07-11 </span>
       
       
     </div>
@@ -207,10 +207,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      alico node &lsquo;iZ2ze3nu0s9j3v57be4xuuZ&rsquo; is already using the IPv4 address 192.168.152.65 基础环境 关闭防火墙 selinux $ systemctl stop firewalld &amp;&amp; systemctl disable firewalld $ setenforce 0 打开forward sysctl -w net.ipv4.ip_forward=1 关闭swap swapoff -a 再把/etc/fstab文件中带有sw
+      容器信号使用 我们跑在容器中的程序通常想在容器退出之前做一些清理操作，比较常用的方式是监听一个信号，延迟关闭容器。 docker提供了这样的功能
     </div>
     <div class="read-more">
-      <a href="/post/install-k8s/" class="read-more-link">Read more..</a>
+      <a href="/post/container-stop-timeout/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -218,9 +218,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/k8s-authenticating/">kubernetes对接第三方认证</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/docker-dev/">docker开发流程</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2016-07-11 </span>
       
       
     </div>
@@ -228,10 +228,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      kubernetes对接第三方认证 广告： 安装包地址 原文地址 概述 本文介绍如何使用github账户去关联自己kubernetes账户。达到如下效
+      docker开发流程 注意容器构建时的信息： Install runc version 992a5be178a62e026f4069f443c6164912adbf09 + git clone https://github.com/opencontainers/runc.git /tmp/tmp.NdftaLJucp/src/github.com/opencontainers/runc Cloning into '/tmp/tmp.NdftaLJucp/src/github.com/opencontainers/runc'... + cd /tmp/tmp.NdftaLJucp/src/github.com/opencontainers/runc + git checkout -q 992a5be178a62e026f4069f443c6164912adbf09 + make BUILDTAGS=seccomp apparmor selinux static CGO_ENABLED=1 go build -i -tags &quot;seccomp apparmor selinux cgo static_build&quot; -ldflags &quot;-w -extldflags -static -X main.gitCommit=&quot;992a5be178a62e026f4069f443c6164912adbf09&quot; -X main.version=1.0.0-rc3&quot; -o runc . CGO_ENABLED=1 go
     </div>
     <div class="read-more">
-      <a href="/post/k8s-authenticating/" class="read-more-link">Read more..</a>
+      <a href="/post/docker-dev/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
@@ -239,9 +239,9 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/k8s-ha-conf/">kubernetes高可用相关配置</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/docker-ovs/">ovs对接容器网络</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
+      <span class="post-time"> 2016-07-11 </span>
       
       
     </div>
@@ -249,10 +249,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      机器 IP 用途 备注 10.100.81.11 master、etcd 主节点 10.100.81.12 master、etcd、keepalived、haproxy 主节点，同时部署keepalive
+      初始化环境 升级内核： rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm yum --enablerepo=elrepo-kernel install kernel-ml-devel kernel-ml awk -F\' '$1==&quot;menuentry &quot; {print $2}' /etc/grub2.cfg grub2-set-default 0 reboot uname -a 安装docker: yum install -y yum-utils yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo yum-config-manager --disable docker-ce-edge yum makecache fast yum install docker-ce service docker start 安装open vswitch: yum -y
     </div>
     <div class="read-more">
-      <a href="/post/k8s-ha-conf/" class="read-more-link">Read more..</a>
+      <a href="/post/docker-ovs/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
