@@ -35,7 +35,7 @@
       <pubDate>Fri, 11 May 2018 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/k8s-authenticating/</guid>
-      <description>kubernetes对接第三方认证 广告： 安装包地址 原文地址 概述 本文介绍如何使用github账户去关联自己kubernetes账户。达到如下效</description>
+      <description>kubernetes对接第三方认证 广告： 安装包地址 概述 本文介绍如何使用github账户去关联自己kubernetes账户。达到如下效果： 1. 使</description>
     </item>
     
     <item>
