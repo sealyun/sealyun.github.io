@@ -233,7 +233,7 @@
       <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/pro/products/</guid>
-      <description>安装包列表 教程： 1. master上： cd shell &amp;amp;&amp;amp; sh init.sh &amp;amp;&amp;amp; sh master.sh 2. node上：cd shell &amp;amp;&amp;amp; sh init.sh 3. 在node上执行master输出的join命令即可 kubern</description>
+      <description>kubernetes离线包安装教程： 1. master上： cd shell &amp;amp;&amp;amp; sh init.sh &amp;amp;&amp;amp; sh master.sh 2. node上：cd shell &amp;amp;&amp;amp; sh init.sh 3. 在node上执行master输出的join</description>
     </item>
     
     <item>
