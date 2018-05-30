@@ -6,10 +6,19 @@
     <description>Recent content in Sketchnote on sealyun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 May 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 29 May 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/sketchnote/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubernetes启用ipvs</title>
+      <link>https://sealyun.com/post/k8s-ipvs/</link>
+      <pubDate>Tue, 29 May 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/k8s-ipvs/</guid>
+      <description>kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --</description>
+    </item>
     
     <item>
       <title>kubeadm源码分析</title>

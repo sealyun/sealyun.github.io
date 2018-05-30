@@ -165,6 +165,27 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/install-k8s/">kubernetes安装</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-07-11 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      alico node &lsquo;iZ2ze3nu0s9j3v57be4xuuZ&rsquo; is already using the IPv4 address 192.168.152.65 基础环境 关闭防火墙 selinux $ systemctl stop firewalld &amp;&amp; systemctl disable firewalld $ setenforce 0 打开forward sysctl -w net.ipv4.ip_forward=1 关闭swap swapoff -a 再把/etc/fstab文件中带有sw
+    </div>
+    <div class="read-more">
+      <a href="/post/install-k8s/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-07-11 </span>
@@ -242,27 +263,6 @@
     </div>
     <div class="read-more">
       <a href="/post/docker-dev/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/docker-ovs/">ovs对接容器网络</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-07-11 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      初始化环境 升级内核： rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm yum --enablerepo=elrepo-kernel install kernel-ml-devel kernel-ml awk -F\' '$1==&quot;menuentry &quot; {print $2}' /etc/grub2.cfg grub2-set-default 0 reboot uname -a 安装docker: yum install -y yum-utils yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo yum-config-manager --disable docker-ce-edge yum makecache fast yum install docker-ce service docker start 安装open vswitch: yum -y
-    </div>
-    <div class="read-more">
-      <a href="/post/docker-ovs/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>

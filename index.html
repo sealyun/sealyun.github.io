@@ -78,7 +78,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-05-11T10:54:24&#43;02:00"/>
+<meta property="og:updated_time" content="2018-05-29T10:54:24&#43;02:00"/>
 
 
 
@@ -165,6 +165,27 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/k8s-ipvs/">kubernetes启用ipvs</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-05-29 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --
+    </div>
+    <div class="read-more">
+      <a href="/post/k8s-ipvs/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/kubeadm-source/">kubeadm源码分析</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2018-05-11 </span>
@@ -242,27 +263,6 @@
     </div>
     <div class="read-more">
       <a href="/post/k8s-ha-conf/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/sealyun-k8s-offline/">k8s离线包解析</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-04-24 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      k8s离线包解析 产品地址 鸣谢 大家好，首先感谢大家对我们产品的支持，特别是一些老客户的持续支持，让我可以有动力把这个事情持续进行下去。 感谢大家
-    </div>
-    <div class="read-more">
-      <a href="/post/sealyun-k8s-offline/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
