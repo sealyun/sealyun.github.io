@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="385">
+<meta itemprop="wordCount" content="554">
 
 
 
@@ -186,6 +186,15 @@
 </ul>
 
 <h2 id="kubernetes1-9-2离线安装包-https-market-aliyun-com-products-57742013-cmxz025618-html-spm-5176-730005-productlist-dcmxz025618-r9c1j1-sku-yuncode1961800000"><a href="https://market.aliyun.com/products/57742013/cmxz025618.html?spm=5176.730005.productlist.dcmxz025618.r9c1J1#sku=yuncode1961800000">kubernetes1.9.2离线安装包</a></h2>
+
+<pre><code>1.9.2以及以下版本，kubelet服务启动不了？ 1.10.3 加了检测没此问题
+cgroup driver配置要相同
+查看docker cgroup driver:
+docker info|grep Cgroup
+有systemd和cgroupfs两种，把kubelet service配置改成与docker一致
+vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+KUBELET_CGROUP_ARGS=–cgroup-driver=cgroupfs #这个配置与docker改成一致
+</code></pre>
 
 <h2 id="kubernetes1-8-1离线安装包-https-market-aliyun-com-products-56014009-cmxz022571-html-spm-5176-730005-productlist-dcmxz022571-r9c1j1-sku-yuncode1657100000-推荐使用1-9-2以上版本"><a href="https://market.aliyun.com/products/56014009/cmxz022571.html?spm=5176.730005.productlist.dcmxz022571.r9c1J1#sku=yuncode1657100000">kubernetes1.8.1离线安装包</a> 推荐使用1.9.2以上版本</h2>
 
