@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-06-20T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-06-20T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="645">
+<meta itemprop="wordCount" content="915">
 
 
 
@@ -233,7 +233,7 @@
     // 处理同步时的处理器
 	Proxier                proxy.ProxyProvider
 
-    // 代理模式，ipvs iptables 
+    // 代理模式，ipvs iptables userspace kernelspace(windows)四种
 	ProxyMode              string
 	NodeRef                *v1.ObjectReference
 	ConfigSyncPeriod       time.Duration
@@ -241,6 +241,16 @@
     // service 与 endpoint 事件处理器
 	ServiceEventHandler    config.ServiceHandler
 	EndpointsEventHandler  config.EndpointsHandler
+}
+</code></pre>
+
+<p>Proxier是主要入口，抽象了两个函数：</p>
+
+<pre><code>type ProxyProvider interface {
+	// Sync immediately synchronizes the ProxyProvider's current state to iptables.
+	Sync()
+	// 定期执行
+	SyncLoop()
 }
 </code></pre>
 
@@ -282,6 +292,69 @@ type RealServer struct {
 	Port    uint16
 	Weight  int
 }
+</code></pre>
+
+<blockquote>
+<p>创建apiserver client</p>
+</blockquote>
+
+<pre><code>client, eventClient, err := createClients(config.ClientConnection, master)
+</code></pre>
+
+<blockquote>
+<p>创建Proxier 这是仅仅关注ipvs模式的proxier</p>
+</blockquote>
+
+<pre><code>else if proxyMode == proxyModeIPVS {
+		glog.V(0).Info(&quot;Using ipvs Proxier.&quot;)
+		proxierIPVS, err := ipvs.NewProxier(
+			iptInterface,
+			ipvsInterface,
+			ipsetInterface,
+			utilsysctl.New(),
+			execer,
+			config.IPVS.SyncPeriod.Duration,
+			config.IPVS.MinSyncPeriod.Duration,
+			config.IPTables.MasqueradeAll,
+			int(*config.IPTables.MasqueradeBit),
+			config.ClusterCIDR,
+			hostname,
+			getNodeIP(client, hostname),
+			recorder,
+			healthzServer,
+			config.IPVS.Scheduler,
+		)
+...
+		proxier = proxierIPVS
+		serviceEventHandler = proxierIPVS
+		endpointsEventHandler = proxierIPVS
+</code></pre>
+
+<p>这个Proxier具备以下方法：</p>
+
+<pre><code>   +OnEndpointsAdd(endpoints *api.Endpoints)
+   +OnEndpointsDelete(endpoints *api.Endpoints)
+   +OnEndpointsSynced()
+   +OnEndpointsUpdate(oldEndpoints, endpoints *api.Endpoints)
+   +OnServiceAdd(service *api.Service)
+   +OnServiceDelete(service *api.Service)
+   +OnServiceSynced()
+   +OnServiceUpdate(oldService, service *api.Service)
+   +Sync()
+   +SyncLoop()
+</code></pre>
+
+<p>所以ipvs的这个Proxier实现了我们需要的绝大部分接口</p>
+
+<p>小结一下：</p>
+
+<pre><code>                        +-------------&gt; sync 定期同步等
+                        |
+ProxyServer---------&gt; Proxier --------&gt; service 事件回调           
+     |                  |                                                
+     |                  +-------------&gt; endpoint事件回调          
+     |                                             |  触发
+     +-----&gt; ipvs interface ipvs相关操作     &lt;-----+
 </code></pre>
 
 <h2 id="监听apiserver-service事件">监听apiserver service事件</h2>
