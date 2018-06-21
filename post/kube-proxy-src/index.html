@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="kube-proxy源码解析" />
+  <meta name="description" content="kube-proxy源码解析 ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptabl" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="kube-proxy源码解析" />
-<meta property="og:description" content="kube-proxy源码解析" />
+<meta property="og:description" content="kube-proxy源码解析 ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptabl" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/kube-proxy-src/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="kube-proxy源码解析">
-<meta itemprop="description" content="kube-proxy源码解析">
+<meta itemprop="description" content="kube-proxy源码解析 ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptabl">
 
 
 <meta itemprop="datePublished" content="2018-06-20T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-06-20T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="14">
+<meta itemprop="wordCount" content="645">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="kube-proxy源码解析"/>
-<meta name="twitter:description" content="kube-proxy源码解析"/>
+<meta name="twitter:description" content="kube-proxy源码解析 ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptabl"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -189,7 +189,13 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#kube-proxy源码解析">kube-proxy源码解析</a></li>
+<li><a href="#kube-proxy源码解析">kube-proxy源码解析</a>
+<ul>
+<li><a href="#初始化配置">初始化配置</a></li>
+<li><a href="#监听apiserver-service事件">监听apiserver service事件</a></li>
+<li><a href="#ipvs实现">ipvs实现</a></li>
+<li><a href="#用户态给内核">用户态给内核</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -200,6 +206,89 @@
       
 
 <h1 id="kube-proxy源码解析">kube-proxy源码解析</h1>
+
+<p>ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptables模式的原理，可以去参考其实现，架构上无差别。</p>
+
+<p>kube-proxy主要功能是监听service和endpoint的事件，然后下放代理策略到机器上。 底层调用<a href="https://github.com/docker/libnetwork">docker/libnetwork</a>, 而libnetwork最终调用了<a href="https://github.com/vishvananda/netlink">netlink</a> 与netns来实现ipvs的创建等动作</p>
+
+<h2 id="初始化配置">初始化配置</h2>
+
+<p>代码入口：<code>cmd/kube-proxy/app/server.go</code> Run() 函数</p>
+
+<p>通过命令行参数去初始化proxyServer的配置</p>
+
+<pre><code>proxyServer, err := NewProxyServer(o)
+</code></pre>
+
+<pre><code>type ProxyServer struct {
+    // k8s client
+	Client                 clientset.Interface
+	EventClient            v1core.EventsGetter
+
+    // ipvs 相关接口
+	IptInterface           utiliptables.Interface
+	IpvsInterface          utilipvs.Interface
+	IpsetInterface         utilipset.Interface
+
+    // 处理同步时的处理器
+	Proxier                proxy.ProxyProvider
+
+    // 代理模式，ipvs iptables 
+	ProxyMode              string
+	NodeRef                *v1.ObjectReference
+	ConfigSyncPeriod       time.Duration
+
+    // service 与 endpoint 事件处理器
+	ServiceEventHandler    config.ServiceHandler
+	EndpointsEventHandler  config.EndpointsHandler
+}
+</code></pre>
+
+<p>ipvs 的interface 这个很重要：</p>
+
+<pre><code>type Interface interface {
+	// 删除所有规则
+	Flush() error
+	// 增加一个virtual server
+	AddVirtualServer(*VirtualServer) error
+
+	UpdateVirtualServer(*VirtualServer) error
+	DeleteVirtualServer(*VirtualServer) error
+	GetVirtualServer(*VirtualServer) (*VirtualServer, error)
+	GetVirtualServers() ([]*VirtualServer, error)
+
+    // 给virtual server加个realserver, 如 VirtualServer就是一个clusterip realServer就是pod(或者自定义的endpoint)
+	AddRealServer(*VirtualServer, *RealServer) error
+	GetRealServers(*VirtualServer) ([]*RealServer, error)
+	DeleteRealServer(*VirtualServer, *RealServer) error
+}
+</code></pre>
+
+<p>我们在下文再详细看ipvs_linux是如何实现上面接口的</p>
+
+<p>virtual server与realserver, 最重要的是ip:port，然后就是一些代理的模式如sessionAffinity等:</p>
+
+<pre><code>type VirtualServer struct {
+	Address   net.IP
+	Protocol  string
+	Port      uint16
+	Scheduler string
+	Flags     ServiceFlags
+	Timeout   uint32
+}
+
+type RealServer struct {
+	Address net.IP
+	Port    uint16
+	Weight  int
+}
+</code></pre>
+
+<h2 id="监听apiserver-service事件">监听apiserver service事件</h2>
+
+<h2 id="ipvs实现">ipvs实现</h2>
+
+<h2 id="用户态给内核">用户态给内核</h2>
 
     </div>
 
@@ -253,7 +342,7 @@
     id: '2018-06-20 10:54:24 \x2b0200 \x2b0200',
     title: 'kube-proxy源码解析',
     link: decodeURI(location.href),
-    desc: 'kube-proxy源码解析',
+    desc: 'kube-proxy源码解析 ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptabl',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
