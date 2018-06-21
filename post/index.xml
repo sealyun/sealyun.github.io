@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 May 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 20 Jun 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kube-proxy源码解析</title>
+      <link>https://sealyun.com/post/kube-proxy-src/</link>
+      <pubDate>Wed, 20 Jun 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kube-proxy-src/</guid>
+      <description>kube-proxy源码解析</description>
+    </item>
     
     <item>
       <title>kubernetes启用ipvs</title>
