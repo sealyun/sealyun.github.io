@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-06-20T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-06-20T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1369">
+<meta itemprop="wordCount" content="1823">
 
 
 
@@ -194,6 +194,7 @@
 <li><a href="#初始化配置">初始化配置</a></li>
 <li><a href="#启动proxyserver">启动proxyServer</a></li>
 <li><a href="#开始监听">开始监听</a></li>
+<li><a href="#proxier-实现">Proxier 实现</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -347,8 +348,12 @@ type RealServer struct {
 
 <p>小结一下：</p>
 
-<pre><code>                        +-------------&gt; sync 定期同步等
-                        |
+<pre><code>     +-----------&gt; endpointHandler
+     |
+     +-----------&gt; serviceHandler
+     |                ^
+     |                | +-------------&gt; sync 定期同步等
+     |                | |
 ProxyServer---------&gt; Proxier --------&gt; service 事件回调           
      |                  |                                                
      |                  +-------------&gt; endpoint事件回调          
@@ -368,20 +373,28 @@ ProxyServer---------&gt; Proxier --------&gt; service 事件回调
 
 <p>1 2 3 4我们都不用太关注，细看5即可：</p>
 
-<pre><code>	informerFactory := informers.NewSharedInformerFactory(s.Client, s.ConfigSyncPeriod)
+<pre><code>informerFactory := informers.NewSharedInformerFactory(s.Client, s.ConfigSyncPeriod)
 
-	serviceConfig := config.NewServiceConfig(informerFactory.Core().InternalVersion().Services(), s.ConfigSyncPeriod)
-    // 注册 service handler并启动
-	serviceConfig.RegisterEventHandler(s.ServiceEventHandler)
-    // 开始循环调用 eventHandlers的OnServiceSynced接口
-	go serviceConfig.Run(wait.NeverStop)
+serviceConfig := config.NewServiceConfig(informerFactory.Core().InternalVersion().Services(), s.ConfigSyncPeriod)
+// 注册 service handler并启动
+serviceConfig.RegisterEventHandler(s.ServiceEventHandler)
+// 这里面仅仅是把ServiceEventHandler赋值给informer回调 
+go serviceConfig.Run(wait.NeverStop)
 
-	endpointsConfig := config.NewEndpointsConfig(informerFactory.Core().InternalVersion().Endpoints(), s.ConfigSyncPeriod)
-    // 注册endpoint hander并启动
-	endpointsConfig.RegisterEventHandler(s.EndpointsEventHandler)
-	go endpointsConfig.Run(wait.NeverStop)
+endpointsConfig := config.NewEndpointsConfig(informerFactory.Core().InternalVersion().Endpoints(), s.ConfigSyncPeriod)
+// 注册endpoint 
+endpointsConfig.RegisterEventHandler(s.EndpointsEventHandler)
+go endpointsConfig.Run(wait.NeverStop)
 
-	go informerFactory.Start(wait.NeverStop)
+go informerFactory.Start(wait.NeverStop)
+</code></pre>
+
+<p>serviceConfig.Run与endpointConfig.Run仅仅是给回调函数赋值, 所以注册的handler就给了informer, informer监听到事件时就会回调：</p>
+
+<pre><code>for i := range c.eventHandlers {
+	glog.V(3).Infof(&quot;Calling handler.OnServiceSynced()&quot;)
+	c.eventHandlers[i].OnServiceSynced()
+}
 </code></pre>
 
 <p>那么问题来了，注册进去的这个handler是啥？ 回顾一下上文的</p>
@@ -412,7 +425,53 @@ ProxyServer---------&gt; Proxier --------&gt; service 事件回调
 
 <h2 id="开始监听">开始监听</h2>
 
-<pre><code></code></pre>
+<pre><code>go informerFactory.Start(wait.NeverStop)
+</code></pre>
+
+<p>这里执行后，我们创建删除service endpoint等动作都会被监听到，然后回调,回顾一下上面的图，最终都是由Proxier去实现，所以后面我们重点关注Proxier即可</p>
+
+<pre><code>s.Proxier.SyncLoop()
+</code></pre>
+
+<p>然后开始SyncLoop,下文开讲</p>
+
+<h2 id="proxier-实现">Proxier 实现</h2>
+
+<p>我们创建一个service时OnServiceAdd方法会被调用, 这里记录一下之前的状态与当前状态两个东西，然后发个信号给syncRunner让它去处理：</p>
+
+<pre><code>func (proxier *Proxier) OnServiceAdd(service *api.Service) {
+	namespacedName := types.NamespacedName{Namespace: service.Namespace, Name: service.Name}
+	if proxier.serviceChanges.update(&amp;namespacedName, nil, service) &amp;&amp; proxier.isInitialized() {
+		proxier.syncRunner.Run()
+	}
+}
+</code></pre>
+
+<p>记录service 信息,可以看到没做什么事，就是把service存在map里, 如果没变直接删掉map信息不做任何处理：</p>
+
+<pre><code>change, exists := scm.items[*namespacedName]
+if !exists {
+	change = &amp;serviceChange{}
+    // 老的service信息
+	change.previous = serviceToServiceMap(previous)
+	scm.items[*namespacedName] = change
+}
+// 当前监听到的service信息
+change.current = serviceToServiceMap(current)
+
+如果一样，直接删除
+if reflect.DeepEqual(change.previous, change.current) {
+	delete(scm.items, *namespacedName)
+}
+</code></pre>
+
+<p>proxier.syncRunner.Run() 里面就发送了一个信号</p>
+
+<pre><code>select {
+case bfr.run &lt;- struct{}{}:
+default:
+}
+</code></pre>
 
     </div>
 
