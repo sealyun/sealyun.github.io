@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Jun 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 21 Jun 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubernetes开发指南</title>
+      <link>https://sealyun.com/post/kube-dev/</link>
+      <pubDate>Thu, 21 Jun 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kube-dev/</guid>
+      <description>广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文</description>
+    </item>
     
     <item>
       <title>kube-proxy源码解析</title>
