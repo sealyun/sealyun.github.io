@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文" />
+  <meta name="description" content="广告 | kubernetes离线安装包，仅需三步 官方例子 大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="kubernetes开发指南" />
-<meta property="og:description" content="广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文" />
+<meta property="og:description" content="广告 | kubernetes离线安装包，仅需三步 官方例子 大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/kube-dev/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="kubernetes开发指南">
-<meta itemprop="description" content="广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文">
+<meta itemprop="description" content="广告 | kubernetes离线安装包，仅需三步 官方例子 大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧">
 
 
 <meta itemprop="datePublished" content="2018-06-21T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-06-21T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="680">
+<meta itemprop="wordCount" content="732">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="kubernetes开发指南"/>
-<meta name="twitter:description" content="广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文"/>
+<meta name="twitter:description" content="广告 | kubernetes离线安装包，仅需三步 官方例子 大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -191,6 +191,7 @@
 <ul>
 <li>
 <ul>
+<li><a href="#官方例子">官方例子</a></li>
 <li><a href="#初始化客户端">初始化客户端</a></li>
 <li><a href="#yaml文件解析技巧">yaml文件解析技巧</a></li>
 <li><a href="#监听service事件">监听service事件</a></li>
@@ -207,6 +208,12 @@
 <blockquote>
 <p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes离线安装包，仅需三步</a></p>
 </blockquote>
+
+<h2 id="官方例子">官方例子</h2>
+
+<p>大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧</p>
+
+<p><a href="https://github.com/kubernetes/client-go/tree/master/examples">clientgo 事例地址</a></p>
 
 <h2 id="初始化客户端">初始化客户端</h2>
 
@@ -416,7 +423,7 @@ informerFactory.Start(wait.NeverStop) // 开始监听
     id: '2018-06-21 10:54:24 \x2b0200 \x2b0200',
     title: 'kubernetes开发指南',
     link: decodeURI(location.href),
-    desc: '广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文',
+    desc: '广告 | kubernetes离线安装包，仅需三步 官方例子 大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {

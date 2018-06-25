@@ -17,7 +17,7 @@
       <pubDate>Thu, 21 Jun 2018 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/kube-dev/</guid>
-      <description>广告 | kubernetes离线安装包，仅需三步 初始化客户端 这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文</description>
+      <description>广告 | kubernetes离线安装包，仅需三步 官方例子 大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧</description>
     </item>
     
     <item>
