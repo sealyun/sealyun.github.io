@@ -294,12 +294,9 @@ kind: bbb
 name: aaa`)
 
 /* Out put
-</code></pre>
-
-<p>{&ldquo;kind&rdquo;:&ldquo;Namespace&rdquo;,&ldquo;metadata&rdquo;:{&ldquo;name&rdquo;:&ldquo;test&rdquo;}}
-{&ldquo;kind&rdquo;:&ldquo;bbb&rdquo;,&ldquo;name&rdquo;:&ldquo;aaa&rdquo;}</p>
-
-<pre><code>*/
+{&quot;kind&quot;:&quot;Namespace&quot;,&quot;metadata&quot;:{&quot;name&quot;:&quot;test&quot;}}
+{&quot;kind&quot;:&quot;bbb&quot;,&quot;name&quot;:&quot;aaa&quot;}
+*/
 func example() {
 	reader := bytes.NewReader(bs)
 	ext := runtime.RawExtension{}
