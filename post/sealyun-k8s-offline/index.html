@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-04-24T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-04-24T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="983">
+<meta itemprop="wordCount" content="982">
 
 
 
@@ -347,7 +347,7 @@ kubectl apply -f ../conf/dashboard
 
 <h3 id="一切正常后保存所有镜像">一切正常后保存所有镜像</h3>
 
-<p>docker save -o images.tar $(docker images| grep ago|awk &lsquo;{print $1&rdquo;:&ldquo;$2}&lsquo;)
+<p>docker save -o images.tar $(docker images|grep ago|awk &lsquo;{print $1&rdquo;:&ldquo;$2}&lsquo;)
 这里最好搞干净的服务器，不然别的镜像也会被save下来</p>
 
     </div>
