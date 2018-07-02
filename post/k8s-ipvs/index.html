@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --" />
+  <meta name="description" content="1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: &amp;amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="kubernetes启用ipvs" />
-<meta property="og:description" content="kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --" />
+<meta property="og:description" content="1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/k8s-ipvs/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="kubernetes启用ipvs">
-<meta itemprop="description" content="kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --">
+<meta itemprop="description" content="1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for">
 
 
 <meta itemprop="datePublished" content="2018-05-29T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-05-29T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="600">
+<meta itemprop="wordCount" content="896">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="kubernetes启用ipvs"/>
-<meta name="twitter:description" content="kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --"/>
+<meta name="twitter:description" content="1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -189,6 +189,11 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
+<li><a href="#1-11版本ipset-bug说明">1.11版本ipset bug说明</a>
+<ul>
+<li><a href="#升级内核">升级内核</a></li>
+<li><a href="#ipset-安装过程">ipset 安装过程</a></li>
+</ul></li>
 <li><a href="#kubernetes启用ipvs">kubernetes启用ipvs</a></li>
 </ul>
 </nav>
@@ -198,6 +203,63 @@
     
     <div class="post-content">
       
+
+<h1 id="1-11版本ipset-bug说明">1.11版本ipset bug说明</h1>
+
+<p>1.11版本centos下使用ipvs模式会出问题 <a href="https://github.com/kubernetes/kubernetes/issues/65461">65461</a></p>
+
+<pre><code>Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569    3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for solving hairpin purpose} map[] 0xc42073e1d0} exist, error: error creating ipset KUBE-LOOP-BACK, error: exit status 2
+</code></pre>
+
+<p>主要是ipset不支持comment:</p>
+
+<pre><code>[root@compute063 ~]# ipset create foo hash:ip comment
+ipset v6.19: Unknown argument: `comment'
+Try `ipset help' for more information.
+</code></pre>
+
+<p>尝试升级ipset问题依然没解决</p>
+
+<pre><code>[root@izrj9auny05eigffvcosvbz ipset-6.38]# ipset create foo hash:ip comment
+ipset v6.38: Argument `comment' is supported in the kernel module of the set type hash:ip starting from the revision 2 and you have installed revision 1 only. Your kernel is behind your ipset utility.
+Try `ipset help' for more information.
+</code></pre>
+
+<h2 id="升级内核">升级内核</h2>
+
+<p>[rpm地址]()</p>
+
+<pre><code>rpm -ivh kernel-4.14.49-1.x86_64.rpm
+rpm -ivh kernel-devel-4.14.49-1.x86_64.rpm
+</code></pre>
+
+<pre><code>修改grub配置，默认启动新内核
+ vi /etc/default/grub
+修改成 GRUB_DEFAULT=0
+grub2-mkconfig -o /boot/grub2/grub.cfg 
+</code></pre>
+
+<h2 id="ipset-安装过程">ipset 安装过程</h2>
+
+<pre><code>yum install -y kernel-devel
+
+yum install -y bzip2
+
+wget http://ipset.netfilter.org/ipset-6.38.tar.bz2
+
+cd ipset-6.38
+
+bzip2 -d ipset-6.38.tar.bz2
+
+tar xvf ipset-6.38.tar
+
+cd /lib/modules/3.10.0-693.2.2.el7.x86_64
+ln -s /usr/src/kernels/3.10.0-862.3.3.el7.x86_64 build
+
+./configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+
+<p>在不改kubernetes情况下可以通过升级内核和ipset解决</p>
 
 <h1 id="kubernetes启用ipvs">kubernetes启用ipvs</h1>
 
@@ -351,7 +413,7 @@ TCP  10.96.232.136:6666 rr
     id: '2018-05-29 10:54:24 \x2b0200 \x2b0200',
     title: 'kubernetes启用ipvs',
     link: decodeURI(location.href),
-    desc: 'kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --',
+    desc: '1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: \x26amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {

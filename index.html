@@ -217,7 +217,7 @@
   
   <div class="post-content">
     <div class="post-summary">
-      kubernetes启用ipvs 确保内核开启了ipvs模块 [root@k8s ~]# lsmod|grep ip_vs ip_vs_sh 12688 0 ip_vs_wrr 12697 0 ip_vs_rr 12600 16 ip_vs 141092 23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr nf_conntrack 133387 9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6 libcrc32c 12644 3 ip_vs,nf_nat,nf_conntrack 没开启加载方式: modprobe -- ip_vs modprobe -- ip_vs_rr modprobe --
+      1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for
     </div>
     <div class="read-more">
       <a href="/post/k8s-ipvs/" class="read-more-link">Read more..</a>
