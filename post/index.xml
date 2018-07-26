@@ -35,7 +35,7 @@
       <pubDate>Tue, 29 May 2018 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/k8s-ipvs/</guid>
-      <description>1.11版本ipset bug说明 1.11版本centos下使用ipvs模式会出问题 65461 Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569 3828 ipset.go:156] Failed to make sure ip set: &amp;amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for</description>
+      <description>广告 | kubernetes各版本离线安装包 1.11.1版本已经修复此bug，如在centos下使用ipvs模式建议升级到v1.11.1,包地</description>
     </item>
     
     <item>
