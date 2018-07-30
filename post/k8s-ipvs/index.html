@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-05-29T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-05-29T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="963">
+<meta itemprop="wordCount" content="967">
 
 
 
@@ -190,7 +190,7 @@
     <nav id="TableOfContents">
 <ul>
 <li><a href="#1-11-1版本已经修复此bug-如在centos下使用ipvs模式建议升级到-v1-11-1-包地址-http-sealyun-com-pro-products">1.11.1版本已经修复此bug，如在centos下使用ipvs模式建议升级到<a href="http://sealyun.com/pro/products/">v1.11.1,包地址</a></a></li>
-<li><a href="#1-11版本ipset-bug说明">1.11版本ipset bug说明</a>
+<li><a href="#1-11-0版本ipset-bug说明">1.11.0版本ipset bug说明</a>
 <ul>
 <li><a href="#升级内核">升级内核</a></li>
 <li><a href="#ipset-安装过程">ipset 安装过程</a></li>
@@ -211,9 +211,9 @@
 
 <h1 id="1-11-1版本已经修复此bug-如在centos下使用ipvs模式建议升级到-v1-11-1-包地址-http-sealyun-com-pro-products">1.11.1版本已经修复此bug，如在centos下使用ipvs模式建议升级到<a href="http://sealyun.com/pro/products/">v1.11.1,包地址</a></h1>
 
-<h1 id="1-11版本ipset-bug说明">1.11版本ipset bug说明</h1>
+<h1 id="1-11-0版本ipset-bug说明">1.11.0版本ipset bug说明</h1>
 
-<p>1.11版本centos下使用ipvs模式会出问题 <a href="https://github.com/kubernetes/kubernetes/issues/65461">65461</a></p>
+<p>1.11.0版本centos下使用ipvs模式会出问题 <a href="https://github.com/kubernetes/kubernetes/issues/65461">65461</a></p>
 
 <pre><code>Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569    3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for solving hairpin purpose} map[] 0xc42073e1d0} exist, error: error creating ipset KUBE-LOOP-BACK, error: exit status 2
 </code></pre>
