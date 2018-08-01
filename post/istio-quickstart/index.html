@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-07-30T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-07-30T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1288">
+<meta itemprop="wordCount" content="1439">
 
 
 
@@ -202,7 +202,12 @@
 <li><a href="#根据用户路由">根据用户路由</a></li>
 </ul></li>
 <li><a href="#故障注入-fault-injection">故障注入 Fault injection</a></li>
-<li><a href="#链路切换-traffic-shifting">链路切换 Traffic Shifting</a></li>
+<li><a href="#链路切换-traffic-shifting">链路切换 Traffic Shifting</a>
+<ul>
+<li><a href="#把100-流量切到v1">把100%流量切到v1</a></li>
+<li><a href="#v1-v3各50-流量">v1 v3各50%流量</a></li>
+<li><a href="#全切v3">全切v3</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -480,6 +485,40 @@ Sorry, product reviews are currently unavailable for this book.
 <p>所以我们就可能通过故障注入去发现这些异常现象</p>
 
 <h2 id="链路切换-traffic-shifting">链路切换 Traffic Shifting</h2>
+
+<p>我们先把50%流量发送给reviews:v1 50%流量发送给v3，然后再把100%的流量都切给v3</p>
+
+<h3 id="把100-流量切到v1">把100%流量切到v1</h3>
+
+<pre><code>kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+</code></pre>
+
+<p>此时不论刷几遍，都没有星星</p>
+
+<h3 id="v1-v3各50-流量">v1 v3各50%流量</h3>
+
+<pre><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
+</code></pre>
+
+<pre><code>  - route:
+    - destination:
+        host: reviews
+        subset: v1
+      weight: 50
+    - destination:
+        host: reviews
+        subset: v3
+      weight: 50
+</code></pre>
+
+<p>此时一会有星，一会没星，但是已经不是轮询算法了</p>
+
+<h3 id="全切v3">全切v3</h3>
+
+<pre><code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-v3.yaml
+</code></pre>
+
+<p>这时不管怎么刷都是红心了</p>
 
     </div>
 
