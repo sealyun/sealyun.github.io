@@ -6,10 +6,19 @@
     <description>Recent content in Sketchnote on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Jun 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jul 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/sketchnote/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>istio教程</title>
+      <link>https://sealyun.com/post/istio-quickstart/</link>
+      <pubDate>Mon, 30 Jul 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/istio-quickstart/</guid>
+      <description>广告 | kubernetes各版本离线安装包 祝贺istio1.0发布, 在此献上教程一份 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用h</description>
+    </item>
     
     <item>
       <title>kubernetes开发指南</title>
@@ -270,15 +279,6 @@
       
       <guid>https://sealyun.com/post/keep_containers_alive_deamon_downtme/</guid>
       <description>配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin</description>
-    </item>
-    
-    <item>
-      <title>istio教程</title>
-      <link>https://sealyun.com/post/istio-quickstart/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sealyun.com/post/istio-quickstart/</guid>
-      <description>广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我</description>
     </item>
     
   </channel>

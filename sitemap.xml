@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sealyun.com/post/istio-quickstart/</loc>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/post/kube-dev/</loc>
     <lastmod>2018-06-21T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -225,21 +232,21 @@
   
   <url>
     <loc>https://sealyun.com/tags/dotscale/</loc>
-    <lastmod>2018-06-21T10:54:24+02:00</lastmod>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sealyun.com/tags/event/</loc>
-    <lastmod>2018-06-21T10:54:24+02:00</lastmod>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sealyun.com/post/</loc>
-    <lastmod>2018-06-21T10:54:24+02:00</lastmod>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -253,27 +260,21 @@
   
   <url>
     <loc>https://sealyun.com/tags/sketchnote/</loc>
-    <lastmod>2018-06-21T10:54:24+02:00</lastmod>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sealyun.com/tags/</loc>
-    <lastmod>2018-06-21T10:54:24+02:00</lastmod>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://sealyun.com/post/istio-quickstart/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://sealyun.com/</loc>
-    <lastmod>2018-06-21T10:54:24+02:00</lastmod>
+    <lastmod>2018-07-30T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
