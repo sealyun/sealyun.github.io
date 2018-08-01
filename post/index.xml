@@ -263,5 +263,14 @@
       <description>配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin</description>
     </item>
     
+    <item>
+      <title>istio教程</title>
+      <link>https://sealyun.com/post/istio-quickstart/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sealyun.com/post/istio-quickstart/</guid>
+      <description>广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我</description>
+    </item>
+    
   </channel>
 </rss>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>配置docker engine使engine挂掉时容器继续运行 - sealyun | kubernetes安装</title>
+  <title>istio教程 - sealyun | kubernetes安装</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin" />
+  <meta name="description" content="广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -50,7 +50,7 @@
 <meta name="generator" content="Hugo 0.40.3" />
 
 
-<link rel="canonical" href="https://sealyun.com/post/keep_containers_alive_deamon_downtme/" />
+<link rel="canonical" href="https://sealyun.com/post/istio-quickstart/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -70,16 +70,10 @@
 
 
 
-<meta property="og:title" content="配置docker engine使engine挂掉时容器继续运行" />
-<meta property="og:description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin" />
+<meta property="og:title" content="istio教程" />
+<meta property="og:description" content="广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://sealyun.com/post/keep_containers_alive_deamon_downtme/" />
-
-
-
-<meta property="article:published_time" content="2014-07-11T10:54:24&#43;02:00"/>
-
-<meta property="article:modified_time" content="2014-07-11T10:54:24&#43;02:00"/>
+<meta property="og:url" content="https://sealyun.com/post/istio-quickstart/" />
 
 
 
@@ -91,20 +85,24 @@
 
 
 
-<meta itemprop="name" content="配置docker engine使engine挂掉时容器继续运行">
-<meta itemprop="description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin">
 
 
-<meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="367">
+
+
+
+<meta itemprop="name" content="istio教程">
+<meta itemprop="description" content="广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我">
+
+
+
+<meta itemprop="wordCount" content="445">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="配置docker engine使engine挂掉时容器继续运行"/>
-<meta name="twitter:description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin"/>
+<meta name="twitter:title" content="istio教程"/>
+<meta name="twitter:description" content="广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -171,10 +169,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">配置docker engine使engine挂掉时容器继续运行</h1>
+      <h1 class="post-title">istio教程</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2014-07-11 </span>
+        <span class="post-time"> 0001-01-01 </span>
         
         
         
@@ -189,10 +187,10 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#使用教程">使用教程</a>
 <ul>
-<li><a href="#配置docker-engine使engine挂掉时容器继续运行">配置docker engine使engine挂掉时容器继续运行</a></li>
-<li><a href="#实践">实践</a></li>
+<li><a href="#官网事例-bookinfo-application">官网事例 Bookinfo Application</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -203,25 +201,115 @@
     <div class="post-content">
       
 
-<h2 id="配置docker-engine使engine挂掉时容器继续运行">配置docker engine使engine挂掉时容器继续运行</h2>
+<blockquote>
+<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes各版本离线安装包</a></p>
+</blockquote>
 
-<p>两种方式：
-* 修改/etc/docker/daemon.json 如果不想engine重启，给engine发送SIGHUP信号使engine重新加载配置文件
-* 直接加启动参数：&ndash;live-restore,  如用systemd管理修改这个配置文件：/usr/lib/systemd/system/docker.service,
-  然后执行systemctl daemon-reload &amp;&amp; service docker restart</p>
+<h1 id="安装">安装</h1>
 
-<p>加了这个参数之后，重启engine就不会使容器退出了</p>
+<blockquote>
+<p>安装k8s <a href="http://sealyun.com/pro/products/">强势插播广告</a></p>
 
-<h2 id="实践">实践</h2>
+<p>安装helm, 推荐生产环境用helm安装，可以调参</p>
+</blockquote>
 
-<p>此功能在做engine升级时非常有用，现在就以docker1.12升级到1.13为例详细介绍。</p>
+<p><a href="https://github.com/helm/helm/releases">release地址</a></p>
 
-<p>我们有一个容器正在运行，已经运行了两个星期了(ps:我们已经配置了 &ndash;live-restore启动参数)</p>
+<p>如我使用的2.9.1版本</p>
 
-<pre><code>[root@dev-86-201 ~]# docker ps
-CONTAINER ID        IMAGE                                      COMMAND             CREATED             STATUS              PORTS               NAMES
-4c73d9658275        dev.reg.iflytek.com/devops/whoami:latest   &quot;/whoamI&quot;           2 weeks ago         Up 10 minutes       80/tcp              0Fack
+<pre><code>yum install -y socat # 这个不装会报错
 </code></pre>
+
+<pre><code>[root@istiohost ~]# wget https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz
+[root@istiohost ~]# tar zxvf helm-v2.9.1-linux-amd64.tar.gz
+[root@istiohost ~]# cp linux-amd64/helm /usr/bin
+</code></pre>
+
+<p>先创建一个service account 把管理员权限给helm:</p>
+
+<pre><code>[root@istiohost ~]# cat helmserviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-clusterrolebinding
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: &quot;&quot;
+</code></pre>
+
+<pre><code>kubectl create -f  helmserviceaccount.yaml
+</code></pre>
+
+<p>安装helm 服务端 tiller :</p>
+
+<pre><code>helm init  --service-account tiller #  如果已安装更新加 --upgrade 参数
+helm list #没任何返回表示成功
+</code></pre>
+
+<blockquote>
+<p>安装istio</p>
+</blockquote>
+
+<pre><code>curl -L https://git.io/getLatestIstio | sh -
+cd istio-1.0.0/
+export PATH=$PWD/bin:$PATH
+</code></pre>
+
+<p>helm 2.10.0以前的版本需要装一下CRD：</p>
+
+<pre><code>kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+kubectl apply -f install/kubernetes/helm/istio/charts/certmanager/templates/crds.yaml
+</code></pre>
+
+<p>安装istio, 由于你没有LB所以用NodePort代替:</p>
+
+<pre><code>helm install install/kubernetes/helm/istio  --name istio --namespace istio-system --set gateways.istio-ingressgateway.type=NodePort --set gateways.istio-egressgateway.type=NodePort
+</code></pre>
+
+<p>安装成功：</p>
+
+<pre><code>[root@istiohost istio-1.0.0]# kubectl get pod -n istio-system
+NAME                                        READY     STATUS    RESTARTS   AGE
+istio-citadel-7d8f9748c5-ntqnp              1/1       Running   0          5m
+istio-egressgateway-676c8546c5-2w4cq        1/1       Running   0          5m
+istio-galley-5669f7c9b-mkxjg                1/1       Running   0          5m
+istio-ingressgateway-5475685bbb-96mbr       1/1       Running   0          5m
+istio-pilot-5795d6d695-gr4h4                2/2       Running   0          5m
+istio-policy-7f945bf487-gkpxr               2/2       Running   0          5m
+istio-sidecar-injector-d96cd9459-674pk      1/1       Running   0          5m
+istio-statsd-prom-bridge-549d687fd9-6cbzs   1/1       Running   0          5m
+istio-telemetry-6c587bdbc4-jndjn            2/2       Running   0          5m
+prometheus-6ffc56584f-98mr9                 1/1       Running   0          5m
+[root@istiohost istio-1.0.0]# kubectl get svc -n istio-system
+NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                     AGE
+istio-citadel              ClusterIP   10.108.253.89    &lt;none&gt;        8060/TCP,9093/TCP                                                                                           5m
+istio-egressgateway        NodePort    10.96.151.14     &lt;none&gt;        80:30830/TCP,443:30038/TCP                                                                                  5m
+istio-galley               ClusterIP   10.102.83.130    &lt;none&gt;        443/TCP,9093/TCP                                                                                            5m
+istio-ingressgateway       NodePort    10.99.194.13     &lt;none&gt;        80:31380/TCP,443:31390/TCP,31400:31400/TCP,15011:31577/TCP,8060:30037/TCP,15030:31855/TCP,15031:30775/TCP   5m
+istio-pilot                ClusterIP   10.101.4.143     &lt;none&gt;        15010/TCP,15011/TCP,8080/TCP,9093/TCP                                                                       5m
+istio-policy               ClusterIP   10.106.221.68    &lt;none&gt;        9091/TCP,15004/TCP,9093/TCP                                                                                 5m
+istio-sidecar-injector     ClusterIP   10.100.5.170     &lt;none&gt;        443/TCP                                                                                                     5m
+istio-statsd-prom-bridge   ClusterIP   10.107.28.242    &lt;none&gt;        9102/TCP,9125/UDP                                                                                           5m
+istio-telemetry            ClusterIP   10.105.66.20     &lt;none&gt;        9091/TCP,15004/TCP,9093/TCP,42422/TCP                                                                       5m
+prometheus                 ClusterIP   10.103.128.152   &lt;none&gt;        9090/TCP
+</code></pre>
+
+<h1 id="使用教程">使用教程</h1>
+
+<h2 id="官网事例-bookinfo-application">官网事例 Bookinfo Application</h2>
+
+<p><img src="/noistio.svg" alt="" /></p>
 
     </div>
 
@@ -233,7 +321,7 @@ CONTAINER ID        IMAGE                                      COMMAND          
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2014-07-11</span>
+    <span class="item-content">0001-01-01</span>
   </p>
   
   
@@ -256,17 +344,12 @@ CONTAINER ID        IMAGE                                      COMMAND          
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/k8s-offline-install-ha/">
+          <a class="prev" href="/post/keep_containers_alive_deamon_downtme/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">离线使用kubeadm安装安全高可用kubernetes集群</span>
+            <span class="prev-text nav-default">配置docker engine使engine挂掉时容器继续运行</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         
-          <a class="next" href="/post/istio-quickstart/">
-            <span class="next-text nav-default">istio教程</span>
-            <span class="prev-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
       </nav>
     </footer>
   </article>
@@ -277,10 +360,10 @@ CONTAINER ID        IMAGE                                      COMMAND          
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: '2014-07-11 10:54:24 \x2b0200 \x2b0200',
-    title: '配置docker engine使engine挂掉时容器继续运行',
+    id: '0001-01-01 00:00:00 \x2b0000 UTC',
+    title: 'istio教程',
     link: decodeURI(location.href),
-    desc: '配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改\/etc\/docker\/daemon.json 如果不想engin',
+    desc: '广告 | kubernetes各版本离线安装包 安装 安装k8s 强势插播广告 安装helm, 推荐生产环境用helm安装，可以调参 release地址 如我',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
