@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="广告 | kubernetes各版本离线安装包 安装 etcd快照恢复 说明： 有证书集群以下所有命令需带上如下证书参数，否则访问不了 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key endpoi" />
+  <meta name="description" content="广告 | kubernetes各版本离线安装包 etcd 证书配置 证书生成 cfssl安装： mkdir ~/bin curl -s -L -o ~/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 curl -s -L -o ~/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 chmod &#43;x ~/bin/{cfssl,cfssljson} export PATH=$PATH:~/bin mkdir ~/cfssl cd ~/cfssl 写入如下json文" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="etcd管理指南" />
-<meta property="og:description" content="广告 | kubernetes各版本离线安装包 安装 etcd快照恢复 说明： 有证书集群以下所有命令需带上如下证书参数，否则访问不了 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key endpoi" />
+<meta property="og:description" content="广告 | kubernetes各版本离线安装包 etcd 证书配置 证书生成 cfssl安装： mkdir ~/bin curl -s -L -o ~/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 curl -s -L -o ~/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 chmod &#43;x ~/bin/{cfssl,cfssljson} export PATH=$PATH:~/bin mkdir ~/cfssl cd ~/cfssl 写入如下json文" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/etcd-manage/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="etcd管理指南">
-<meta itemprop="description" content="广告 | kubernetes各版本离线安装包 安装 etcd快照恢复 说明： 有证书集群以下所有命令需带上如下证书参数，否则访问不了 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key endpoi">
+<meta itemprop="description" content="广告 | kubernetes各版本离线安装包 etcd 证书配置 证书生成 cfssl安装： mkdir ~/bin curl -s -L -o ~/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 curl -s -L -o ~/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 chmod &#43;x ~/bin/{cfssl,cfssljson} export PATH=$PATH:~/bin mkdir ~/cfssl cd ~/cfssl 写入如下json文">
 
 
 <meta itemprop="datePublished" content="2018-08-12T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-08-12T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1681">
+<meta itemprop="wordCount" content="1670">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="etcd管理指南"/>
-<meta name="twitter:description" content="广告 | kubernetes各版本离线安装包 安装 etcd快照恢复 说明： 有证书集群以下所有命令需带上如下证书参数，否则访问不了 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key endpoi"/>
+<meta name="twitter:description" content="广告 | kubernetes各版本离线安装包 etcd 证书配置 证书生成 cfssl安装： mkdir ~/bin curl -s -L -o ~/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 curl -s -L -o ~/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 chmod &#43;x ~/bin/{cfssl,cfssljson} export PATH=$PATH:~/bin mkdir ~/cfssl cd ~/cfssl 写入如下json文"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -193,22 +193,15 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#安装">安装</a>
-<ul>
-<li>
-<ul>
-<li><a href="#etcd快照恢复">etcd快照恢复</a></li>
-<li><a href="#etcd节点扩容">etcd节点扩容</a>
-<ul>
-<li><a href="#以如下三个节点为例">以如下三个节点为例</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
 <li><a href="#etcd-证书配置">etcd 证书配置</a>
 <ul>
 <li><a href="#证书生成">证书生成</a></li>
 <li><a href="#启动etcd">启动etcd</a></li>
-<li><a href="#增加节点">增加节点</a></li>
+<li><a href="#增加节点">增加节点</a>
+<ul>
+<li><a href="#etcd快照恢复">etcd快照恢复</a></li>
+<li><a href="#etcd节点扩容">etcd节点扩容</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -222,182 +215,6 @@
 <blockquote>
 <p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes各版本离线安装包</a></p>
 </blockquote>
-
-<h1 id="安装">安装</h1>
-
-<h3 id="etcd快照恢复">etcd快照恢复</h3>
-
-<p>说明：
-有证书集群以下所有命令需带上如下证书参数，否则访问不了</p>
-
-<pre><code>--cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key
-</code></pre>
-
-<p>endpoints默认为<code>127.0.0.1:2379</code>，若需指定远程etcd地址，可通过如下参数指定</p>
-
-<pre><code>--endpoints 172.16.154.81:2379
-</code></pre>
-
-<p>1、获取数据快照</p>
-
-<pre><code>ETCDCTL_API=3 etcdctl snapshot save snapshot.db
-</code></pre>
-
-<p>2、从快照恢复数据</p>
-
-<pre><code>ETCDCTL_API=3 etcdctl snapshot restore snapshot.db --data-dir=/var/lib/etcd/
-</code></pre>
-
-<p>3、启动新etcd节点，指定&ndash;data-dir=/var/lib/etcd/</p>
-
-<h3 id="etcd节点扩容">etcd节点扩容</h3>
-
-<h4 id="以如下三个节点为例">以如下三个节点为例</h4>
-
-<table>
-<thead>
-<tr>
-<th>节点名</th>
-<th>IP</th>
-<th>备注</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>infra0</td>
-<td>172.16.154.81</td>
-<td>初始节点，k8s的master节点，kubeadm所部署的单节点etcd所在机器</td>
-</tr>
-
-<tr>
-<td>infra1</td>
-<td>172.16.154.82</td>
-<td>待添加节点，k8s的node节点</td>
-</tr>
-
-<tr>
-<td>infra2</td>
-<td>172.16.154.83</td>
-<td>待添加节点，k8s的node节点</td>
-</tr>
-</tbody>
-</table>
-
-<p>1、从初始etcd节点获取数据快照</p>
-
-<pre><code>ETCDCTL_API=3 etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key --endpoints=https://127.0.0.1:2379 snapshot save snapshot.db
-</code></pre>
-
-<p>2、将快照文件snapshot.db复制到infra1节点，并执行数据恢复命令</p>
-
-<p>数据恢复命令</p>
-
-<pre><code>ETCDCTL_API=3 etcdctl snapshot restore snapshot.db --data-dir=/var/lib/etcd/
-
-注：执行上述命令需要机器上有etcdctl
-</code></pre>
-
-<p>上述命令执行成功会将快照中的数据存放到/var/lib/etcd目录中</p>
-
-<p>3、在infra1节点启动etcd
-将如下yaml放入/etc/kubernetes/manifests</p>
-
-<pre><code>apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    component: etcd
-    tier: control-plane
-  name: etcd-172.16.154.82
-  namespace: kube-system
-spec:
-  containers:
-  - command:
-    - etcd
-    - --name=infra0
-    - --initial-advertise-peer-urls=http://172.16.154.82:2380
-    - --listen-peer-urls=http://172.16.154.82:2380
-    - --listen-client-urls=http://172.16.154.82:2379,http://127.0.0.1:2379
-    - --advertise-client-urls=http://172.16.154.82:2379
-    - --data-dir=/var/lib/etcd
-    - --initial-cluster-token=etcd-cluster-1
-    - --initial-cluster=infra0=http://172.16.154.82:2380
-    - --initial-cluster-state=new
-    image: hub.xfyun.cn/k8s/etcd-amd64:3.1.12
-    livenessProbe:
-      httpGet:
-        host: 127.0.0.1
-        path: /health
-        port: 2379
-        scheme: HTTP
-      failureThreshold: 8
-      initialDelaySeconds: 15
-      timeoutSeconds: 15
-    name: etcd
-    volumeMounts:
-    - name: etcd-data
-      mountPath: /var/lib/etcd
-  hostNetwork: true
-  volumes:
-  - hostPath:
-      path: /var/lib/etcd
-      type: DirectoryOrCreate
-    name: etcd-data
-</code></pre>
-
-<p>4、infra2节点加入etcd集群中
-在infra1中etcd容器中执行</p>
-
-<pre><code>ETCDCTL_API=3 etcdctl member add infra2 --peer-urls=&quot;http://172.16.154.83:2380&quot;
-</code></pre>
-
-<p>将如下yaml放入/etc/kubernetes/manifests，由kubelet启动etcd容器</p>
-
-<pre><code>apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    component: etcd
-    tier: control-plane
-  name: etcd-172.16.154.83
-  namespace: kube-system
-spec:
-  containers:
-  - command:
-    - etcd
-    - --name=infra1
-    - --initial-advertise-peer-urls=http://172.16.154.83:2380
-    - --listen-peer-urls=http://172.16.154.83:2380
-    - --listen-client-urls=http://172.16.154.83:2379,http://127.0.0.1:2379
-    - --advertise-client-urls=http://172.16.154.83:2379
-    - --data-dir=/var/lib/etcd
-    - --initial-cluster-token=etcd-cluster-1
-    - --initial-cluster=infra1=http://172.16.154.82:2380,infra2=http://172.16.154.83:2380
-    - --initial-cluster-state=existing
-    image: hub.xfyun.cn/k8s/etcd-amd64:3.1.12
-    livenessProbe:
-      httpGet:
-        host: 127.0.0.1
-        path: /health
-        port: 2379
-        scheme: HTTP
-      failureThreshold: 8
-      initialDelaySeconds: 15
-      timeoutSeconds: 15
-    name: etcd
-    volumeMounts:
-    - name: etcd-data
-      mountPath: /var/lib/etcd
-  hostNetwork: true
-  volumes:
-  - hostPath:
-      path: /home/etcd
-      type: DirectoryOrCreate
-    name: etcd-data
-</code></pre>
-
-<p>infra0节点加入集群重复上述操作；注意在加入集群之前，将之前/var/lib/etcd/的数据删除。</p>
 
 <h1 id="etcd-证书配置">etcd 证书配置</h1>
 
@@ -750,6 +567,178 @@ cluster is healthy
 - --etcd-keyfile=/etc/kubernetes/pki/cfssl/client-key.pem
 </code></pre>
 
+<h3 id="etcd快照恢复">etcd快照恢复</h3>
+
+<p>说明：
+有证书集群以下所有命令需带上如下证书参数，否则访问不了</p>
+
+<pre><code>--cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key
+</code></pre>
+
+<p>endpoints默认为<code>127.0.0.1:2379</code>，若需指定远程etcd地址，可通过如下参数指定</p>
+
+<pre><code>--endpoints 172.16.154.81:2379
+</code></pre>
+
+<p>1、获取数据快照</p>
+
+<pre><code>ETCDCTL_API=3 etcdctl snapshot save snapshot.db
+</code></pre>
+
+<p>2、从快照恢复数据</p>
+
+<pre><code>ETCDCTL_API=3 etcdctl snapshot restore snapshot.db --data-dir=/var/lib/etcd/
+</code></pre>
+
+<p>3、启动新etcd节点，指定&ndash;data-dir=/var/lib/etcd/</p>
+
+<h3 id="etcd节点扩容">etcd节点扩容</h3>
+
+<table>
+<thead>
+<tr>
+<th>节点名</th>
+<th>IP</th>
+<th>备注</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>infra0</td>
+<td>172.16.154.81</td>
+<td>初始节点，k8s的master节点，kubeadm所部署的单节点etcd所在机器</td>
+</tr>
+
+<tr>
+<td>infra1</td>
+<td>172.16.154.82</td>
+<td>待添加节点，k8s的node节点</td>
+</tr>
+
+<tr>
+<td>infra2</td>
+<td>172.16.154.83</td>
+<td>待添加节点，k8s的node节点</td>
+</tr>
+</tbody>
+</table>
+
+<p>1、从初始etcd节点获取数据快照</p>
+
+<pre><code>ETCDCTL_API=3 etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key --endpoints=https://127.0.0.1:2379 snapshot save snapshot.db
+</code></pre>
+
+<p>2、将快照文件snapshot.db复制到infra1节点，并执行数据恢复命令</p>
+
+<p>数据恢复命令</p>
+
+<pre><code>ETCDCTL_API=3 etcdctl snapshot restore snapshot.db --data-dir=/var/lib/etcd/
+
+注：执行上述命令需要机器上有etcdctl
+</code></pre>
+
+<p>上述命令执行成功会将快照中的数据存放到/var/lib/etcd目录中</p>
+
+<p>3、在infra1节点启动etcd
+将如下yaml放入/etc/kubernetes/manifests</p>
+
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: etcd
+    tier: control-plane
+  name: etcd-172.16.154.82
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - etcd
+    - --name=infra0
+    - --initial-advertise-peer-urls=http://172.16.154.82:2380
+    - --listen-peer-urls=http://172.16.154.82:2380
+    - --listen-client-urls=http://172.16.154.82:2379,http://127.0.0.1:2379
+    - --advertise-client-urls=http://172.16.154.82:2379
+    - --data-dir=/var/lib/etcd
+    - --initial-cluster-token=etcd-cluster-1
+    - --initial-cluster=infra0=http://172.16.154.82:2380
+    - --initial-cluster-state=new
+    image: hub.xfyun.cn/k8s/etcd-amd64:3.1.12
+    livenessProbe:
+      httpGet:
+        host: 127.0.0.1
+        path: /health
+        port: 2379
+        scheme: HTTP
+      failureThreshold: 8
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    name: etcd
+    volumeMounts:
+    - name: etcd-data
+      mountPath: /var/lib/etcd
+  hostNetwork: true
+  volumes:
+  - hostPath:
+      path: /var/lib/etcd
+      type: DirectoryOrCreate
+    name: etcd-data
+</code></pre>
+
+<p>4、infra2节点加入etcd集群中
+在infra1中etcd容器中执行</p>
+
+<pre><code>ETCDCTL_API=3 etcdctl member add infra2 --peer-urls=&quot;http://172.16.154.83:2380&quot;
+</code></pre>
+
+<p>将如下yaml放入/etc/kubernetes/manifests，由kubelet启动etcd容器</p>
+
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: etcd
+    tier: control-plane
+  name: etcd-172.16.154.83
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - etcd
+    - --name=infra1
+    - --initial-advertise-peer-urls=http://172.16.154.83:2380
+    - --listen-peer-urls=http://172.16.154.83:2380
+    - --listen-client-urls=http://172.16.154.83:2379,http://127.0.0.1:2379
+    - --advertise-client-urls=http://172.16.154.83:2379
+    - --data-dir=/var/lib/etcd
+    - --initial-cluster-token=etcd-cluster-1
+    - --initial-cluster=infra1=http://172.16.154.82:2380,infra2=http://172.16.154.83:2380
+    - --initial-cluster-state=existing
+    image: hub.xfyun.cn/k8s/etcd-amd64:3.1.12
+    livenessProbe:
+      httpGet:
+        host: 127.0.0.1
+        path: /health
+        port: 2379
+        scheme: HTTP
+      failureThreshold: 8
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    name: etcd
+    volumeMounts:
+    - name: etcd-data
+      mountPath: /var/lib/etcd
+  hostNetwork: true
+  volumes:
+  - hostPath:
+      path: /home/etcd
+      type: DirectoryOrCreate
+    name: etcd-data
+</code></pre>
+
+<p>infra0节点加入集群重复上述操作；注意在加入集群之前，将之前/var/lib/etcd/的数据删除。</p>
+
     </div>
 
     
@@ -802,7 +791,7 @@ cluster is healthy
     id: '2018-08-12 10:54:24 \x2b0200 \x2b0200',
     title: 'etcd管理指南',
     link: decodeURI(location.href),
-    desc: '广告 | kubernetes各版本离线安装包 安装 etcd快照恢复 说明： 有证书集群以下所有命令需带上如下证书参数，否则访问不了 --cacert=\/etc\/kubernetes\/pki\/etcd\/ca.crt --cert=\/etc\/kubernetes\/pki\/etcd\/peer.crt --key=\/etc\/kubernetes\/pki\/etcd\/peer.key endpoi',
+    desc: '广告 | kubernetes各版本离线安装包 etcd 证书配置 证书生成 cfssl安装： mkdir ~\/bin curl -s -L -o ~\/bin\/cfssl https:\/\/pkg.cfssl.org\/R1.2\/cfssl_linux-amd64 curl -s -L -o ~\/bin\/cfssljson https:\/\/pkg.cfssl.org\/R1.2\/cfssljson_linux-amd64 chmod \x2bx ~\/bin\/{cfssl,cfssljson} export PATH=$PATH:~\/bin mkdir ~\/cfssl cd ~\/cfssl 写入如下json文',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
