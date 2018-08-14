@@ -6,10 +6,19 @@
     <description>Recent content in Event on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Jul 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Aug 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/event/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>etcd管理指南</title>
+      <link>https://sealyun.com/post/etcd-manage/</link>
+      <pubDate>Sun, 12 Aug 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/etcd-manage/</guid>
+      <description>广告 | kubernetes各版本离线安装包 安装 etcd快照恢复 说明： 有证书集群以下所有命令需带上如下证书参数，否则访问不了 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key endpoi</description>
+    </item>
     
     <item>
       <title>istio安装使用教程</title>
