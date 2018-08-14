@@ -197,11 +197,9 @@
 <ul>
 <li><a href="#证书生成">证书生成</a></li>
 <li><a href="#启动etcd">启动etcd</a></li>
-<li><a href="#增加节点">增加节点</a>
-<ul>
+<li><a href="#增加节点">增加节点</a></li>
 <li><a href="#etcd快照恢复">etcd快照恢复</a></li>
 <li><a href="#etcd节点扩容">etcd节点扩容</a></li>
-</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -567,7 +565,7 @@ cluster is healthy
 - --etcd-keyfile=/etc/kubernetes/pki/cfssl/client-key.pem
 </code></pre>
 
-<h3 id="etcd快照恢复">etcd快照恢复</h3>
+<h2 id="etcd快照恢复">etcd快照恢复</h2>
 
 <p>说明：
 有证书集群以下所有命令需带上如下证书参数，否则访问不了</p>
@@ -592,7 +590,7 @@ cluster is healthy
 
 <p>3、启动新etcd节点，指定&ndash;data-dir=/var/lib/etcd/</p>
 
-<h3 id="etcd节点扩容">etcd节点扩容</h3>
+<h2 id="etcd节点扩容">etcd节点扩容</h2>
 
 <table>
 <thead>
