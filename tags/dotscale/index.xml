@@ -17,7 +17,7 @@
       <pubDate>Sun, 12 Aug 2018 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/etcd-manage/</guid>
-      <description>广告 | kubernetes各版本离线安装包 etcd 证书配置 证书生成 cfssl安装： mkdir ~/bin curl -s -L -o ~/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 curl -s -L -o ~/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 chmod +x ~/bin/{cfssl,cfssljson} export PATH=$PATH:~/bin mkdir ~/cfssl cd ~/cfssl 写入如下json文</description>
+      <description>广告 | kubernetes各版本离线安装包 etcd 证书配置 生产环境中给etcd配置证书相当重要，如果没有证书，那么k8s集群很容易被黑客利用而去挖</description>
     </item>
     
     <item>
