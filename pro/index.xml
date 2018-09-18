@@ -17,7 +17,7 @@
       <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/pro/istio/</guid>
-      <description>Istio离线安装包 阿里云审核中。。。</description>
+      <description>安装教程 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubuntu等也请自己装) 确保</description>
     </item>
     
     <item>
