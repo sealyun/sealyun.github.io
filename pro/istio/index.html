@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="安装教程 QQ群:98488045 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubu" />
+  <meta name="description" content="安装教程 QQ群:98488045 注意事项 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="istio离线包&amp;安装教程" />
-<meta property="og:description" content="安装教程 QQ群:98488045 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubu" />
+<meta property="og:description" content="安装教程 QQ群:98488045 注意事项 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/pro/istio/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="istio离线包&amp;安装教程">
-<meta itemprop="description" content="安装教程 QQ群:98488045 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubu">
+<meta itemprop="description" content="安装教程 QQ群:98488045 注意事项 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat">
 
 
 <meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="205">
+<meta itemprop="wordCount" content="301">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="istio离线包&amp;安装教程"/>
-<meta name="twitter:description" content="安装教程 QQ群:98488045 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubu"/>
+<meta name="twitter:description" content="安装教程 QQ群:98488045 注意事项 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -178,12 +178,19 @@
 
 <h2 id="安装教程-qq群-98488045">安装教程 QQ群:98488045</h2>
 
+<h3 id="注意事项">注意事项</h3>
+
 <ol>
 <li>已经安装<a href="https://sealyun.com/pro/products/">sealyun k8s</a></li>
 <li>安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubuntu等也请自己装)</li>
 <li>确保环境之前没装过istio helm，如已经装过请清理干净</li>
-<li>解压后执行install.sh即可</li>
+<li>如k8s有多个节点，那每个节点都需要导入istio镜像 <code>docker load -i istio-images.tar &amp;&amp; docker load -i other-images.tar</code></li>
+<li>如在执行helm list时报错，可能是因为tiller启动时间超过30秒，等待启动成功再去执行完剩下步骤即可</li>
 </ol>
+
+<h3 id="安装">安装</h3>
+
+<p>解压后执行install.sh即可</p>
 
 <p>bookinfo的事例地址: <a href="http://ip:31380/productpage">http://ip:31380/productpage</a></p>
 
@@ -211,7 +218,7 @@
     id: '2014-07-11 10:54:24 \x2b0200 \x2b0200',
     title: 'istio离线包\x26安装教程',
     link: decodeURI(location.href),
-    desc: '安装教程 QQ群:98488045 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat, ubu',
+    desc: '安装教程 QQ群:98488045 注意事项 已经安装sealyun k8s 安装socat(脚本里使用yum安装的，所以如果是离线环境自行搞定socat',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
