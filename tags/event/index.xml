@@ -6,10 +6,19 @@
     <description>Recent content in Event on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Aug 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 10 Oct 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/event/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基于drone构建CI/CD系统,对接k8s</title>
+      <link>https://sealyun.com/post/ci-cd/</link>
+      <pubDate>Wed, 10 Oct 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/ci-cd/</guid>
+      <description>kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中</description>
+    </item>
     
     <item>
       <title>etcd管理指南</title>
@@ -153,15 +162,6 @@
       
       <guid>https://sealyun.com/post/install-k8s-cluster/</guid>
       <description>使用kubeadm安装安全高可用kubernetes集群 系统架构图 kubectl dashboard | V +------------------------+ join | LB 10.1.245.94 | &amp;lt;--- Nodes +------------------------+ | |--master1 manager1 schedule1 10.1.245.93 |--master2 manager2 schedule2 10.1.245.95 =============&amp;gt; etcd cluster http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379 |--master3 manager3 schedule3 10.1.245.94 起动etcd集</description>
-    </item>
-    
-    <item>
-      <title>基于gogs drone构建CI/CD系统</title>
-      <link>https://sealyun.com/post/ci-cd/</link>
-      <pubDate>Tue, 11 Jul 2017 10:54:24 +0200</pubDate>
-      
-      <guid>https://sealyun.com/post/ci-cd/</guid>
-      <description>CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中还在重复一些事，那么可能就得想想</description>
     </item>
     
     <item>
