@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1431">
+<meta itemprop="wordCount" content="1485">
 
 
 
@@ -190,6 +190,26 @@
 <blockquote>
 <p>dashboard地址 <a href="https://masterip:32000">https://masterip:32000</a></p>
 </blockquote>
+
+<p>卸载：<code>kubeadm reset</code></p>
+
+<p>清理：</p>
+
+<pre><code>kubeadm reset -f
+modprobe -r ipip
+lsmod
+rm -rf ~/.kube/
+rm -rf /etc/kubernetes/
+rm -rf /etc/systemd/system/kubelet.service.d
+rm -rf /etc/systemd/system/kubelet.service
+rm -rf /usr/bin/kube*
+rm -rf /etc/cni
+rm -rf /opt/cni
+rm -rf /var/lib/etcd
+rm -rf /etc/keepalived
+rm -rf /etc/haproxy
+rm -rf /var/etcd
+</code></pre>
 
 <h1 id="安装包列表">安装包列表</h1>
 
