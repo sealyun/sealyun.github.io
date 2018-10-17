@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="calico架构分析 组件 Felix calico每个节点上跑的代理 Orchestrator plugin网络编排插件 etcd 存储配置数据 BIRD BGP客户端，分发路由信息 BGP Route Reflector(BIRD) 另一个可选" />
+  <meta name="description" content="安装常见问题 calico无法启动： Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="calico架构" />
-<meta property="og:description" content="calico架构分析 组件 Felix calico每个节点上跑的代理 Orchestrator plugin网络编排插件 etcd 存储配置数据 BIRD BGP客户端，分发路由信息 BGP Route Reflector(BIRD) 另一个可选" />
+<meta property="og:description" content="安装常见问题 calico无法启动： Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/calico-architecture/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="calico架构">
-<meta itemprop="description" content="calico架构分析 组件 Felix calico每个节点上跑的代理 Orchestrator plugin网络编排插件 etcd 存储配置数据 BIRD BGP客户端，分发路由信息 BGP Route Reflector(BIRD) 另一个可选">
+<meta itemprop="description" content="安装常见问题 calico无法启动： Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico">
 
 
 <meta itemprop="datePublished" content="2017-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2017-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1322">
+<meta itemprop="wordCount" content="1514">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="calico架构"/>
-<meta name="twitter:description" content="calico架构分析 组件 Felix calico每个节点上跑的代理 Orchestrator plugin网络编排插件 etcd 存储配置数据 BIRD BGP客户端，分发路由信息 BGP Route Reflector(BIRD) 另一个可选"/>
+<meta name="twitter:description" content="安装常见问题 calico无法启动： Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -195,6 +195,7 @@
 <ul>
 <li>
 <ul>
+<li><a href="#安装常见问题">安装常见问题</a></li>
 <li><a href="#calico架构分析">calico架构分析</a>
 <ul>
 <li><a href="#组件">组件</a></li>
@@ -217,6 +218,25 @@
     
     <div class="post-content">
       
+
+<h2 id="安装常见问题">安装常见问题</h2>
+
+<p>calico无法启动：</p>
+
+<pre><code>Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 
+</code></pre>
+
+<p>很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico会经常找docker0网桥，导致clusterIP不通从而calico node连不上etcd</p>
+
+<p>解决办法：
+配置好/etc/hosts</p>
+
+<p>或者修改网卡发现机制：
+calico网卡发现：</p>
+
+<pre><code>- name: IP_AUTODETECTION_METHOD
+              value: &quot;interface=eth.*&quot;   # 如果你的网卡不是eth开头，换成自己的，在yaml文件里修改
+</code></pre>
 
 <h2 id="calico架构分析">calico架构分析</h2>
 
@@ -483,7 +503,7 @@
     id: '2017-07-11 10:54:24 \x2b0200 \x2b0200',
     title: 'calico架构',
     link: decodeURI(location.href),
-    desc: 'calico架构分析 组件 Felix calico每个节点上跑的代理 Orchestrator plugin网络编排插件 etcd 存储配置数据 BIRD BGP客户端，分发路由信息 BGP Route Reflector(BIRD) 另一个可选',
+    desc: '安装常见问题 calico无法启动： Readiness probe failed: calico\/node is not ready: felix is not ready: Get http:\/\/localhost:9099\/readiness: dial tcp [::1]:9099: connect: connection refused 很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {

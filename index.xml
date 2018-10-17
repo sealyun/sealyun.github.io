@@ -134,7 +134,7 @@
       <pubDate>Tue, 11 Jul 2017 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/calico-architecture/</guid>
-      <description>calico架构分析 组件 Felix calico每个节点上跑的代理 Orchestrator plugin网络编排插件 etcd 存储配置数据 BIRD BGP客户端，分发路由信息 BGP Route Reflector(BIRD) 另一个可选</description>
+      <description>安装常见问题 calico无法启动： Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico</description>
     </item>
     
     <item>
