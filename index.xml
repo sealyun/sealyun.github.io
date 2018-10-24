@@ -308,5 +308,14 @@
       <description></description>
     </item>
     
+    <item>
+      <title>dashboard监控数据无法正常显示</title>
+      <link>https://sealyun.com/post/heapster-error/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sealyun.com/post/heapster-error/</guid>
+      <description>kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps</description>
+    </item>
+    
   </channel>
 </rss>

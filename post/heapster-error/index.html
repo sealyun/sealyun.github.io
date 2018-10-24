@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>配置docker engine使engine挂掉时容器继续运行 - sealyun | kubernetes安装</title>
+  <title>dashboard监控数据无法正常显示 - sealyun | kubernetes安装</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin" />
+  <meta name="description" content="kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -50,7 +50,7 @@
 <meta name="generator" content="Hugo 0.40.3" />
 
 
-<link rel="canonical" href="https://sealyun.com/post/keep_containers_alive_deamon_downtme/" />
+<link rel="canonical" href="https://sealyun.com/post/heapster-error/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -70,16 +70,10 @@
 
 
 
-<meta property="og:title" content="配置docker engine使engine挂掉时容器继续运行" />
-<meta property="og:description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin" />
+<meta property="og:title" content="dashboard监控数据无法正常显示" />
+<meta property="og:description" content="kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://sealyun.com/post/keep_containers_alive_deamon_downtme/" />
-
-
-
-<meta property="article:published_time" content="2014-07-11T10:54:24&#43;02:00"/>
-
-<meta property="article:modified_time" content="2014-07-11T10:54:24&#43;02:00"/>
+<meta property="og:url" content="https://sealyun.com/post/heapster-error/" />
 
 
 
@@ -91,20 +85,24 @@
 
 
 
-<meta itemprop="name" content="配置docker engine使engine挂掉时容器继续运行">
-<meta itemprop="description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin">
 
 
-<meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="367">
+
+
+
+<meta itemprop="name" content="dashboard监控数据无法正常显示">
+<meta itemprop="description" content="kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps">
+
+
+
+<meta itemprop="wordCount" content="331">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="配置docker engine使engine挂掉时容器继续运行"/>
-<meta name="twitter:description" content="配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin"/>
+<meta name="twitter:title" content="dashboard监控数据无法正常显示"/>
+<meta name="twitter:description" content="kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -175,10 +173,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">配置docker engine使engine挂掉时容器继续运行</h1>
+      <h1 class="post-title">dashboard监控数据无法正常显示</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2014-07-11 </span>
+        <span class="post-time"> 0001-01-01 </span>
         
         
         
@@ -193,11 +191,8 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li>
-<ul>
-<li><a href="#配置docker-engine使engine挂掉时容器继续运行">配置docker engine使engine挂掉时容器继续运行</a></li>
-<li><a href="#实践">实践</a></li>
-</ul></li>
+<li><a href="#kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></a></li>
+<li><a href="#kubernetes1-12-0版本dashboard使用heapster无法正常显示监控数据">kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据</a></li>
 </ul>
 </nav>
   </div>
@@ -207,25 +202,56 @@
     <div class="post-content">
       
 
-<h2 id="配置docker-engine使engine挂掉时容器继续运行">配置docker engine使engine挂掉时容器继续运行</h2>
+<h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
 
-<p>两种方式：
-* 修改/etc/docker/daemon.json 如果不想engine重启，给engine发送SIGHUP信号使engine重新加载配置文件
-* 直接加启动参数：&ndash;live-restore,  如用systemd管理修改这个配置文件：/usr/lib/systemd/system/docker.service,
-  然后执行systemctl daemon-reload &amp;&amp; service docker restart</p>
+<h1 id="kubernetes1-12-0版本dashboard使用heapster无法正常显示监控数据">kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据</h1>
 
-<p>加了这个参数之后，重启engine就不会使容器退出了</p>
+<p>查看heapster日志：</p>
 
-<h2 id="实践">实践</h2>
-
-<p>此功能在做engine升级时非常有用，现在就以docker1.12升级到1.13为例详细介绍。</p>
-
-<p>我们有一个容器正在运行，已经运行了两个星期了(ps:我们已经配置了 &ndash;live-restore启动参数)</p>
-
-<pre><code>[root@dev-86-201 ~]# docker ps
-CONTAINER ID        IMAGE                                      COMMAND             CREATED             STATUS              PORTS               NAMES
-4c73d9658275        dev.reg.iflytek.com/devops/whoami:latest   &quot;/whoamI&quot;           2 weeks ago         Up 10 minutes       80/tcp              0Fack
+<pre><code>E0228 20:01:05.019281       1 manager.go:101] Error in scraping containers from kubelet:30.0.1.4:10255: failed to get all container stats from Kubelet URL &quot;http://30.0.1.4:10255/stats/container/&quot;: Post http://30.0.1.4:10255/stats/container/: dial tcp 30.0.1.4:10255: getsockopt: connection refused
 </code></pre>
+
+<p>因为1.12.0已经取消了这个端口：</p>
+
+<pre><code>      --read-only-port int32                                                                                      The read-only port for the Kubelet to serve on with no authentication/authorization (set to 0 to disable) (default 10255) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+</code></pre>
+
+<p>解决办法：</p>
+
+<ol>
+<li><p>修改heapster启动参数：</p>
+
+<pre><code>kubectl edit deploy heapster -n kube-system
+</code></pre>
+
+<p>source参数改成：</p>
+
+<pre><code>--source=kubernetes:https://kubernetes.default:6443?useServiceAccount=true&amp;kubeletHttps=true&amp;kubeletPort=10250&amp;insecure=true
+</code></pre></li>
+
+<li><p>此时还是不正常的，因为heapster的service account没有权限访问API，我们需要提权：</p></li>
+</ol>
+
+<pre><code>[root@dev-86-206 dashboard]# cat ../heapster/rbac/heapster-rbac.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: heapster
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin   # 修改这里
+subjects:
+- kind: ServiceAccount
+  name: heapster
+  namespace: kube-system
+</code></pre>
+
+<pre><code>kubectl delete -f ../heapster/rbac/heapster-rbac.yaml
+kubectl create -f ../heapster/rbac/heapster-rbac.yaml
+</code></pre>
+
+<p>如此heapster可正常访问kubelet和APIserver metric了</p>
 
     </div>
 
@@ -237,7 +263,7 @@ CONTAINER ID        IMAGE                                      COMMAND          
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2014-07-11</span>
+    <span class="item-content">0001-01-01</span>
   </p>
   
   
@@ -260,17 +286,12 @@ CONTAINER ID        IMAGE                                      COMMAND          
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/k8s-offline-install-ha/">
+          <a class="prev" href="/post/keep_containers_alive_deamon_downtme/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">离线使用kubeadm安装安全高可用kubernetes集群</span>
+            <span class="prev-text nav-default">配置docker engine使engine挂掉时容器继续运行</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         
-          <a class="next" href="/post/heapster-error/">
-            <span class="next-text nav-default">dashboard监控数据无法正常显示</span>
-            <span class="prev-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
       </nav>
     </footer>
   </article>
@@ -281,10 +302,10 @@ CONTAINER ID        IMAGE                                      COMMAND          
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: '2014-07-11 10:54:24 \x2b0200 \x2b0200',
-    title: '配置docker engine使engine挂掉时容器继续运行',
+    id: '0001-01-01 00:00:00 \x2b0000 UTC',
+    title: 'dashboard监控数据无法正常显示',
     link: decodeURI(location.href),
-    desc: '配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改\/etc\/docker\/daemon.json 如果不想engin',
+    desc: 'kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
