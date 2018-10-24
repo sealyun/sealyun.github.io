@@ -169,6 +169,27 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/docker-ovs/">ovs对接容器网络</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-07-11 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      初始化环境 升级内核： rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm yum --enablerepo=elrepo-kernel install kernel-ml-devel kernel-ml awk -F\' '$1==&quot;menuentry &quot; {print $2}' /etc/grub2.cfg grub2-set-default 0 reboot uname -a 安装docker: yum install -y yum-utils yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo yum-config-manager --disable docker-ce-edge yum makecache fast yum install docker-ce service docker start 安装open vswitch: yum -y
+    </div>
+    <div class="read-more">
+      <a href="/post/docker-ovs/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/docker-network/">容器网络概述</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-07-11 </span>
@@ -246,27 +267,6 @@
     </div>
     <div class="read-more">
       <a href="/post/kubernetes-dns/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/grafana-promethus/">grafana配置教程</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2014-07-11 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      grafana配置教程 json文件在此 长期更新，直接复制粘贴进去即可
-    </div>
-    <div class="read-more">
-      <a href="/post/grafana-promethus/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

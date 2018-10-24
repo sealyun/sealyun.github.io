@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>kubernetes dashboard监控数据无法正常显示</title>
+      <link>https://sealyun.com/post/heapster-error/</link>
+      <pubDate>Fri, 10 Aug 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/heapster-error/</guid>
+      <description>kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps</description>
+    </item>
+    
+    <item>
       <title>istio安装使用教程</title>
       <link>https://sealyun.com/post/istio-quickstart/</link>
       <pubDate>Mon, 30 Jul 2018 10:54:24 +0200</pubDate>
@@ -297,15 +306,6 @@
       
       <guid>https://sealyun.com/post/keep_containers_alive_deamon_downtme/</guid>
       <description>配置docker engine使engine挂掉时容器继续运行 两种方式： * 修改/etc/docker/daemon.json 如果不想engin</description>
-    </item>
-    
-    <item>
-      <title>dashboard监控数据无法正常显示</title>
-      <link>https://sealyun.com/post/heapster-error/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sealyun.com/post/heapster-error/</guid>
-      <description>kubernetes集群三步安装 kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据 查看heaps</description>
     </item>
     
   </channel>
