@@ -232,7 +232,7 @@ See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for
 
 <p>source参数改成：</p>
 
-<pre><code>--source=kubernetes:https://kubernetes.default:6443?useServiceAccount=true&amp;kubeletHttps=true&amp;kubeletPort=10250&amp;insecure=true
+<pre><code>--source=kubernetes:https://kubernetes.default:443?useServiceAccount=true&amp;kubeletHttps=true&amp;kubeletPort=10250&amp;insecure=true
 </code></pre></li>
 
 <li><p>此时还是不正常的，因为heapster的service account没有权限访问API，我们需要提权：</p></li>
