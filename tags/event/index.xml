@@ -6,10 +6,19 @@
     <description>Recent content in Event on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Oct 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 24 Oct 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/event/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基于drone构建CI/CD系统,对接k8s</title>
+      <link>https://sealyun.com/post/sealos/</link>
+      <pubDate>Wed, 24 Oct 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/sealos/</guid>
+      <description>kubernetes集群三步安装 构建生产环境可用的高可用kubernetes集群 | sealos项目地址 特性 支持任意节点的etcd集群自动构建</description>
+    </item>
     
     <item>
       <title>基于drone构建CI/CD系统,对接k8s</title>
