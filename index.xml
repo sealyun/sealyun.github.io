@@ -17,7 +17,7 @@
       <pubDate>Tue, 06 Nov 2018 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/kube-scheduler-source-code/</guid>
-      <description>kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没</description>
+      <description>kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥</description>
     </item>
     
     <item>

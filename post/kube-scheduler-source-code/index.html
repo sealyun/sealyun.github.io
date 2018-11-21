@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没" />
+  <meta name="description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="kubernetes源码分析之kube-scheduler - 扩展调度器" />
-<meta property="og:description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没" />
+<meta property="og:description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/kube-scheduler-source-code/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="kubernetes源码分析之kube-scheduler - 扩展调度器">
-<meta itemprop="description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没">
+<meta itemprop="description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥">
 
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1293">
+<meta itemprop="wordCount" content="1286">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="kubernetes源码分析之kube-scheduler - 扩展调度器"/>
-<meta name="twitter:description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没"/>
+<meta name="twitter:description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -222,11 +222,14 @@
 
 <h2 id="调度器扩展">调度器扩展</h2>
 
-<p>定制化调度器有三种方式：
-* 改scheduler代码重新编译 - 没啥可讨论
-* 重写调度器，调度时选择调度器 - 比较简单，问题是没法与默认调度器共同作用
-* 写调度器扩展（extender）让k8s调度完了 把符合的节点扔给你 你再去过滤和优选 - 重点讨论，新版本做了一些升级，老的方式可能都无用了 <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md">资料</a>
-* 这里有个调度器扩展<a href="https://github.com/everpeace/k8s-scheduler-extender-example">事例</a></p>
+<p>定制化调度器有三种方式：</p>
+
+<ul>
+<li>改scheduler代码重新编译 - 没啥可讨论</li>
+<li>重写调度器，调度时选择调度器 - 比较简单，问题是没法与默认调度器共同作用</li>
+<li>写调度器扩展（extender）让k8s调度完了 把符合的节点扔给你 你再去过滤和优选 - 重点讨论，新版本做了一些升级，老的方式可能都无用了 <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md">资料</a></li>
+<li>这里有个调度器扩展<a href="https://github.com/everpeace/k8s-scheduler-extender-example">事例</a></li>
+</ul>
 
 <p>目前第三点资料非常少，很多细节需要在代码里找到答案，带着问题看代码效果更好。</p>
 
@@ -352,29 +355,31 @@ SchedulerPolicyConfigMapKey = &quot;policy.cfg&quot;
 <p>作为高端玩家，自动化是必须的，因为服务器性能更好，用CI/CD编译更快，这里分享一下我的一些配置:</p>
 
 <ol>
-<li><p>我把vendor打到编译的基础镜像里了，因为vendor大而且不经常更新</p>
+<li>我把vendor打到编译的基础镜像里了，因为vendor大而且不经常更新</li>
+</ol>
 
 <pre><code>$ cat Dockerfile-build1.12.2
 FROM golang:1.11.2
 COPY vendor/ /vendor
 </code></pre>
 
-<p>然后代码里的vendor就可以删了</p></li>
+<p>然后代码里的vendor就可以删了</p>
 
-<li><p>.drone.yml
-```
-workspace:
-base: /go/src/k8s.io
-path: kubernetes</p></li>
+<ol>
+<li>.drone.yml</li>
 </ol>
 
-<p>pipeline:
+<pre><code>workspace:
+  base: /go/src/k8s.io
+  path: kubernetes
+
+pipeline:
     build:
         image: fanux/kubernetes-build:1.12.2-beta.3
         commands:
            - mv /vendor ./vendor    # 本来想用软链的，不知道为啥ln后编译不了，导致多用了十几秒，难以接受
            - cd cmd/kube-scheduler
-           - go build &ndash;ldflags &lsquo;-linkmode external -extldflags &ldquo;-static&rdquo;&rsquo;  # 采用静态编译
+           - go build --ldflags '-linkmode external -extldflags &quot;-static&quot;'  # 采用静态编译
     publish:
         image: plugins/docker
         registry: xxx
@@ -386,18 +391,20 @@ path: kubernetes</p></li>
         dockerfile: dockerfile/Dockerfile-kube-scheduler
         insecure: true
         when:
-            event: [push, tag]</p>
-
-<pre><code>
-3. Dockerfile 静态编译连基础镜像都省了
+            event: [push, tag]
 </code></pre>
 
-<p>$ cat dockerfile/Dockerfile-kube-scheduler
+<ol>
+<li>Dockerfile 静态编译连基础镜像都省了</li>
+</ol>
+
+<pre><code>$ cat dockerfile/Dockerfile-kube-scheduler
 FROM scratch
 COPY cmd/kube-scheduler/kube-scheduler /
-CMD [&ldquo;/kube-scheduler&rdquo;]
-```
-后面再补上CD的配置</p>
+CMD [&quot;/kube-scheduler&quot;]
+</code></pre>
+
+<p>后面再补上CD的配置</p>
 
 <p>[未完待续。。。]</p>
 
@@ -453,7 +460,7 @@ CMD [&ldquo;/kube-scheduler&rdquo;]
     id: '2018-11-06 10:54:24 \x2b0200 \x2b0200',
     title: 'kubernetes源码分析之kube-scheduler - 扩展调度器',
     link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没',
+    desc: 'kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
