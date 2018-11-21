@@ -6,10 +6,19 @@
     <description>Recent content in DotScale on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Oct 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 06 Nov 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/dotscale/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubernetes源码分析之kube-scheduler - 扩展调度器</title>
+      <link>https://sealyun.com/post/kube-scheduler-source-code/</link>
+      <pubDate>Tue, 06 Nov 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kube-scheduler-source-code/</guid>
+      <description>kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： * 改scheduler代码重新编译 - 没</description>
+    </item>
     
     <item>
       <title>构建生产环境可用的高可用kubernetes集群</title>
