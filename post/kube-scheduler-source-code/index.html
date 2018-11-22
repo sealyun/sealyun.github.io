@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1328">
+<meta itemprop="wordCount" content="1425">
 
 
 
@@ -402,6 +402,20 @@ pipeline:
 FROM scratch
 COPY cmd/kube-scheduler/kube-scheduler /
 CMD [&quot;/kube-scheduler&quot;]
+</code></pre>
+
+<p>对于kubeadm这种二进制交付的，可直接编译然后传到nexus上, 通过drone deploy事件选择是不是要编译kubeadm：</p>
+
+<pre><code>    build_kubeadm:
+        image: fanux/kubernetes-build:1.12.2-beta.3
+        commands:
+           - mv /vendor .
+           - cd cmd/kubeadm
+           - go build --ldflags '-linkmode external -extldflags &quot;-static&quot;'
+           - curl -v -u container:container --upload-file kubeadm http://172.16.59.153:8081/repository/kubernetes/kubeadm/
+        when:
+            event: deployment
+            enviroment: kubeadm
 </code></pre>
 
 <p>后面再补上CD的配置</p>
