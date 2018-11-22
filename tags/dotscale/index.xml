@@ -6,10 +6,19 @@
     <description>Recent content in DotScale on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Nov 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 07 Nov 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/dotscale/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>修改kubeadm证书过期时间</title>
+      <link>https://sealyun.com/post/kubeadm-dev/</link>
+      <pubDate>Wed, 07 Nov 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kubeadm-dev/</guid>
+      <description>kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99</description>
+    </item>
     
     <item>
       <title>kubernetes源码分析之kube-scheduler - 扩展调度器</title>
