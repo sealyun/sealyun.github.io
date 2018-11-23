@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-07T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-07T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="329">
+<meta itemprop="wordCount" content="357">
 
 
 
@@ -216,6 +216,13 @@
 <p>本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99年</p>
 
 <p>我已经编译好了一个放在了<a href="https://github.com/fanux/sealos/releases/tag/kubeadm1.12.2">github</a>上，有需要的可以直接下</p>
+
+<p>使用方法:</p>
+
+<pre><code>[root@dev-86-202 ~]# chmod +x kubeadm &amp;&amp; cp kubeadm /usr/bin
+[root@dev-86-202 ~]# rm /etc/kubernetes/pki/ -rf
+[root@dev-86-202 ~]# kubeadm alpha phase certs all --config  kube/conf/kubeadm.yaml
+</code></pre>
 
 <h2 id="代码编译">代码编译</h2>
 
