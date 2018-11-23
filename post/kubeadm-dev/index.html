@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-07T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-07T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="357">
+<meta itemprop="wordCount" content="383">
 
 
 
@@ -222,6 +222,12 @@
 <pre><code>[root@dev-86-202 ~]# chmod +x kubeadm &amp;&amp; cp kubeadm /usr/bin
 [root@dev-86-202 ~]# rm /etc/kubernetes/pki/ -rf
 [root@dev-86-202 ~]# kubeadm alpha phase certs all --config  kube/conf/kubeadm.yaml
+</code></pre>
+
+<p>更新kubeconfig</p>
+
+<pre><code>[root@dev-86-202 ~]# rm -rf /etc/kubernetes/*conf
+[root@dev-86-202 ~]# kubeadm alpha phase kubeconfig all --config ~/kube/conf/kubeadm.yaml
 </code></pre>
 
 <h2 id="代码编译">代码编译</h2>
