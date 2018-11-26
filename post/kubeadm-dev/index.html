@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-07T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-07T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="388">
+<meta itemprop="wordCount" content="450">
 
 
 
@@ -230,6 +230,23 @@
 [root@dev-86-202 ~]# kubeadm alpha phase kubeconfig all --config ~/kube/conf/kubeadm.yaml
 [root@dev-86-202 ~]# cp /etc/kubernetes/admin.conf ~/.kube/config
 </code></pre>
+
+<p>验证：</p>
+
+<pre><code>$ cd /etc/kubernetes/pki
+$ openssl x509 -in apiserver-etcd-client.crt -text -noout
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 4701787282062078235 (0x41401a9f34c2711b)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=etcd-ca
+        Validity
+            Not Before: Nov 22 11:58:50 2018 GMT
+            Not After : Oct 29 11:58:51 2117 GMT   # 时间已经变成99年了
+</code></pre>
+
+<p>其它证书验证同理</p>
 
 <h2 id="代码编译">代码编译</h2>
 
