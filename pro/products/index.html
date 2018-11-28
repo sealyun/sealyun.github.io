@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1632">
+<meta itemprop="wordCount" content="1767">
 
 
 
@@ -211,9 +211,14 @@ rm -rf /var/etcd
 
 <h1 id="安装包列表">安装包列表</h1>
 
+<h2 id="kubernetes1-12-3离线安装包-sealyun-com-阿里云审核中-售价-50元"><a href="sealyun.com">kubernetes1.12.3离线安装包</a> 阿里云审核中 | 售价 50元</h2>
+
 <h2 id="kubernetes1-12-2离线安装包-https-market-aliyun-com-products-57742013-cmxz031371-html-sku-yuncode2537100001-售价-50元"><a href="https://market.aliyun.com/products/57742013/cmxz031371.html#sku=yuncode2537100001">kubernetes1.12.2离线安装包</a> | 售价 50元</h2>
 
-<p>推荐指数：⭐️ ⭐️ ⭐️ ⭐️ ⭐️</p>
+<p>推荐指数：⭐️ 不推荐线上使用</p>
+
+<p>此版本kube-proxy有<a href="https://github.com/kubernetes/kubernetes/pull/71413">重大bug</a> 直接导致service丢失，Endpoint丢失  官方1.12.3版本修复
+我们在压力测试时发现这一问题，官方在高版本进行了修复，sealyun也会尽快发布1.12.3版本</p>
 
 <ul>
 <li>ipvs支持优雅关闭, 以及官方其它新特性与bug修复</li>
