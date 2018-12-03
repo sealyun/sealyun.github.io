@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>kubernetes源码分析之kube-scheduler - 扩展调度器 - sealyun | kubernetes安装</title>
+  <title>kubernetes源码分析之kube-scheduler - 从代码看原理 - sealyun | kubernetes安装</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -70,7 +70,7 @@
 
 
 
-<meta property="og:title" content="kubernetes源码分析之kube-scheduler - 扩展调度器" />
+<meta property="og:title" content="kubernetes源码分析之kube-scheduler - 从代码看原理" />
 <meta property="og:description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/kube-scheduler-source-code/" />
@@ -91,19 +91,19 @@
 
 
 
-<meta itemprop="name" content="kubernetes源码分析之kube-scheduler - 扩展调度器">
+<meta itemprop="name" content="kubernetes源码分析之kube-scheduler - 从代码看原理">
 <meta itemprop="description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥">
 
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1452">
+<meta itemprop="wordCount" content="2197">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="kubernetes源码分析之kube-scheduler - 扩展调度器"/>
+<meta name="twitter:title" content="kubernetes源码分析之kube-scheduler - 从代码看原理"/>
 <meta name="twitter:description" content="kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥"/>
 
 <!--[if lte IE 9]>
@@ -175,7 +175,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">kubernetes源码分析之kube-scheduler - 扩展调度器</h1>
+      <h1 class="post-title">kubernetes源码分析之kube-scheduler - 从代码看原理</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2018-11-06 </span>
@@ -206,6 +206,12 @@
 <li><a href="#直接go-build的大坑">直接go build的大坑</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#调度器cache">调度器cache</a>
+<ul>
+<li><a href="#cache状态机">cache状态机</a></li>
+<li><a href="#cache实现">cache实现</a></li>
+</ul></li>
+<li><a href="#scheduler">scheduler</a></li>
 </ul>
 </nav>
   </div>
@@ -434,6 +440,132 @@ runtime.sigpanic()
 
 <p>[未完待续。。。]</p>
 
+<h1 id="调度器cache">调度器cache</h1>
+
+<h2 id="cache状态机">cache状态机</h2>
+
+<pre><code>   +-------------------------------------------+  +----+
+   |                            Add            |  |    |
+   |                                           |  |    | Update
+   +      Assume                Add            v  v    |
+Initial +--------&gt; Assumed +------------+---&gt; Added &lt;--+
+   ^                +   +               |       +
+   |                |   |               |       |
+   |                |   |           Add |       | Remove
+   |                |   |               |       |
+   |                |   |               +       |
+   +----------------+   +-----------&gt; Expired   +----&gt; Deleted
+</code></pre>
+
+<ul>
+<li>Assume 尝试调度，会把node信息聚合到node上，如pod require多少CPU内存，那么加到node上，如果超时了需要重新减掉</li>
+<li>AddPod 会检测是不是已经尝试调度了该pod，校验是否过期,如果过期了会被重新添加</li>
+<li>Remove pod信息会在该节点上被清除掉</li>
+<li>cache其它接口如node相关的cache接口  ADD update等</li>
+</ul>
+
+<h2 id="cache实现">cache实现</h2>
+
+<pre><code>type schedulerCache struct {
+	stop   &lt;-chan struct{}
+	ttl    time.Duration
+	period time.Duration
+
+	// This mutex guards all fields within this cache struct.
+	mu sync.RWMutex
+	// a set of assumed pod keys.
+	// The key could further be used to get an entry in podStates.
+	assumedPods map[string]bool
+	// a map from pod key to podState.
+	podStates map[string]*podState
+	nodes     map[string]*NodeInfo
+	nodeTree  *NodeTree
+	pdbs      map[string]*policy.PodDisruptionBudget
+	// A map from image name to its imageState.
+	imageStates map[string]*imageState
+}
+</code></pre>
+
+<p>这里存储了基本调度所需要的所有信息</p>
+
+<p>以AddPod接口为例，本质上就是把监听到的一个pod放到了cache的map里：</p>
+
+<pre><code>cache.addPod(pod)
+ps := &amp;podState{
+	pod: pod,
+}
+cache.podStates[key] = ps
+</code></pre>
+
+<p>node Tree
+节点信息有这样一个结构体保存：</p>
+
+<pre><code>type NodeTree struct {
+	tree      map[string]*nodeArray // a map from zone (region-zone) to an array of nodes in the zone.
+	zones     []string              // a list of all the zones in the tree (keys)
+	zoneIndex int
+	NumNodes  int
+	mu        sync.RWMutex
+}
+</code></pre>
+
+<p>cache 运行时会循环清理过期的assume pod</p>
+
+<pre><code>func (cache *schedulerCache) run() {
+	go wait.Until(cache.cleanupExpiredAssumedPods, cache.period, cache.stop)
+}
+</code></pre>
+
+<h1 id="scheduler">scheduler</h1>
+
+<p>scheduler里面最重要的两个东西：cache 和调度算法</p>
+
+<pre><code>type Scheduler struct {
+	config *Config  -------&gt; SchedulerCache
+                       |
+                       +---&gt; Algorithm
+}
+</code></pre>
+
+<p>等cache更新好了，调度器就是调度一个pod:</p>
+
+<pre><code>func (sched *Scheduler) Run() {
+	if !sched.config.WaitForCacheSync() {
+		return
+	}
+
+	go wait.Until(sched.scheduleOne, 0, sched.config.StopEverything)
+}
+</code></pre>
+
+<p>核心逻辑来了：</p>
+
+<pre><code>   +-------------+
+   | 获取一个pod
+   +-------------+
+          |
+   +-------------+
+   | 如果pod的DeletionTimestamp 存在就不用进行调度, kubelet发现这个字段会直接去删除pod
+   +-------------+
+          |
+   +-------------+
+   | 选一个suggestedHost，可理解为合适的节点
+   +-------------+
+          |_____________选不到就进入强占的逻辑，与我当初写swarm调度器逻辑类似
+          |
+   +-------------+
+   | 虽然还没真调度到node上，但是告诉cache pod已经被调度到node上了，变成assume pod
+   +-------------+
+          |
+   +-------------+
+   |
+   +-------------+
+          |
+   +-------------+
+   |
+   +-------------+
+</code></pre>
+
     </div>
 
     
@@ -489,7 +621,7 @@ runtime.sigpanic()
   <script type="text/javascript">
   const gitment = new Gitment({
     id: '2018-11-06 10:54:24 \x2b0200 \x2b0200',
-    title: 'kubernetes源码分析之kube-scheduler - 扩展调度器',
+    title: 'kubernetes源码分析之kube-scheduler - 从代码看原理',
     link: decodeURI(location.href),
     desc: 'kubernetes集群三步安装 kube-scheduler源码分析 调度器扩展 定制化调度器有三种方式： 改scheduler代码重新编译 - 没啥',
     owner: 'fanux',

@@ -21,7 +21,7 @@
     </item>
     
     <item>
-      <title>kubernetes源码分析之kube-scheduler - 扩展调度器</title>
+      <title>kubernetes源码分析之kube-scheduler - 从代码看原理</title>
       <link>https://sealyun.com/post/kube-scheduler-source-code/</link>
       <pubDate>Tue, 06 Nov 2018 10:54:24 +0200</pubDate>
       
