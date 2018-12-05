@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Nov 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 04 Dec 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubeadm杂谈</title>
+      <link>https://sealyun.com/post/kubeadm/</link>
+      <pubDate>Tue, 04 Dec 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kubeadm/</guid>
+      <description>kubernetes集群三步安装 kubeadm 1.13版本 此版本更新了不少东西，以前老的配置不再适用 W1205 19:10:23.541054 58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&amp;quot;kubeadm.k8s.io&amp;quot;, Version:&amp;quot;v1beta1&amp;quot;, Kind:&amp;quot;InitConfiguration&amp;quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field your configuration file uses an old API</description>
+    </item>
     
     <item>
       <title>修改kubeadm证书过期时间</title>

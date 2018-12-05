@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>修改kubeadm证书过期时间 - sealyun | kubernetes安装</title>
+  <title>kubeadm杂谈 - sealyun | kubernetes安装</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99" />
+  <meta name="description" content="kubernetes集群三步安装 kubeadm 1.13版本 此版本更新了不少东西，以前老的配置不再适用 W1205 19:10:23.541054 58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&amp;quot;kubeadm.k8s.io&amp;quot;, Version:&amp;quot;v1beta1&amp;quot;, Kind:&amp;quot;InitConfiguration&amp;quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field your configuration file uses an old API" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -50,7 +50,7 @@
 <meta name="generator" content="Hugo 0.40.3" />
 
 
-<link rel="canonical" href="https://sealyun.com/post/kubeadm-dev/" />
+<link rel="canonical" href="https://sealyun.com/post/kubeadm/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -70,20 +70,16 @@
 
 
 
-<meta property="og:title" content="修改kubeadm证书过期时间" />
-<meta property="og:description" content="kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99" />
+<meta property="og:title" content="kubeadm杂谈" />
+<meta property="og:description" content="kubernetes集群三步安装 kubeadm 1.13版本 此版本更新了不少东西，以前老的配置不再适用 W1205 19:10:23.541054 58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&quot;kubeadm.k8s.io&quot;, Version:&quot;v1beta1&quot;, Kind:&quot;InitConfiguration&quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field your configuration file uses an old API" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://sealyun.com/post/kubeadm-dev/" />
+<meta property="og:url" content="https://sealyun.com/post/kubeadm/" />
 
 
 
-<meta property="article:published_time" content="2018-11-07T10:54:24&#43;02:00"/>
+<meta property="article:published_time" content="2018-12-04T10:54:24&#43;02:00"/>
 
-<meta property="article:modified_time" content="2018-11-07T10:54:24&#43;02:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-12-04T10:54:24&#43;02:00"/>
 
 
 
@@ -91,20 +87,24 @@
 
 
 
-<meta itemprop="name" content="修改kubeadm证书过期时间">
-<meta itemprop="description" content="kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99">
 
 
-<meta itemprop="datePublished" content="2018-11-07T10:54:24&#43;02:00" />
-<meta itemprop="dateModified" content="2018-11-07T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="450">
+
+
+<meta itemprop="name" content="kubeadm杂谈">
+<meta itemprop="description" content="kubernetes集群三步安装 kubeadm 1.13版本 此版本更新了不少东西，以前老的配置不再适用 W1205 19:10:23.541054 58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&quot;kubeadm.k8s.io&quot;, Version:&quot;v1beta1&quot;, Kind:&quot;InitConfiguration&quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field your configuration file uses an old API">
+
+
+<meta itemprop="datePublished" content="2018-12-04T10:54:24&#43;02:00" />
+<meta itemprop="dateModified" content="2018-12-04T10:54:24&#43;02:00" />
+<meta itemprop="wordCount" content="213">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="修改kubeadm证书过期时间"/>
-<meta name="twitter:description" content="kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99"/>
+<meta name="twitter:title" content="kubeadm杂谈"/>
+<meta name="twitter:description" content="kubernetes集群三步安装 kubeadm 1.13版本 此版本更新了不少东西，以前老的配置不再适用 W1205 19:10:23.541054 58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&quot;kubeadm.k8s.io&quot;, Version:&quot;v1beta1&quot;, Kind:&quot;InitConfiguration&quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field your configuration file uses an old API"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -175,10 +175,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">修改kubeadm证书过期时间</h1>
+      <h1 class="post-title">kubeadm杂谈</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-11-07 </span>
+        <span class="post-time"> 2018-12-04 </span>
         
         
         
@@ -193,11 +193,7 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#修改kubeadm证书过期时间">修改kubeadm证书过期时间</a>
-<ul>
-<li><a href="#代码编译">代码编译</a></li>
-<li><a href="#修改代码">修改代码</a></li>
-</ul></li>
+<li><a href="#kubeadm-1-13版本">kubeadm 1.13版本</a></li>
 </ul>
 </nav>
   </div>
@@ -211,94 +207,40 @@
 <p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
 </blockquote>
 
-<h1 id="修改kubeadm证书过期时间">修改kubeadm证书过期时间</h1>
+<h1 id="kubeadm-1-13版本">kubeadm 1.13版本</h1>
 
-<p>本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99年</p>
+<p>此版本更新了不少东西，以前老的配置不再适用</p>
 
-<p>我已经编译好了一个放在了<a href="https://github.com/fanux/sealos/releases/tag/kubeadm1.12.2">github</a>上，有需要的可以直接下</p>
+<pre><code>W1205 19:10:23.541054   58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&quot;kubeadm.k8s.io&quot;, Version:&quot;v1beta1&quot;, Kind:&quot;InitConfiguration&quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field
 
-<p>使用方法:</p>
-
-<pre><code>[root@dev-86-202 ~]# chmod +x kubeadm &amp;&amp; cp kubeadm /usr/bin
-[root@dev-86-202 ~]# rm /etc/kubernetes/pki/ -rf
-[root@dev-86-202 ~]# kubeadm alpha phase certs all --config  kube/conf/kubeadm.yaml
 </code></pre>
 
-<p>更新kubeconfig</p>
-
-<pre><code>[root@dev-86-202 ~]# rm -rf /etc/kubernetes/*conf
-[root@dev-86-202 ~]# kubeadm alpha phase kubeconfig all --config ~/kube/conf/kubeadm.yaml
-[root@dev-86-202 ~]# cp /etc/kubernetes/admin.conf ~/.kube/config
+<pre><code>your configuration file uses an old API spec: &quot;kubeadm.k8s.io/v1alpha2&quot;. Please use kubeadm v1.12 instead and run 'kubeadm config migrate --old-config old.yaml --new-config new.yaml', which will write the new, similar spec using a newer API version.
 </code></pre>
 
-<p>验证：</p>
+<p>诸如此类茫茫多的报错</p>
 
-<pre><code>$ cd /etc/kubernetes/pki
-$ openssl x509 -in apiserver-etcd-client.crt -text -noout
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number: 4701787282062078235 (0x41401a9f34c2711b)
-    Signature Algorithm: sha256WithRSAEncryption
-        Issuer: CN=etcd-ca
-        Validity
-            Not Before: Nov 22 11:58:50 2018 GMT
-            Not After : Oct 29 11:58:51 2117 GMT   # 时间已经变成99年了
+<p>需要使用新的kubeadm配置如：</p>
+
+<p>kubeadm.yaml:</p>
+
+<pre><code>apiVersion: kubeadm.k8s.io/v1beta1
+kind: ClusterConfiguration
+networking:
+  podSubnet: 100.64.0.0/10
+kubernetesVersion: v1.13.0
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: &quot;ipvs&quot;
 </code></pre>
 
-<p>其它证书验证同理</p>
+<p>kubeadm init &ndash;config kubeadm.yaml 才行</p>
 
-<h2 id="代码编译">代码编译</h2>
+<p>可以用下面命令来查看默认配置长什么样,可以用&ndash;component-configs来查看具体哪个组件的配置：</p>
 
-<p>编译环境镜像我已经放到dockerhub上了：fanux/kubernetes-build:v1.0.0</p>
-
-<p>首先clone k8s 代码：</p>
-
-<pre><code>git clone https://github.com/kubernetes/kubernetes
+<pre><code>kubeadm config print init-defaults --component-configs KubeProxyConfiguration
 </code></pre>
-
-<p>挂载到镜像中编译</p>
-
-<pre><code>docker run --rm -v yourcodedir:/go/src/k8s.io/kubernetes -it fanux/kubernetes-build:v1.0.0 bash
-# cd /go/src/k8s.io/kubernetes
-# make all WHAT=cmd/kubeadm GOFLAGS=-v
-</code></pre>
-
-<p>编译完产物在 _output/local/bin/linux/amd64/kubeadm 目录下</p>
-
-<h2 id="修改代码">修改代码</h2>
-
-<p>证书时间代码其实在client-go里面，文件是：</p>
-
-<pre><code>vendor/k8s.io/client-go/util/cert/cert.go
-</code></pre>
-
-<p>然后看到这个NotAfter的都给改了即可：</p>
-
-<pre><code>NotAfter:  validFrom.Add(duration365d * longYear)
-</code></pre>
-
-<p>我这里longYear ＝ 99</p>
-
-<p>然后编译完工</p>
-
-<p>最后在代码里贴上小广告：</p>
-
-<pre><code>func main() {
-	if err := app.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, &quot;error: %v\n&quot;, err)
-		os.Exit(1)
-	}
-	fmt.Println(&quot;*************************************************&quot;)
-	fmt.Println(&quot;****         www.sealyun.com                  ***&quot;)
-	fmt.Println(&quot;****         kubernetes install in 3 steps    ***&quot;)
-	fmt.Println(&quot;****         provide by fanux                 ***&quot;)
-	fmt.Println(&quot;*************************************************&quot;)
-	os.Exit(0)
-}
-</code></pre>
-
-<p>完美</p>
 
     </div>
 
@@ -310,7 +252,7 @@ Certificate:
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-11-07</span>
+    <span class="item-content">2018-12-04</span>
   </p>
   
   
@@ -333,14 +275,9 @@ Certificate:
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/kubeadm/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">kubeadm杂谈</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/kube-scheduler-source-code/">
-            <span class="next-text nav-default">kubernetes源码分析之kube-scheduler - 从代码看原理</span>
+          <a class="next" href="/post/kubeadm-dev/">
+            <span class="next-text nav-default">修改kubeadm证书过期时间</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -354,10 +291,10 @@ Certificate:
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: '2018-11-07 10:54:24 \x2b0200 \x2b0200',
-    title: '修改kubeadm证书过期时间',
+    id: '2018-12-04 10:54:24 \x2b0200 \x2b0200',
+    title: 'kubeadm杂谈',
     link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99',
+    desc: 'kubernetes集群三步安装 kubeadm 1.13版本 此版本更新了不少东西，以前老的配置不再适用 W1205 19:10:23.541054 58540 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:\x26quot;kubeadm.k8s.io\x26quot;, Version:\x26quot;v1beta1\x26quot;, Kind:\x26quot;InitConfiguration\x26quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field your configuration file uses an old API',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
