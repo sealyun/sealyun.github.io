@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2014-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2014-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1993">
+<meta itemprop="wordCount" content="2018">
 
 
 
@@ -221,6 +221,8 @@ networking:
   podSubnet: 100.64.0.0/10
 kubernetesVersion: v1.13.0
 </code></pre>
+
+<p>这个命令可以查看如何配置：<code>kubeadm config print init-defaults --component-configs KubeProxyConfiguration</code></p>
 
 <ul>
 <li>修改kubeadm证书过期时间到99年，默认证书是1年过期</li>
