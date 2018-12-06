@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="4288">
+<meta itemprop="wordCount" content="4266">
 
 
 
@@ -725,12 +725,41 @@ reduce对一个node的这些分值做一个处理
 err := config.Reduce(pod, meta, nodeNameToInfo, results[index]); 
 </code></pre>
 
-<p>看这里有个results,对理解很重要，是一个二维数组：
-|xxx|node1|node2|node3|
-|&mdash;|&mdash;|&mdash;|&mdash;|
-|nodeaffinity|1分|2分|1分|
-|pod affinity|1分|3分|6分|
-|&hellip;|&hellip;|&hellip;|&hellip;|</p>
+<p>看这里有个results,对理解很重要，是一个二维数组：</p>
+
+<table>
+<thead>
+<tr>
+<th>xxx</th>
+<th>node1</th>
+<th>node2</th>
+<th>node3</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>nodeaffinity</td>
+<td>1分</td>
+<td>2分</td>
+<td>1分</td>
+</tr>
+
+<tr>
+<td>pod affinity</td>
+<td>1分</td>
+<td>3分</td>
+<td>6分</td>
+</tr>
+
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
 
 <p>这样reduce时取一列，其实也就是处理一个节点的各项得分</p>
 
