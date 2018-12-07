@@ -296,7 +296,7 @@
       <pubDate>Fri, 11 Jul 2014 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/pro/products/</guid>
-      <description>sealyun公众号 这里你能看到kubernetes一些深入的分析，我们遇到的坑，以及一些小知识 kubernetes离线包安装教程： 安装包中</description>
+      <description>sealyun公众号 这里你能看到 kubernetes一些深入的分析如各块的源码解析 我们遇到的坑,大规模实践k8s时一些小细节 版本选择，各版本</description>
     </item>
     
     <item>
