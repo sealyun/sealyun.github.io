@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="4321">
+<meta itemprop="wordCount" content="4625">
 
 
 
@@ -216,6 +216,7 @@
 <li><a href="#node-affinity-map-reduce">node Affinity map reduce</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#调度队列-schedulingqueue">调度队列 SchedulingQueue</a></li>
 <li><a href="#extender">Extender</a>
 <ul>
 <li><a href="#调度器扩展">调度器扩展</a></li>
@@ -768,6 +769,78 @@ err := config.Reduce(pod, meta, nodeNameToInfo, results[index]);
 </code></pre>
 
 <p>reduce完最终这个节点的得分就等于这个节点各项得分乘以该项权重的和,最后排序选最高分 (一维变0纬)</p>
+
+<h1 id="调度队列-schedulingqueue">调度队列 SchedulingQueue</h1>
+
+<p>scheduler配置里有一个<code>NextPod</code> 方法，获取一个pod，并进行调度：</p>
+
+<pre><code>pod := sched.config.NextPod()
+</code></pre>
+
+<p>配置文件在这里初始化：</p>
+
+<pre><code>pkg/scheduler/factory/factory.go
+NextPod: func() *v1.Pod {
+	return c.getNextPod()
+},
+
+func (c *configFactory) getNextPod() *v1.Pod {
+	pod, err := c.podQueue.Pop()
+	if err == nil {
+		return pod
+	}
+...
+}
+</code></pre>
+
+<p>队列接口：</p>
+
+<pre><code>type SchedulingQueue interface {
+	Add(pod *v1.Pod) error
+	AddIfNotPresent(pod *v1.Pod) error
+	AddUnschedulableIfNotPresent(pod *v1.Pod) error
+	Pop() (*v1.Pod, error)
+	Update(oldPod, newPod *v1.Pod) error
+	Delete(pod *v1.Pod) error
+	MoveAllToActiveQueue()
+	AssignedPodAdded(pod *v1.Pod)
+	AssignedPodUpdated(pod *v1.Pod)
+	WaitingPodsForNode(nodeName string) []*v1.Pod
+	WaitingPods() []*v1.Pod
+}
+</code></pre>
+
+<p>给了两种实现，优先级队列和FIFO ：</p>
+
+<pre><code>func NewSchedulingQueue() SchedulingQueue {
+	if util.PodPriorityEnabled() {
+		return NewPriorityQueue()  # 基于堆排序实现，根据优先级排序
+	}
+	return NewFIFO() # 简单的先进先出
+}
+</code></pre>
+
+<p>队列实现比较简单，不做深入分析, 更重要的是关注队列，调度器，cache之间的关系:</p>
+
+<pre><code>AddFunc:    c.addPodToCache,
+UpdateFunc: c.updatePodInCache,
+DeleteFunc: c.deletePodFromCache,
+            | informer监听,了pod创建事件之后往cache和队列里都更新了
+            V 
+if err := c.schedulerCache.AddPod(pod); err != nil {
+	glog.Errorf(&quot;scheduler cache AddPod failed: %v&quot;, err)
+}
+
+c.podQueue.AssignedPodAdded(pod)
+</code></pre>
+
+<pre><code>+------------+ ADD   +-------------+   POP  +-----------+
+| informer   |------&gt;|  sche Queue |-------&gt;| scheduler |
++------------+   |   +-------------+        +----^------+
+                 +--&gt;+-------------+             |
+                     | sche cache  |&lt;------------+
+                     +-------------+
+</code></pre>
 
 <h1 id="extender">Extender</h1>
 
