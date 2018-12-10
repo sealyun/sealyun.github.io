@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-12-04T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-12-04T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="213">
+<meta itemprop="wordCount" content="317">
 
 
 
@@ -240,6 +240,52 @@ mode: &quot;ipvs&quot;
 <p>可以用下面命令来查看默认配置长什么样,可以用&ndash;component-configs来查看具体哪个组件的配置：</p>
 
 <pre><code>kubeadm config print init-defaults --component-configs KubeProxyConfiguration
+</code></pre>
+
+<p>做HA时出现下面错误：</p>
+
+<pre><code>W1210 20:41:04.485754  110121 strict.go:54] error unmarshaling configuration schema.GroupVersionKind{Group:&quot;kubeadm.k8s.io&quot;, Version:&quot;v1beta1&quot;, Kind:&quot;ClusterConfiguration&quot;}: error unmarshaling JSON: while decoding JSON: json: unknown field &quot;apiServerCertSANs&quot;
+</code></pre>
+
+<p>配置需要改成：</p>
+
+<pre><code>apiVersion: kubeadm.k8s.io/v1beta1
+certificatesDir: /etc/kubernetes/pki
+clusterName: kubernetes
+controlPlaneEndpoint: &quot;&quot;
+controllerManager: {}
+dns:
+  type: CoreDNS
+imageRepository: k8s.gcr.io
+kind: ClusterConfiguration
+kubernetesVersion: v1.13.0
+networking:
+  dnsDomain: cluster.local
+  serviceSubnet: 10.96.0.0/12
+  podSubnet: 100.64.0.0/10
+apiServer:
+        certSANs:
+        - 10.1.86.209
+        - 10.1.86.204
+        - node01
+        - 10.1.86.205
+        - node02
+        - 10.1.86.206
+        - node03
+        - 127.0.0.1
+        extraArgs:
+           etcd-cafile: /etc/kubernetes/pki/cfssl/ca.pem
+           etcd-certfile: /etc/kubernetes/pki/cfssl/client.pem
+           etcd-keyfile: /etc/kubernetes/pki/cfssl/client-key.pem
+etcd:
+    external:
+        caFile: /etc/kubernetes/pki/cfssl/ca.pem
+        certFile: /etc/kubernetes/pki/cfssl/client.pem
+        keyFile: /etc/kubernetes/pki/cfssl/client-key.pem
+        endpoints:
+        - https://10.1.86.204:2379
+        - https://10.1.86.205:2379
+        - https://10.1.86.206:2379
 </code></pre>
 
     </div>
