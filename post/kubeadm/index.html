@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-12-04T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-12-04T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="317">
+<meta itemprop="wordCount" content="324">
 
 
 
@@ -249,7 +249,11 @@ mode: &quot;ipvs&quot;
 
 <p>配置需要改成：</p>
 
-<pre><code>apiVersion: kubeadm.k8s.io/v1beta1
+<pre><code>apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: &quot;ipvs&quot;
+---
+apiVersion: kubeadm.k8s.io/v1beta1
 certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
 controlPlaneEndpoint: &quot;&quot;
