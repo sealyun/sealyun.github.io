@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="4625">
+<meta itemprop="wordCount" content="4766">
 
 
 
@@ -208,7 +208,11 @@
 </ul></li>
 <li><a href="#scheduler">scheduler</a>
 <ul>
-<li><a href="#bind动作">bind动作：</a></li>
+<li><a href="#bind动作">bind动作：</a>
+<ul>
+<li><a href="#bind-流程">bind 流程</a></li>
+<li><a href="#bind-实现">bind 实现</a></li>
+</ul></li>
 <li><a href="#调度算法">调度算法</a>
 <ul>
 <li><a href="#预选">预选</a></li>
@@ -486,7 +490,30 @@ cache.podStates[key] = ps
 if err := sched.config.SchedulerCache.FinishBinding(assumed); 
 </code></pre>
 
-<p>TODO: bind具体做了什么</p>
+<h3 id="bind-流程">bind 流程</h3>
+
+<pre><code>   +----------------+
+   | GetBinder.Bind
+   +----------------+
+       |
+   +-------------------------------------+
+   | 告诉cache bind完成 FinishBinding接口
+   +-------------------------------------+
+       |
+   +-----------------------------------------------------+
+   | 失败了就ForgetPod, 更新一下pod状态为 BindingRejected
+   +-----------------------------------------------------+
+</code></pre>
+
+<h3 id="bind-实现">bind 实现</h3>
+
+<p>最终就是调用了apiserver bind接口:</p>
+
+<pre><code>func (b *binder) Bind(binding *v1.Binding) error {
+	glog.V(3).Infof(&quot;Attempting to bind %v to %v&quot;, binding.Name, binding.Target.Name)
+	return b.Client.CoreV1().Pods(binding.Namespace).Bind(binding)
+}
+</code></pre>
 
 <h2 id="调度算法">调度算法</h2>
 
@@ -707,10 +734,12 @@ for i := range result {
 
 for i := range result {
 	score := result[i].Score
-	score = maxPriority * score / maxCount  # 分值乘以最大优先级是maxPriority = 10，除以最大值赋值给分值 我没明白
+	score = maxPriority * score / maxCount  # 分值乘以最大优先级是maxPriority = 10，除以最大值赋值给分值 这里是做了归一化处理;
 	result[i].Score = score
 }
 </code></pre>
+
+<p>这里做了归一化处理后分值就变成[0,maxPriority]之间了</p>
 
 <pre><code>for i := range priorityConfigs {
 	if priorityConfigs[i].Function != nil {
