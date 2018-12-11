@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 构建生产环境可用的高可用kubernetes集群 | sealos项目地址 特性 支持任意节点的etcd集群自动构建" />
+  <meta name="description" content="kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="构建生产环境可用的高可用kubernetes集群" />
-<meta property="og:description" content="kubernetes集群三步安装 构建生产环境可用的高可用kubernetes集群 | sealos项目地址 特性 支持任意节点的etcd集群自动构建" />
+<meta property="og:description" content="kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/sealos/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="构建生产环境可用的高可用kubernetes集群">
-<meta itemprop="description" content="kubernetes集群三步安装 构建生产环境可用的高可用kubernetes集群 | sealos项目地址 特性 支持任意节点的etcd集群自动构建">
+<meta itemprop="description" content="kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。">
 
 
 <meta itemprop="datePublished" content="2018-10-24T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-10-24T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1052">
+<meta itemprop="wordCount" content="1408">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="构建生产环境可用的高可用kubernetes集群"/>
-<meta name="twitter:description" content="kubernetes集群三步安装 构建生产环境可用的高可用kubernetes集群 | sealos项目地址 特性 支持任意节点的etcd集群自动构建"/>
+<meta name="twitter:description" content="kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -198,7 +198,7 @@
 <li><a href="#特性">特性</a></li>
 <li><a href="#ship-on-docker">ship on docker</a>
 <ul>
-<li><a href="#你必须已经有了-sealyun-kubernetes离线安装包-https-sealyun-com-pro-products-默认支持kubernetes版本v1-12-x-针对特殊版本的适配会切分支处理">你必须已经有了<a href="https://sealyun.com/pro/products/">sealyun kubernetes离线安装包</a> (默认支持kubernetes版本v1.12.x，针对特殊版本的适配会切分支处理)</a></li>
+<li><a href="#你必须已经有了-sealyun-kubernetes离线安装包-https-sealyun-com-pro-products">你必须已经有了<a href="https://sealyun.com/pro/products/">sealyun kubernetes离线安装包</a></a></li>
 </ul></li>
 <li><a href="#启动ansible容器与免密钥设置">启动ansible容器与免密钥设置</a>
 <ul>
@@ -207,6 +207,7 @@
 <li><a href="#修改配置">修改配置</a></li>
 <li><a href="#启动安装">启动安装</a></li>
 <li><a href="#uninstall-all">uninstall all</a></li>
+<li><a href="#新增节点">新增节点</a></li>
 </ul>
 </nav>
   </div>
@@ -217,6 +218,14 @@
       
 
 <h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<p>sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。除kubelet意外其它任何组件均在容器中运行
+这样做的好处有几点：</p>
+
+<ol>
+<li>保证一致性，这样避免掉很多因宿主环境问题导致的安装失败，如keepalived版本问题，系统库问题等等</li>
+<li>统一管理统一监控，这样我们就不需要为如keepalived etcd haproxy单独配置进程级别的监控，仅要监控pod即可，kubelet也会对这些容器做比较好的管理，如自动拉起等</li>
+</ol>
 
 <h1 id="构建生产环境可用的高可用kubernetes集群-sealos项目地址-https-github-com-fanux-sealos">构建生产环境可用的高可用kubernetes集群 | <a href="https://github.com/fanux/sealos">sealos项目地址</a></h1>
 
@@ -230,20 +239,15 @@
 <li><label><input type="checkbox" checked disabled class="task-list-item"> 使用haproxy负载master节点，同样是用static pod，这样可通过统一监控pod状态来监控haproxy是否健康</label></li>
 <li><label><input type="checkbox" checked disabled class="task-list-item"> haproxy节点使用keepalived提供虚拟IP，任意一个节点宕机虚拟IP可实现漂移，不影响node连接master</label></li>
 <li><label><input type="checkbox" checked disabled class="task-list-item"> node节点与kube-proxy配置使用虚拟IP</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> 集群健康检测功能</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> promethus 监控功能，一键安装，无需配置</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> EFK 日志收集功能</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> 分布式HA模式，不用keepalived，减少集群构建出错概率，无VIP切换时间</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> promethus 监控功能，一键安装，无需配置</label></li>
 <li><label><input type="checkbox" checked disabled class="task-list-item"> <a href="https://sealyun.com/pro/istio/">istio 微服务支持</a></label></li>
 </ul>
 
 <h1 id="ship-on-docker">ship on docker</h1>
 
-<h2 id="你必须已经有了-sealyun-kubernetes离线安装包-https-sealyun-com-pro-products-默认支持kubernetes版本v1-12-x-针对特殊版本的适配会切分支处理">你必须已经有了<a href="https://sealyun.com/pro/products/">sealyun kubernetes离线安装包</a> (默认支持kubernetes版本v1.12.x，针对特殊版本的适配会切分支处理)</h2>
+<h2 id="你必须已经有了-sealyun-kubernetes离线安装包-https-sealyun-com-pro-products">你必须已经有了<a href="https://sealyun.com/pro/products/">sealyun kubernetes离线安装包</a></h2>
 
-<p>针对后续高版本会有更多优化</p>
-
-<p>大概原理是为了减少大家搭建ansible和sealos的环境，客户端的东西都放到docker里，把安装包挂载到容器中，然后ansible脚本会把包分发到你在hosts文件中配置的所有服务器上</p>
+<p>原理是为了减少大家搭建ansible和sealos的环境，客户端的东西都放到docker里，把安装包挂载到容器中，然后ansible脚本会把包分发到你在hosts文件中配置的所有服务器上</p>
 
 <p>所以大概分成三步：</p>
 
@@ -259,7 +263,12 @@
 
 <p>找台宿主机如你的PC，或者一台服务器，把下载好的离线包拷贝到/data目录，启动sealos容器，把离线包挂载进去：</p>
 
-<pre><code>docker run --rm -v /data/kube1.12.0.tar.gz:/data/kube1.12.0.tar.gz -it -w /etc/ansible fanux/sealos:v1.12.0-beta bash
+<pre><code>docker run --rm -v /data/kube{k8sversion}.tar.gz:/data/kube{k8sversion}.tar.gz -it -w /etc/ansible fanux/sealos:{k8sversion} bash
+</code></pre>
+
+<p>如安装v1.13.0:</p>
+
+<pre><code>docker run --rm -v /data/kube1.13.0.tar.gz:/data/kube1.13.0.tar.gz -it -w /etc/ansible fanux/sealos:v1.13.0 bash
 </code></pre>
 
 <p>在容器里面执行：</p>
@@ -327,6 +336,36 @@ k8s_crts=[&quot;apiserver.crt&quot;,&quot;apiserver-kubelet-client.crt&quot;,&qu
 <pre><code># ansible-playbook roles/uninstall-all.yaml
 </code></pre>
 
+<h1 id="新增节点">新增节点</h1>
+
+<p>删掉hosts文件中已经安装的node节点配置，加上新的</p>
+
+<p>假如之前的配置是：</p>
+
+<pre><code>[k8s-master]
+10.1.86.204 name=node01 order=1 role=master lb=MASTER lbname=lbmaster priority=100
+10.1.86.205 name=node02 order=2 role=master lb=BACKUP lbname=lbbackup priority=80
+10.1.86.206 name=node03 order=3 role=master 
+
+[k8s-node]
+10.1.86.207 name=node04 role=node
+</code></pre>
+
+<p>现在想安装增加10.1.86.208这个节点，那么删除[k8s-node]项的10.1.86.207 再把208添加上：</p>
+
+<pre><code>[k8s-master]
+10.1.86.204 name=node01 order=1 role=master lb=MASTER lbname=lbmaster priority=100
+10.1.86.205 name=node02 order=2 role=master lb=BACKUP lbname=lbbackup priority=80
+10.1.86.206 name=node03 order=3 role=master 
+
+[k8s-node]
+10.1.86.208 name=node04 role=node
+</code></pre>
+
+<p>再执行<code>ansible-playbook roles/install-kubenode.yaml</code> 即可</p>
+
+<p>同理role下其它yaml文件也可执行, 如单独安装keepalived，单独安装etcd，haproxy等</p>
+
     </div>
 
     
@@ -384,7 +423,7 @@ k8s_crts=[&quot;apiserver.crt&quot;,&quot;apiserver-kubelet-client.crt&quot;,&qu
     id: '2018-10-24 10:54:24 \x2b0200 \x2b0200',
     title: '构建生产环境可用的高可用kubernetes集群',
     link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 构建生产环境可用的高可用kubernetes集群 | sealos项目地址 特性 支持任意节点的etcd集群自动构建',
+    desc: 'kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
