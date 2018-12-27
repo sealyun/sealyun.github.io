@@ -6,10 +6,19 @@
     <description>Recent content in DotScale on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Dec 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 25 Dec 2018 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/dotscale/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kube-scheduler定制，支持深度学习批处理任务调度</title>
+      <link>https://sealyun.com/post/kube-batch/</link>
+      <pubDate>Tue, 25 Dec 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kube-batch/</guid>
+      <description>kubernetes集群三步安装 什么是批处理任务 深度学习中经常会出现多机多卡的任务，也就是同事会起多个pod，但是这多个pod属于同一个任务</description>
+    </item>
     
     <item>
       <title>kubeadm杂谈</title>
