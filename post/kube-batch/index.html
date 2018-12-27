@@ -595,29 +595,26 @@ func IsBatch(pod *v1.Pod) bool {
 
 <p><a href="https://github.com/sealyun/GPU/releases">资源包</a></p>
 
-<p>这里包含docker nv-docker GPU-device plugin</p>
+<p>这里包含docker nv-docker GPU-device plugin
+install.sh&hellip;</p>
 
-<pre><code>install.sh...
+<p>/etc/docker/daemon.json</p>
 
-/etc/docker/daemon.json
-</code></pre>
-
-<p>[root@compute-gpu006 ~]# cat /etc/docker/daemon.json
+<pre><code>[root@compute-gpu006 ~]# cat /etc/docker/daemon.json
 {
-    &ldquo;default-runtime&rdquo;:&ldquo;nvidia&rdquo;,
-    &ldquo;runtimes&rdquo;: {
-        &ldquo;nvidia&rdquo;: {
-            &ldquo;path&rdquo;: &ldquo;/usr/bin/nvidia-container-runtime&rdquo;,
-            &ldquo;runtimeArgs&rdquo;: []
+    &quot;default-runtime&quot;:&quot;nvidia&quot;,
+    &quot;runtimes&quot;: {
+        &quot;nvidia&quot;: {
+            &quot;path&quot;: &quot;/usr/bin/nvidia-container-runtime&quot;,
+            &quot;runtimeArgs&quot;: []
         }
     }
-}</p>
-
-<pre><code>
-kubectl describe node xxx:
+}
 </code></pre>
 
-<p>Capacity:
+<p>kubectl describe node xxx:</p>
+
+<pre><code>Capacity:
  cpu:                72
  ephemeral-storage:  222779Mi
  hugepages-1Gi:      0
@@ -632,9 +629,8 @@ Allocatable:
  hugepages-2Mi:      2Gi
  memory:             788815132Ki
  nvidia.com/gpu:     2
- pods:               110</p>
-
-<pre><code></code></pre>
+ pods:               110
+</code></pre>
 
 <h1 id="总结">总结</h1>
 
