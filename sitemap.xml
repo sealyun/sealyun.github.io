@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>https://sealyun.com/post/docs/</loc>
+    <lastmod>2018-12-11T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/post/kubeadm/</loc>
     <lastmod>2018-12-04T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>

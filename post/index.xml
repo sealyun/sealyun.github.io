@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>sealyun kubernetes离线包文档</title>
+      <link>https://sealyun.com/post/docs/</link>
+      <pubDate>Tue, 11 Dec 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/docs/</guid>
+      <description>前言 kubernetes安装包store 官方销售市场：http://store.lameleg.com/ 阿里云市场购买下载地址列表：http</description>
+    </item>
+    
+    <item>
       <title>kubeadm杂谈</title>
       <link>https://sealyun.com/post/kubeadm/</link>
       <pubDate>Tue, 04 Dec 2018 10:54:24 +0200</pubDate>
