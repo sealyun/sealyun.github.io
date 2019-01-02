@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2019-01-01T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-01-01T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1105">
+<meta itemprop="wordCount" content="1485">
 
 
 
@@ -204,7 +204,7 @@
 <li><a href="#告警配置">告警配置</a>
 <ul>
 <li><a href="#alert-manager配置">alert manager配置</a></li>
-<li><a href="#高静规则配置">高静规则配置</a></li>
+<li><a href="#告警规则配置">告警规则配置</a></li>
 </ul></li>
 <li><a href="#公众号">公众号：</a></li>
 </ul>
@@ -444,9 +444,96 @@ kind: Secret
         send_resolved: true
 </code></pre>
 
-<h2 id="高静规则配置">高静规则配置</h2>
+<p>delete掉老的secret，根据自己的配置重新生成secret即可</p>
 
-<p>TODO 待续</p>
+<h2 id="告警规则配置">告警规则配置</h2>
+
+<p>通过configmap下发告警规则, 用户仅需要写下面这种configmap即可</p>
+
+<pre><code>kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: prometheus-example-rules
+  labels:
+    role: prometheus-rulefiles    # 需要加这两个标签，operator才能识别到
+    prometheus: example
+data:
+  example.rules.yaml: |+
+    groups:
+    - name: ./example.rules
+      rules:
+      - alert: ExampleAlert
+        expr: vector(1)
+</code></pre>
+
+<p>operator定义了一个叫Prometheus的CRD，告诉operator告警规则去哪些configmap取等等</p>
+
+<pre><code>apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: example
+spec:
+  replicas: 2
+  alerting:
+    alertmanagers:
+    - namespace: default
+      name: alertmanager-example
+      port: web
+  serviceMonitorSelector:
+    matchLabels:
+      team: frontend
+  resources:
+    requests:
+      memory: 400Mi
+  ruleSelector:             # 告警规则的label
+    matchLabels:
+      role: prometheus-rulefiles  # 上面configmap需要这俩label才可以
+      prometheus: example
+</code></pre>
+
+<p>可以看一个k8s已经部署的告警规则：</p>
+
+<p>数据内容有点多，我就不全贴出来了</p>
+
+<pre><code>kubectl get configmap prometheus-k8s-rulefiles-0 -n monitoring -o yaml
+kind: ConfigMap
+metadata:
+  creationTimestamp: &quot;2018-12-05T11:55:18Z&quot;
+  labels:
+    managed-by: prometheus-operator   # 这里
+    prometheus-name: k8s
+  name: prometheus-k8s-rulefiles-0
+</code></pre>
+
+<p>不重要的内容我就删掉了</p>
+
+<pre><code>[root@dev-86-201 ~]# kubectl get Prometheus k8s -n monitoring -o yaml
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  generation: 1
+  labels:
+    prometheus: k8s
+  name: k8s
+  namespace: monitoring
+spec:
+  alerting:
+    alertmanagers:
+    - name: alertmanager-main
+      namespace: monitoring
+      port: web
+  baseImage: quay.io/prometheus/prometheus
+  nodeSelector:
+    beta.kubernetes.io/os: linux
+  replicas: 2
+  resources:
+    requests:
+      memory: 400Mi
+  ruleSelector:
+    matchLabels:
+      prometheus: k8s   # 这里，貌似与上面匹配不上。。。
+      role: alert-rules
+</code></pre>
 
 <p>探讨可加QQ群：98488045</p>
 
