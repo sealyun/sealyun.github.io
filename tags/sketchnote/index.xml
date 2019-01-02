@@ -6,10 +6,19 @@
     <description>Recent content in Sketchnote on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Dec 2018 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 01 Jan 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/sketchnote/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用prometheus operator监控envoy</title>
+      <link>https://sealyun.com/post/prometheus-operator-envoy/</link>
+      <pubDate>Tue, 01 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/prometheus-operator-envoy/</guid>
+      <description>kubernetes集群三步安装 概述 prometheus operator应当是使用监控系统的最佳实践了，首先它一键构建整个监控系统，通过一些无侵入的手段去配置</description>
+    </item>
     
     <item>
       <title>kube-scheduler定制，支持深度学习批处理任务调度</title>
