@@ -6,10 +6,19 @@
     <description>Recent content in DotScale on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Jan 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 06 Jan 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/dotscale/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>关于sealyun营销系统</title>
+      <link>https://sealyun.com/post/referrer/</link>
+      <pubDate>Sun, 06 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/referrer/</guid>
+      <description>概述 任何用户都可以通过sealyun赚钱，很方便的获取到一个分享链接，如果别的用户是通过你的分享链接购买商品的那么您将获得一笔不错的提成，目</description>
+    </item>
     
     <item>
       <title>使用prometheus operator监控envoy</title>
@@ -180,15 +189,6 @@
       
       <guid>https://sealyun.com/post/sealyun-k8s-offline/</guid>
       <description>k8s离线包解析 产品地址 鸣谢 大家好，首先感谢大家对我们产品的支持，特别是一些老客户的持续支持，让我可以有动力把这个事情持续进行下去。 感谢大家</description>
-    </item>
-    
-    <item>
-      <title>关于sealyun营销系统</title>
-      <link>https://sealyun.com/post/referrer/</link>
-      <pubDate>Sat, 06 Jan 2018 10:54:24 +0200</pubDate>
-      
-      <guid>https://sealyun.com/post/referrer/</guid>
-      <description>概述 任何用户都可以通过sealyun赚钱，很方便的获取到一个分享链接，如果别的用户是通过你的分享链接购买商品的那么您将获得一笔不错的提成，目</description>
     </item>
     
     <item>
