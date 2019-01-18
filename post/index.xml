@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 06 Jan 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 10 Jan 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>keepalived in docker</title>
+      <link>https://sealyun.com/post/keepalived/</link>
+      <pubDate>Thu, 10 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/keepalived/</guid>
+      <description>kubernetes集群三步安装 概述 目前keepalived作为kubernetes集群高可用的重要组件，保障虚拟ip可以在多个主机间漂移，</description>
+    </item>
     
     <item>
       <title>关于sealyun营销系统</title>
@@ -81,15 +90,6 @@
       
       <guid>https://sealyun.com/post/sealos/</guid>
       <description>kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。</description>
-    </item>
-    
-    <item>
-      <title>keepalived in docker</title>
-      <link>https://sealyun.com/post/keepalived/</link>
-      <pubDate>Wed, 10 Oct 2018 10:54:24 +0200</pubDate>
-      
-      <guid>https://sealyun.com/post/keepalived/</guid>
-      <description>kubernetes集群三步安装 概述 目前keepalived作为kubernetes集群高可用的重要组件，保障虚拟ip可以在多个主机间漂移，</description>
     </item>
     
     <item>
