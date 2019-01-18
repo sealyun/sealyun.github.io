@@ -84,6 +84,15 @@
     </item>
     
     <item>
+      <title>keepalived in docker</title>
+      <link>https://sealyun.com/post/keepalived/</link>
+      <pubDate>Wed, 10 Oct 2018 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/keepalived/</guid>
+      <description>kubernetes集群三步安装 概述 目前keepalived作为kubernetes集群高可用的重要组件，保障虚拟ip可以在多个主机间漂移，</description>
+    </item>
+    
+    <item>
       <title>基于drone构建CI/CD系统,对接k8s</title>
       <link>https://sealyun.com/post/ci-cd/</link>
       <pubDate>Wed, 10 Oct 2018 10:54:24 +0200</pubDate>
