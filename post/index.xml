@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Jan 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jan 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>rook使用教程，快速编排ceph</title>
+      <link>https://sealyun.com/post/rook/</link>
+      <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/rook/</guid>
+      <description>kubernetes集群三步安装 安装 git clone https://github.com/rook/rook cd cluster/examples/kubernetes/ceph kubectl create -f operator.yaml 查看operator是否成功： [root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system NAME READY STATUS RESTARTS AGE rook-ceph-agent-5z6p7 1/1 Running 0 88m rook-ceph-agent-6rj7l 1/1 Running 0 88m rook-ceph-agent-8qfpj 1/1 Running 0 88m rook-ceph-agent-xbhzh</description>
+    </item>
     
     <item>
       <title>keepalived in docker</title>
