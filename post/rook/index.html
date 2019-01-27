@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2019-01-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-01-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1144">
+<meta itemprop="wordCount" content="1407">
 
 
 
@@ -198,6 +198,11 @@
 <ul>
 <li><a href="#创建pool">创建pool</a></li>
 <li><a href="#创建pvc">创建pvc</a></li>
+</ul></li>
+<li><a href="#ceph集群监控">ceph集群监控</a>
+<ul>
+<li><a href="#启动ceph-prometheus">启动ceph prometheus</a></li>
+<li><a href="#导入dashboard">导入dashboard</a></li>
 </ul></li>
 <li><a href="#总结">总结</a></li>
 <li><a href="#公众号">公众号：</a>
@@ -393,6 +398,42 @@ spec:
 NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 wordpress         NodePort    10.109.30.99   &lt;none&gt;        80:30130/TCP   148m
 </code></pre>
+
+<h1 id="ceph集群监控">ceph集群监控</h1>
+
+<p>通过prometheus operator配合rook可以快速构建ceph集群的监控，sealyun安装包中已经自带了prometheus operator，所以直接干即可</p>
+
+<h2 id="启动ceph-prometheus">启动ceph prometheus</h2>
+
+<p>注意这里是为ceph单独起了一个prometheus，这样做挺好，因为毕竟可以缓解prometheus单点的压力</p>
+
+<pre><code>cd cluster/examples/kubernetes/ceph/monitoring
+kubectl create -f service-monitor.yaml
+kubectl create -f prometheus.yaml
+kubectl create -f prometheus-service.yaml
+</code></pre>
+
+<p>然后我们的grafana在30000端口，先在grafana上添加数据源</p>
+
+<p><img src="/ceph/data-source.png" alt="" /></p>
+
+<p>数据源要配置成：</p>
+
+<pre><code>http://rook-prometheus.rook-ceph.svc.cluster.local:9090
+</code></pre>
+
+<h2 id="导入dashboard">导入dashboard</h2>
+
+<p><img src="/ceph/import1.png" alt="" />
+<img src="/ceph/import2.png" alt="" />
+<img src="/ceph/import3.png" alt="" /></p>
+
+<p>还有几个别的dashboard可以导入：
+<a href="https://grafana.com/dashboards/2842">Ceph - Cluster</a>
+<a href="https://grafana.com/dashboards/5336">Ceph - OSD</a>
+<a href="https://grafana.com/dashboards/5342">Ceph - Pools</a></p>
+
+<p>再次感叹生态之强大</p>
 
 <h1 id="总结">总结</h1>
 
