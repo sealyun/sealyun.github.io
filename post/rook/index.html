@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2019-01-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-01-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2786">
+<meta itemprop="wordCount" content="2849">
 
 
 
@@ -199,6 +199,7 @@
 <li><a href="#创建pool">创建pool</a></li>
 <li><a href="#创建pvc">创建pvc</a></li>
 </ul></li>
+<li><a href="#外部访问ceph集群">外部访问ceph集群</a></li>
 <li><a href="#ceph集群监控">ceph集群监控</a>
 <ul>
 <li><a href="#启动ceph-prometheus">启动ceph prometheus</a></li>
@@ -408,6 +409,15 @@ spec:
 [root@dev-86-201 kubernetes]# kubectl get svc
 NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 wordpress         NodePort    10.109.30.99   &lt;none&gt;        80:30130/TCP   148m
+</code></pre>
+
+<h1 id="外部访问ceph集群">外部访问ceph集群</h1>
+
+<p>cluster.yaml里有配置，可配置成共享宿主机网络，这样外面可直接连接ceph集群：</p>
+
+<pre><code>  network:
+    # toggle to use hostNetwork
+    hostNetwork: false
 </code></pre>
 
 <h1 id="ceph集群监控">ceph集群监控</h1>
