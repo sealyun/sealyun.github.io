@@ -97,7 +97,7 @@
 
 <meta itemprop="datePublished" content="2019-01-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-01-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2972">
+<meta itemprop="wordCount" content="3203">
 
 
 
@@ -205,17 +205,20 @@
 <li><a href="#启动ceph-prometheus">启动ceph prometheus</a></li>
 <li><a href="#导入dashboard">导入dashboard</a></li>
 </ul></li>
+<li><a href="#增加节点-删除节点">增加节点,删除节点</a></li>
 <li><a href="#性能测试">性能测试</a>
 <ul>
 <li><a href="#测试环境">测试环境</a></li>
 <li><a href="#测试过程">测试过程</a></li>
 </ul></li>
+<li><a href="#bluestore方式">bluestore方式</a></li>
 <li><a href="#总结">总结</a></li>
 <li><a href="#常见问题">常见问题</a>
 <ul>
 <li><a href="#ceph-cluster无法启动">ceph cluster无法启动</a></li>
 <li><a href="#rook删除pvc-pv依然存在">rook删除PVC PV依然存在</a></li>
 <li><a href="#rook-ceph-namespace无法删除-cephclusters-ceph-rook-io-crd无法删除">rook-ceph namespace无法删除 cephclusters.ceph.rook.io CRD无法删除</a></li>
+<li><a href="#使用宿主机网络时集群无法正常启动">使用宿主机网络时集群无法正常启动</a></li>
 </ul></li>
 <li><a href="#公众号">公众号：</a>
 <ul>
@@ -459,6 +462,28 @@ kubectl create -f prometheus-service.yaml
 
 <p>再次感叹生态之强大</p>
 
+<h1 id="增加节点-删除节点">增加节点,删除节点</h1>
+
+<pre><code>kubectl edit cephcluster rook-ceph -n rook-ceph
+</code></pre>
+
+<p>把useAllNodes设置成false，然后在nodes列表里增加节点名即可，保存退出后会自动增加ceph节点</p>
+
+<pre><code>    nodes:
+    - config: null
+      name: izj6c3afuzdjhtkj156zt0z
+      resources: {}
+    - config: null
+      name: izj6cg4wnagly61eny0hy9z
+      resources: {}
+    - config: null
+      name: izj6cg4wnagly61eny0hyaz
+      resources: {}
+    useAllDevices: false
+</code></pre>
+
+<p>删除同理，直接edit删除即可，十分强大</p>
+
 <h1 id="性能测试">性能测试</h1>
 
 <p>这里着重说明测试方法，给出在我的场景下的测试结果，用户应当根据自己的场景进行自己的测试。</p>
@@ -655,6 +680,29 @@ mount /dev/rbd0 /data1
 touch /data1/test  # 然后对这个文件测试，我这边测试结果与容器内差不多
 </code></pre>
 
+<h1 id="bluestore方式">bluestore方式</h1>
+
+<p>直接使用裸盘而不使用分区或者文件系统的方式部署ceph</p>
+
+<pre><code>storage:
+  useAllNodes: false
+  useAllDevices: false
+  deviceFilter:
+  location:
+  config:
+    storeType: bluestore
+  nodes:
+  - name: &quot;ke-dev1-worker1&quot;
+    devices:
+    - name: &quot;vde&quot;
+  - name: &quot;ke-dev1-worker3&quot;
+    devices:
+    - name: &quot;vde&quot;
+  - name: &quot;ke-dev1-worker4&quot;
+    devices:
+    - name: &quot;vdf&quot;
+</code></pre>
+
 <h1 id="总结">总结</h1>
 
 <p>分布式存储在容器集群中充当非常重要的角色，使用容器集群一个非常重要的理念就是把集群当成一个整体使用，如果你在使用中还关心单个主机，比如调度到某个节点，</p>
@@ -709,6 +757,19 @@ rook-ceph     Terminating   17h
 <p>把CRD metadata finalizers下面的内容删了，CRD就会自动删除，然后只要rook-ceph namespace里没有东西就会自动清理掉</p>
 
 <pre><code>$ kubectl edit crd cephclusters.ceph.rook.io
+</code></pre>
+
+<h2 id="使用宿主机网络时集群无法正常启动">使用宿主机网络时集群无法正常启动</h2>
+
+<p>集群中单节点时把mon设置成1即可</p>
+
+<pre><code>  mon:
+    count: 1
+    allowMultiplePerNode: true
+
+  network:
+    # toggle to use hostNetwork
+    hostNetwork: true
 </code></pre>
 
 <p>探讨可加QQ群：98488045</p>
