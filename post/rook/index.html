@@ -38,7 +38,7 @@
 
 
 <meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 安装 git clone https://github.com/rook/rook cd cluster/examples/kubernetes/ceph kubectl create -f operator.yaml 查看operator是否成功： [root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system NAME READY STATUS RESTARTS AGE rook-ceph-agent-5z6p7 1/1 Running 0 88m rook-ceph-agent-6rj7l 1/1 Running 0 88m rook-ceph-agent-8qfpj 1/1 Running 0 88m rook-ceph-agent-xbhzh" />
+  <meta name="description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -71,7 +71,7 @@
 
 
 <meta property="og:title" content="rook使用教程，快速编排ceph" />
-<meta property="og:description" content="kubernetes集群三步安装 安装 git clone https://github.com/rook/rook cd cluster/examples/kubernetes/ceph kubectl create -f operator.yaml 查看operator是否成功： [root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system NAME READY STATUS RESTARTS AGE rook-ceph-agent-5z6p7 1/1 Running 0 88m rook-ceph-agent-6rj7l 1/1 Running 0 88m rook-ceph-agent-8qfpj 1/1 Running 0 88m rook-ceph-agent-xbhzh" />
+<meta property="og:description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/rook/" />
 
@@ -92,19 +92,19 @@
 
 
 <meta itemprop="name" content="rook使用教程，快速编排ceph">
-<meta itemprop="description" content="kubernetes集群三步安装 安装 git clone https://github.com/rook/rook cd cluster/examples/kubernetes/ceph kubectl create -f operator.yaml 查看operator是否成功： [root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system NAME READY STATUS RESTARTS AGE rook-ceph-agent-5z6p7 1/1 Running 0 88m rook-ceph-agent-6rj7l 1/1 Running 0 88m rook-ceph-agent-8qfpj 1/1 Running 0 88m rook-ceph-agent-xbhzh">
+<meta itemprop="description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys">
 
 
 <meta itemprop="datePublished" content="2019-01-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-01-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2849">
+<meta itemprop="wordCount" content="2972">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="rook使用教程，快速编排ceph"/>
-<meta name="twitter:description" content="kubernetes集群三步安装 安装 git clone https://github.com/rook/rook cd cluster/examples/kubernetes/ceph kubectl create -f operator.yaml 查看operator是否成功： [root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system NAME READY STATUS RESTARTS AGE rook-ceph-agent-5z6p7 1/1 Running 0 88m rook-ceph-agent-6rj7l 1/1 Running 0 88m rook-ceph-agent-8qfpj 1/1 Running 0 88m rook-ceph-agent-xbhzh"/>
+<meta name="twitter:description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -236,6 +236,9 @@
 <blockquote>
 <p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
 </blockquote>
+
+<p>本文中需要用的yaml文件和Dockerfile等都放到这个<a href="https://github.com/sealyun/rook">仓库</a>
+包含：rook operator ceph cluster storage class配置，mysql wordpress事例，性能测试fio Dockerfile与yaml等</p>
 
 <h1 id="安装">安装</h1>
 
@@ -642,6 +645,8 @@ Disk stats (read/write):
 
 <p>这里看到随机读写性能损失约 27%多，这个结论并没有太多参考意义，用户应当根据自己实际场景进行测试</p>
 
+<p>改用ceph共享宿主机网络模式进行测试，结果差不多，并无性能提升</p>
+
 <p>要想排除在容器内测试因素的影响，也可以直接在宿主机上对块设备进行测试，做法很简单，可以把块挂到别的目录上如：</p>
 
 <pre><code>umount /dev/rbd0
@@ -768,7 +773,7 @@ rook-ceph     Terminating   17h
     id: '2019-01-23 10:54:24 \x2b0200 \x2b0200',
     title: 'rook使用教程，快速编排ceph',
     link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 安装 git clone https:\/\/github.com\/rook\/rook cd cluster\/examples\/kubernetes\/ceph kubectl create -f operator.yaml 查看operator是否成功： [root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system NAME READY STATUS RESTARTS AGE rook-ceph-agent-5z6p7 1\/1 Running 0 88m rook-ceph-agent-6rj7l 1\/1 Running 0 88m rook-ceph-agent-8qfpj 1\/1 Running 0 88m rook-ceph-agent-xbhzh',
+    desc: 'kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys',
     owner: 'fanux',
     repo: 'fanux.github.io',
     oauth: {
