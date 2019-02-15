@@ -7,27 +7,6 @@
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?2803648cc5852dd3e9e46bbd0bf63366";
-          var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119962244-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-119962244-1');
-</script>
-
-
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
@@ -37,21 +16,17 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译" />
-
-  <meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="fanux" /><meta name="description" content="kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://sealyun.com/post/kube-scheduler-source-code/" />
-
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -59,37 +34,16 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="kubernetes源码分析之kube-scheduler - 从代码看原理" />
 <meta property="og:description" content="kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/kube-scheduler-source-code/" />
-
-
-
 <meta property="article:published_time" content="2018-11-06T10:54:24&#43;02:00"/>
-
 <meta property="article:modified_time" content="2018-11-06T10:54:24&#43;02:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="kubernetes源码分析之kube-scheduler - 从代码看原理">
 <meta itemprop="description" content="kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译">
@@ -97,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-11-06T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-11-06T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="4774">
+<meta itemprop="wordCount" content="5180">
 
 
 
@@ -137,7 +91,7 @@
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
-      </a><a href="/pro/istio">
+      </a><a href="">
         <li class="mobile-menu-item">Istio下载</li>
       </a><a href="/pro/products">
         <li class="mobile-menu-item">Kubernetes下载</li>
@@ -161,7 +115,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/pro/istio">Istio下载</a>
+        <a class="menu-item-link" href="">Istio下载</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/pro/products">Kubernetes下载</a>
       </li>
@@ -181,15 +135,11 @@
         <span class="post-time"> 2018-11-06 </span>
         
         
-        
       </div>
     </header>
 
-    
-    
-<div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
@@ -240,8 +190,6 @@
 </nav>
   </div>
 </div>
-
-    
     <div class="post-content">
       
 
@@ -256,17 +204,25 @@
 <p>我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译k8s代码，当然官方脚本在编译所有项目或者夸平台编译以及realse时还是挺有用的。</p>
 
 <p>在容器中编译：</p>
-
-<pre><code>docker run -v /work/src/k8s.io/kubernetes:/go/src/k8s.io/kubernetes golang:1.11.2 bash
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker run -v /work/src/k8s.io/kubernetes:/go/src/k8s.io/kubernetes golang:1.11.2 bash</pre></td></tr></table>
+</div>
+</div>
 <p>在容器中可以保证环境干净</p>
 
 <p>进入bash后直接进入kube-scheduler的主目录编译即可</p>
-
-<pre><code>cd cmd/kube-scheduler &amp;&amp; go build
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd cmd/kube-scheduler &amp;&amp; go build</pre></td></tr></table>
+</div>
+</div>
 <p>二进制就产生了。。。</p>
 
 <h3 id="源码编译接入ci-cd">源码编译接入CI/CD</h3>
@@ -276,19 +232,49 @@
 <ol>
 <li>我把vendor打到编译的基础镜像里了，因为vendor大而且不经常更新</li>
 </ol>
-
-<pre><code>$ cat Dockerfile-build1.12.2
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ cat Dockerfile-build1.12.2
 FROM golang:1.11.2
-COPY vendor/ /vendor
-</code></pre>
-
+COPY vendor/ /vendor</pre></td></tr></table>
+</div>
+</div>
 <p>然后代码里的vendor就可以删了</p>
 
 <ol>
 <li>.drone.yml</li>
 </ol>
-
-<pre><code>workspace:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">workspace:
   base: /go/src/k8s.io
   path: kubernetes
 
@@ -308,44 +294,72 @@ pipeline:
         dockerfile: dockerfile/Dockerfile-kube-scheduler
         insecure: true
         when:
-            event: [push, tag]
-</code></pre>
-
+            event: [push, tag]</pre></td></tr></table>
+</div>
+</div>
 <ol>
 <li>Dockerfile 静态编译连基础镜像都省了</li>
 </ol>
-
-<pre><code>$ cat dockerfile/Dockerfile-kube-scheduler
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ cat dockerfile/Dockerfile-kube-scheduler
 FROM scratch
 COPY  _output/local/bin/linux/amd64/kube-scheduler /
-CMD [&quot;/kube-scheduler&quot;]
-</code></pre>
-
+CMD [&#34;/kube-scheduler&#34;]</pre></td></tr></table>
+</div>
+</div>
 <p>对于kubeadm这种二进制交付的，可直接编译然后传到nexus上, 通过drone deploy事件选择是不是要编译kubeadm：</p>
-
-<pre><code>    build_kubeadm:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    build_kubeadm:
         image: fanux/kubernetes-build:1.12.2-beta.3
         commands:
            - make all WHAT=cmd/kube-kubeadm GOFLAGS=-v
            - curl -v -u container:container --upload-file kubeadm http://172.16.59.153:8081/repository/kubernetes/kubeadm/
         when:
             event: deployment
-            enviroment: kubeadm
-</code></pre>
-
+            enviroment: kubeadm</pre></td></tr></table>
+</div>
+</div>
 <h3 id="直接go-build的大坑">直接go build的大坑</h3>
 
 <p>发现build完的kubeadm二进制并不能用，可能是build时选用的基础镜像的问题，也可能是没去生成一些代码导致的问题</p>
-
-<pre><code>[signal SIGSEGV: segmentation violation code=0x1 addr=0x63 pc=0x7f2b7f5f057c]
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[signal SIGSEGV: segmentation violation code=0x1 addr=0x63 pc=0x7f2b7f5f057c]
 
 runtime stack:
 runtime.throw(0x17c74a8, 0x2a)
 	/usr/local/go/src/runtime/panic.go:608 +0x72
 runtime.sigpanic()
-	/usr/local/go/src/runtime/signal_unix.go:374 +0x2f2
-</code></pre>
-
+	/usr/local/go/src/runtime/signal_unix.go:374 +0x2f2</pre></td></tr></table>
+</div>
+</div>
 <p>后面再补上CD的配置</p>
 
 <p>如此我编译scheduler代码大约40秒左右，如vendor可软连接还可节省十几秒</p>
@@ -353,8 +367,22 @@ runtime.sigpanic()
 <h1 id="调度器cache">调度器cache</h1>
 
 <h2 id="cache状态机">cache状态机</h2>
-
-<pre><code>   +-------------------------------------------+  +----+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   +-------------------------------------------+  +----+
    |                            Add            |  |    |
    |                                           |  |    | Update
    +      Assume                Add            v  v    |
@@ -364,9 +392,9 @@ Initial +--------&gt; Assumed +------------+---&gt; Added &lt;--+
    |                |   |           Add |       | Remove
    |                |   |               |       |
    |                |   |               +       |
-   +----------------+   +-----------&gt; Expired   +----&gt; Deleted
-</code></pre>
-
+   +----------------+   +-----------&gt; Expired   +----&gt; Deleted</pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>Assume 尝试调度，会把node信息聚合到node上，如pod require多少CPU内存，那么加到node上，如果超时了需要重新减掉</li>
 <li>AddPod 会检测是不是已经尝试调度了该pod，校验是否过期,如果过期了会被重新添加</li>
@@ -375,8 +403,29 @@ Initial +--------&gt; Assumed +------------+---&gt; Added &lt;--+
 </ul>
 
 <h2 id="cache实现">cache实现</h2>
-
-<pre><code>type schedulerCache struct {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type schedulerCache struct {
 	stop   &lt;-chan struct{}
 	ttl    time.Duration
 	period time.Duration
@@ -393,64 +442,137 @@ Initial +--------&gt; Assumed +------------+---&gt; Added &lt;--+
 	pdbs      map[string]*policy.PodDisruptionBudget
 	// A map from image name to its imageState.
 	imageStates map[string]*imageState
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>这里存储了基本调度所需要的所有信息</p>
 
 <p>以AddPod接口为例，本质上就是把监听到的一个pod放到了cache的map里：</p>
-
-<pre><code>cache.addPod(pod)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cache.addPod(pod)
 ps := &amp;podState{
 	pod: pod,
 }
-cache.podStates[key] = ps
-</code></pre>
-
+cache.podStates[key] = ps</pre></td></tr></table>
+</div>
+</div>
 <p>node Tree
 节点信息有这样一个结构体保存：</p>
-
-<pre><code>type NodeTree struct {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type NodeTree struct {
 	tree      map[string]*nodeArray // a map from zone (region-zone) to an array of nodes in the zone.
 	zones     []string              // a list of all the zones in the tree (keys)
 	zoneIndex int
 	NumNodes  int
 	mu        sync.RWMutex
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>cache 运行时会循环清理过期的assume pod</p>
-
-<pre><code>func (cache *schedulerCache) run() {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">func (cache *schedulerCache) run() {
 	go wait.Until(cache.cleanupExpiredAssumedPods, cache.period, cache.stop)
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <h1 id="scheduler">scheduler</h1>
 
 <p>scheduler里面最重要的两个东西：cache 和调度算法</p>
-
-<pre><code>type Scheduler struct {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type Scheduler struct {
 	config *Config  -------&gt; SchedulerCache
                        |
                        +---&gt; Algorithm
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>等cache更新好了，调度器就是调度一个pod:</p>
-
-<pre><code>func (sched *Scheduler) Run() {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">func (sched *Scheduler) Run() {
 	if !sched.config.WaitForCacheSync() {
 		return
 	}
 
 	go wait.Until(sched.scheduleOne, 0, sched.config.StopEverything)
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>核心逻辑来了：</p>
-
-<pre><code>   +-------------+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   +-------------+
    | 获取一个pod |
    +-------------+
           |
@@ -477,29 +599,58 @@ cache.podStates[key] = ps
           |
    +----------------+
    | 暴露一些metric |
-   +----------------+
-</code></pre>
-
+   +----------------+</pre></td></tr></table>
+</div>
+</div>
 <h2 id="bind动作">bind动作：</h2>
-
-<pre><code>err := sched.bind(assumedPod, &amp;v1.Binding{
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">err := sched.bind(assumedPod, &amp;v1.Binding{
 	ObjectMeta: metav1.ObjectMeta{Namespace: assumedPod.Namespace, Name: assumedPod.Name, UID: assumedPod.UID},
 	Target: v1.ObjectReference{
-		Kind: &quot;Node&quot;,
+		Kind: &#34;Node&#34;,
 		Name: suggestedHost,
 	},
-})
-</code></pre>
-
+})</pre></td></tr></table>
+</div>
+</div>
 <p>先去bind pod，然后告诉cache bind结束</p>
-
-<pre><code>err := sched.config.GetBinder(assumed).Bind(b)
-if err := sched.config.SchedulerCache.FinishBinding(assumed); 
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">err := sched.config.GetBinder(assumed).Bind(b)
+if err := sched.config.SchedulerCache.FinishBinding(assumed); </pre></td></tr></table>
+</div>
+</div>
 <h3 id="bind-流程">bind 流程</h3>
-
-<pre><code>   +----------------+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   +----------------+
    | GetBinder.Bind
    +----------------+
        |
@@ -509,34 +660,70 @@ if err := sched.config.SchedulerCache.FinishBinding(assumed);
        |
    +-----------------------------------------------------+
    | 失败了就ForgetPod, 更新一下pod状态为 BindingRejected
-   +-----------------------------------------------------+
-</code></pre>
-
+   +-----------------------------------------------------+</pre></td></tr></table>
+</div>
+</div>
 <h3 id="bind-实现">bind 实现</h3>
 
 <p>最终就是调用了apiserver bind接口:</p>
-
-<pre><code>func (b *binder) Bind(binding *v1.Binding) error {
-	glog.V(3).Infof(&quot;Attempting to bind %v to %v&quot;, binding.Name, binding.Target.Name)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">func (b *binder) Bind(binding *v1.Binding) error {
+	glog.V(3).Infof(&#34;Attempting to bind %v to %v&#34;, binding.Name, binding.Target.Name)
 	return b.Client.CoreV1().Pods(binding.Namespace).Bind(binding)
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <h2 id="调度算法">调度算法</h2>
-
-<pre><code>▾ algorithm/
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">▾ algorithm/
   ▸ predicates/  预选
-  ▸ priorities/  优选
-</code></pre>
-
+  ▸ priorities/  优选</pre></td></tr></table>
+</div>
+</div>
 <p>现在最重要的就是选节点的实现</p>
-
-<pre><code>suggestedHost, err := sched.schedule(pod)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">suggestedHost, err := sched.schedule(pod)</pre></td></tr></table>
+</div>
+</div>
 <p>也就是调度算法的实现：</p>
-
-<pre><code>type ScheduleAlgorithm interface {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type ScheduleAlgorithm interface {
     // 传入pod 节点列表，返回一下合适的节点
 	Schedule(*v1.Pod, NodeLister) (selectedMachine string, err error)
     // 资源抢占用的
@@ -551,9 +738,9 @@ if err := sched.config.SchedulerCache.FinishBinding(assumed);
                          |____________PriorityMapFunction 计算 节点的优先级
                          |____________PriorityReduceFunction 根据map的结果计算所有node的最终得分
                          |____________PriorityFunction 废弃
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>调度算法可以通过两种方式生成：</p>
 
 <ul>
@@ -562,8 +749,49 @@ if err := sched.config.SchedulerCache.FinishBinding(assumed);
 </ul>
 
 <p>最终new了一个scheduler:</p>
-
-<pre><code>priorityConfigs, err := c.GetPriorityFunctionConfigs(priorityKeys)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">priorityConfigs, err := c.GetPriorityFunctionConfigs(priorityKeys)
 priorityMetaProducer, err := c.GetPriorityMetadataProducer()
 predicateMetaProducer, err := c.GetPredicateMetadataProducer()
                                               |
@@ -600,14 +828,42 @@ type genericScheduler struct {
 	pvcLister                corelisters.PersistentVolumeClaimLister
 	disablePreemption        bool
 	percentageOfNodesToScore int32
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>这个scheduler实现了ScheduleAlgorithm中定义的接口</p>
 
 <p>Schedule 流程：</p>
-
-<pre><code>   +------------------------------------+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   +------------------------------------+
    | trace记录一下，要开始调度哪个pod了 | 
    +------------------------------------+
           |
@@ -631,9 +887,9 @@ type genericScheduler struct {
           |
    +------------------------------------+
    | 在优选结果列表中选择得分最高的节点 |
-   +------------------------------------+
-</code></pre>
-
+   +------------------------------------+</pre></td></tr></table>
+</div>
+</div>
 <h3 id="预选">预选</h3>
 
 <p>主要分成两块</p>
@@ -659,37 +915,65 @@ Equivalence Cache中以供该Equivalence Class中其他Pods（成为Equivalent P
 <p>ecache这块后续可以深入讨论，本文更多关注核心架构与流程</p>
 
 <p>所以这块就比较简单了, 把所有的预选函数执行行一遍</p>
-
-<pre><code>先排序 predicates.Ordering() 
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">先排序 predicates.Ordering() 
 if predicate, exist := predicateFuncs[predicateKey]; exist {
-		fit, reasons, err = predicate(pod, metaToUse, nodeInfoToUse)
-</code></pre>
-
+		fit, reasons, err = predicate(pod, metaToUse, nodeInfoToUse)</pre></td></tr></table>
+</div>
+</div>
 <p>顺序是这样的：</p>
-
-<pre><code>	predicatesOrdering = []string{CheckNodeConditionPred, CheckNodeUnschedulablePred,
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">	predicatesOrdering = []string{CheckNodeConditionPred, CheckNodeUnschedulablePred,
 		GeneralPred, HostNamePred, PodFitsHostPortsPred,
 		MatchNodeSelectorPred, PodFitsResourcesPred, NoDiskConflictPred,
 		PodToleratesNodeTaintsPred, PodToleratesNodeNoExecuteTaintsPred, CheckNodeLabelPresencePred,
 		CheckServiceAffinityPred, MaxEBSVolumeCountPred, MaxGCEPDVolumeCountPred, MaxCSIVolumeCountPred,
 		MaxAzureDiskVolumeCountPred, CheckVolumeBindingPred, NoVolumeZoneConflictPred,
-		CheckNodeMemoryPressurePred, CheckNodePIDPressurePred, CheckNodeDiskPressurePred, MatchInterPodAffinityPred}
-</code></pre>
-
+		CheckNodeMemoryPressurePred, CheckNodePIDPressurePred, CheckNodeDiskPressurePred, MatchInterPodAffinityPred}</pre></td></tr></table>
+</div>
+</div>
 <p>这些预选函数是存在一个map里的，key是一个string，value就是一个预选函数, 再回头去看注册map的逻辑</p>
-
-<pre><code>predicateFuncs, err := c.GetPredicates(predicateKeys)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">predicateFuncs, err := c.GetPredicates(predicateKeys)</pre></td></tr></table>
+</div>
+</div>
 <p>pkg/scheduler/algorithmprovider/defaults/defaults.go 里面会对这些函数进行注册,如：</p>
-
-<pre><code>factory.RegisterFitPredicate(predicates.NoDiskConflictPred, predicates.NoDiskConflict),
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">factory.RegisterFitPredicate(predicates.NoDiskConflictPred, predicates.NoDiskConflict),
 factory.RegisterFitPredicate(predicates.GeneralPred, predicates.GeneralPredicates),
 factory.RegisterFitPredicate(predicates.CheckNodeMemoryPressurePred, predicates.CheckNodeMemoryPressurePredicate),
 factory.RegisterFitPredicate(predicates.CheckNodeDiskPressurePred, predicates.CheckNodeDiskPressurePredicate),
-factory.RegisterFitPredicate(predicates.CheckNodePIDPressurePred, predicates.CheckNodePIDPressurePredicate),
-</code></pre>
-
+factory.RegisterFitPredicate(predicates.CheckNodePIDPressurePred, predicates.CheckNodePIDPressurePredicate),</pre></td></tr></table>
+</div>
+</div>
 <p>然后直接在init函数里调用注册逻辑</p>
 
 <h3 id="优选">优选</h3>
@@ -703,36 +987,71 @@ factory.RegisterFitPredicate(predicates.CheckNodePIDPressurePred, predicates.Che
 </ul>
 
 <p>优选函数同理也是注册进去的, 不再赘述</p>
-
-<pre><code>factory.RegisterPriorityFunction2(&quot;LeastRequestedPriority&quot;, priorities.LeastRequestedPriorityMap, nil, 1),
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">factory.RegisterPriorityFunction2(&#34;LeastRequestedPriority&#34;, priorities.LeastRequestedPriorityMap, nil, 1),
 // Prioritizes nodes to help achieve balanced resource usage
-factory.RegisterPriorityFunction2(&quot;BalancedResourceAllocation&quot;, priorities.BalancedResourceAllocationMap, nil, 1),
-</code></pre>
-
+factory.RegisterPriorityFunction2(&#34;BalancedResourceAllocation&#34;, priorities.BalancedResourceAllocationMap, nil, 1),</pre></td></tr></table>
+</div>
+</div>
 <p>这里注册时注册两个，一个map函数一个reduce函数，为了更好的理解mapreduce，去看一个实现</p>
-
-<pre><code>factory.RegisterPriorityFunction2(&quot;NodeAffinityPriority&quot;, priorities.CalculateNodeAffinityPriorityMap, priorities.CalculateNodeAffinityPriorityReduce, 1)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">factory.RegisterPriorityFunction2(&#34;NodeAffinityPriority&#34;, priorities.CalculateNodeAffinityPriorityMap, priorities.CalculateNodeAffinityPriorityReduce, 1)</pre></td></tr></table>
+</div>
+</div>
 <h3 id="node-affinity-map-reduce">node Affinity map reduce</h3>
 
 <p>map 核心逻辑, 比较容易理解:</p>
-
-<pre><code>如果满足节点亲和，积分加权重
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">如果满足节点亲和，积分加权重
 count += preferredSchedulingTerm.Weight
 
 return schedulerapi.HostPriority{
 	Host:  node.Name,
 	Score: int(count),  # 算出积分
-}, nil
-</code></pre>
-
+}, nil</pre></td></tr></table>
+</div>
+</div>
 <p>reduce:
 一个节点会走很多个map，每个map会产生一个分值，如node affinity产生一个，pod affinity再产生一个，所以node和分值是一对多的关系</p>
 
 <p>去掉reverse的逻辑（分值越高优先级越低）</p>
-
-<pre><code>var maxCount int
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">var maxCount int
 for i := range result {
 	if result[i].Score &gt; maxCount {
 		maxCount = result[i].Score  # 所有分值里的最大值
@@ -743,12 +1062,27 @@ for i := range result {
 	score := result[i].Score
 	score = maxPriority * score / maxCount  # 分值乘以最大优先级是maxPriority = 10，除以最大值赋值给分值 这里是做了归一化处理;
 	result[i].Score = score
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>这里做了归一化处理后分值就变成[0,maxPriority]之间了</p>
-
-<pre><code>for i := range priorityConfigs {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">for i := range priorityConfigs {
 	if priorityConfigs[i].Function != nil {
 		continue
 	}
@@ -759,9 +1093,9 @@ for i := range result {
 	}
 }
 
-err := config.Reduce(pod, meta, nodeNameToInfo, results[index]); 
-</code></pre>
-
+err := config.Reduce(pod, meta, nodeNameToInfo, results[index]); </pre></td></tr></table>
+</div>
+</div>
 <p>看这里有个results,对理解很重要，是一个二维数组：</p>
 
 <table>
@@ -799,23 +1133,45 @@ err := config.Reduce(pod, meta, nodeNameToInfo, results[index]);
 </table>
 
 <p>这样reduce时取一行，其实也就是处理所有节点的某项得分</p>
-
-<pre><code>result[i].Score += results[j][i].Score * priorityConfigs[j].Weight  (二维变一维)
-
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">result[i].Score += results[j][i].Score * priorityConfigs[j].Weight  (二维变一维)</pre></td></tr></table>
+</div>
+</div>
 <p>reduce完最终这个节点的得分就等于这个节点各项得分乘以该项权重的和,最后排序选最高分 (一维变0纬)</p>
 
 <h1 id="调度队列-schedulingqueue">调度队列 SchedulingQueue</h1>
 
 <p>scheduler配置里有一个<code>NextPod</code> 方法，获取一个pod，并进行调度：</p>
-
-<pre><code>pod := sched.config.NextPod()
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pod := sched.config.NextPod()</pre></td></tr></table>
+</div>
+</div>
 <p>配置文件在这里初始化：</p>
-
-<pre><code>pkg/scheduler/factory/factory.go
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pkg/scheduler/factory/factory.go
 NextPod: func() *v1.Pod {
 	return c.getNextPod()
 },
@@ -826,12 +1182,28 @@ func (c *configFactory) getNextPod() *v1.Pod {
 		return pod
 	}
 ...
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>队列接口：</p>
-
-<pre><code>type SchedulingQueue interface {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type SchedulingQueue interface {
 	Add(pod *v1.Pod) error
 	AddIfNotPresent(pod *v1.Pod) error
 	AddUnschedulableIfNotPresent(pod *v1.Pod) error
@@ -843,41 +1215,72 @@ func (c *configFactory) getNextPod() *v1.Pod {
 	AssignedPodUpdated(pod *v1.Pod)
 	WaitingPodsForNode(nodeName string) []*v1.Pod
 	WaitingPods() []*v1.Pod
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>给了两种实现，优先级队列和FIFO ：</p>
-
-<pre><code>func NewSchedulingQueue() SchedulingQueue {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">func NewSchedulingQueue() SchedulingQueue {
 	if util.PodPriorityEnabled() {
 		return NewPriorityQueue()  # 基于堆排序实现，根据优先级排序
 	}
 	return NewFIFO() # 简单的先进先出
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>队列实现比较简单，不做深入分析, 更重要的是关注队列，调度器，cache之间的关系:</p>
-
-<pre><code>AddFunc:    c.addPodToCache,
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">AddFunc:    c.addPodToCache,
 UpdateFunc: c.updatePodInCache,
 DeleteFunc: c.deletePodFromCache,
             | informer监听,了pod创建事件之后往cache和队列里都更新了
             V 
 if err := c.schedulerCache.AddPod(pod); err != nil {
-	glog.Errorf(&quot;scheduler cache AddPod failed: %v&quot;, err)
+	glog.Errorf(&#34;scheduler cache AddPod failed: %v&#34;, err)
 }
 
-c.podQueue.AssignedPodAdded(pod)
-</code></pre>
-
-<pre><code>+------------+ ADD   +-------------+   POP  +-----------+
+c.podQueue.AssignedPodAdded(pod)</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">+------------+ ADD   +-------------+   POP  +-----------+
 | informer   |------&gt;|  sche Queue |-------&gt;| scheduler |
 +------------+   |   +-------------+        +----^------+
                  +--&gt;+-------------+             |
                      | sche cache  |&lt;------------+
-                     +-------------+
-</code></pre>
-
+                     +-------------+</pre></td></tr></table>
+</div>
+</div>
 <h1 id="extender">Extender</h1>
 
 <h2 id="调度器扩展">调度器扩展</h2>
@@ -894,15 +1297,63 @@ c.podQueue.AssignedPodAdded(pod)
 <p>目前第三点资料非常少，很多细节需要在代码里找到答案，带着问题看代码效果更好。</p>
 
 <h2 id="extender接口">Extender接口</h2>
-
-<pre><code>+----------------------------------+       +----------+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">+----------------------------------+       +----------+
 | kube-scheduler -&gt; extender client|------&gt;| extender | (你需要开发的扩展，单独的进程)
-+----------------------------------+       +----------+
-</code></pre>
-
++----------------------------------+       +----------+</pre></td></tr></table>
+</div>
+</div>
 <p>这个接口是kube-scheduler实现的，下面会介绍HTTPextender的实现</p>
-
-<pre><code>type SchedulerExtender interface {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type SchedulerExtender interface {
     // 最重要的一个接口，输入pod和节点列表，输出是符合调度的节点的列表
 	Filter(pod *v1.Pod,
 		nodes []*v1.Node, nodeNameToInfo map[string]*schedulercache.NodeInfo,
@@ -940,12 +1391,27 @@ c.podQueue.AssignedPodAdded(pod)
 
     // 当访问不到extender时怎么处理，返回真时extender获取不到时调度不能失败
 	IsIgnorable() bool
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>官方实现了HTTPextender，可以看下：</p>
-
-<pre><code>type HTTPExtender struct {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">type HTTPExtender struct {
 	extenderURL      string
 	preemptVerb      string
 	filterVerb       string  # 预选RUL
@@ -956,12 +1422,24 @@ c.podQueue.AssignedPodAdded(pod)
 	nodeCacheCapable bool
 	managedResources sets.String
 	ignorable        bool
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>看其预选和优选逻辑：</p>
-
-<pre><code>args = &amp;schedulerapi.ExtenderArgs{  # 调度的是哪个pod，哪些节点符合调度条件, 返回的也是这个结构体
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">args = &amp;schedulerapi.ExtenderArgs{  # 调度的是哪个pod，哪些节点符合调度条件, 返回的也是这个结构体
 	Pod:       pod,
 	Nodes:     nodeList,
 	NodeNames: nodeNames,
@@ -969,22 +1447,32 @@ c.podQueue.AssignedPodAdded(pod)
 
 if err := h.send(h.filterVerb, args, &amp;result); err != nil { # 发了个http请求给extender(你要去实现的httpserver), 返回过滤后的结构
 	return nil, nil, err
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <h2 id="httpextender配置参数从哪来">HTTPExtender配置参数从哪来</h2>
 
 <h2 id="scheduler-extender配置">scheduler extender配置：</h2>
-
-<pre><code>NamespaceSystem string = &quot;kube-system&quot;
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">NamespaceSystem string = &#34;kube-system&#34;
 
 SchedulerDefaultLockObjectNamespace string = metav1.NamespaceSystem
 
 // SchedulerPolicyConfigMapKey defines the key of the element in the
-// scheduler's policy ConfigMap that contains scheduler's policy config.
-SchedulerPolicyConfigMapKey = &quot;policy.cfg&quot;
-</code></pre>
-
+// scheduler&#39;s policy ConfigMap that contains scheduler&#39;s policy config.
+SchedulerPolicyConfigMapKey = &#34;policy.cfg&#34;</pre></td></tr></table>
+</div>
+</div>
 <h2 id="总结">总结</h2>
 
 <p>调度器的代码写的还是挺不错的，相比较于kube-proxy好多了，可扩展性也还可以，不过目测调度器会面临一次大的重构，现阶段调度器对深度学习的批处理任务支持就不好
@@ -1000,7 +1488,6 @@ SchedulerPolicyConfigMapKey = &quot;policy.cfg&quot;
 
     </div>
 
-    
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
@@ -1008,74 +1495,75 @@ SchedulerPolicyConfigMapKey = &quot;policy.cfg&quot;
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-11-06</span>
+    <span class="item-content">
+        2018-11-06
+        
+    </span>
   </p>
   
   
 </div>
-
-    
-    
-
-    <footer class="post-footer">
+<footer class="post-footer">
       <div class="post-tags">
-          
           <a href="/tags/event/">event</a>
-          
           <a href="/tags/dotscale/">dotScale</a>
-          
           <a href="/tags/sketchnote/">sketchnote</a>
-          
-        </div>
-
-      
+          </div>
       <nav class="post-nav">
-        
-          <a class="prev" href="/post/kubeadm-dev/">
+        <a class="prev" href="/post/kubeadm-dev/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">修改kubeadm证书过期时间</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        
-          <a class="next" href="/post/sealos/">
+        <a class="next" href="/post/sealos/">
             <span class="next-text nav-default">构建生产环境可用的高可用kubernetes集群</span>
-            <span class="prev-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
     </footer>
   </article>
         </div>
-        
-  <div id="comments-gitment"></div>
-  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
-  <script type="text/javascript">
-  const gitment = new Gitment({
-    id: '2018-11-06 10:54:24 \x2b0200 \x2b0200',
-    title: 'kubernetes源码分析之kube-scheduler - 从代码看原理',
-    link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译',
-    owner: 'fanux',
-    repo: 'fanux.github.io',
-    oauth: {
-      client_id: 'dbec2d3194e8cd765fae',
-      client_secret: 'a628bdc03410089c6b6460250a8756a9189a6f4c'
-    }
-  })
-  gitment.render('comments-gitment')
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
-
-  
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2018-11-06 10:54:24 \x2b0200 \x2b0200',
+        title: 'kubernetes源码分析之kube-scheduler - 从代码看原理',
+        link: decodeURI(location.href),
+        desc: 'kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译',
+        owner: 'fanux',
+        repo: 'fanux.github.io',
+        oauth: {
+          client_id: 'dbec2d3194e8cd765fae',
+          client_secret: 'a628bdc03410089c6b6460250a8756a9189a6f4c'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
       </div>
     </main>
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:fhtjob@hotmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/fanux/" class="iconfont icon-github" title="github"></a>
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
   <a href="https://sealyun.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -1093,8 +1581,7 @@ SchedulerPolicyConfigMapKey = &quot;policy.cfg&quot;
 
   <span class="copyright-year">
     &copy; 
-    
-      2017 - 
+    2017 - 
     2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -1109,10 +1596,10 @@ SchedulerPolicyConfigMapKey = &quot;policy.cfg&quot;
     </div>
   </div>
   
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 

@@ -7,27 +7,6 @@
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?2803648cc5852dd3e9e46bbd0bf63366";
-          var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119962244-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-119962244-1');
-</script>
-
-
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
@@ -37,21 +16,17 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys" />
-
-  <meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="fanux" /><meta name="description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://sealyun.com/post/rook/" />
-
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -59,37 +34,16 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="rook使用教程，快速编排ceph" />
 <meta property="og:description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/rook/" />
-
-
-
 <meta property="article:published_time" content="2019-01-23T10:54:24&#43;02:00"/>
-
 <meta property="article:modified_time" content="2019-01-23T10:54:24&#43;02:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="rook使用教程，快速编排ceph">
 <meta itemprop="description" content="kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys">
@@ -97,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2019-01-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-01-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="3542">
+<meta itemprop="wordCount" content="3532">
 
 
 
@@ -137,7 +91,7 @@
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
-      </a><a href="/pro/istio">
+      </a><a href="">
         <li class="mobile-menu-item">Istio下载</li>
       </a><a href="/pro/products">
         <li class="mobile-menu-item">Kubernetes下载</li>
@@ -161,7 +115,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/pro/istio">Istio下载</a>
+        <a class="menu-item-link" href="">Istio下载</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/pro/products">Kubernetes下载</a>
       </li>
@@ -181,15 +135,11 @@
         <span class="post-time"> 2019-01-23 </span>
         
         
-        
       </div>
     </header>
 
-    
-    
-<div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
@@ -231,8 +181,6 @@
 </nav>
   </div>
 </div>
-
-    
     <div class="post-content">
       
 
@@ -244,16 +192,37 @@
 包含：rook operator ceph cluster storage class配置，mysql wordpress事例，性能测试fio Dockerfile与yaml等</p>
 
 <h1 id="安装">安装</h1>
-
-<pre><code>git clone https://github.com/rook/rook
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git clone https://github.com/rook/rook
 
 cd cluster/examples/kubernetes/ceph
-kubectl create -f operator.yaml 
-</code></pre>
-
+kubectl create -f operator.yaml </pre></td></tr></table>
+</div>
+</div>
 <p>查看operator是否成功：</p>
-
-<pre><code>[root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@dev-86-201 ~]# kubectl get pod -n rook-ceph-system
 NAME                                  READY   STATUS    RESTARTS   AGE
 rook-ceph-agent-5z6p7                 1/1     Running   0          88m
 rook-ceph-agent-6rj7l                 1/1     Running   0          88m
@@ -263,17 +232,34 @@ rook-ceph-operator-67f4b8f67d-tsnf2   1/1     Running   0          88m
 rook-discover-5wghx                   1/1     Running   0          88m
 rook-discover-lhwvf                   1/1     Running   0          88m
 rook-discover-nl5m2                   1/1     Running   0          88m
-rook-discover-qmbx7                   1/1     Running   0          88m
-</code></pre>
-
+rook-discover-qmbx7                   1/1     Running   0          88m</pre></td></tr></table>
+</div>
+</div>
 <p>然后创建ceph集群：</p>
-
-<pre><code>kubectl create -f cluster.yaml
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl create -f cluster.yaml</pre></td></tr></table>
+</div>
+</div>
 <p>查看ceph集群：</p>
-
-<pre><code>[root@dev-86-201 ~]# kubectl get pod -n rook-ceph
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@dev-86-201 ~]# kubectl get pod -n rook-ceph
 NAME                               READY   STATUS    RESTARTS   AGE
 rook-ceph-mgr-a-8649f78d9b-jklbv   1/1     Running   0          64m
 rook-ceph-mon-a-5d7fcfb6ff-2wq9l   1/1     Running   0          81m
@@ -282,12 +268,36 @@ rook-ceph-mon-d-65cd79df44-66rgz   1/1     Running   0          79m
 rook-ceph-osd-0-56bd7545bd-5k9xk   1/1     Running   0          63m
 rook-ceph-osd-1-77f56cd549-7rm4l   1/1     Running   0          63m
 rook-ceph-osd-2-6cf58ddb6f-wkwp6   1/1     Running   0          63m
-rook-ceph-osd-3-6f8b78c647-8xjzv   1/1     Running   0          63m
-</code></pre>
-
+rook-ceph-osd-3-6f8b78c647-8xjzv   1/1     Running   0          63m</pre></td></tr></table>
+</div>
+</div>
 <p>参数说明：</p>
-
-<pre><code>apiVersion: ceph.rook.io/v1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: ceph.rook.io/v1
 kind: CephCluster
 metadata:
   name: rook-ceph
@@ -306,34 +316,74 @@ spec:
     useAllNodes: true
     useAllDevices: false
     config:
-      databaseSizeMB: &quot;1024&quot;
-      journalSizeMB: &quot;1024&quot;
-</code></pre>
-
+      databaseSizeMB: &#34;1024&#34;
+      journalSizeMB: &#34;1024&#34;</pre></td></tr></table>
+</div>
+</div>
 <p>访问ceph dashboard:</p>
-
-<pre><code>[root@dev-86-201 ~]# kubectl get svc -n rook-ceph
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@dev-86-201 ~]# kubectl get svc -n rook-ceph
 NAME                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
 rook-ceph-mgr             ClusterIP   10.98.183.33     &lt;none&gt;        9283/TCP         66m
 rook-ceph-mgr-dashboard   NodePort    10.103.84.48     &lt;none&gt;        8443:31631/TCP   66m  # 把这个改成NodePort模式
 rook-ceph-mon-a           ClusterIP   10.99.71.227     &lt;none&gt;        6790/TCP         83m
 rook-ceph-mon-b           ClusterIP   10.110.245.119   &lt;none&gt;        6790/TCP         82m
-rook-ceph-mon-d           ClusterIP   10.101.79.159    &lt;none&gt;        6790/TCP         81m
-</code></pre>
-
+rook-ceph-mon-d           ClusterIP   10.101.79.159    &lt;none&gt;        6790/TCP         81m</pre></td></tr></table>
+</div>
+</div>
 <p>然后访问<a href="https://10.1.86.201:31631">https://10.1.86.201:31631</a> 即可
 <img src="/ceph/dashboard.png" alt="" /></p>
 
 <p>管理账户admin,获取登录密码：</p>
-
-<pre><code>kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o yaml | grep &quot;password:&quot; | awk '{print $2}' | base64 --decode
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o yaml | grep &#34;password:&#34; | awk &#39;{print $2}&#39; | base64 --decode</pre></td></tr></table>
+</div>
+</div>
 <h1 id="使用">使用</h1>
 
 <h2 id="创建pool">创建pool</h2>
-
-<pre><code>apiVersion: ceph.rook.io/v1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: ceph.rook.io/v1
 kind: CephBlockPool
 metadata:
   name: replicapool   # operator会监听并创建一个pool，执行完后界面上也能看到对应的pool
@@ -350,25 +400,42 @@ metadata:
 provisioner: ceph.rook.io/block
 parameters:
   blockPool: replicapool
-  # The value of &quot;clusterNamespace&quot; MUST be the same as the one in which your rook cluster exist
+  # The value of &#34;clusterNamespace&#34; MUST be the same as the one in which your rook cluster exist
   clusterNamespace: rook-ceph
   # Specify the filesystem type of the volume. If not specified, it will use `ext4`.
   fstype: xfs
-# Optional, default reclaimPolicy is &quot;Delete&quot;. Other options are: &quot;Retain&quot;, &quot;Recycle&quot; as documented in https://kubernetes.io/docs/concepts/storage/storage-classes/
-reclaimPolicy: Retain
-</code></pre>
-
+# Optional, default reclaimPolicy is &#34;Delete&#34;. Other options are: &#34;Retain&#34;, &#34;Recycle&#34; as documented in https://kubernetes.io/docs/concepts/storage/storage-classes/
+reclaimPolicy: Retain</pre></td></tr></table>
+</div>
+</div>
 <h2 id="创建pvc">创建pvc</h2>
 
 <p>在cluster/examples/kubernetes 目录下，官方给了个worldpress的例子，可以直接运行一下：</p>
-
-<pre><code>kubectl create -f mysql.yaml
-kubectl create -f wordpress.yaml
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl create -f mysql.yaml
+kubectl create -f wordpress.yaml</pre></td></tr></table>
+</div>
+</div>
 <p>查看PV PVC：</p>
-
-<pre><code>[root@dev-86-201 ~]# kubectl get pvc
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@dev-86-201 ~]# kubectl get pvc
 NAME             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
 mysql-pv-claim   Bound    pvc-a910f8c2-1ee9-11e9-84fc-becbfc415cde   20Gi       RWO            rook-ceph-block   144m
 wp-pv-claim      Bound    pvc-af2dfbd4-1ee9-11e9-84fc-becbfc415cde   20Gi       RWO            rook-ceph-block   144m
@@ -376,12 +443,38 @@ wp-pv-claim      Bound    pvc-af2dfbd4-1ee9-11e9-84fc-becbfc415cde   20Gi       
 [root@dev-86-201 ~]# kubectl get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                    STORAGECLASS      REASON   AGE
 pvc-a910f8c2-1ee9-11e9-84fc-becbfc415cde   20Gi       RWO            Retain           Bound    default/mysql-pv-claim   rook-ceph-block            145m
-pvc-af2dfbd4-1ee9-11e9-84fc-becbfc415cde   20Gi       RWO            Retain           Bound    default/wp-pv-claim      rook-ceph-block            145m
-</code></pre>
-
+pvc-af2dfbd4-1ee9-11e9-84fc-becbfc415cde   20Gi       RWO            Retain           Bound    default/wp-pv-claim      rook-ceph-block            145m</pre></td></tr></table>
+</div>
+</div>
 <p>看下yaml文件：</p>
-
-<pre><code>apiVersion: v1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
@@ -403,29 +496,43 @@ spec:
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim  # 指定上面定义的PVC
-</code></pre>
-
+          claimName: mysql-pv-claim  # 指定上面定义的PVC</pre></td></tr></table>
+</div>
+</div>
 <p>是不是非常简单。</p>
 
 <p>要访问wordpress的话请把service改成NodePort类型，官方给的是loadbalance类型：</p>
-
-<pre><code>kubectl edit svc wordpress
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl edit svc wordpress
 
 [root@dev-86-201 kubernetes]# kubectl get svc
 NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
-wordpress         NodePort    10.109.30.99   &lt;none&gt;        80:30130/TCP   148m
-</code></pre>
-
+wordpress         NodePort    10.109.30.99   &lt;none&gt;        80:30130/TCP   148m</pre></td></tr></table>
+</div>
+</div>
 <h1 id="外部访问ceph集群">外部访问ceph集群</h1>
 
 <p>cluster.yaml里有配置，可配置成共享宿主机网络，这样外面可直接连接ceph集群：</p>
-
-<pre><code>  network:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  network:
     # toggle to use hostNetwork
-    hostNetwork: false
-</code></pre>
-
+    hostNetwork: false</pre></td></tr></table>
+</div>
+</div>
 <h1 id="ceph集群监控">ceph集群监控</h1>
 
 <p>通过prometheus operator配合rook可以快速构建ceph集群的监控，sealyun安装包中已经自带了prometheus operator，所以直接干即可</p>
@@ -433,22 +540,33 @@ wordpress         NodePort    10.109.30.99   &lt;none&gt;        80:30130/TCP   
 <h2 id="启动ceph-prometheus">启动ceph prometheus</h2>
 
 <p>注意这里是为ceph单独起了一个prometheus，这样做挺好，因为毕竟可以缓解prometheus单点的压力</p>
-
-<pre><code>cd cluster/examples/kubernetes/ceph/monitoring
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd cluster/examples/kubernetes/ceph/monitoring
 kubectl create -f service-monitor.yaml
 kubectl create -f prometheus.yaml
-kubectl create -f prometheus-service.yaml
-</code></pre>
-
+kubectl create -f prometheus-service.yaml</pre></td></tr></table>
+</div>
+</div>
 <p>然后我们的grafana在30000端口，先在grafana上添加数据源</p>
 
 <p><img src="/ceph/data-source.png" alt="" /></p>
 
 <p>数据源要配置成：</p>
-
-<pre><code>http://rook-prometheus.rook-ceph.svc.cluster.local:9090
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">http://rook-prometheus.rook-ceph.svc.cluster.local:9090</pre></td></tr></table>
+</div>
+</div>
 <h2 id="导入dashboard">导入dashboard</h2>
 
 <p><img src="/ceph/import1.png" alt="" />
@@ -463,13 +581,31 @@ kubectl create -f prometheus-service.yaml
 <p>再次感叹生态之强大</p>
 
 <h1 id="增加节点-删除节点">增加节点,删除节点</h1>
-
-<pre><code>kubectl edit cephcluster rook-ceph -n rook-ceph
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl edit cephcluster rook-ceph -n rook-ceph</pre></td></tr></table>
+</div>
+</div>
 <p>把useAllNodes设置成false，然后在nodes列表里增加节点名即可，保存退出后会自动增加ceph节点</p>
-
-<pre><code>    nodes:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    nodes:
     - config: null
       name: izj6c3afuzdjhtkj156zt0z
       resources: {}
@@ -479,9 +615,9 @@ kubectl create -f prometheus-service.yaml
     - config: null
       name: izj6cg4wnagly61eny0hyaz
       resources: {}
-    useAllDevices: false
-</code></pre>
-
+    useAllDevices: false</pre></td></tr></table>
+</div>
+</div>
 <p>删除同理，直接edit删除即可，十分强大</p>
 
 <h1 id="性能测试">性能测试</h1>
@@ -491,27 +627,86 @@ kubectl create -f prometheus-service.yaml
 <h2 id="测试环境">测试环境</h2>
 
 <p>我这里使用阿里云服务器，挂载了一个1000G的磁盘，不过我实际测试时用的盘很少（盘大太慢）</p>
-
-<pre><code>[root@izj6c3afuzdjhtkj156zt0z ~]# df -h|grep dev
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@izj6c3afuzdjhtkj156zt0z ~]# df -h|grep dev
 devtmpfs        3.9G     0  3.9G    0% /dev
 tmpfs           3.9G     0  3.9G    0% /dev/shm
 /dev/vda1        40G   17G   21G   44% /
 /dev/vdb1       985G   41G  895G    5% /data   
-/dev/rbd0       296G  2.1G  294G    1% /var/lib/kubelet/plugins/ceph.rook.io/rook-ceph-system/mounts/pvc-692e2be3-2434-11e9-aef7-00163e01e813
-</code></pre>
-
+/dev/rbd0       296G  2.1G  294G    1% /var/lib/kubelet/plugins/ceph.rook.io/rook-ceph-system/mounts/pvc-692e2be3-2434-11e9-aef7-00163e01e813</pre></td></tr></table>
+</div>
+</div>
 <p>可看到一个本地盘和一个ceph挂过来的盘</p>
 
 <p>先搞个fio的镜像</p>
-
-<pre><code>[root@izj6c3afuzdjhtkj156zt0z fio]# cat Dockerfile
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@izj6c3afuzdjhtkj156zt0z fio]# cat Dockerfile
 FROM docker.io/centos:7.6.1810
-RUN yum install -y fio
-</code></pre>
-
+RUN yum install -y fio</pre></td></tr></table>
+</div>
+</div>
 <p>测试容器，稍微改一下mysql的yaml:</p>
-
-<pre><code>apiVersion: v1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
@@ -543,7 +738,7 @@ spec:
       containers:
       - image: fio:latest
         imagePullPolicy: IfNotPresent
-        command: [&quot;sleep&quot;, &quot;10000000&quot;]
+        command: [&#34;sleep&#34;, &#34;10000000&#34;]
         name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
@@ -551,22 +746,78 @@ spec:
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
-</code></pre>
-
+          claimName: mysql-pv-claim</pre></td></tr></table>
+</div>
+</div>
 <h2 id="测试过程">测试过程</h2>
 
 <p>进入到容器内跑测试工具：</p>
-
-<pre><code>$ kubectl exec -it wordpress-mysql-775c44887c-5vhx9 bash
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ kubectl exec -it wordpress-mysql-775c44887c-5vhx9 bash
 
 # touch /var/lib/mysql/test # 创建测试文件
-# fio -filename=/var/lib/mysql/test -direct=1 -iodepth=128 -rw=randrw -ioengine=libaio -bs=4k -size=200G -numjobs=8 -runtime=100 -group_reporting -name=Rand_Write_Testing
-</code></pre>
-
+# fio -filename=/var/lib/mysql/test -direct=1 -iodepth=128 -rw=randrw -ioengine=libaio -bs=4k -size=200G -numjobs=8 -runtime=100 -group_reporting -name=Rand_Write_Testing</pre></td></tr></table>
+</div>
+</div>
 <p>结果：</p>
-
-<pre><code>Rand_Write_Testing: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=128
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Rand_Write_Testing: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=128
 ...
 fio-3.1
 Starting 2 processes
@@ -611,16 +862,70 @@ Run status group 0 (all jobs):
   WRITE: bw=14.5MiB/s (15.2MB/s), 14.5MiB/s-14.5MiB/s (15.2MB/s-15.2MB/s), io=1446MiB (1516MB), run=100013-100013msec
 
 Disk stats (read/write):
-  rbd0: ios=369133/369841, merge=0/35, ticks=4821508/7373587, in_queue=12172273, util=99.93%
-</code></pre>
-
+  rbd0: ios=369133/369841, merge=0/35, ticks=4821508/7373587, in_queue=12172273, util=99.93%</pre></td></tr></table>
+</div>
+</div>
 <p>在宿主机上测试：</p>
-
-<pre><code>$ touch /data/test
-$ fio -filename=/data/test -direct=1 -iodepth=128 -rw=randrw -ioengine=libaio -bs=4k -size=2G -numjobs=2 -runtime=100 -group_reporting -name=Rand_Write_Testing
-</code></pre>
-
-<pre><code>Rand_Write_Testing: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=128
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ touch /data/test
+$ fio -filename=/data/test -direct=1 -iodepth=128 -rw=randrw -ioengine=libaio -bs=4k -size=2G -numjobs=2 -runtime=100 -group_reporting -name=Rand_Write_Testing</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Rand_Write_Testing: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=128
 ...
 fio-3.1
 Starting 2 processes
@@ -665,26 +970,53 @@ Run status group 0 (all jobs):
   WRITE: bw=19.7MiB/s (20.6MB/s), 19.7MiB/s-19.7MiB/s (20.6MB/s-20.6MB/s), io=1967MiB (2063MB), run=100019-100019msec
 
 Disk stats (read/write):
-  vdb: ios=502513/504275, merge=0/658, ticks=4271124/7962372, in_queue=11283349, util=92.48%
-</code></pre>
-
+  vdb: ios=502513/504275, merge=0/658, ticks=4271124/7962372, in_queue=11283349, util=92.48%</pre></td></tr></table>
+</div>
+</div>
 <p>这里看到随机读写性能损失约 27%多，这个结论并没有太多参考意义，用户应当根据自己实际场景进行测试</p>
 
 <p>改用ceph共享宿主机网络模式进行测试，结果差不多，并无性能提升</p>
 
 <p>要想排除在容器内测试因素的影响，也可以直接在宿主机上对块设备进行测试，做法很简单，可以把块挂到别的目录上如：</p>
-
-<pre><code>umount /dev/rbd0
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">umount /dev/rbd0
 mkdir /data1
 mount /dev/rbd0 /data1
-touch /data1/test  # 然后对这个文件测试，我这边测试结果与容器内差不多
-</code></pre>
-
+touch /data1/test  # 然后对这个文件测试，我这边测试结果与容器内差不多</pre></td></tr></table>
+</div>
+</div>
 <h1 id="bluestore方式">bluestore方式</h1>
 
 <p>直接使用裸盘而不使用分区或者文件系统的方式部署ceph</p>
-
-<pre><code>storage:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">storage:
   useAllNodes: false
   useAllDevices: false
   deviceFilter:
@@ -692,67 +1024,17 @@ touch /data1/test  # 然后对这个文件测试，我这边测试结果与容�
   config:
     storeType: bluestore
   nodes:
-  - name: &quot;ke-dev1-worker1&quot;
+  - name: &#34;ke-dev1-worker1&#34;
     devices:
-    - name: &quot;vde&quot;
-  - name: &quot;ke-dev1-worker3&quot;
+    - name: &#34;vde&#34;
+  - name: &#34;ke-dev1-worker3&#34;
     devices:
-    - name: &quot;vde&quot;
-  - name: &quot;ke-dev1-worker4&quot;
+    - name: &#34;vde&#34;
+  - name: &#34;ke-dev1-worker4&#34;
     devices:
-    - name: &quot;vdf&quot;
-</code></pre>
-
-<p>bluestore模式能显著提升ceph性能，我这边测试随机读写性能提升了8%左右</p>
-
-<pre><code>Rand_Write_Testing: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=128
-...
-fio-3.1
-Starting 2 processes
-Rand_Write_Testing: Laying out IO file (1 file / 2048MiB)
-Jobs: 2 (f=2): [m(2)][100.0%][r=16.4MiB/s,w=16.7MiB/s][r=4189,w=4284 IOPS][eta 00m:00s]]
-Rand_Write_Testing: (groupid=0, jobs=2): err= 0: pid=25: Thu Jan 31 11:37:39 2019
-   read: IOPS=3990, BW=15.6MiB/s (16.3MB/s)(1566MiB/100464msec)
-    slat (usec): min=2, max=246625, avg=239.16, stdev=1067.33
-    clat (msec): min=2, max=493, avg=27.68, stdev=16.71
-     lat (msec): min=2, max=493, avg=27.92, stdev=16.75
-    clat percentiles (msec):
-     |  1.00th=[   12],  5.00th=[   15], 10.00th=[   16], 20.00th=[   18],
-     | 30.00th=[   20], 40.00th=[   22], 50.00th=[   24], 60.00th=[   27],
-     | 70.00th=[   30], 80.00th=[   35], 90.00th=[   45], 95.00th=[   54],
-     | 99.00th=[   74], 99.50th=[   84], 99.90th=[  199], 99.95th=[  334],
-     | 99.99th=[  485]
-   bw (  KiB/s): min= 2118, max=10456, per=50.20%, avg=8013.40, stdev=1255.78, samples=400
-   iops        : min=  529, max= 2614, avg=2003.31, stdev=313.95, samples=400
-  write: IOPS=3997, BW=15.6MiB/s (16.4MB/s)(1569MiB/100464msec)
-    slat (usec): min=3, max=273211, avg=246.87, stdev=1026.98
-    clat (msec): min=11, max=499, avg=35.90, stdev=18.04
-     lat (msec): min=12, max=506, avg=36.15, stdev=18.08
-    clat percentiles (msec):
-     |  1.00th=[   19],  5.00th=[   22], 10.00th=[   23], 20.00th=[   26],
-     | 30.00th=[   28], 40.00th=[   30], 50.00th=[   33], 60.00th=[   35],
-     | 70.00th=[   39], 80.00th=[   44], 90.00th=[   54], 95.00th=[   63],
-     | 99.00th=[   85], 99.50th=[   95], 99.90th=[  309], 99.95th=[  351],
-     | 99.99th=[  489]
-   bw (  KiB/s): min= 2141, max=10163, per=50.20%, avg=8026.23, stdev=1251.78, samples=400
-   iops        : min=  535, max= 2540, avg=2006.51, stdev=312.94, samples=400
-  lat (msec)   : 4=0.01%, 10=0.10%, 20=16.63%, 50=73.71%, 100=9.25%
-  lat (msec)   : 250=0.22%, 500=0.09%
-  cpu          : usr=1.85%, sys=5.60%, ctx=366744, majf=0, minf=17
-  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, &gt;=64=100.0%
-     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%
-     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.1%
-     issued rwt: total=400928,401597,0, short=0,0,0, dropped=0,0,0
-     latency   : target=0, window=0, percentile=100.00%, depth=128
-
-Run status group 0 (all jobs):
-   READ: bw=15.6MiB/s (16.3MB/s), 15.6MiB/s-15.6MiB/s (16.3MB/s-16.3MB/s), io=1566MiB (1642MB), run=100464-100464msec
-  WRITE: bw=15.6MiB/s (16.4MB/s), 15.6MiB/s-15.6MiB/s (16.4MB/s-16.4MB/s), io=1569MiB (1645MB), run=100464-100464msec
-
-Disk stats (read/write):
-  rbd0: ios=400921/401817, merge=0/50, ticks=4341605/7883816, in_queue=12217335, util=99.96%
-</code></pre>
-
+    - name: &#34;vdf&#34;</pre></td></tr></table>
+</div>
+</div>
 <h1 id="总结">总结</h1>
 
 <p>分布式存储在容器集群中充当非常重要的角色，使用容器集群一个非常重要的理念就是把集群当成一个整体使用，如果你在使用中还关心单个主机，比如调度到某个节点，</p>
@@ -766,62 +1048,106 @@ Disk stats (read/write):
 <h1 id="常见问题">常见问题</h1>
 
 <p>注意主机时间一定要同步</p>
-
-<pre><code>ntpdate 0.asia.pool.ntp.org
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ntpdate 0.asia.pool.ntp.org</pre></td></tr></table>
+</div>
+</div>
 <h2 id="ceph-cluster无法启动">ceph cluster无法启动</h2>
 
 <p>报这个错误</p>
-
-<pre><code>$ kubectl logs rook-ceph-mon-a-c5f54799f-rd7s4 -n rook-ceph
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ kubectl logs rook-ceph-mon-a-c5f54799f-rd7s4 -n rook-ceph
 2019-01-27 11:04:59.985 7f0a34a4f140 -1 rocksdb: Invalid argument: /var/lib/rook/mon-a/data/store.db: does not exist (create_if_missing is false)
 2019-01-27 11:04:59.985 7f0a34a4f140 -1 rocksdb: Invalid argument: /var/lib/rook/mon-a/data/store.db: does not exist (create_if_missing is false)
-2019-01-27 11:04:59.985 7f0a34a4f140 -1 error opening mon data directory at '/var/lib/rook/mon-a/data': (22) Invalid argument
-2019-01-27 11:04:59.985 7f0a34a4f140 -1 error opening mon data directory at '/var/lib/rook/mon-a/data': (22) Invalid argument
-</code></pre>
-
+2019-01-27 11:04:59.985 7f0a34a4f140 -1 error opening mon data directory at &#39;/var/lib/rook/mon-a/data&#39;: (22) Invalid argument
+2019-01-27 11:04:59.985 7f0a34a4f140 -1 error opening mon data directory at &#39;/var/lib/rook/mon-a/data&#39;: (22) Invalid argument</pre></td></tr></table>
+</div>
+</div>
 <p>需要把宿主机store.db文件删掉,然后delete pod即可, 主意别指错目录如果自己改了目录的话</p>
-
-<pre><code>rm -rf  /var/lib/rook/mon-a/data/store.db
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">rm -rf  /var/lib/rook/mon-a/data/store.db</pre></td></tr></table>
+</div>
+</div>
 <h2 id="rook删除pvc-pv依然存在">rook删除PVC PV依然存在</h2>
 
 <p>因为storageclass回收参数：</p>
-
-<pre><code>reclaimPolicy: Retain  # 设置成Delete即可
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">reclaimPolicy: Retain  # 设置成Delete即可</pre></td></tr></table>
+</div>
+</div>
 <h2 id="rook-ceph-namespace无法删除-cephclusters-ceph-rook-io-crd无法删除">rook-ceph namespace无法删除 cephclusters.ceph.rook.io CRD无法删除</h2>
-
-<pre><code>[root@izj6c3afuzdjhtkj156zt0z ~]# kubectl get ns
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@izj6c3afuzdjhtkj156zt0z ~]# kubectl get ns
 NAME          STATUS        AGE
 default       Active        18h
 kube-public   Active        18h
 kube-system   Active        18h
 monitoring    Active        18h
-rook-ceph     Terminating   17h
-</code></pre>
-
+rook-ceph     Terminating   17h</pre></td></tr></table>
+</div>
+</div>
 <p>把CRD metadata finalizers下面的内容删了，CRD就会自动删除，然后只要rook-ceph namespace里没有东西就会自动清理掉</p>
-
-<pre><code>$ kubectl edit crd cephclusters.ceph.rook.io
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ kubectl edit crd cephclusters.ceph.rook.io</pre></td></tr></table>
+</div>
+</div>
 <h2 id="使用宿主机网络时集群无法正常启动">使用宿主机网络时集群无法正常启动</h2>
 
 <p>集群中单节点时把mon设置成1即可</p>
-
-<pre><code>  mon:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  mon:
     count: 1
     allowMultiplePerNode: true
 
   network:
     # toggle to use hostNetwork
-    hostNetwork: true
-</code></pre>
-
+    hostNetwork: true</pre></td></tr></table>
+</div>
+</div>
 <p>探讨可加QQ群：98488045</p>
 
 <h1 id="公众号">公众号：</h1>
@@ -834,7 +1160,6 @@ rook-ceph     Terminating   17h
 
     </div>
 
-    
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
@@ -842,69 +1167,71 @@ rook-ceph     Terminating   17h
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-01-23</span>
+    <span class="item-content">
+        2019-01-23
+        
+    </span>
   </p>
   
   
 </div>
-
-    
-    
-
-    <footer class="post-footer">
+<footer class="post-footer">
       <div class="post-tags">
-          
           <a href="/tags/event/">event</a>
-          
           <a href="/tags/dotscale/">dotScale</a>
-          
           <a href="/tags/sketchnote/">sketchnote</a>
-          
-        </div>
-
-      
+          </div>
       <nav class="post-nav">
         
-        
-          <a class="next" href="/post/keepalived/">
+        <a class="next" href="/post/keepalived/">
             <span class="next-text nav-default">keepalived in docker</span>
-            <span class="prev-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
     </footer>
   </article>
         </div>
-        
-  <div id="comments-gitment"></div>
-  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
-  <script type="text/javascript">
-  const gitment = new Gitment({
-    id: '2019-01-23 10:54:24 \x2b0200 \x2b0200',
-    title: 'rook使用教程，快速编排ceph',
-    link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys',
-    owner: 'fanux',
-    repo: 'fanux.github.io',
-    oauth: {
-      client_id: 'dbec2d3194e8cd765fae',
-      client_secret: 'a628bdc03410089c6b6460250a8756a9189a6f4c'
-    }
-  })
-  gitment.render('comments-gitment')
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
-
-  
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2019-01-23 10:54:24 \x2b0200 \x2b0200',
+        title: 'rook使用教程，快速编排ceph',
+        link: decodeURI(location.href),
+        desc: 'kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys',
+        owner: 'fanux',
+        repo: 'fanux.github.io',
+        oauth: {
+          client_id: 'dbec2d3194e8cd765fae',
+          client_secret: 'a628bdc03410089c6b6460250a8756a9189a6f4c'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
       </div>
     </main>
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:fhtjob@hotmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/fanux/" class="iconfont icon-github" title="github"></a>
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
   <a href="https://sealyun.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -922,8 +1249,7 @@ rook-ceph     Terminating   17h
 
   <span class="copyright-year">
     &copy; 
-    
-      2017 - 
+    2017 - 
     2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -938,10 +1264,10 @@ rook-ceph     Terminating   17h
     </div>
   </div>
   
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 

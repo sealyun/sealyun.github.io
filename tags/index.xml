@@ -5,14 +5,13 @@
     <link>https://sealyun.com/tags/</link>
     <description>Recent content in Tags on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 23 Jan 2019 10:54:24 +0200</lastBuildDate>
+    <language>en</language>
     
 	<atom:link href="https://sealyun.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>DotScale</title>
+      <title>dotScale</title>
       <link>https://sealyun.com/tags/dotscale/</link>
       <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
       
@@ -21,7 +20,7 @@
     </item>
     
     <item>
-      <title>Event</title>
+      <title>event</title>
       <link>https://sealyun.com/tags/event/</link>
       <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
       
@@ -30,7 +29,7 @@
     </item>
     
     <item>
-      <title>Sketchnote</title>
+      <title>sketchnote</title>
       <link>https://sealyun.com/tags/sketchnote/</link>
       <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
       

@@ -7,27 +7,6 @@
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?2803648cc5852dd3e9e46bbd0bf63366";
-          var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119962244-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-119962244-1');
-</script>
-
-
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
@@ -37,21 +16,17 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="fanux" />
-  <meta name="description" content="kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中" />
-
-  <meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="fanux" /><meta name="description" content="kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://sealyun.com/post/ci-cd/" />
-
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -59,37 +34,16 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="基于drone构建CI/CD系统,对接k8s" />
 <meta property="og:description" content="kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/ci-cd/" />
-
-
-
 <meta property="article:published_time" content="2018-10-10T10:54:24&#43;02:00"/>
-
 <meta property="article:modified_time" content="2018-10-10T10:54:24&#43;02:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="基于drone构建CI/CD系统,对接k8s">
 <meta itemprop="description" content="kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中">
@@ -97,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-10-10T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-10-10T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="4025">
+<meta itemprop="wordCount" content="4199">
 
 
 
@@ -137,7 +91,7 @@
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
-      </a><a href="/pro/istio">
+      </a><a href="">
         <li class="mobile-menu-item">Istio下载</li>
       </a><a href="/pro/products">
         <li class="mobile-menu-item">Kubernetes下载</li>
@@ -161,7 +115,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/pro/istio">Istio下载</a>
+        <a class="menu-item-link" href="">Istio下载</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/pro/products">Kubernetes下载</a>
       </li>
@@ -181,15 +135,11 @@
         <span class="post-time"> 2018-10-10 </span>
         
         
-        
       </div>
     </header>
 
-    
-    
-<div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
@@ -227,8 +177,6 @@
 </nav>
   </div>
 </div>
-
-    
     <div class="post-content">
       
 
@@ -256,11 +204,16 @@
 <p>首先SVN这种渣渣软件就该尽早淘汰，没啥好说的，有git真的没有SVN存在的必要了我觉得。</p>
 
 <p>所以我们选一个git仓库,git仓库比较多，我这里选用gogs，gitea gitlab都行，根据需求自行选择</p>
-
-<pre><code>docker run -d --name gogs-time -v /etc/localtime:/etc/localtime -e TZ=Asia/Shanghai --publish 8022:22 \
-           --publish 3000:3000 --volume /data/gogs:/data gogs:latest
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker run -d --name gogs-time -v /etc/localtime:/etc/localtime -e TZ=Asia/Shanghai --publish 8022:22 \
+           --publish 3000:3000 --volume /data/gogs:/data gogs:latest</pre></td></tr></table>
+</div>
+</div>
 <p>访问3000端口，然后就没有然后了
 gogs功能没有那么强大，不过占用资源少，速度快，我们稳定运行了几年了。缺点就是API不够全。</p>
 
@@ -269,8 +222,41 @@ gogs功能没有那么强大，不过占用资源少，速度快，我们稳定�
 <p>当你用过drone之后。。。</p>
 
 <p>装：</p>
-
-<pre><code>version: '2'
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">version: &#39;2&#39;
 
 services:
   drone-server:
@@ -299,9 +285,9 @@ services:
     environment:
       - DOCKER_API_VERSION=1.24
       - DRONE_SERVER=ws://drone-server:8000/ws/broker
-      - DRONE_SECRET=ok
-</code></pre>
-
+      - DRONE_SECRET=ok</pre></td></tr></table>
+</div>
+</div>
 <p><code>docker-compose up -d</code> 然后你懂的，也没有然后了</p>
 
 <p>用gogs账户登录drone即可</p>
@@ -317,10 +303,14 @@ services:
 </ul>
 
 <p>安装方式2，在<a href="https://hub.kubeapps.com/charts/stable/drone">k8s上安装</a>：</p>
-
-<pre><code>helm install stable/drone
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">helm install stable/drone</pre></td></tr></table>
+</div>
+</div>
 <h1 id="使用篇">使用篇</h1>
 
 <p>首先在你的代码仓库主目录下新建三个文件：</p>
@@ -336,8 +326,35 @@ services:
 <img src="http://docs.drone.io/images/drone_repo_list.png" alt="" /></p>
 
 <h2 id="官方事例">官方事例</h2>
-
-<pre><code>pipeline:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pipeline:
   backend:    # 一个步骤的名称，可以随便全名
     image: golang  # 每个步骤的本质都是基于这个镜像去启动一个容器
     commands:      # 在这个容器中执行一些命令
@@ -360,14 +377,30 @@ services:
   notify:
     image: plugins/slack
     channel: developers
-    username: drone
-</code></pre>
-
+    username: drone</pre></td></tr></table>
+</div>
+</div>
 <p>各步骤启动的容器共享workdir这个卷, 这样build步骤的结果产物就可以在publish这个容器中使用</p>
 
 <p>结合Dockerfile看：</p>
-
-<pre><code># docker build --rm -t drone/drone .
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># docker build --rm -t drone/drone .
 
 FROM drone/ca-certs
 EXPOSE 8000 9000 80 443
@@ -379,9 +412,9 @@ ENV XDG_CACHE_HOME /var/lib/drone
 
 ADD release/drone-server /bin/   #  因为工作目录共享，所以就可以在publish时使用到 build时的产物，这样构建和发布就可以分离
 
-ENTRYPOINT [&quot;/bin/drone-server&quot;]
-</code></pre>
-
+ENTRYPOINT [&#34;/bin/drone-server&#34;]</pre></td></tr></table>
+</div>
+</div>
 <p>上面说到构建与发布分离，很有用，如构建golang代码时我们需要go环境，但是线上或者运行时其实只需要一个可执行文件即可，</p>
 
 <p>所以Dockerfile里就可以不用FROM一个golang的基础镜像，让你的镜像更小。又比如java构建时需要maven，而线上运行时不需要，</p>
@@ -401,12 +434,30 @@ ansible的镜像，等等，发挥想象，灵活使用。</p>
 
 <p>有时我们希望CI出来的docker镜像tag与git的tag一致，这样的好处就是知道运行的是哪个版本的代码，升级等等都很方便，不过每次都去修改pipeline
 文件显然很烦，那么drone就可以有很多环境变量来帮助我们解决这个问题：</p>
-
-<pre><code>pipeline:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pipeline:
     build:
         image: golang:1.9.2 
         commands:
-            - go build -o test --ldflags '-linkmode external -extldflags &quot;-static&quot;'
+            - go build -o test --ldflags &#39;-linkmode external -extldflags &#34;-static&#34;&#39;
         when:
             event: [push, tag, deployment]
     publish:
@@ -416,9 +467,9 @@ ansible的镜像，等等，发挥想象，灵活使用。</p>
         dockerfile: Dockerfile
         insecure: true
         when:
-            event: [push, tag, deployment]
-</code></pre>
-
+            event: [push, tag, deployment]</pre></td></tr></table>
+</div>
+</div>
 <p>这个例子<code>${DRONE_TAG=latest}</code> 如果git tag事件触发了pipeline那就把git tag当镜像tag，否则就用latest，这样我们自己研发过程中就
 可以一直用latest迭代，觉得版本差不多了，打个tag，生成一个可以给测试人员测试的镜像，非常优雅，不需要改什么东西，不容易出错</p>
 
@@ -431,8 +482,25 @@ ansible的镜像，等等，发挥想象，灵活使用。</p>
 <p>有了上面的铺垫，对接k8s就相当简单了：搞个kubectl的镜像嵌入流程中即可:</p>
 
 <p>把项目的k8s yaml文件放到代码中，然后pipelie里直接apply</p>
-
-<pre><code>  publish:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  publish:
     image: plugins/docker   # 镜像仓库,执行Dockerfile插件
     tags:
       - ${DRONE_TAG=latest}
@@ -445,9 +513,9 @@ ansible的镜像，等等，发挥想象，灵活使用。</p>
           - ls   
           - rm -rf /root/.kube &amp;&amp; cp -r .kube /root # k8s 的kubeconfig文件，可以有多个，部署到哪个集群就拷贝哪个kubeconfig文件
           - kubectl delete -f test.yaml || true
-          - kubectl apply -f test.yaml 
-</code></pre>
-
+          - kubectl apply -f test.yaml </pre></td></tr></table>
+</div>
+</div>
 <p>不过最佳实践还有几个细节：</p>
 
 <ul>
@@ -457,8 +525,29 @@ ansible的镜像，等等，发挥想象，灵活使用。</p>
 </ul>
 
 <p>所以我们引入chart, 用helm进行部署:</p>
-
-<pre><code>apiVersion: extensions/v1beta1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: test
@@ -473,16 +562,38 @@ spec:
       serviceAccountName: test
       containers:
       - name: test
-        image: &quot;{{ .Values.image.repository }}:{{ .Values.image.tag }}&quot;  # deployment的yaml文件是模板，创建时再传参进来渲染
+        image: &#34;{{ .Values.image.repository }}:{{ .Values.image.tag }}&#34;  # deployment的yaml文件是模板，创建时再传参进来渲染
         imagePullPolicy: {{ .Values.image.pullPolicy }} 
-....
-</code></pre>
-
+....</pre></td></tr></table>
+</div>
+</div>
 <p>注意，有了模板之后，我们部署v1版本和v2版本时就不需要改动yaml文件，这样降低出错风险，pipeline执行时把环境变量传进来，完美解决</p>
 
 <p>这样git tag 镜像tag与yaml里镜像配置实现了完全的统一：</p>
-
-<pre><code>    deploy_dev:   # 部署到开发环境
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    deploy_dev:   # 部署到开发环境
         image: helm:v2.8.1
         commands:
             - mkdir -p /root/.kube &amp;&amp; cp -r .kube/config-test101.194 /root/.kube 
@@ -500,9 +611,9 @@ spec:
             - helm install --name test --set image.tag=${DRONE_TAG=latest}  Chart # 把git tag传给helm，这样运行的镜像就是publish时构建的镜像，tag一致
         when:
             event: deployment
-            environment: deploy_test
-</code></pre>
-
+            environment: deploy_test</pre></td></tr></table>
+</div>
+</div>
 <p>以上，优雅的解决了上面问题</p>
 
 <p>细节：event可以是git的事件也可以是手动处罚的事件，类型是deployment时就是手动触发的，drone支持命令行触发</p>
@@ -524,71 +635,130 @@ spec:
 <p>镜像即插件，也就是可能现有很多镜像都能直接当作插件嵌入到drone流程中。</p>
 
 <p>有个小区别是，你会发现drone有些插件还带一些参数，这就是比普通的镜像多做了一丢丢事，如publish时打docker的镜像：</p>
-
-<pre><code>  publish:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  publish:
     image: plugins/docker
     repo: octocat/hello-world
     tags: [ 1, 1.1, latest ]
-    registry: index.docker.io
-</code></pre>
-
+    registry: index.docker.io</pre></td></tr></table>
+</div>
+</div>
 <p>你会发现它有 repo tags什么的参数，其实drone处理时非常简单，就是把这些参数转化成环境变量传给容器了，
 然后容器去处理这些参数。
 本质就是做了这个事情：</p>
-
-<pre><code>docker run --rm \
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker run --rm \
   -e PLUGIN_TAG=latest \
   -e PLUGIN_REPO=octocat/hello-world \
   -e DRONE_COMMIT_SHA=d8dbe4d94f15fe89232e0402c6e8a0ddf21af3ab \
   -v $(pwd):$(pwd) \
   -w $(pwd) \
   --privileged \
-  plugins/docker --dry-run
-</code></pre>
-
+  plugins/docker --dry-run</pre></td></tr></table>
+</div>
+</div>
 <p>那我们自定义一个插件就简单了，只要写个脚本能处理特定环境变量即可，如一个curl的插件：</p>
-
-<pre><code>pipeline:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pipeline:
   webhook:
     image: foo/webhook
     url: http://foo.com
     method: post
     body: |
-      hello world
-</code></pre>
-
+      hello world</pre></td></tr></table>
+</div>
+</div>
 <p>写个脚本</p>
-
-<pre><code>#!/bin/sh
-
-curl \
-  -X ${PLUGIN_METHOD} \  # 处理一个几个环境变量
-  -d ${PLUGIN_BODY} \
-  ${PLUGIN_URL}
-</code></pre>
-
-<pre><code>FROM alpine
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+curl <span class="se">\
+</span><span class="se"></span>  -X <span class="si">${</span><span class="nv">PLUGIN_METHOD</span><span class="si">}</span> <span class="se">\ </span> <span class="c1"># 处理一个几个环境变量</span>
+  -d <span class="si">${</span><span class="nv">PLUGIN_BODY</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>  <span class="si">${</span><span class="nv">PLUGIN_URL</span><span class="si">}</span></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">FROM alpine
 ADD script.sh /bin/
 RUN chmod +x /bin/script.sh
 RUN apk -Uuv add curl ca-certificates
-ENTRYPOINT /bin/script.sh
-</code></pre>
-
-<pre><code>docker build -t foo/webhook .
-docker push foo/webhook
-</code></pre>
-
+ENTRYPOINT /bin/script.sh</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker build -t foo/webhook .
+docker push foo/webhook</pre></td></tr></table>
+</div>
+</div>
 <p>打成docker镜像，大功告成</p>
 
 <p>所以大部分情况我们会很懒的什么也不写，直接在容器里执行命令就是了，同样是一个curl的需求，不写插件的话</p>
-
-<pre><code>pipeline:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pipeline:
   webhook:
     image: busybox  # 直接用busybox
     command: 
-    - curl -X POST -d 123 http://foo.com  完事，插件都懒得开发了
-</code></pre>
-
+    - curl -X POST -d 123 http://foo.com  完事，插件都懒得开发了</pre></td></tr></table>
+</div>
+</div>
 <p>值得注意的是一些复杂功能还是需要开发插件的，如publish镜像时用的插件。关于该插件我想补充一句
 它是docker里面起了一个docker engine，用docker内的docker engine进行打镜像的
 所以devicemapper存储驱动是支持不了的。请升级内核用overlay2，或者ubuntu用aufs</p>
@@ -617,7 +787,6 @@ docker push foo/webhook
 
     </div>
 
-    
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
@@ -625,74 +794,75 @@ docker push foo/webhook
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-10-10</span>
+    <span class="item-content">
+        2018-10-10
+        
+    </span>
   </p>
   
   
 </div>
-
-    
-    
-
-    <footer class="post-footer">
+<footer class="post-footer">
       <div class="post-tags">
-          
           <a href="/tags/event/">event</a>
-          
           <a href="/tags/dotscale/">dotScale</a>
-          
           <a href="/tags/sketchnote/">sketchnote</a>
-          
-        </div>
-
-      
+          </div>
       <nav class="post-nav">
-        
-          <a class="prev" href="/post/sealos/">
+        <a class="prev" href="/post/sealos/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">构建生产环境可用的高可用kubernetes集群</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        
-          <a class="next" href="/post/etcd-manage/">
+        <a class="next" href="/post/etcd-manage/">
             <span class="next-text nav-default">etcd管理指南</span>
-            <span class="prev-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
     </footer>
   </article>
         </div>
-        
-  <div id="comments-gitment"></div>
-  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
-  <script type="text/javascript">
-  const gitment = new Gitment({
-    id: '2018-10-10 10:54:24 \x2b0200 \x2b0200',
-    title: '基于drone构建CI\/CD系统,对接k8s',
-    link: decodeURI(location.href),
-    desc: 'kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中',
-    owner: 'fanux',
-    repo: 'fanux.github.io',
-    oauth: {
-      client_id: 'dbec2d3194e8cd765fae',
-      client_secret: 'a628bdc03410089c6b6460250a8756a9189a6f4c'
-    }
-  })
-  gitment.render('comments-gitment')
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
-
-  
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2018-10-10 10:54:24 \x2b0200 \x2b0200',
+        title: '基于drone构建CI\/CD系统,对接k8s',
+        link: decodeURI(location.href),
+        desc: 'kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中',
+        owner: 'fanux',
+        repo: 'fanux.github.io',
+        oauth: {
+          client_id: 'dbec2d3194e8cd765fae',
+          client_secret: 'a628bdc03410089c6b6460250a8756a9189a6f4c'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
       </div>
     </main>
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:fhtjob@hotmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/fanux/" class="iconfont icon-github" title="github"></a>
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
   <a href="https://sealyun.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -710,8 +880,7 @@ docker push foo/webhook
 
   <span class="copyright-year">
     &copy; 
-    
-      2017 - 
+    2017 - 
     2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -726,10 +895,10 @@ docker push foo/webhook
     </div>
   </div>
   
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 
