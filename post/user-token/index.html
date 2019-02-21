@@ -71,7 +71,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2019-02-20T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-02-20T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2374">
+<meta itemprop="wordCount" content="2264">
 
 
 
@@ -166,11 +166,12 @@ var _hmt = _hmt || [];
 <li><a href="#概述">概述</a>
 <ul>
 <li><a href="#token主要用来干啥">token主要用来干啥</a></li>
+<li><a href="#token种类介绍">token种类介绍</a></li>
 </ul></li>
-<li><a href="#mkdir-etc-kubernetes-pki-fist">mkdir /etc/kubernetes/pki/fist</a></li>
-<li><a href="#cd-etc-kubernetes-pki-fist">cd /etc/kubernetes/pki/fist</a></li>
-<li><a href="#sh-gencert-sh-脚本内容内代码">sh gencert.sh # 脚本内容内代码</a>
+<li><a href="#sealyun-fist介绍">sealyun fist介绍</a></li>
+<li><a href="#sealyun-fist-auth-使用教程">sealyun fist/auth 使用教程</a>
 <ul>
+<li><a href="#安装部署">安装部署</a></li>
 <li><a href="#获取及使用-token">获取及使用 token</a></li>
 </ul></li>
 <li><a href="#原理介绍">原理介绍</a>
@@ -216,55 +217,55 @@ subjects:</p>
 <li>kind: ServiceAccount   # 这里不是User类型
 name: kubernetes-dashboard
 namespace: kube-system
-```
-第二：要理解kubeconfig里是解析证书把CN作为用户名的，这时service account即便与CN一样那还是两个账户，绑定角色时还需要绑定两次，有点像把service account给&rdquo;人&rdquo;用, 所以把service account的token扔给某个开发人员去用往往不合适，service account token更多时候是给程序用的。</li>
+```</li>
 </ul></li>
-
-<li><p>想直接调用https的，没有token就会：
-```
-[root@iZj6cegflzze2l7fpcqoerZ ssl]# curl <a href="https://172.31.12.61:6443/api/v1/namespaces/default/pods">https://172.31.12.61:6443/api/v1/namespaces/default/pods</a> &ndash;insecure
-{
-&ldquo;kind&rdquo;: &ldquo;Status&rdquo;,
-&ldquo;apiVersion&rdquo;: &ldquo;v1&rdquo;,
-&ldquo;metadata&rdquo;: {</p></li>
 </ol>
 
-<p>},
-  &ldquo;status&rdquo;: &ldquo;Failure&rdquo;,
-  &ldquo;message&rdquo;: &ldquo;pods is forbidden: User \&ldquo;system:anonymous\&rdquo; cannot list resource \&ldquo;pods\&rdquo; in API group \&rdquo;\&rdquo; in the namespace \&ldquo;default\&ldquo;&rdquo;,
-  &ldquo;reason&rdquo;: &ldquo;Forbidden&rdquo;,
-  &ldquo;details&rdquo;: {
-    &ldquo;kind&rdquo;: &ldquo;pods&rdquo;
-  },
-  &ldquo;code&rdquo;: 403
-}</p>
+<p>第二：要理解kubeconfig里是解析证书把CN作为用户名的，这时service account即便与CN一样那还是两个账户，绑定角色时还需要绑定两次，有点像把service account给&rdquo;人&rdquo;用, 所以把service account的token扔给某个开发人员去用往往不合适，service account token更多时候是给程序用的。</p>
+
+<ol>
+<li><p>想直接调用https的，没有token就会：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">因为没有任何认证信息，所以匿名（anonymous）用户没有任何权限
-
-加了token是这样的：</pre></td></tr></table>
-</div>
-</div>
-<p>[root@iZj6cegflzze2l7fpcqoerZ ssl]# curl -H &ldquo;Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkNnYzRPVEV5TlRVM0VnWm5hWFJvZFdJIn0.eyJpc3MiOiJodHRwczovL2RleC5leGFtcGxlLmNvbTo4MDgwIiwic3ViIjoiQ2djNE9URXlOVFUzRWdabmFYUm9kV0kiLCJhdWQiOiJleGFtcGxlLWFwcCIsImV4cCI6MTU1MTA5NzkwNiwiaWF0IjoxNTUwNzM3OTA2LCJlbWFpbCI6ImZodGpvYkBob3RtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiZGV2Il0sIm5hbWUiOiJmYW51eCJ9.ZqKn461UW0aGtyjyqu2Dc5tiUzC-6eYLag542d3AvklUdZuw8i9XwyaUg_f1OAj0ZsEcOybOe9_PeGMaUYzU0OvlKPY-q2zbQVC-m6u6sQw6ZXx8pi0W8k4wQSJnMaOLddCfurlYufmr8kScDBQlnKapSR0F9mJzvpKkHD-XNshQKWhX3n03g7OfFgb4RuhLjKDNQnoGn7DfBNntibHlF9sPo0jC5JjqTZaGvoGmiRE4PAXwxA-RJifsWDNf_jW8lrDiY4NSO_3O081cia4N1GKht51q9W3eaNMvFDD9hje7abDdZoz9KPi2vc3zvgH7cNv0ExVHKaA0-dwAZgTx4g&rdquo; -k <a href="https://172.31.12.61:6443/api/v1/namespaces/default/pods">https://172.31.12.61:6443/api/v1/namespaces/default/pods</a>
+<pre class="chroma">[root@iZj6cegflzze2l7fpcqoerZ ssl]# curl https://172.31.12.61:6443/api/v1/namespaces/default/pods --insecure
 {
-  &ldquo;kind&rdquo;: &ldquo;Status&rdquo;,
-  &ldquo;apiVersion&rdquo;: &ldquo;v1&rdquo;,
-  &ldquo;metadata&rdquo;: {</p>
+  &#34;kind&#34;: &#34;Status&#34;,
+  &#34;apiVersion&#34;: &#34;v1&#34;,
+  &#34;metadata&#34;: {
 
-<p>},
-  &ldquo;status&rdquo;: &ldquo;Failure&rdquo;,
-  &ldquo;message&rdquo;: &ldquo;pods is forbidden: User \&ldquo;<a href="https://dex.example.com:8080#fanux&quot;">https://dex.example.com:8080#fanux&quot;</a> cannot list resource \&ldquo;pods\&rdquo; in API group \&rdquo;\&rdquo; in the namespace \&ldquo;default\&ldquo;&rdquo;,
-  &ldquo;reason&rdquo;: &ldquo;Forbidden&rdquo;,
-  &ldquo;details&rdquo;: {
-    &ldquo;kind&rdquo;: &ldquo;pods&rdquo;
   },
-  &ldquo;code&rdquo;: 403
-}</p>
+  &#34;status&#34;: &#34;Failure&#34;,
+  &#34;message&#34;: &#34;pods is forbidden: User \&#34;system:anonymous\&#34; cannot list resource \&#34;pods\&#34; in API group \&#34;\&#34; in the namespace \&#34;default\&#34;&#34;,
+  &#34;reason&#34;: &#34;Forbidden&#34;,
+  &#34;details&#34;: {
+    &#34;kind&#34;: &#34;pods&#34;
+  },
+  &#34;code&#34;: 403
+}</pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<p>因为没有任何认证信息，所以匿名（anonymous）用户没有任何权限</p>
+
+<p>加了token是这样的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
@@ -284,49 +285,118 @@ namespace: kube-system
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">看，虽然还是403 但是已经有了用户信息，只要给该用户授权就可正常访问了，如何授权下文介绍
+<pre class="chroma">```
+[root@iZj6cegflzze2l7fpcqoerZ ssl]# curl -H &#34;Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkNnYzRPVEV5TlRVM0VnWm5hWFJvZFdJIn0.eyJpc3MiOiJodHRwczovL2RleC5leGFtcGxlLmNvbTo4MDgwIiwic3ViIjoiQ2djNE9URXlOVFUzRWdabmFYUm9kV0kiLCJhdWQiOiJleGFtcGxlLWFwcCIsImV4cCI6MTU1MTA5NzkwNiwiaWF0IjoxNTUwNzM3OTA2LCJlbWFpbCI6ImZodGpvYkBob3RtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiZGV2Il0sIm5hbWUiOiJmYW51eCJ9.ZqKn461UW0aGtyjyqu2Dc5tiUzC-6eYLag542d3AvklUdZuw8i9XwyaUg_f1OAj0ZsEcOybOe9_PeGMaUYzU0OvlKPY-q2zbQVC-m6u6sQw6ZXx8pi0W8k4wQSJnMaOLddCfurlYufmr8kScDBQlnKapSR0F9mJzvpKkHD-XNshQKWhX3n03g7OfFgb4RuhLjKDNQnoGn7DfBNntibHlF9sPo0jC5JjqTZaGvoGmiRE4PAXwxA-RJifsWDNf_jW8lrDiY4NSO_3O081cia4N1GKht51q9W3eaNMvFDD9hje7abDdZoz9KPi2vc3zvgH7cNv0ExVHKaA0-dwAZgTx4g&#34; -k https://172.31.12.61:6443/api/v1/namespaces/default/pods
+{
+  &#34;kind&#34;: &#34;Status&#34;,
+  &#34;apiVersion&#34;: &#34;v1&#34;,
+  &#34;metadata&#34;: {
 
-## token种类介绍
-token的生成方式有很多，主要分成三种：
-1. service account token 这个创建service account就有，存在secret里 获取比较简单，但是要区分好 [User 和 service account区别](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes)
+  },
+  &#34;status&#34;: &#34;Failure&#34;,
+  &#34;message&#34;: &#34;pods is forbidden: User \&#34;https://dex.example.com:8080#fanux\&#34; cannot list resource \&#34;pods\&#34; in API group \&#34;\&#34; in the namespace \&#34;default\&#34;&#34;,
+  &#34;reason&#34;: &#34;Forbidden&#34;,
+  &#34;details&#34;: {
+    &#34;kind&#34;: &#34;pods&#34;
+  },
+  &#34;code&#34;: 403
+}
+```</pre></td></tr></table>
+</div>
+</div>
+<p>看，虽然还是403 但是已经有了用户信息，只要给该用户授权就可正常访问了，如何授权下文介绍</p>
+
+<h2 id="token种类介绍">token种类介绍</h2>
+
+<p>token的生成方式有很多，主要分成三种：
+1. service account token 这个创建service account就有，存在secret里 获取比较简单，但是要区分好 <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes">User 和 service account区别</a>
 2. 普通的token，这种token就是个普通的字符串，一般是自己写一个认证的web hook, k8s认证时调用这个hook 查询token是否有效，比较low
-3. 基于openid的jwt(josn web token) 这种token，认证中心把用户信息放在json里，用私钥加密，k8s拿到token后用公钥解密，只要解密成功token就是合法的而且能拿到用户信息，不需要再像认证中心请求
+3. 基于openid的jwt(josn web token) 这种token，认证中心把用户信息放在json里，用私钥加密，k8s拿到token后用公钥解密，只要解密成功token就是合法的而且能拿到用户信息，不需要再像认证中心请求</p>
 
-基于openid的jwt是本文介绍的重点。
+<p>基于openid的jwt是本文介绍的重点。</p>
 
-社区用的比较多的就是[dex](https://github.com/coreos/dex),是一个比较完整的实现，但是对于不熟悉该技术的朋友来说还是有点门槛的，容易绕进去。 而且还存在一些使用不方便的问题。
+<p>社区用的比较多的就是<a href="https://github.com/coreos/dex">dex</a>,是一个比较完整的实现，但是对于不熟悉该技术的朋友来说还是有点门槛的，容易绕进去。 而且还存在一些使用不方便的问题。
 如依赖复杂，首先得需要一个真正的用户管理程序，如ldap 或者一个auth2服务端，这还可以接受，关键是认证时可能需要依赖浏览器进行跳转授权，这在十分多的场景里就变的十分尴尬，就比如我们的场景压根没有
 界面，这样生成token就成了一个大问题。  其次集成到别的系统中时往往用户已经登录过了，所以需要一个二次授权的过程才能拿到token，依赖过重导致系统难以设计。
-然而如果不是集成到别的系统中，比如从0开发一个完成的PaaS平台那使用dex还是一个完美的方案。
+然而如果不是集成到别的系统中，比如从0开发一个完成的PaaS平台那使用dex还是一个完美的方案。</p>
 
-所以我们实现了一个简单粗暴的方案，完全解放了这个过程, 只care最核心的东西。
+<p>所以我们实现了一个简单粗暴的方案，完全解放了这个过程, 只care最核心的东西。</p>
 
-# sealyun fist介绍
-我们想要啥?
+<h1 id="sealyun-fist介绍">sealyun fist介绍</h1>
 
-input:</pre></td></tr></table>
+<p>我们想要啥?</p>
+
+<p>input:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{
+    &#34;User&#34;: &#34;fanux&#34;,
+    &#34;Group&#34;: [&#34;sealyun&#34;, &#34;develop&#34;]
+}</pre></td></tr></table>
 </div>
 </div>
-<p>{
-    &ldquo;User&rdquo;: &ldquo;fanux&rdquo;,
-    &ldquo;Group&rdquo;: [&ldquo;sealyun&rdquo;, &ldquo;develop&rdquo;]
-}</p>
+<p>output:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">output:</pre></td></tr></table>
+<pre class="chroma">eyJhbGciOiJSUzI1NiIsImtpZCI6IkNnYzRPVEV5TlRVM0VnWm5hWFJvZFdJIn0.eyJpc3MiOiJodHRwczovL2RleC5leGFtcGxlLmNvbTo4MDgwIiwic3ViIjoiQ2djNE9URXlOVFUzRWdabmFYUm9kV0kiLCJhdWQiOiJleGFtcGxlLWFwcCIsImV4cCI6MTU1MTA5NzkwNiwiaWF0IjoxNTUwNzM3OTA2LCJlbWFpbCI6ImZodGpvYkBob3RtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiZGV2Il0sIm5hbWUiOiJmYW51eCJ9.ZqKn461UW0aGtyjyqu2Dc5tiUzC-6eYLag542d3AvklUdZuw8i9XwyaUg_f1OAj0ZsEcOybOe9_PeGMaUYzU0OvlKPY-q2zbQVC-m6u6sQw6ZXx8pi0W8k4wQSJnMaOLddCfurlYufmr8kScDBQlnKapSR0F9mJzvpKkHD-XNshQKWhX3n03g7OfFgb4RuhLjKDNQnoGn7DfBNntibHlF9sPo0jC5JjqTZaGvoGmiRE4PAXwxA-RJifsWDNf_jW8lrDiY4NSO_3O081cia4N1GKht51q9W3eaNMvFDD9hje7abDdZoz9KPi2vc3zvgH7cNv0ExVHKaA0-dwAZgTx4g</pre></td></tr></table>
 </div>
 </div>
-<p>eyJhbGciOiJSUzI1NiIsImtpZCI6IkNnYzRPVEV5TlRVM0VnWm5hWFJvZFdJIn0.eyJpc3MiOiJodHRwczovL2RleC5leGFtcGxlLmNvbTo4MDgwIiwic3ViIjoiQ2djNE9URXlOVFUzRWdabmFYUm9kV0kiLCJhdWQiOiJleGFtcGxlLWFwcCIsImV4cCI6MTU1MTA5NzkwNiwiaWF0IjoxNTUwNzM3OTA2LCJlbWFpbCI6ImZodGpvYkBob3RtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiZGV2Il0sIm5hbWUiOiJmYW51eCJ9.ZqKn461UW0aGtyjyqu2Dc5tiUzC-6eYLag542d3AvklUdZuw8i9XwyaUg_f1OAj0ZsEcOybOe9_PeGMaUYzU0OvlKPY-q2zbQVC-m6u6sQw6ZXx8pi0W8k4wQSJnMaOLddCfurlYufmr8kScDBQlnKapSR0F9mJzvpKkHD-XNshQKWhX3n03g7OfFgb4RuhLjKDNQnoGn7DfBNntibHlF9sPo0jC5JjqTZaGvoGmiRE4PAXwxA-RJifsWDNf_jW8lrDiY4NSO_3O081cia4N1GKht51q9W3eaNMvFDD9hje7abDdZoz9KPi2vc3zvgH7cNv0ExVHKaA0-dwAZgTx4g</p>
+<p>结束,多简单，别整那么多没用的。</p>
+
+<p>所以为了实现上面的功能，我们开发了 <a href="https://github.com/fanux/fist">fist</a>, fist的auth模块把dex里最核心的token生成功能以及jwt功能实现了。</p>
+
+<h1 id="sealyun-fist-auth-使用教程">sealyun fist/auth 使用教程</h1>
+
+<h2 id="安装部署">安装部署</h2>
+
+<blockquote>
+<p>生成证书</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># mkdir /etc/kubernetes/pki/fist
+# cd /etc/kubernetes/pki/fist
+# sh gencert.sh # 脚本内容内代码</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>启动fist auth模块</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl create -f deploy/fist-auth.yaml</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>修改k8s apiserver启动参数</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">vim /etc/kubernetes/manifests/kube-apiserver.yaml</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span><span class="lnt">2
@@ -335,63 +405,17 @@ input:</pre></td></tr></table>
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">结束,多简单，别整那么多没用的。
-
-所以为了实现上面的功能，我们开发了 [fist](https://github.com/fanux/fist), fist的auth模块把dex里最核心的token生成功能以及jwt功能实现了。
-
-# sealyun fist/auth 使用教程
-
-## 安装部署
-&gt; 生成证书</pre></td></tr></table>
+<pre class="chroma">  - command:
+    - kube-apiserver
+    - --oidc-issuer-url=https://fist.sealyun.svc.cluster.local:8080
+    - --oidc-client-id=example-app
+    - --oidc-ca-file=/etc/kubernetes/pki/fist/ca.pem
+    - --oidc-username-claim=name
+    - --oidc-groups-claim=groups</pre></td></tr></table>
 </div>
 </div>
-<h1 id="mkdir-etc-kubernetes-pki-fist">mkdir /etc/kubernetes/pki/fist</h1>
-
-<h1 id="cd-etc-kubernetes-pki-fist">cd /etc/kubernetes/pki/fist</h1>
-
-<h1 id="sh-gencert-sh-脚本内容内代码">sh gencert.sh # 脚本内容内代码</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">&gt; 启动fist auth模块</pre></td></tr></table>
-</div>
-</div>
-<p>kubectl create -f deploy/fist-auth.yaml</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">&gt; 修改k8s apiserver启动参数</pre></td></tr></table>
-</div>
-</div>
-<p>vim /etc/kubernetes/manifests/kube-apiserver.yaml</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"></pre></td>
-<td class="lntd">
-<pre class="chroma"></pre></td></tr></table>
-</div>
-</div>
-<ul>
-<li>command:
-
-<ul>
-<li>kube-apiserver</li>
-<li>&ndash;oidc-issuer-url=<a href="https://fist.sealyun.svc.cluster.local:8080">https://fist.sealyun.svc.cluster.local:8080</a></li>
-<li>&ndash;oidc-client-id=example-app</li>
-<li>&ndash;oidc-ca-file=/etc/kubernetes/pki/fist/ca.pem</li>
-<li>&ndash;oidc-username-claim=name</li>
-<li>&ndash;oidc-groups-claim=groups
-```</li>
-</ul></li>
-</ul>
-
 <h2 id="获取及使用-token">获取及使用 token</h2>
 
 <blockquote>
