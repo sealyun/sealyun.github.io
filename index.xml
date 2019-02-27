@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>是时候表现一下我的vim了</title>
+      <link>https://sealyun.com/post/vim/</link>
+      <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/vim/</guid>
+      <description>kubernetes集群三步安装 探讨可加QQ群：98488045 使用vim作golang开发 分享一些我使用的vim插件，以及制作过程，最终的</description>
+    </item>
+    
+    <item>
       <title>keepalived in docker</title>
       <link>https://sealyun.com/post/keepalived/</link>
       <pubDate>Thu, 10 Jan 2019 10:54:24 +0200</pubDate>
