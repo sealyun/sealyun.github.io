@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2018-12-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2018-12-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="759">
+<meta itemprop="wordCount" content="798">
 
 
 
@@ -159,6 +159,7 @@ var _hmt = _hmt || [];
 <li><a href="#展示">展示</a></li>
 </ul></li>
 <li><a href="#kubernetes安装文档">kubernetes安装文档</a></li>
+<li><a href="#证书延长版">证书延长版</a></li>
 <li><a href="#kubernetes高可用安装">kubernetes高可用安装</a></li>
 <li><a href="#监控使用教程">监控使用教程</a></li>
 <li><a href="#sealyun公众号">sealyun公众号</a>
@@ -265,17 +266,10 @@ rm -rf /var/lib/etcd
 rm -rf /var/etcd</pre></td></tr></table>
 </div>
 </div>
-<blockquote>
-<p>master 节点 (录屏加载较慢，别焦躁。。。)</p>
-</blockquote>
+<h1 id="证书延长版">证书延长版</h1>
 
-<script data-speed="3" src="https://asciinema.org/a/RZ3a74x8qE6DZy7jSjaDrLvYM.js" id="asciicast-RZ3a74x8qE6DZy7jSjaDrLvYM" async></script>
-
-<blockquote>
-<p>node 节点</p>
-</blockquote>
-
-<script data-speed="3" src="https://asciinema.org/a/HwrKtAEJpguMfYMNEU7LDeFbQ.js?speed=40" id="asciicast-HwrKtAEJpguMfYMNEU7LDeFbQ" async></script>
+<p>kubernets默认证书一年过期，这里编译了一个99年证书的kubeadm，下载下来替换离线安装包里的即可
+<a href="https://github.com/fanux/kube/releases/tag/certv1.13.4">kubeadm</a></p>
 
 <h1 id="kubernetes高可用安装">kubernetes高可用安装</h1>
 
