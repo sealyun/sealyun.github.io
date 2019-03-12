@@ -133,6 +133,25 @@ var _hmt = _hmt || [];
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/install-k8s/">kubernetes安装</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-07-11 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      alico node &lsquo;iZ2ze3nu0s9j3v57be4xuuZ&rsquo; is already using the IPv4 address 192.168.152.65 基础环境 关闭防火墙 selinux 1 2 $ systemctl stop firewalld &amp;&amp; systemctl disable firewalld $ setenforce 0 打开forward sysctl -w net.ipv4.ip_forward=1 关闭swap swapoff -a 再把/etc/fstab文件中带有
+    </div>
+    <div class="read-more">
+      <a href="/post/install-k8s/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-07-11 </span>
@@ -203,25 +222,6 @@ var _hmt = _hmt || [];
     </div>
     <div class="read-more">
       <a href="/post/docker-ovs/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/docker-network/">容器网络概述</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-07-11 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      网络概述 端口映射： 1 $ docker run -p 8080:80 nginx:latest 如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问
-    </div>
-    <div class="read-more">
-      <a href="/post/docker-network/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

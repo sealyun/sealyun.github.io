@@ -6,10 +6,19 @@
     <description>Recent content in dotScale on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Feb 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/dotscale/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>containerd与kubernetes集成</title>
+      <link>https://sealyun.com/post/containerd/</link>
+      <pubDate>Mon, 11 Mar 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/containerd/</guid>
+      <description>kubernetes集群三步安装 概念介绍 cri (Container runtime interface) cri is a containerd plugin implementation of Kubernetes container runtime interface (CRI). cri是 kubernetes的容器运行时接口的容器插件实现。 containerd containerd is an</description>
+    </item>
     
     <item>
       <title>kubernetes 用户token教程</title>
