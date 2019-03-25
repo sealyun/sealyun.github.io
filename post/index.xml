@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 11 Mar 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 23 Mar 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>关于overlay2存储驱动的磁盘配额问题</title>
+      <link>https://sealyun.com/post/docker-oerlay2/</link>
+      <pubDate>Sat, 23 Mar 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/docker-oerlay2/</guid>
+      <description>kubernetes集群三步安装 概述 这篇短文向大家介绍一下正确使用存储驱动的姿势，非常有用。 为啥要用overlay2 docker centos（内核3.</description>
+    </item>
     
     <item>
       <title>containerd与kubernetes集成</title>
