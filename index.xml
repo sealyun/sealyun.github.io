@@ -6,10 +6,19 @@
     <description>Recent content on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 23 Mar 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 27 Mar 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>tektoncd pipeline教程 - kubernetes原生pipeline</title>
+      <link>https://sealyun.com/post/tektoncd-pipeline/</link>
+      <pubDate>Wed, 27 Mar 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/tektoncd-pipeline/</guid>
+      <description>kubernetes集群三步安装 概览 Tekton Pipeline,是一个k8s native的pipeline, 任务跑在pod中，通过自定义CRD去管理</description>
+    </item>
     
     <item>
       <title>关于overlay2存储驱动的磁盘配额问题</title>
