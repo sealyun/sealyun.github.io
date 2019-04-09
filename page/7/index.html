@@ -133,6 +133,44 @@ var _hmt = _hmt || [];
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/docker-architech/">Docker架构分析</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-07-11 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Docker架构分析 1 2 3 4 5 6 7 8 9 [root@docker-build-86-050 ~]# ls /usr/bin |grep docker docker docker-compose docker-containerd docker-containerd-ctr docker-containerd-shim dockerd docker-proxy docker-runc 大家一定很困惑 dockerd, containerd, ctr,shim, runc,等这几个进程的关系到底是啥 初窥得出的结论是：
+    </div>
+    <div class="read-more">
+      <a href="/post/docker-architech/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/calico/">calico 网络原理</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-07-11 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      calico 网络原理 node节点 装网络之前路由 1 2 3 4 5 6 7 [root@iZj6c3cqwumhn5jov661z7Z ~]# route -n Kernel IP routing table Destination Gateway Genmask Flags Metric Ref Use Iface 0.0.0.0 172.31.255.253 0.0.0.0 UG 0 0 0 eth0 169.254.0.0 0.0.0.0 255.255.0.0 U 1002 0 0 eth0 172.17.0.0 0.0.0.0 255.255.0.0 U 0 0 0 docker0 172.31.240.0 0.0.0.0 255.255.240.0 U 0
+    </div>
+    <div class="read-more">
+      <a href="/post/calico/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/calico-architecture/">calico架构</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-07-11 </span>
@@ -184,44 +222,6 @@ var _hmt = _hmt || [];
     </div>
     <div class="read-more">
       <a href="/post/install-k8s/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-07-11 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用kubeadm安装安全高可用kubernetes集群 系统架构图 1 2 3 4 5 6 7 8 9 10 kubectl dashboard | V +------------------------+ join | LB 10.1.245.94 | &lt;--- Nodes +------------------------+ | |--master1 manager1 schedule1 10.1.245.93 |--master2 manager2 schedule2 10.1.245.95 =============&gt; etcd cluster http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379 |--master3
-    </div>
-    <div class="read-more">
-      <a href="/post/install-k8s-cluster/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/container-stop-timeout/">容器信号使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-07-11 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      容器信号使用 我们跑在容器中的程序通常想在容器退出之前做一些清理操作，比较常用的方式是监听一个信号，延迟关闭容器。 docker提供了这样的功能
-    </div>
-    <div class="read-more">
-      <a href="/post/container-stop-timeout/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

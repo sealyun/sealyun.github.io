@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sealyun.com/post/super-kubeadm/</loc>
+    <lastmod>2019-04-01T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/post/tektoncd-pipeline/</loc>
     <lastmod>2019-03-27T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -39,6 +46,13 @@
   
   <url>
     <loc>https://sealyun.com/post/rook/</loc>
+    <lastmod>2019-01-23T10:54:24+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sealyun.com/post/envoy-ingress/</loc>
     <lastmod>2019-01-23T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -365,7 +379,7 @@
   
   <url>
     <loc>https://sealyun.com/post/</loc>
-    <lastmod>2019-03-27T10:54:24+02:00</lastmod>
+    <lastmod>2019-04-01T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -385,28 +399,28 @@
   
   <url>
     <loc>https://sealyun.com/tags/dotscale/</loc>
-    <lastmod>2019-03-27T10:54:24+02:00</lastmod>
+    <lastmod>2019-04-01T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sealyun.com/tags/event/</loc>
-    <lastmod>2019-03-27T10:54:24+02:00</lastmod>
+    <lastmod>2019-04-01T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sealyun.com/</loc>
-    <lastmod>2019-03-27T10:54:24+02:00</lastmod>
+    <lastmod>2019-04-01T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sealyun.com/tags/sketchnote/</loc>
-    <lastmod>2019-03-27T10:54:24+02:00</lastmod>
+    <lastmod>2019-04-01T10:54:24+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -6,10 +6,19 @@
     <description>Recent content in event on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 27 Mar 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/event/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sealos 2.0发布，k8s高要用一个kubeadm搞定</title>
+      <link>https://sealyun.com/post/super-kubeadm/</link>
+      <pubDate>Mon, 01 Apr 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/super-kubeadm/</guid>
+      <description>探讨可加QQ群：98488045 概述 地址sealos, 让kubernetes高可用不再需要keepalived haproxy和ansible</description>
+    </item>
     
     <item>
       <title>tektoncd pipeline教程 - kubernetes原生pipeline</title>
@@ -63,6 +72,15 @@
       
       <guid>https://sealyun.com/post/rook/</guid>
       <description>kubernetes集群三步安装 本文中需要用的yaml文件和Dockerfile等都放到这个仓库 包含：rook operator ceph cluster storage class配置，mys</description>
+    </item>
+    
+    <item>
+      <title>基于Envoy的Ingress controller使用介绍</title>
+      <link>https://sealyun.com/post/envoy-ingress/</link>
+      <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/envoy-ingress/</guid>
+      <description>kubernetes集群三步安装 概述 ingress controller有很多，这里介绍其中一个contour, 我没有使用ingress controlle</description>
     </item>
     
     <item>
