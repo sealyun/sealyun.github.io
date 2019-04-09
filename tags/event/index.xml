@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Sealos 2.0发布，k8s高要用一个kubeadm搞定</title>
+      <title>k8s高可用一个kubeadm搞定,无依赖keepalived haproxy ansible</title>
       <link>https://sealyun.com/post/super-kubeadm/</link>
       <pubDate>Mon, 01 Apr 2019 10:54:24 +0200</pubDate>
       
