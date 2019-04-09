@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2019-04-01T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-04-01T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="958">
+<meta itemprop="wordCount" content="961">
 
 
 
@@ -373,6 +373,7 @@ sed &#34;s/10.103.97.200/10.103.97.201/g&#34; -i /etc/hosts</pre></td></tr></tab
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></pre></td>
 <td class="lntd">
 <pre class="chroma">echo &#34;10.103.97.2 apiserver.cluster.local&#34; &gt;&gt; /etc/hosts   # using vip
@@ -380,7 +381,8 @@ kubeadm join 10.103.97.2:6443 --token 9vr73a.a8uxyaju799qwdjv \
     --master 10.103.97.200:6443 \
     --master 10.103.97.201:6443 \
     --master 10.103.97.202:6443 \
-    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866</pre></td></tr></table>
+    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 \
+    --ignore-preflight-errors=DirAvailable--etc-kubernetes-manifests</pre></td></tr></table>
 </div>
 </div>
 <h1 id="architecture">Architecture</h1>
