@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2019-04-01T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-04-01T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="836">
+<meta itemprop="wordCount" content="888">
 
 
 
@@ -159,9 +159,12 @@ var _hmt = _hmt || [];
 <li><a href="#环境介绍">环境介绍</a></li>
 <li><a href="#下载超级-kubeadm-https-github-com-fanux-kube-releases-tag-v0-0-30-kubeadm-lvscare">下载超级<a href="https://github.com/fanux/kube/releases/tag/v0.0.30-kubeadm-lvscare">kubeadm</a></a></li>
 <li><a href="#kubeadm配置文件">kubeadm配置文件</a></li>
-<li><a href="#10-103-97-2-虚拟ip等都加入到证书中">- 10.103.97.2          # 虚拟IP等都加入到证书中</a></li>
+<li><a href="#在-master0-10-103-97-200-上">在 master0 10.103.97.200 上</a></li>
+<li><a href="#在-master1-10-103-97-201-上">在 master1 10.103.97.201 上</a></li>
+<li><a href="#在-master2-10-103-97-202-上-同master1">在 master2 10.103.97.202 上，同master1</a></li>
+<li><a href="#在node节点上">在Node节点上</a></li>
 </ul></li>
-<li><a href="#注意-在安装之前解析到master0-安装成功后解析改成自己-因为kubelet-kube-proxy配置的都是这个解析名-如果不改解析master0宕机整个集群就不可用了">注意，在安装之前解析到master0, 安装成功后解析改成自己,因为kubelet kube-proxy配置的都是这个解析名,如果不改解析master0宕机整个集群就不可用了</a></li>
+<li><a href="#architecture">Architecture</a></li>
 <li><a href="#lvscare-https-github-com-fanux-lvscare"><a href="https://github.com/fanux/LVScare">LVScare</a></a></li>
 <li><a href="#公众号">公众号：</a>
 <ul>
@@ -229,12 +232,35 @@ var _hmt = _hmt || [];
 
 <h2 id="kubeadm配置文件">kubeadm配置文件</h2>
 
-<p>cat kubeadm-config.yaml :
-``
-apiVersion: kubeadm.k8s.io/v1beta1
+<p>cat kubeadm-config.yaml :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
 kubernetesVersion: v1.14.0
-controlPlaneEndpoint: &ldquo;apiserver.cluster.local:6443&rdquo; # 使用解析名去访问APIserver
+controlPlaneEndpoint: &#34;apiserver.cluster.local:6443&#34; # 使用解析名去访问APIserver
 apiServer:
         certSANs:
         - 127.0.0.1
@@ -242,103 +268,129 @@ apiServer:
         - 172.20.241.205
         - 172.20.241.206
         - 172.20.241.207
-        - 172.20.241.208</p>
-
-<h2 id="10-103-97-2-虚拟ip等都加入到证书中">- 10.103.97.2          # 虚拟IP等都加入到证书中</h2>
-
-<p>apiVersion: kubeproxy.config.k8s.io/v1alpha1
+        - 172.20.241.208
+        - 10.103.97.2          # 虚拟IP等都加入到证书中
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
-mode: &ldquo;ipvs&rdquo;
+mode: &#34;ipvs&#34;
 ipvs:
-        excludeCIDRs:
-        - &ldquo;10.103.97.<sup>2</sup>&frasl;<sub>32</sub>&rdquo; # 如果不加这个k8s会定时清理用户创建的IPVS规则，导致代理失败</p>
+        excludeCIDRs: 
+        - &#34;10.103.97.2/32&#34; # 如果不加这个k8s会定时清理用户创建的IPVS规则，导致代理失败</pre></td></tr></table>
+</div>
+</div>
+<h2 id="在-master0-10-103-97-200-上">在 master0 10.103.97.200 上</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">## 在 master0 10.103.97.200 上</pre></td></tr></table>
-</div>
-</div>
-<p>echo &ldquo;10.103.97.200 apiserver.cluster.local&rdquo; &gt;&gt; /etc/hosts
-kubeadm init &ndash;config=kubeadm-config.yaml &ndash;experimental-upload-certs<br />
+<pre class="chroma">echo &#34;10.103.97.200 apiserver.cluster.local&#34; &gt;&gt; /etc/hosts
+kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs  
 mkdir ~/.kube &amp;&amp; cp /etc/kubernetes/admin.conf ~/.kube/config
-kubectl apply -f <a href="https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml">https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml</a> # 安装calico</p>
+kubectl apply -f https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml # 安装calico</pre></td></tr></table>
+</div>
+</div>
+<p>执行完会输出一些日志，里面包含join需要用的命令</p>
+
+<h2 id="在-master1-10-103-97-201-上">在 master1 10.103.97.201 上</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">执行完会输出一些日志，里面包含join需要用的命令
+<pre class="chroma"># 注意，在安装之前解析到master0, 安装成功后解析改成自己,因为kubelet kube-proxy配置的都是这个解析名,如果不改解析master0宕机整个集群就不可用了
+echo &#34;10.103.97.200 apiserver.cluster.local&#34; &gt;&gt; /etc/hosts 
+kubeadm join 10.103.97.200:6443 --token 9vr73a.a8uxyaju799qwdjv \
+    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 \
+    --experimental-control-plane \
+    --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07 
 
-## 在 master1 10.103.97.201 上</pre></td></tr></table>
+sed &#34;s/10.103.97.200/10.103.97.201/g&#34; -i /etc/hosts  # 解析改也自己本机地址</pre></td></tr></table>
 </div>
 </div>
-<h1 id="注意-在安装之前解析到master0-安装成功后解析改成自己-因为kubelet-kube-proxy配置的都是这个解析名-如果不改解析master0宕机整个集群就不可用了">注意，在安装之前解析到master0, 安装成功后解析改成自己,因为kubelet kube-proxy配置的都是这个解析名,如果不改解析master0宕机整个集群就不可用了</h1>
-
-<p>echo &ldquo;10.103.97.200 apiserver.cluster.local&rdquo; &gt;&gt; /etc/hosts
-kubeadm join 10.103.97.200:6443 &ndash;token 9vr73a.a8uxyaju799qwdjv <br />
-    &ndash;discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 <br />
-    &ndash;experimental-control-plane <br />
-    &ndash;certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07</p>
-
-<p>sed &ldquo;s/10.103.97.<sup>200</sup>&frasl;<sub>10</sub>.103.97.201/g&rdquo; -i /etc/hosts  # 解析改也自己本机地址</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">## 在 master2 10.103.97.202 上，同master1</pre></td></tr></table>
-</div>
-</div>
-<p>echo &ldquo;10.103.97.200 apiserver.cluster.local&rdquo; &gt;&gt; /etc/hosts
-kubeadm join 10.103.97.200:6443 &ndash;token 9vr73a.a8uxyaju799qwdjv <br />
-    &ndash;discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 <br />
-    &ndash;experimental-control-plane <br />
-    &ndash;certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07</p>
-
-<p>sed &ldquo;s/10.103.97.<sup>200</sup>&frasl;<sub>10</sub>.103.97.201/g&rdquo; -i /etc/hosts</p>
+<h2 id="在-master2-10-103-97-202-上-同master1">在 master2 10.103.97.202 上，同master1</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">## 在Node节点上
-通过虚拟IP join到master上, 这个命令会在node节点上创建一条ipvs规则，virturl server就是虚拟IP， realserver就是三个master。
-然后再以一个static pod起一个守护进程守护这些规则，一旦哪个apiserver不可访问了就清除realserver, apiserver通了之后再次添加回来</pre></td></tr></table>
+<pre class="chroma">echo &#34;10.103.97.200 apiserver.cluster.local&#34; &gt;&gt; /etc/hosts
+kubeadm join 10.103.97.200:6443 --token 9vr73a.a8uxyaju799qwdjv \
+    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 \
+    --experimental-control-plane \
+    --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07  
+
+sed &#34;s/10.103.97.200/10.103.97.201/g&#34; -i /etc/hosts</pre></td></tr></table>
 </div>
 </div>
-<p>echo &ldquo;10.103.97.2 apiserver.cluster.local&rdquo; &gt;&gt; /etc/hosts   # using vip
-kubeadm join 10.103.97.2:6443 &ndash;token 9vr73a.a8uxyaju799qwdjv <br />
-    &ndash;master 10.103.97.200:6443 <br />
-    &ndash;master 10.103.97.201:6443 <br />
-    &ndash;master 10.103.97.202:6443 <br />
-    &ndash;discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866</p>
+<h2 id="在node节点上">在Node节点上</h2>
+
+<p>通过虚拟IP join到master上, 这个命令会在node节点上创建一条ipvs规则，virturl server就是虚拟IP， realserver就是三个master。
+然后再以一个static pod起一个守护进程守护这些规则，一旦哪个apiserver不可访问了就清除realserver, apiserver通了之后再次添加回来</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma"># Architecture</pre></td></tr></table>
+<pre class="chroma">echo &#34;10.103.97.2 apiserver.cluster.local&#34; &gt;&gt; /etc/hosts   # using vip
+kubeadm join 10.103.97.2:6443 --token 9vr73a.a8uxyaju799qwdjv \
+    --master 10.103.97.200:6443 \
+    --master 10.103.97.201:6443 \
+    --master 10.103.97.202:6443 \
+    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866</pre></td></tr></table>
 </div>
 </div>
-<p>+&mdash;&mdash;&mdash;-+                       +&mdash;&mdash;&mdash;&mdash;&mdash;+  virturl server: 10.103.97.2:6443
-  | mater0   |&lt;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-| ipvs nodes    |    real servers:
-  +&mdash;&mdash;&mdash;-+                      |+&mdash;&mdash;&mdash;&mdash;&mdash;+            10.103.97.200:6443
+<h1 id="architecture">Architecture</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  +----------+                       +---------------+  virturl server: 10.103.97.2:6443
+  | mater0   |&lt;----------------------| ipvs nodes    |    real servers:
+  +----------+                      |+---------------+            10.103.97.200:6443
                                     |                             10.103.97.201:6443
-  +&mdash;&mdash;&mdash;-+                      |                             10.103.97.202:6443
-  | mater1   |&lt;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
-  +&mdash;&mdash;&mdash;-+                      |
+  +----------+                      |                             10.103.97.202:6443
+  | mater1   |&lt;---------------------+
+  +----------+                      |
                                     |
-  +&mdash;&mdash;&mdash;-+                      |
-  | mater2   |&lt;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
-  +&mdash;&mdash;&mdash;-+
-```</p>
-
+  +----------+                      |
+  | mater2   |&lt;---------------------+
+  +----------+</pre></td></tr></table>
+</div>
+</div>
 <p>集群每个node节点都会创建一条ipvs规则用于代理所有的master节点。类似kube-proxy的ipvs实现.</p>
 
 <p>然后起一个守护进程就健康检查apiservers <code>/etc/kubernetes/manifests/sealyun-lvscare.yaml</code></p>
