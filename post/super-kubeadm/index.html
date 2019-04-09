@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2019-04-01T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-04-01T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="888">
+<meta itemprop="wordCount" content="958">
 
 
 
@@ -158,6 +158,7 @@ var _hmt = _hmt || [];
 <ul>
 <li><a href="#环境介绍">环境介绍</a></li>
 <li><a href="#下载超级-kubeadm-https-github-com-fanux-kube-releases-tag-v0-0-30-kubeadm-lvscare">下载超级<a href="https://github.com/fanux/kube/releases/tag/v0.0.30-kubeadm-lvscare">kubeadm</a></a></li>
+<li><a href="#下载-kubernetes1-14-0-离线包-http-store-lameleg-com">下载<a href="http://store.lameleg.com">kubernetes1.14.0+离线包</a></a></li>
 <li><a href="#kubeadm配置文件">kubeadm配置文件</a></li>
 <li><a href="#在-master0-10-103-97-200-上">在 master0 10.103.97.200 上</a></li>
 <li><a href="#在-master1-10-103-97-201-上">在 master1 10.103.97.201 上</a></li>
@@ -230,6 +231,26 @@ var _hmt = _hmt || [];
 
 <h2 id="下载超级-kubeadm-https-github-com-fanux-kube-releases-tag-v0-0-30-kubeadm-lvscare">下载超级<a href="https://github.com/fanux/kube/releases/tag/v0.0.30-kubeadm-lvscare">kubeadm</a></h2>
 
+<h2 id="下载-kubernetes1-14-0-离线包-http-store-lameleg-com">下载<a href="http://store.lameleg.com">kubernetes1.14.0+离线包</a></h2>
+
+<p>在每个节点上初始化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">tar zxvf kube1.14.0.tar.gz &amp;&amp; cd kube/shell &amp;&amp; sh init.sh</pre></td></tr></table>
+</div>
+</div>
+<p>用下载的kubeadm替换掉包内的kubeadm:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cp kubeadm /usr/bin/kubeadm</pre></td></tr></table>
+</div>
+</div>
 <h2 id="kubeadm配置文件">kubeadm配置文件</h2>
 
 <p>cat kubeadm-config.yaml :</p>
