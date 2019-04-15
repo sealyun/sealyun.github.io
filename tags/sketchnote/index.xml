@@ -6,10 +6,19 @@
     <description>Recent content in sketchnote on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Apr 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 15 Apr 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/sketchnote/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>最简单的kubernetes HA安装方式-sealos详解</title>
+      <link>https://sealyun.com/post/sealos2.0/</link>
+      <pubDate>Mon, 15 Apr 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/sealos2.0/</guid>
+      <description>kubernetes集群三步安装 概述 本文教你如何用一条命令构建k8s高可用集群且不依赖haproxy和keepalived，也无需ansib</description>
+    </item>
     
     <item>
       <title>k8s高可用一个kubeadm搞定,无依赖keepalived haproxy ansible</title>
