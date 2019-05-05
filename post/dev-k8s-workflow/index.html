@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2019-05-01T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-05-01T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="1819">
+<meta itemprop="wordCount" content="1816">
 
 
 
@@ -258,18 +258,16 @@ git push                  # push 到origin</pre></td></tr></table>
 <h1 id="ci编译与发布">CI编译与发布</h1>
 
 <p>笔者比较喜欢drone，所以编译与发布都是用的drone，安利个<a href="https://cloud.drone.io/">drone免费公有服务</a>非常好用</p>
+
+<p><img src="/build-k8s.png" alt="" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">![](/build-k8s.png)
-
-由于k8s各个版本可能需要的golang版本都不太一样，所以最方便的还是在容器中进行构建，但并不是随便一个golang的镜像都可以进行构建，因为k8s还需要拷贝代码，生成代码等依赖了一些小工具，我这里提供了一个官方的编译镜像：fanux/kube-build:v1.12.1-2
+<pre class="chroma">由于k8s各个版本可能需要的golang版本都不太一样，所以最方便的还是在容器中进行构建，但并不是随便一个golang的镜像都可以进行构建，因为k8s还需要拷贝代码，生成代码等依赖了一些小工具，我这里提供了一个官方的编译镜像：fanux/kube-build:v1.12.1-2
 
 发布时用了drone一个非常方便的插件：plugins/github-release， 可以直接把二进制文件放到github的release pages里</pre></td></tr></table>
 </div>
