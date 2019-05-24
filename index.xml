@@ -6,10 +6,19 @@
     <description>Recent content on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 May 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 23 May 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubernetes Admission Controller原理介绍</title>
+      <link>https://sealyun.com/post/kube-admin-control/</link>
+      <pubDate>Thu, 23 May 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kube-admin-control/</guid>
+      <description>Admission Controller介绍 Apiserver干的最重要的三个事就是： 认证 : 看是否是合法用户 授权 : 看用户具备哪些权限 admission controller : 一个调用链，对请求进</description>
+    </item>
     
     <item>
       <title>kubernetes开发流程</title>
