@@ -197,7 +197,7 @@
       <pubDate>Wed, 24 Oct 2018 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/sealos/</guid>
-      <description>kubernetes集群三步安装 sealos是一个轻量级kubernetes HA安装项目，重点关注功能的收敛而非庞大复杂厚重，旨在容易定制。</description>
+      <description>kubernetes集群三步安装 k8s 1.14以上版本请直接参考sealos readme sealos是一个轻量级kubernetes HA安装项目，重点关注</description>
     </item>
     
     <item>
