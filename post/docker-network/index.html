@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2016-07-11T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2016-07-11T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2509">
+<meta itemprop="wordCount" content="2576">
 
 
 
@@ -163,12 +163,7 @@ var _hmt = _hmt || [];
 <ul>
 <li><a href="#使用ip操作docker-net-namespace">使用ip操作docker net namespace</a></li>
 <li><a href="#docker-bridge的网络">Docker bridge的网络</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#ip-netns-list">ip netns list</a>
-<ul>
-<li>
-<ul>
+<li><a href="#用ip命令配置docker网络">用ip命令配置docker网络</a></li>
 <li><a href="#bridge实现源码解析">bridge实现源码解析</a>
 <ul>
 <li><a href="#docker0网桥的建立">docker0网桥的建立</a></li>
@@ -530,6 +525,27 @@ PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
 <p>我们去创建两个ns（ns1 与 ns2）模拟两个容器，创建四张网卡（两对设备对）模仿容器网卡。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"> brtest
+   |          +-------------+
+   |-veth1 &lt;--|--&gt; eth1 ns1 |  
+   |          |-------------+
+   |-veth2 &lt;--|--&gt; eth1 ns2 |  
+   |          +-------------+</pre></td></tr></table>
+</div>
+</div>
+<p>再在宿主机上创建一个网桥brtest模拟docker0网桥，将veth1和veth2桥接到上面。</p>
+
+<p>添加namespace:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -542,123 +558,177 @@ PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
 </span><span class="lnt">10
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma"> brtest
-   |          +-------------+
-   |-veth1 &lt;--|--&gt; eth1 ns1 |  
-   |          |-------------+
-   |-veth2 &lt;--|--&gt; eth1 ns2 |  
-   |          +-------------+
-````
-再在宿主机上创建一个网桥brtest模拟docker0网桥，将veth1和veth2桥接到上面。
-
-添加namespace:</pre></td></tr></table>
-</div>
-</div>
-<p>[root@dev-86-208 ~]# ip netns add ns1
+<pre class="chroma">[root@dev-86-208 ~]# ip netns add ns1
 [root@dev-86-208 ~]# ip netns add ns2
 [root@dev-86-208 ~]# ip netns list
 ns2
 ns1
 test1 (id: 3)
-nstest (id: 2)</p>
+nstest (id: 2)
 
-<p>[root@dev-86-208 ~]# ip netns exec ns1 ip link set dev lo up
-[root@dev-86-208 ~]# ip netns exec ns2 ip link set dev lo up</p>
+[root@dev-86-208 ~]# ip netns exec ns1 ip link set dev lo up
+[root@dev-86-208 ~]# ip netns exec ns2 ip link set dev lo up</pre></td></tr></table>
+</div>
+</div>
+<p>添加网卡对：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">添加网卡对：</pre></td></tr></table>
-</div>
-</div>
-<p>[root@dev-86-208 ~]# ip link add veth1 type veth peer name eth1
+<pre class="chroma">[root@dev-86-208 ~]# ip link add veth1 type veth peer name eth1
 [root@dev-86-208 ~]# ip link set eth1 netns ns1
 [root@dev-86-208 ~]# ip link add veth2 type veth peer name eth1
-[root@dev-86-208 ~]# ip link set eth1 netns ns2</p>
+[root@dev-86-208 ~]# ip link set eth1 netns ns2
 
-<p>[root@dev-86-208 ~]# ip netns exec ns1 ip link
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+[root@dev-86-208 ~]# ip netns exec ns1 ip link
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-255: eth1@if256: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+255: eth1@if256: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
     link/ether ae:93:ba:2c:54:93 brd ff:ff:ff:ff:ff:ff link-netnsid 0
 [root@dev-86-208 ~]# ip netns exec ns2 ip link
-257: eth1@if258: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+257: eth1@if258: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
     link/ether 3a:a6:f3:27:9d:83 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</p>
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</pre></td></tr></table>
+</div>
+</div>
+<p>配置地址：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">配置地址：</pre></td></tr></table>
-</div>
-</div>
-<p>[root@dev-86-208 ~]# ip netns exec ns1 ip addr add 172.17.1.<sup>1</sup>&frasl;<sub>24</sub> dev eth1
-[root@dev-86-208 ~]# ip netns exec ns2 ip addr add 172.17.1.<sup>2</sup>&frasl;<sub>24</sub> dev eth1</p>
+<pre class="chroma">[root@dev-86-208 ~]# ip netns exec ns1 ip addr add 172.17.1.1/24 dev eth1
+[root@dev-86-208 ~]# ip netns exec ns2 ip addr add 172.17.1.2/24 dev eth1
 
-<p>[root@dev-86-208 ~]# ip netns exec ns1 ip link set dev eth1 up
-[root@dev-86-208 ~]# ip netns exec ns2 ip link set dev eth1 up</p>
+[root@dev-86-208 ~]# ip netns exec ns1 ip link set dev eth1 up
+[root@dev-86-208 ~]# ip netns exec ns2 ip link set dev eth1 up</pre></td></tr></table>
+</div>
+</div>
+<p>创建网桥：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">创建网桥：</pre></td></tr></table>
-</div>
-</div>
-<p>[root@dev-86-208 ~]# brctl addbr brtest
+<pre class="chroma">[root@dev-86-208 ~]# brctl addbr brtest
 [root@dev-86-208 ~]# ifconfig brtest
-brtest: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+brtest: flags=4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500
         ether 1e:60:eb:c1:e6:d0  txqueuelen 0  (Ethernet)
         RX packets 0  bytes 0 (0.0 B)
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</p>
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-<p>[root@dev-86-208 ~]# brctl addif brtest veth1
-[root@dev-86-208 ~]# brctl addif brtest veth2</p>
+[root@dev-86-208 ~]# brctl addif brtest veth1
+[root@dev-86-208 ~]# brctl addif brtest veth2
 
-<p>[root@dev-86-208 ~]# ifconfig brtest up
+[root@dev-86-208 ~]# ifconfig brtest up
 [root@dev-86-208 ~]# ifconfig veth1 up      # 主机上这两张网卡工作在数据链路层，因此不需要设置ip也能通
-[root@dev-86-208 ~]# ifconfig veth2 up</p>
+[root@dev-86-208 ~]# ifconfig veth2 up</pre></td></tr></table>
+</div>
+</div>
+<p>恭喜两个eth1之间可以通了：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">恭喜两个eth1之间可以通了：</pre></td></tr></table>
-</div>
-</div>
-<p>[root@dev-86-208 ~]# ip netns exec ns1 ping 172.17.1.2
+<pre class="chroma">[root@dev-86-208 ~]# ip netns exec ns1 ping 172.17.1.2
 PING 172.17.1.2 (172.17.1.2) 56(84) bytes of data.
 64 bytes from 172.17.1.2: icmp_seq=1 ttl=64 time=0.063 ms
-64 bytes from 172.17.1.2: icmp_seq=2 ttl=64 time=0.022 ms</p>
+64 bytes from 172.17.1.2: icmp_seq=2 ttl=64 time=0.022 ms
 
-<p>[root@dev-86-208 ~]# ip netns exec ns2 ping 172.17.1.1
+[root@dev-86-208 ~]# ip netns exec ns2 ping 172.17.1.1
 PING 172.17.1.1 (172.17.1.1) 56(84) bytes of data.
 64 bytes from 172.17.1.1: icmp_seq=1 ttl=64 time=0.038 ms
-64 bytes from 172.17.1.1: icmp_seq=2 ttl=64 time=0.041 ms</p>
+64 bytes from 172.17.1.1: icmp_seq=2 ttl=64 time=0.041 ms</pre></td></tr></table>
+</div>
+</div>
+<p>当然想在主机上能ping通容器的话需要给brtest加ip：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@dev-86-208 ~]# ip addr add 172.17.1.254/24 dev brtest
+
+[root@dev-86-208 ~]# route -n # 上面动作设置了路由
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+172.17.1.0      0.0.0.0         255.255.255.0   U     0      0        0 brtest
+
+[root@dev-86-208 ~]# ping 172.17.1.1
+PING 172.17.1.1 (172.17.1.1) 56(84) bytes of data.
+64 bytes from 172.17.1.1: icmp_seq=1 ttl=64 time=0.046 ms
+64 bytes from 172.17.1.1: icmp_seq=2 ttl=64 time=0.030 ms</pre></td></tr></table>
+</div>
+</div>
+<p>以上操作就是docker bridge模式的模型</p>
+
+<h3 id="用ip命令配置docker网络">用ip命令配置docker网络</h3>
+
+<p>我们如果需要对容器网络进行配置，如修改ip地址，进入到容器里面显然不合适，而且有时不使用特权模式时是操作不了的，不过我们可以使用ip命令对其进行操作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">当然想在主机上能ping通容器的话需要给brtest加ip：</pre></td></tr></table>
+<pre class="chroma">docker run -itd --name test ubuntu:14.04 /bin/bash</pre></td></tr></table>
 </div>
 </div>
-<p>[root@dev-86-208 ~]# ip addr add 172.17.1.<sup>254</sup>&frasl;<sub>24</sub> dev brtest</p>
-
-<p>[root@dev-86-208 ~]# route -n # 上面动作设置了路由
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-172.17.1.0      0.0.0.0         255.255.255.0   U     0      0        0 brtest</p>
-
-<p>[root@dev-86-208 ~]# ping 172.17.1.1
-PING 172.17.1.1 (172.17.1.1) 56(84) bytes of data.
-64 bytes from 172.17.1.1: icmp_seq=1 ttl=64 time=0.046 ms
-64 bytes from 172.17.1.1: icmp_seq=2 ttl=64 time=0.030 ms</p>
+<p>这时namespace其实已经建立了，不过使用ip命令看不到</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -667,44 +737,35 @@ PING 172.17.1.1 (172.17.1.1) 56(84) bytes of data.
 </span><span class="lnt">4
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">以上操作就是docker bridge模式的模型
-
-### 用ip命令配置docker网络
-我们如果需要对容器网络进行配置，如修改ip地址，进入到容器里面显然不合适，而且有时不使用特权模式时是操作不了的，不过我们可以使用ip命令对其进行操作。</pre></td></tr></table>
-</div>
-</div>
-<p>docker run -itd &ndash;name test ubuntu:14.04 /bin/bash</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">这时namespace其实已经建立了，不过使用ip命令看不到</pre></td></tr></table>
-</div>
-</div>
-<p>docker inspect &ndash;format &lsquo;{{ .State.Pid }}&rsquo; test
+<pre class="chroma">docker inspect --format &#39;{{ .State.Pid }}&#39; test
 3847
 mkdir /var/run/netns # 如果不存在才创建
-ln -s /proc/3847/ns/net /var/run/netns/test</p>
+ln -s /proc/3847/ns/net /var/run/netns/test</pre></td></tr></table>
+</div>
+</div>
+<p>测试：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">测试：</pre></td></tr></table>
-</div>
-</div>
-<h1 id="ip-netns-list">ip netns list</h1>
+<pre class="chroma"># ip netns list
+test
 
-<p>test</p>
-
-<p>[root@dev-86-208 ~]# ip netns exec test1 ip link
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+[root@dev-86-208 ~]# ip netns exec test1 ip link
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-253: eth0@if254: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT
-    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-```</p>
-
+253: eth0@if254: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0</pre></td></tr></table>
+</div>
+</div>
 <h3 id="bridge实现源码解析">bridge实现源码解析</h3>
 
 <h4 id="docker0网桥的建立">docker0网桥的建立</h4>
