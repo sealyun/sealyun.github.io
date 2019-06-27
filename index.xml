@@ -6,10 +6,19 @@
     <description>Recent content on sealyun | kubernetes安装</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 23 May 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 23 Jun 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>macvtap实践教程</title>
+      <link>https://sealyun.com/post/macvtap/</link>
+      <pubDate>Sun, 23 Jun 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/macvtap/</guid>
+      <description>实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：</description>
+    </item>
     
     <item>
       <title>kubernetes Admission Controller原理介绍</title>
@@ -90,15 +99,6 @@
       
       <guid>https://sealyun.com/post/fist-terminal/</guid>
       <description>kubernetes集群三步安装 介绍 fist是sealyun开发的精致的k8s管理工具，所有功能切入要害，而不追求多与重，接下来的介绍我相信</description>
-    </item>
-    
-    <item>
-      <title>rook使用教程，快速编排ceph</title>
-      <link>https://sealyun.com/post/macvtap/</link>
-      <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
-      
-      <guid>https://sealyun.com/post/macvtap/</guid>
-      <description>实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：</description>
     </item>
     
     <item>

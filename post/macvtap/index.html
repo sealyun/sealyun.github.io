@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>rook使用教程，快速编排ceph - sealyun | kubernetes安装</title>
+  <title>macvtap实践教程 - sealyun | kubernetes安装</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -48,26 +48,26 @@ var _hmt = _hmt || [];
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="rook使用教程，快速编排ceph" />
+<meta property="og:title" content="macvtap实践教程" />
 <meta property="og:description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/macvtap/" />
-<meta property="article:published_time" content="2019-01-23T10:54:24&#43;02:00"/>
-<meta property="article:modified_time" content="2019-01-23T10:54:24&#43;02:00"/>
+<meta property="article:published_time" content="2019-06-23T10:54:24&#43;02:00"/>
+<meta property="article:modified_time" content="2019-06-23T10:54:24&#43;02:00"/>
 
-<meta itemprop="name" content="rook使用教程，快速编排ceph">
+<meta itemprop="name" content="macvtap实践教程">
 <meta itemprop="description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：">
 
 
-<meta itemprop="datePublished" content="2019-01-23T10:54:24&#43;02:00" />
-<meta itemprop="dateModified" content="2019-01-23T10:54:24&#43;02:00" />
+<meta itemprop="datePublished" content="2019-06-23T10:54:24&#43;02:00" />
+<meta itemprop="dateModified" content="2019-06-23T10:54:24&#43;02:00" />
 <meta itemprop="wordCount" content="2347">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="rook使用教程，快速编排ceph"/>
+<meta name="twitter:title" content="macvtap实践教程"/>
 <meta name="twitter:description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用："/>
 
 <!--[if lte IE 9]>
@@ -139,10 +139,10 @@ var _hmt = _hmt || [];
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">rook使用教程，快速编排ceph</h1>
+      <h1 class="post-title">macvtap实践教程</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-01-23 </span>
+        <span class="post-time"> 2019-06-23 </span>
         
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -804,7 +804,7 @@ group=&#34;root&#34;
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2019-01-23
+        2019-06-23
         
     </span>
   </p>
@@ -818,13 +818,9 @@ group=&#34;root&#34;
           <a href="/tags/sketchnote/">sketchnote</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/fist-terminal/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">属于极客的k8s管理工具fist, 强大的webterminal</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/rook/">
-            <span class="next-text nav-default">rook使用教程，快速编排ceph</span>
+        
+        <a class="next" href="/post/kube-admin-control/">
+            <span class="next-text nav-default">kubernetes Admission Controller原理介绍</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -837,8 +833,8 @@ group=&#34;root&#34;
     <script src="https://cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2019-01-23 10:54:24 \x2b0200 \x2b0200',
-        title: 'rook使用教程，快速编排ceph',
+        id: '2019-06-23 10:54:24 \x2b0200 \x2b0200',
+        title: 'macvtap实践教程',
         link: decodeURI(location.href),
         desc: '实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：',
         owner: 'fanux',
