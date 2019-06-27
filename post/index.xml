@@ -17,7 +17,7 @@
       <pubDate>Sun, 23 Jun 2019 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/post/macvtap/</guid>
-      <description>实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：</description>
+      <description>概述 macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设</description>
     </item>
     
     <item>

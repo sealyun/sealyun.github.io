@@ -26,7 +26,7 @@ var _hmt = _hmt || [];
 </script>
 
 
-<meta name="author" content="fanux" /><meta name="description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="fanux" /><meta name="description" content="概述 macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -49,26 +49,26 @@ var _hmt = _hmt || [];
 
 
 <meta property="og:title" content="macvtap实践教程" />
-<meta property="og:description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：" />
+<meta property="og:description" content="概述 macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sealyun.com/post/macvtap/" />
 <meta property="article:published_time" content="2019-06-23T10:54:24&#43;02:00"/>
 <meta property="article:modified_time" content="2019-06-23T10:54:24&#43;02:00"/>
 
 <meta itemprop="name" content="macvtap实践教程">
-<meta itemprop="description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：">
+<meta itemprop="description" content="概述 macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设">
 
 
 <meta itemprop="datePublished" content="2019-06-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-06-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2347">
+<meta itemprop="wordCount" content="2589">
 
 
 
 <meta itemprop="keywords" content="event,dotScale,sketchnote," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="macvtap实践教程"/>
-<meta name="twitter:description" content="实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用："/>
+<meta name="twitter:description" content="概述 macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -153,6 +153,7 @@ var _hmt = _hmt || [];
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
+<li><a href="#概述">概述</a></li>
 <li><a href="#实验环境介绍">实验环境介绍</a></li>
 <li><a href="#初始化环境">初始化环境</a>
 <ul>
@@ -185,6 +186,12 @@ var _hmt = _hmt || [];
 </div>
     <div class="post-content">
       
+
+<h1 id="概述">概述</h1>
+
+<p>macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设备拥有一个对应的 Linux 字符设备，并拥有和 TAP 设备一样的 IOCTL 接口，因此能直接被 KVM/Qemu使用，方便地完成网络数据交换工作。引入 MACVTAP 设备的目标是：简化虚拟化环境中的交换网络，代替传统的 Linux TAP 设备加 Bridge 设备组合，同时支持新的虚拟化网络技术，如 802.1 Qbg。</p>
+
+<p>如kata的虚拟化网络就用了这个技术，以下实践完就会对kata的网络原理比较清楚了，建议对照教程动手实践.</p>
 
 <h1 id="实验环境介绍">实验环境介绍</h1>
 
@@ -836,7 +843,7 @@ group=&#34;root&#34;
         id: '2019-06-23 10:54:24 \x2b0200 \x2b0200',
         title: 'macvtap实践教程',
         link: decodeURI(location.href),
-        desc: '实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：',
+        desc: '概述 macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用。MACVTAP 的实现基于传统的 MACVLAN。和 TAP 设备一样，每一个 MACVTAP 设',
         owner: 'fanux',
         repo: 'fanux.github.io',
         oauth: {
