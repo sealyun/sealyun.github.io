@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>强隔离容器那些事</title>
+      <link>https://sealyun.com/post/kubernetes-vm/</link>
+      <pubDate>Sat, 22 Jun 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/kubernetes-vm/</guid>
+      <description>探讨可加QQ群：98488045 强隔离容器的那些事 原创： sealnux sealyun 今天 | 为什么需要强隔离容器 1 2 3 我们在生产环境中运行容器已久，第一次对强隔离容器</description>
+    </item>
+    
+    <item>
       <title>kubernetes Admission Controller原理介绍</title>
       <link>https://sealyun.com/post/kube-admin-control/</link>
       <pubDate>Thu, 23 May 2019 10:54:24 +0200</pubDate>
