@@ -94,6 +94,15 @@
     
     <item>
       <title>rook使用教程，快速编排ceph</title>
+      <link>https://sealyun.com/post/macvtap/</link>
+      <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/post/macvtap/</guid>
+      <description>实验环境介绍 此图非常重要，读整篇文章最好脑海里都有 初始化环境 qemu libvirt环境 我已经做好了qemu libvirt的镜像，大家可以直接使用：</description>
+    </item>
+    
+    <item>
+      <title>rook使用教程，快速编排ceph</title>
       <link>https://sealyun.com/post/rook/</link>
       <pubDate>Wed, 23 Jan 2019 10:54:24 +0200</pubDate>
       
