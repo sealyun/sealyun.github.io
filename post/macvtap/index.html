@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 
 <meta itemprop="datePublished" content="2019-06-23T10:54:24&#43;02:00" />
 <meta itemprop="dateModified" content="2019-06-23T10:54:24&#43;02:00" />
-<meta itemprop="wordCount" content="2808">
+<meta itemprop="wordCount" content="3169">
 
 
 
@@ -172,6 +172,7 @@ var _hmt = _hmt || [];
 </ul></li>
 </ul></li>
 <li><a href="#裸用qemu">裸用qemu</a></li>
+<li><a href="#cloud-init介绍">cloud-init介绍</a></li>
 <li><a href="#常见问题">常见问题</a></li>
 </ul></li>
 <li><a href="#公众号">公众号：</a>
@@ -736,6 +737,113 @@ bash-4.2# cat /sys/class/net/macvtap0/address # 与qemu mac地址配置一致
 VNC server running on ::1:5900</pre></td></tr></table>
 </div>
 </div>
+<h2 id="cloud-init介绍">cloud-init介绍</h2>
+
+<p>上文提到，通过macvtap技术配置虚拟机网卡地址是需要进入虚拟机配置的, 然而我们实现一个虚拟机管理系统时显然不会手动进入去配置，这就需要cloud-init了</p>
+
+<p>它可以帮助我们在虚拟机启动时配置虚拟机，如配置密码，配置网络，执行命令和写一些文件等。
+先创建一个user-data文件，里面内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">#cloud-config
+write_files:
+ - content: |
+    DEVICE=eth0
+    ONBOOT=yes
+    TYPE=Ethernet
+    USERCTL=no
+    IPADDR=172.17.0.2
+    NETMASK=255.255.0.0
+    GATEWAY=172.17.0.1
+    BOOTPROTO=static
+    DNS1=172.17.0.1
+    ONBOOT=yes
+   path: /etc/sysconfig/network-scripts/ifcfg-eth0
+runcmd:
+ - systemctl start network
+groups:
+  - centos: [root]
+  - cloud-users
+ssh_pwauth: yes
+chpasswd:
+    expire: false
+    list: |
+        user1:222222
+        root:333333</pre></td></tr></table>
+</div>
+</div>
+<p>创建cloud-init镜像文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">yum install -y cloud-utils
+cloud-localds my-seed.img user-data</pre></td></tr></table>
+</div>
+</div>
+<p>libvirt中使用该镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  &lt;disk type=&#39;file&#39; device=&#39;disk&#39;&gt;
+       &lt;driver name=&#39;qemu&#39; type=&#39;raw&#39;/&gt;
+       &lt;source file=&#39;/root/my-seed.img&#39;/&gt;
+       &lt;target dev=&#39;vdb&#39; bus=&#39;virtio&#39;/&gt;
+  &lt;/disk&gt;</pre></td></tr></table>
+</div>
+</div>
+<p>为了防止cloud-init走网络获取metadata，因为网卡没设置好所以会卡住五分钟，我们直接把网络获取metadata禁止掉：</p>
+
+<p>vi /etc/cloud/cloud.cfg.d/05_logging.cfg</p>
+
+<p>加上：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">network:
+  config: disabled</pre></td></tr></table>
+</div>
+</div>
+<p>然后启动虚拟机即可</p>
+
 <h2 id="常见问题">常见问题</h2>
 
 <blockquote>
