@@ -309,6 +309,18 @@
   </url>
   
   <url>
+    <loc>https://sealyun.com/tags/install/</loc>
+    <lastmod>2019-04-15T10:54:24+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sealyun.com/tags/kubeadm/</loc>
+    <lastmod>2019-04-15T10:54:24+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/tags/network/</loc>
     <lastmod>2019-07-08T13:50:46+02:00</lastmod>
     <priority>0</priority>
@@ -317,6 +329,12 @@
   <url>
     <loc>https://sealyun.com/</loc>
     <lastmod>2019-07-08T13:50:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sealyun.com/tags/sealos/</loc>
+    <lastmod>2019-04-15T10:54:24+02:00</lastmod>
     <priority>0</priority>
   </url>
   
