@@ -1,293 +1,740 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-<head>
+<html lang="en-us">
+
+  <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>sealyun | kubernetes安装</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SealYun</title>
+  <meta name="author" content="" />
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+  
+  <meta name="keywords" content="devows, hugo, go">	
+  
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+  
+  <meta name="description" content="Site template made by devcows using hugo">	
+  
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?2803648cc5852dd3e9e46bbd0bf63366";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+  <meta name="generator" content="Hugo 0.54.0" />
 
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
 
-<meta name="author" content="fanux" /><meta name="description" content="Hugo theme even example site." /><meta name="keywords" content="Hugo, theme, even" />
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+  
+  <link href="/css/animate.css" rel="stylesheet">
 
-
-
-
-
-<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+  
+  
+    <link href="/css/style.green.css" rel="stylesheet" id="theme-stylesheet">
+  
 
 
-<link rel="canonical" href="https://sealyun.com/" />
-  <link href="https://sealyun.com/index.xml" rel="alternate" type="application/rss+xml" title="sealyun | kubernetes安装" />
-  <link href="https://sealyun.com/index.xml" rel="feed" type="application/rss+xml" title="sealyun | kubernetes安装" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  
+  <link href="/css/custom.css" rel="stylesheet">
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+  
+  
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
 
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+  
 
-<meta property="og:title" content="sealyun | kubernetes安装" />
-<meta property="og:description" content="Hugo theme even example site." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://sealyun.com/" />
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
 
-<meta property="og:updated_time" content="2018-11-07T10:54:24&#43;02:00"/>
+  <link rel="alternate" href="https://sealyun.com/index.xml" type="application/rss+xml" title="SealYun">
 
-<meta itemprop="name" content="sealyun | kubernetes安装">
-<meta itemprop="description" content="Hugo theme even example site.">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="SealYun">
+  <meta name="twitter:image" content="https://sealyun.com/img/twitter-default.png">
+  <meta name="twitter:description" content="Site template made by devcows using hugo">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="sealyun | kubernetes安装"/>
-<meta name="twitter:description" content="Hugo theme even example site."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
+  
+  <meta property="og:title" content="SealYun" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sealyun.com//" />
+  <meta property="og:image" content="img/logo.jpg" />
 
 </head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">SealYun</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
+
+
+  <body>
+      <img src="http://localhost:1313/img/qrcode.png" style="width:140px;position:fixed;right:10px;bottom:10px;z-index:10;"/>
+      <img src="http://localhost:1313/img/qrcode1.jpg" style="width:140px;position:fixed;right:10px;bottom:160px;z-index:10;"/>
+
+    <div id="all">
+
+        <header>
+
+          
+<div id="top">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-5">
+        <p class="hidden-sm hidden-xs">微信群：sealnux QQ群：98488045 公众号：sealyun</p>
+      <p class="hidden-md hidden-lg"><a href="#" data-animate-hover="pulse"><i class="fa fa-phone"></i></a>
+      <a href="#" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+      </p>
+      
+      </div>
+      <div class="col-xs-7">
+        <div class="social">
+          
+          <a href="https://github.com/fanux" target="_blank" style="opacity: 1;"><i class='fa fa-2x fa-github'></i></a>
+          
+          <a href="mailto:fhtjob@hotmail.com" target="_blank" style="opacity: 1;"><i class='fa fa-2x fa-envelope'></i></a>
+          
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="">
-        <li class="mobile-menu-item">Istio下载</li>
-      </a><a href="/pro/products">
-        <li class="mobile-menu-item">Kubernetes下载</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">SealYun</a>
+
+
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="https://sealyun.com">
+                    <img src="https://sealyun.comimg/logo.jpg" alt="SealYun logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.comimg/logo-small.png" alt="SealYun logo" class="visible-xs visible-sm">
+                    <span class="sr-only">SealYun - go to homepage</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">Toggle Navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/">首页</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/blog/">博客</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="http://store.lameleg.com">kubernetes离线安装</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://sealyun.com/post/sealos2.0/">安装文档</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
 </div>
 
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="">Istio下载</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/pro/products">Kubernetes下载</a>
-      </li>
-  </ul>
-</nav>
-    </header>
 
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <section id="posts" class="posts">
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/kubeadm-dev/">修改kubeadm证书过期时间</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-11-07 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      kubernetes集群三步安装 修改kubeadm证书过期时间 本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99
-    </div>
-    <div class="read-more">
-      <a href="/post/kubeadm-dev/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/kube-scheduler-source-code/">kubernetes源码分析之kube-scheduler - 从代码看原理</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-11-06 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      kubernetes集群三步安装 kube-scheduler源码分析 关于源码编译 我嫌弃官方提供的编译脚本太麻烦，所以用了更简单粗暴的方式编译
-    </div>
-    <div class="read-more">
-      <a href="/post/kube-scheduler-source-code/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/sealos/">构建生产环境可用的高可用kubernetes集群</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-10-24 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      kubernetes集群三步安装 k8s 1.14以上版本请直接参考sealos readme sealos是一个轻量级kubernetes HA安装项目，重点关注
-    </div>
-    <div class="read-more">
-      <a href="/post/sealos/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
+        </header>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/ci-cd/">基于drone构建CI/CD系统,对接k8s</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-10-10 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      kubernetes集群三步安装 CI 概述 用一个可描述的配置定义整个工作流 程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中
-    </div>
-    <div class="read-more">
-      <a href="/post/ci-cd/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
+        
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/etcd-manage/">etcd管理指南</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-08-12 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      广告 | kubernetes各版本离线安装包 etcd 证书配置 生产环境中给etcd配置证书相当重要，如果没有证书，那么k8s集群很容易被黑客利用而去挖
-    </div>
-    <div class="read-more">
-      <a href="/post/etcd-manage/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
 
-    </section>
-  
-  <nav class="pagination">
-    <a class="prev" href="/page/4/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">上一页</span>
-      </a>
-    <a class="next" href="/page/6/">
-        <span class="next-text">下一页</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-  </nav>
+<section>
+    <div class="home-carousel">
+        <div class="dark-mask"></div>
+        <div class="container">
+            <div class="homepage owl-carousel">
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>sealyun介绍</h1>
+                            <p>开源与付费擦出火花，坚持代码开源，产品付费，旗下kubernetes离线包产品在阿里云市场同类产品中排名第一，付费用户数量排名第一。坚持简单轻量级可定制的开源自主研发，sealos的简单易用以及内核轻量级负载的稳定广受用户好评，fist kubernetes的管理理念让集群不再是零散的机器而是真正的云。</p>
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="img/carousel/template-homepage.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>产品介绍</h1>
+                            <ul class="list-style-none">
+  <li>一行命令即可搞定kubernetes HA安装</li>
+  <li>简单的像无法自定义安装配置文件一样</li>
+  <li>生产环境久经考验，数千客户的选择</li>
+  <li>下载离线安装包，五分钟内构建高可用集群</li>
+  <li>定制kubeadm 99年证书，不用担心证书过期</li>
+  <li>定制kubeadm 内核负载均衡master,简单稳定</li>
+  <li>任何客户安装不成功提供远程链接调试服务</li>
+ </ul>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="img/carousel/template-mac.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>100%开源</h1>
+                            <ul class="list-style-none">
+  <li>sealyun旗下任何产品代码坚持100%开源原则</li>
+  <li>追求轻量级可扩展，牺牲20%功能降低80%复杂度</li>
+  <li>不吹牛不忽悠,简简单单做技术</li>
+</ul>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="img/carousel/template-easy-customize.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>产品价格</h1>
+                            <ul class="list-style-none">
+  <li>试用版0.01元，一般针对新发布的大版本如v1.15.0</li>
+  <li>测试稳定版50元，一般针对bug修复版，推荐生产使用</li>
+  <li>不论成功失败，用户只要用的不爽，无条件退款!</li>
+</ul>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="img/carousel/template-easy-code.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+        
+
+
+<section class="bar background-white">
+    <div class="container">
+        
+		
+		<div class="col-md-12">
+            <div class="row">
+		
+				<div class="col-md-4">
+                    <div class="box-simple">
+                        <div class="icon">
+                            <i class="fa fa-desktop"></i>
+                        </div>
+                        <h3>SealOS</h3>
+                        <p><a href="https://github.com/fanux/sealos">https://github.com/fanux/sealos</a> 实现一条命令解决kubernetes离线安装问题，离线包中包含安装所需依赖，不同版本仅需要更换不同安装包即可，通过内核ipvs负载多个master，让HA更轻量级，不需要再多在本地运行应用层代理如nginx等，也不再需要keepalived，稳定可靠</p>
+                    </div>
+                </div>
+		
+        
+		
+				<div class="col-md-4">
+                    <div class="box-simple">
+                        <div class="icon">
+                            <i class="fa fa-print"></i>
+                        </div>
+                        <h3>Fist</h3>
+                        <p><a href="https://github.com/fanux/fist">https://github.com/fanux/fist</a> 轻量级kubernetes管理工具，包含token管理，模板渲染，角色权限管理，web终端等功能，支持多租户，不再关心节点，让集群成功真正的云,兼容kubernetes API,引导用户以正确的理念用云.</p>
+                    </div>
+                </div>
+		
+        
+		
+				<div class="col-md-4">
+                    <div class="box-simple">
+                        <div class="icon">
+                            <i class="fa fa-globe"></i>
+                        </div>
+                        <h3>定制版kuberntes</h3>
+                        <p><a href="https://github.com/fanux/kube">https://github.com/fanux/kube</a> 深度定制kubernetes,如定制版kubeadm支持99年证书，定制版本kubelet支持lxcfs, 全局超分等特性</p>
+                    </div>
+                </div>
+		
+			</div>
+		</div>
+		
+        
+    </div>
+</section>
+
+
+
+
+
+        
+
+<section class="bar background-image-fixed-2 no-mb color-white text-center">
+    <div class="dark-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="icon icon-lg"><i class="fa fa-file-code-o"></i>
+                </div>
+                <h3 class="text-uppercase">了解更多</h3>
+                <p class="lead">网页右下角有我们的公众号，我们会发一些有技术含量的文章，杜绝广告;下面二维码可进交流群</p>
+                <p class="text-center">
+                    <a href="#" class="btn btn-template-transparent-black btn-lg">回到首页</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+        
+
+<section class="bar background-white no-mb">
+    <div class="container">
+
+        <div class="col-md-12">
+            <div class="heading text-center">
+                <h2>博客精选</h2>
+            </div>
+
+            <p class="lead">
+              把我们实践虚拟化的所有技术整理成博客分享给大家，希望大家能够喜欢与支持
+            </p>
+
+            
+
+            <div class="row">
+
+                
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.comimg/placeholder.png" class="img-responsive" alt="">
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2017/07/11/install-k8s/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2017/07/11/install-k8s/">kubernetes安装</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on July 11, 2017
+                            </p>
+                            <p class="intro"><p>alico node &lsquo;iZ2ze3nu0s9j3v57be4xuuZ&rsquo; is already using the IPv4 address 192.168.152.65</p>
+
+<h3 id="基础环境">基础环境</h3>
+
+<blockquote>
+<p>关闭防火墙 selinux</p>
+</blockquote>
+
+<pre><code>$ systemctl stop firewalld &amp;&amp; systemctl disable firewalld
+$ setenforce 0
+</code></pre>
+
+<blockquote>
+<p>打开forward
+sysctl -w net.ipv4.ip_forward=1</p>
+</blockquote></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2017/07/11/install-k8s/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.comimg/placeholder.png" class="img-responsive" alt="">
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2017/07/11/install-k8s-cluster/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2017/07/11/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on July 11, 2017
+                            </p>
+                            <p class="intro"><h1 id="使用kubeadm安装安全高可用kubernetes集群">使用kubeadm安装安全高可用kubernetes集群</h1>
+
+<h2 id="系统架构图">系统架构图</h2>
+
+<pre><code>          kubectl dashboard
+                 |
+                 V 
+     +------------------------+ join
+     | LB  10.1.245.94        | &lt;--- Nodes
+     +------------------------+
+     |                                                   
+     |--master1 manager1 schedule1   10.1.245.93                                                
+     |--master2 manager2 schedule2   10.1.245.95    =============&gt;  etcd cluster  http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379
+     |--master3 manager3 schedule3   10.1.245.94                                              
+</code></pre></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2017/07/11/install-k8s-cluster/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.comimg/placeholder.png" class="img-responsive" alt="">
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2017/07/11/container-stop-timeout/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2017/07/11/container-stop-timeout/">容器信号使用</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on July 11, 2017
+                            </p>
+                            <p class="intro"><h2 id="容器信号使用">容器信号使用</h2>
+
+<p>我们跑在容器中的程序通常想在容器退出之前做一些清理操作，比较常用的方式是监听一个信号，延迟关闭容器。</p>
+
+<p>docker提供了这样的功能：</p>
+
+<pre><code>╰─➤  docker stop --help
+
+Usage:  docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+
+Options:
+      --help       Print usage
+  -t, --time int   Seconds to wait for stop before killing it (default 10)
+</code></pre></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2017/07/11/container-stop-timeout/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.comimg/placeholder.png" class="img-responsive" alt="">
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2016/07/11/docker-dev/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2016/07/11/docker-dev/">docker开发流程</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on July 11, 2016
+                            </p>
+                            <p class="intro"><h2 id="docker开发流程">docker开发流程</h2>
+
+<p>注意容器构建时的信息：</p></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2016/07/11/docker-dev/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+
+            </div>
+            
+
+            
+
+        </div>
+    </div>
+    
+</section>
+
+
+
+
+
+        
+
+
+<section class="bar background-gray no-mb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading text-center">
+                    <h2>友情链接</h2>
+                </div>
+
+                <p class="lead">
+                  
+                </p>
+
+                <ul class="owl-carousel customers">
+                    
+                    <li class="item" title="customer-1">
+                        
+                          <a href="https://www.yangcs.net" target="_blank">
+                            <img src="https://hugo-picture.oss-cn-beijing.aliyuncs.com/blog/2019-04-27-145214.jpg" alt="customer-1" class="img-responsive" />
+                          </a>
+                        
+                    </li>
+                    
+                    <li class="item" title="customer-2">
+                        
+                          <a href="https://www.qikqiak.com/" target="_blank">
+                            <img src="https://www.qikqiak.com/img/avatar.jpg" alt="customer-2" class="img-responsive" />
+                          </a>
+                        
+                    </li>
+                    
+                    <li class="item" title="customer-3">
+                        
+                          <a href="https://jimmysong.io" target="_blank">
+                            <img src="https://res.cloudinary.com/jimmysong/raw/upload/rootsongjc-hugo/avatar-icon.png" alt="customer-3" class="img-responsive" />
+                          </a>
+                        
+                    </li>
+                    
+                    <li class="item" title="customer-4">
+                        
+                          <a href="https://mritd.me/" target="_blank">
+                            <img src="https://mritd.me/img/avatar.jpg" alt="customer-4" class="img-responsive" />
+                          </a>
+                        
+                    </li>
+                    
+                    <li class="item" title="customer-5">
+                        
+                          <a href="https://blog.fleeto.us/" target="_blank">
+                            <img src="https://blog.fleeto.us/img/logo-wide.png" alt="customer-5" class="img-responsive" />
+                          </a>
+                        
+                    </li>
+                    
+                    <li class="item" title="customer-6">
+                        
+                          <a href="https://zhangguanzhang.github.io/" target="_blank">
+                            <img src="https://zhangguanzhang.github.io/avatar/dw.jpg" alt="customer-6" class="img-responsive" />
+                          </a>
+                        
+                    </li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            把我们实践过程中好的东西拿出来给大家复用，收点小费，我们很用心，用我们产品也很值得
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>Recent posts</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">
+                          
+                            <img src="https://sealyun.comimg/ovn-test.png" class="img-responsive" alt="从CNI到ovn">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
+                          
+                            <img src="https://sealyun.commacvtap.jpg" class="img-responsive" alt="macvtap实践教程">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">
+                          
+                            <img src="https://sealyun.comlxcfs.jpg" class="img-responsive" alt="强隔离容器那些事">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">强隔离容器那些事</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
         </div>
         
 
-      </div>
-    </main>
+        
+        <div class="col-md-4 col-sm-6">
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="fhtjob@hotmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://github.com/fanux" class="iconfont icon-github" title="github"></a>
-  <a href="https://sealyun.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
+          <h4>Contact</h4>
 
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+            <strong>fhtjob@hotmail.com</strong>
+      </p>
+      
 
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
-  </div>
 
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2019
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">fanux</span>
-  </span>
-</div>
-    </footer>
+            <a href="/contact" class="btn btn-small btn-template-main">Go to contact page</a>
 
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
     </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+    
+</footer>
 
 
 
@@ -295,6 +742,47 @@ var _hmt = _hmt || [];
 
 
 
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2015 - 2016, Beiming; all rights reserved.</p>
+            
+            <p class="pull-right">
+              Template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+              
 
-</body>
+              Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y&v=3.exp"></script>
+
+<script src="https://sealyun.comjs/hpneo.gmaps.js"></script>
+<script src="https://sealyun.comjs/gmaps.init.js"></script>
+<script src="https://sealyun.comjs/front.js"></script>
+
+
+<script src="https://sealyun.comjs/owl.carousel.min.js"></script>
+
+
+  </body>
 </html>
