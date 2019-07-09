@@ -45,7 +45,9 @@
       <pubDate>Thu, 23 May 2019 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/blog/2019/05/23/kube-admin-control/</guid>
-      <description>&lt;h2 id=&#34;admission-controller介绍&#34;&gt;Admission Controller介绍&lt;/h2&gt;
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Admission Controller介绍&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;Apiserver干的最重要的三个事就是：&lt;/p&gt;
 
