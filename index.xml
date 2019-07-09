@@ -1244,7 +1244,7 @@ ENTRYPOINT [&amp;quot;/p&amp;quot;]
     </item>
     
     <item>
-      <title>常见问题总结</title>
+      <title>kubernetes安装常见问题总结</title>
       <link>https://sealyun.com/faq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -1258,8 +1258,7 @@ vim /etc/sysconfig/selinux SELINUX=enforcing 改为 SELINUX=disabled   chrome �
  是因为新版chrome安全检测太严格，不认自签证书，要解决可以使用火狐，或者自己买证书给dashboard配置上。 访问不了dashboard先检查pod有没有启动成功kubectl get pod -n kube-system，再在节点上用curl检查，如果能curl到 那就是浏览器的原因了。注意是https
 自己创建证书：
 1.用openssl创建证书
-$ mkdir certs
-$ cd certs</description>
+$ mkdir certs $ cd certs $ openssl genrsa -des3 -passout pass:x -out dashboard.</description>
     </item>
     
   </channel>

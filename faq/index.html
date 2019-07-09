@@ -15,7 +15,7 @@ var _hmt = _hmt || [];
   <meta name="robots" content="all,follow">
   <meta name="googlebot" content="index,follow,snippet,archive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>常见问题总结</title>
+  <title>kubernetes安装常见问题总结</title>
   <meta name="author" content="" />
 
   
@@ -67,12 +67,12 @@ var _hmt = _hmt || [];
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
-  <meta name="twitter:title" content="常见问题总结">
+  <meta name="twitter:title" content="kubernetes安装常见问题总结">
   <meta name="twitter:image" content="https://sealyun.com/img/twitter-default.png">
   <meta name="twitter:description" content="安装常见问题">
 
   
-  <meta property="og:title" content="常见问题总结" />
+  <meta property="og:title" content="kubernetes安装常见问题总结" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sealyun.com/faq//" />
   <meta property="og:image" content="/img/logo.jpg" />
@@ -95,9 +95,9 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="常见问题总结 logo" class="hidden-xs hidden-sm">
-                    <img src="https://sealyun.com//img/logo-small.png" alt="常见问题总结 logo" class="visible-xs visible-sm">
-                    <span class="sr-only">常见问题总结 - go to homepage</span>
+                    <img src="https://sealyun.com//img/logo.jpg" alt="kubernetes安装常见问题总结 logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo-small.png" alt="kubernetes安装常见问题总结 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">kubernetes安装常见问题总结 - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -182,7 +182,7 @@ var _hmt = _hmt || [];
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>常见问题总结</h1>
+                <h1>kubernetes安装常见问题总结</h1>
             </div>
         </div>
     </div>
@@ -199,9 +199,7 @@ var _hmt = _hmt || [];
                     <div class="col-md-12">
 
                         <div>
-                          
-
-<p><a href="https://github.com/fanux/fanux.github.io/issues/3">https://github.com/fanux/fanux.github.io/issues/3</a></p>
+                          <p><a href="https://github.com/fanux/fanux.github.io/issues/3">https://github.com/fanux/fanux.github.io/issues/3</a></p>
 
 <blockquote>
 <p>重启机器kubelet起不来？</p>
@@ -231,21 +229,15 @@ var _hmt = _hmt || [];
 
 <p>1.用openssl创建证书</p>
 
-<p>$ mkdir certs</p>
-
-<p>$ cd certs</p>
-
-<p>$ openssl genrsa -des3 -passout pass:x -out dashboard.pass.key 2048</p>
-
-<p>$ openssl rsa -passin pass:x -in dashboard.pass.key -out dashboard.key</p>
-
-<p>$ rm dashboard.pass.key</p>
-
-<p>$ openssl req -new -key dashboard.key -out dashboard.csr</p>
-
-<p>$ openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt</p>
-
-<p>$ rm -rf dashboard.csr</p>
+<pre><code>$ mkdir certs
+$ cd certs
+$ openssl genrsa -des3 -passout pass:x -out dashboard.pass.key 2048
+$ openssl rsa -passin pass:x -in dashboard.pass.key -out dashboard.key
+$ rm dashboard.pass.key
+$ openssl req -new -key dashboard.key -out dashboard.csr
+$ openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt
+$ rm -rf dashboard.csr
+</code></pre>
 
 <p>2.删除dashboard,这个文件在解压包里找
 $ kubectl delete -f kubernetes-dashboard.yaml</p>
@@ -269,28 +261,20 @@ $ kubectl create-f kubernetes-dashboard.yaml</p>
 </code></pre>
 
 <ol>
-<li><p>calico yaml配置:
-```</p>
-
-<ul>
-<li><p>name: FELIX_DEFAULTENDPOINTTOHOSTACTION
-value: &ldquo;ACCEPT&rdquo;</p>
-
-<h1 id="configure-the-ip-pool-from-which-pod-ips-will-be-chosen">Configure the IP Pool from which Pod IPs will be chosen.</h1></li>
-
-<li><p>name: CALICO_IPV4POOL_CIDR
-value: &ldquo;192.168.122.0/24&rdquo;   # 这里</p></li>
-
-<li><p>name: CALICO_IPV4POOL_IPIP
-value: &ldquo;always&rdquo;</p>
-
-<h1 id="disable-ipv6-on-kubernetes">Disable IPv6 on Kubernetes.</h1></li>
-
-<li><p>name: FELIX_IPV6SUPPORT
-value: &ldquo;false&rdquo;
-```</p></li>
-</ul></li>
+<li>calico yaml配置:</li>
 </ol>
+
+<pre><code>    - name: FELIX_DEFAULTENDPOINTTOHOSTACTION
+      value: &quot;ACCEPT&quot;
+    # Configure the IP Pool from which Pod IPs will be chosen.
+    - name: CALICO_IPV4POOL_CIDR
+      value: &quot;192.168.122.0/24&quot;   # 这里
+    - name: CALICO_IPV4POOL_IPIP
+      value: &quot;always&quot;
+    # Disable IPv6 on Kubernetes.
+    - name: FELIX_IPV6SUPPORT
+      value: &quot;false&quot;
+</code></pre>
 
 <blockquote>
 <p>kubeadm join命令找不到了？</p>
