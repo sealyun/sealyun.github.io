@@ -305,10 +305,6 @@
   </url>
   
   <url>
-    <loc>https://sealyun.com/faq/</loc>
-  </url>
-  
-  <url>
     <loc>https://sealyun.com/tags/install/</loc>
     <lastmod>2019-04-15T10:54:24+02:00</lastmod>
     <priority>0</priority>
@@ -354,6 +350,10 @@
     <loc>https://sealyun.com/tags/</loc>
     <lastmod>2019-06-23T10:54:24+02:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sealyun.com/faq/</loc>
   </url>
   
 </urlset>

@@ -1244,12 +1244,22 @@ ENTRYPOINT [&amp;quot;/p&amp;quot;]
     </item>
     
     <item>
-      <title>FAQ</title>
+      <title>常见问题总结</title>
       <link>https://sealyun.com/faq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sealyun.com/faq/</guid>
-      <description></description>
+      <description>https://github.com/fanux/fanux.github.io/issues/3
+ 重启机器kubelet起不来？
+ 确保selinux swap 已经关闭。 swapoff -a&amp;amp;&amp;amp; setenforce 0&amp;amp;&amp;amp;systemctl start kubelet 执行后会拉起其他服务
+永久关闭swap:
+1. Identify configured swap devices and files with cat /proc/swaps. 2. Turn off all swap devices and files with swapoff -a. 3. Remove any matching reference found in /etc/fstab  永久关闭selinux:
+vim /etc/sysconfig/selinux SELINUX=enforcing 改为 SELINUX=disabled   chrome 浏览器可能访问不了dashboard
+ 是因为新版chrome安全检测太严格，不认自签证书，要解决可以使用火狐，或者自己买证书给dashboard配置上。 访问不了dashboard先检查pod有没有启动成功kubectl get pod -n kube-system，再在节点上用curl检查，如果能curl到 那就是浏览器的原因了。注意是https
+自己创建证书：
+1.用openssl创建证书
+$ mkdir certs
+$ cd certs</description>
     </item>
     
   </channel>

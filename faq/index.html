@@ -15,7 +15,7 @@ var _hmt = _hmt || [];
   <meta name="robots" content="all,follow">
   <meta name="googlebot" content="index,follow,snippet,archive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FAQ</title>
+  <title>常见问题总结</title>
   <meta name="author" content="" />
 
   
@@ -23,7 +23,7 @@ var _hmt = _hmt || [];
   
 
   
-  <meta name="description" content="Frequently asked questions">
+  <meta name="description" content="安装常见问题">
   
 
   <meta name="generator" content="Hugo 0.54.0" />
@@ -67,12 +67,12 @@ var _hmt = _hmt || [];
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
-  <meta name="twitter:title" content="FAQ">
+  <meta name="twitter:title" content="常见问题总结">
   <meta name="twitter:image" content="https://sealyun.com/img/twitter-default.png">
-  <meta name="twitter:description" content="Frequently asked questions">
+  <meta name="twitter:description" content="安装常见问题">
 
   
-  <meta property="og:title" content="FAQ" />
+  <meta property="og:title" content="常见问题总结" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sealyun.com/faq//" />
   <meta property="og:image" content="/img/logo.jpg" />
@@ -95,9 +95,9 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="FAQ logo" class="hidden-xs hidden-sm">
-                    <img src="https://sealyun.com//img/logo-small.png" alt="FAQ logo" class="visible-xs visible-sm">
-                    <span class="sr-only">FAQ - go to homepage</span>
+                    <img src="https://sealyun.com//img/logo.jpg" alt="常见问题总结 logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo-small.png" alt="常见问题总结 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">常见问题总结 - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -140,6 +140,13 @@ var _hmt = _hmt || [];
                     
                   </li>
                   
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/faq">常见问题</a>
+                    
+                  </li>
+                  
                 </ul>
             </div>
             
@@ -175,7 +182,7 @@ var _hmt = _hmt || [];
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>FAQ</h1>
+                <h1>常见问题总结</h1>
             </div>
         </div>
     </div>
@@ -193,6 +200,236 @@ var _hmt = _hmt || [];
 
                         <div>
                           
+
+<p><a href="https://github.com/fanux/fanux.github.io/issues/3">https://github.com/fanux/fanux.github.io/issues/3</a></p>
+
+<blockquote>
+<p>重启机器kubelet起不来？</p>
+</blockquote>
+
+<p>确保selinux swap 已经关闭。     swapoff -a&amp;&amp; setenforce 0&amp;&amp;systemctl start kubelet         执行后会拉起其他服务</p>
+
+<p>永久关闭swap:</p>
+
+<pre><code>1. Identify configured swap devices and files with cat /proc/swaps.
+2. Turn off all swap devices and files with swapoff -a.
+3. Remove any matching reference found in /etc/fstab
+</code></pre>
+
+<p>永久关闭selinux:</p>
+
+<pre><code>vim /etc/sysconfig/selinux SELINUX=enforcing 改为 SELINUX=disabled 
+</code></pre>
+
+<blockquote>
+<p>chrome 浏览器可能访问不了dashboard</p>
+</blockquote>
+
+<p>是因为新版chrome安全检测太严格，不认自签证书，要解决可以使用火狐，或者自己买证书给dashboard配置上。      访问不了dashboard先检查pod有没有启动成功<code>kubectl get pod -n kube-system</code>，再在节点上用curl检查，如果能curl到 那就是浏览器的原因了。注意是https</p>
+
+<p>自己创建证书：</p>
+
+<p>1.用openssl创建证书</p>
+
+<p>$ mkdir certs</p>
+
+<p>$ cd certs</p>
+
+<p>$ openssl genrsa -des3 -passout pass:x -out dashboard.pass.key 2048</p>
+
+<p>$ openssl rsa -passin pass:x -in dashboard.pass.key -out dashboard.key</p>
+
+<p>$ rm dashboard.pass.key</p>
+
+<p>$ openssl req -new -key dashboard.key -out dashboard.csr</p>
+
+<p>$ openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt</p>
+
+<p>$ rm -rf dashboard.csr</p>
+
+<p>2.删除dashboard,这个文件在解压包里找
+$ kubectl delete -f kubernetes-dashboard.yaml</p>
+
+<p>3.创建kubernetes-dashboard-secret
+$ kubectl create secret generic kubernetes-dashboard-certs &ndash;from-file=$HOME/certs -n kube-system</p>
+
+<p>4.创建新的dashboard
+$ kubectl create-f kubernetes-dashboard.yaml</p>
+
+<blockquote>
+<p>修改calico pod地址段?</p>
+</blockquote>
+
+<p><a href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/">kubeadm文档</a>  要改两个地方1. kubeadm配置：</p>
+
+<pre><code>networking:
+  dnsDomain: &lt;string&gt;
+  serviceSubnet: &lt;cidr&gt;
+  podSubnet: &lt;cidr&gt;   # 这里
+</code></pre>
+
+<ol>
+<li><p>calico yaml配置:
+```</p>
+
+<ul>
+<li><p>name: FELIX_DEFAULTENDPOINTTOHOSTACTION
+value: &ldquo;ACCEPT&rdquo;</p>
+
+<h1 id="configure-the-ip-pool-from-which-pod-ips-will-be-chosen">Configure the IP Pool from which Pod IPs will be chosen.</h1></li>
+
+<li><p>name: CALICO_IPV4POOL_CIDR
+value: &ldquo;192.168.122.0/24&rdquo;   # 这里</p></li>
+
+<li><p>name: CALICO_IPV4POOL_IPIP
+value: &ldquo;always&rdquo;</p>
+
+<h1 id="disable-ipv6-on-kubernetes">Disable IPv6 on Kubernetes.</h1></li>
+
+<li><p>name: FELIX_IPV6SUPPORT
+value: &ldquo;false&rdquo;
+```</p></li>
+</ul></li>
+</ol>
+
+<blockquote>
+<p>kubeadm join命令找不到了？</p>
+</blockquote>
+
+<p>用这个 kubeadm token create &ndash;print-join-command</p>
+
+<blockquote>
+<p>需要通过外网访问APIserver?</p>
+</blockquote>
+
+<p>典型场景：通过阿里云floatingIP访问APIserver，这时需要把floatingip加入到证书里面，或者如keepalived的虚拟IP， 修改conf/kubeadm.yaml 加入以下字段：</p>
+
+<pre><code>apiServerCertSANs:
+  - 10.100.81.11   // 你的外网IP等
+  - master01.bja.paas  //如果通过域名访问也需要加域名
+</code></pre>
+
+<p>然后重新init</p>
+
+<p>最后直接修改kubeconfig文件（~/.kube/config）里的IP即可，把这个文件拷贝到本机，就可以通过外网访问apiserver了</p>
+
+<blockquote>
+<p>获取登录token:</p>
+</blockquote>
+
+<p>admin token:</p>
+
+<pre><code>kubectl describe secret `kubectl get secret |grep cluster-admin|awk '{print $1}'`|grep token|awk '{print $2}'|tail -1
+</code></pre>
+
+<p>dashboard service account token:</p>
+
+<pre><code>kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath=&quot;{.secrets[0].name}&quot;) -o jsonpath=&quot;{.data.token}&quot; | base64 --decode
+</code></pre>
+
+<p>或者使用<a href="https://github.com/fanux/fist">fist auth 模块</a></p>
+
+<blockquote>
+<p>在这一步卡死，且docker ps没有任何容器起来，但是kubelet正常</p>
+</blockquote>
+
+<pre><code>[init] this might take a minute or longer if the control plane images have to be pulled 
+</code></pre>
+
+<p>看/var/log/messages有如下日志</p>
+
+<pre><code> RunPodSandbox from runtime service failed: rpc error: code = Unknown desc = failed to create a sandbox for pod &quot;kube-apiserver-istiohost&quot;: Error response from daemon: cgroup-parent for systemd cgroup should be a valid slice named as &quot;xxx.slice&quot;
+</code></pre>
+
+<p>这是docker版本与k8s兼容性问题，建议跟换docker版本。  我在1.13.1上出现过此问题,升级到了18.06.0-ce解决，不过具体版本可根据自己需求安装</p>
+
+<p>安装docker-ce:</p>
+
+<pre><code>yum install -y yum-utils
+yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager --disable docker-ce-edge
+yum makecache fast
+yum install docker-ce
+</code></pre>
+
+<blockquote>
+<p>NodePort无法访问：iptables -P FORWARD ACCEPT</p>
+
+<p>failure loading ca certificate: the certificate is not valid yet</p>
+</blockquote>
+
+<p>服务器时间不同步导致</p>
+
+<blockquote>
+<p>coredns无法启动</p>
+</blockquote>
+
+<pre><code>.:53
+2018/09/28 08:45:32 [INFO] CoreDNS-1.2.2
+2018/09/28 08:45:32 [INFO] linux/amd64, go1.11, eb51e8b
+CoreDNS-1.2.2
+linux/amd64, go1.11, eb51e8b
+2018/09/28 08:45:32 [INFO] plugin/reload: Running configuration MD5 = f65c4821c8a9b7b5eb30fa4fbc167769
+2018/09/28 08:45:38 [FATAL] plugin/loop: Seen &quot;HINFO IN 4443432808327291531.7218519048545008660.&quot; more than twice, loop detected
+</code></pre>
+
+<p>修改宿主机的/etc/resolv.conf
+内容：</p>
+
+<pre><code>[root@iZrj9aqbeed7la2925ggzaZ ~]# cat /etc/resolv.conf
+; generated by /usr/sbin/dhclient-script
+nameserver 8.8.8.8
+</code></pre>
+
+<p>杀掉DNS pod即可</p>
+
+<blockquote>
+<p>calico无法启动</p>
+</blockquote>
+
+<pre><code>Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 
+</code></pre>
+
+<p>很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico会经常找docker0网桥，导致clusterIP不通从而calico node连不上etcd</p>
+
+<p>解决办法：
+配置好/etc/hosts</p>
+
+<p>或者修改网卡发现机制：
+calico网卡发现：</p>
+
+<pre><code>- name: IP_AUTODETECTION_METHOD
+              value: &quot;interface=eth.*&quot;   # 如果你的网卡不是eth开头，换成自己的，在yaml文件里修改
+</code></pre>
+
+<p>还有可能是/etc/resove.conf配置错误，如果里面配置了一些search可能会导致calico无法启动，
+解决方法是删除不需要的DNS配置,仅配置：</p>
+
+<pre><code>nameserver 8.8.8.8
+</code></pre>
+
+<blockquote>
+<p>kubeadm no default route错误</p>
+</blockquote>
+
+<p>It picks the interface with the default gateway and listens to that.
+所以配置好主机默认路由即可，就是default：</p>
+
+<pre><code>Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         169.254.1.1     0.0.0.0         UG    0      0        0 eth1
+</code></pre>
+
+<blockquote>
+<p>1.14版本join时需要增加一个&ndash;master参数</p>
+</blockquote>
+
+<p>为了兼容单master与多master的情况：</p>
+
+<pre><code>kubeadm join 10.103.97.1:6443 --token 9vr73a.a8uxyaju799qwdjv \
+    --master 10.103.97.100:6443 \
+    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+</code></pre>
+
                         </div>
 
                     </div>
