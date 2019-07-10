@@ -151,15 +151,6 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;cri&lt;/code&gt; is a &lt;a href=&#34;https://containerd.io/&#34;&gt;containerd&lt;/a&gt; plugin implementation of Kubernetes &lt;a href=&#34;https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/cri/runtime/v1alpha2/api.proto&#34;&gt;container runtime interface (CRI)&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;cri是 kubernetes的容器运行时接口的容器插件实现。&lt;/li&gt;
-&lt;li&gt;&lt;img src=&#34;https://sealyun.com/cri.jpg&#34; alt=&#34;CRI&#34; /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;containerd
-
-&lt;ul&gt;
-&lt;li&gt;containerd is an industry-standard container runtime with an emphasis on simplicity, robustness and portability.&lt;/li&gt;
-&lt;li&gt;containerd完全支持运行容器的的CRI运行时规范。&lt;/li&gt;
-&lt;li&gt;cri在containerd1.1以上的版本的原生插件。它内置于containerd并默认启用。&lt;/li&gt;
-&lt;li&gt;&lt;img src=&#34;https://sealyun.com/containerd.png&#34; alt=&#34;containerd&#34; /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
