@@ -32,5 +32,25 @@
 &lt;p&gt;本文重点讲网络这块,ovn ovs怎么与kubernetes擦出火花&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>calico 网络原理</title>
+      <link>https://sealyun.com/blog/2017/07/11/calico/</link>
+      <pubDate>Tue, 11 Jul 2017 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/blog/2017/07/11/calico/</guid>
+      <description>&lt;h1 id=&#34;calico-网络原理&#34;&gt;calico 网络原理&lt;/h1&gt;
+
+&lt;h3 id=&#34;node节点-装网络之前路由&#34;&gt;node节点 装网络之前路由&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@iZj6c3cqwumhn5jov661z7Z ~]# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.31.255.253  0.0.0.0         UG    0      0        0 eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+172.31.240.0    0.0.0.0         255.255.240.0   U     0      0        0 eth0
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
   </channel>
 </rss>
