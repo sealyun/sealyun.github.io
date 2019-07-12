@@ -423,6 +423,17 @@ default         169.254.1.1     0.0.0.0         UG    0      0        0 eth1
 最后查看lvscare的pod有没有启动
 如果都正常还是notready的话，重启lvscare pod即可</p>
 
+<blockquote>
+<p>error execution phase preflight: couldn&rsquo;t validate the identity of the API</p>
+</blockquote>
+
+<p>可能是token过期，需要在master上重新生成token再join:</p>
+
+<pre><code>kubeadm token create --print-join-command
+</code></pre>
+
+<p>用<a href="https://github.com/fanux/sealos">sealos</a>时,join别忘记加 <code>--master</code> 参数<a href="https://github.com/fanux/sealos">参考readme</a></p>
+
                         </div>
 
                     </div>
