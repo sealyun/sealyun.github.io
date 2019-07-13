@@ -15,7 +15,7 @@ var _hmt = _hmt || [];
   <meta name="robots" content="all,follow">
   <meta name="googlebot" content="index,follow,snippet,archive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sealos</title>
+  <title></title>
   <meta name="author" content="" />
 
   
@@ -67,14 +67,14 @@ var _hmt = _hmt || [];
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
-  <meta name="twitter:title" content="Sealos">
+  <meta name="twitter:title" content="SealYun">
   <meta name="twitter:image" content="https://sealyun.com/img/twitter-default.png">
   <meta name="twitter:description" content="Site template made by devcows using hugo">
 
   
-  <meta property="og:title" content="Sealos" />
+  <meta property="og:title" content="" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sealyun.com/tags/sealos//" />
+  <meta property="og:url" content="https://sealyun.com/changelog//" />
   <meta property="og:image" content="/img/logo.jpg" />
 
 </head>
@@ -95,9 +95,9 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="Sealos logo" class="hidden-xs hidden-sm">
-                    <img src="https://sealyun.com//img/logo-small.png" alt="Sealos logo" class="visible-xs visible-sm">
-                    <span class="sr-only">Sealos - go to homepage</span>
+                    <img src="https://sealyun.com//img/logo.jpg" alt=" logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo-small.png" alt=" logo" class="visible-xs visible-sm">
+                    <span class="sr-only"> - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -120,7 +120,7 @@ var _hmt = _hmt || [];
                   </li>
                   
                   
-                  <li class="dropdown active">
+                  <li class="dropdown">
                     
                     <a href="/blog/">博客</a>
                     
@@ -189,7 +189,7 @@ var _hmt = _hmt || [];
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Sealos</h1>
+                <h1></h1>
             </div>
         </div>
     </div>
@@ -197,182 +197,54 @@ var _hmt = _hmt || [];
 
 
         <div id="content">
+            
+
             <div class="container">
+
                 <div class="row">
-                    
 
-                    <div class="col-md-9" id="blog-listing-medium">
+                    <div class="col-md-12">
 
-                        
-                        
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/">
-                                          
-                                          <img src="https://sealyun.com/img/placeholder.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2019/04/15/sealos2.0/">最简单的kubernetes HA安装方式-sealos详解</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
+                        <div>
+                          
 
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/"><i class="fa fa-calendar-o"></i> April 15, 2019</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><blockquote>
-<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
+<h1 id="离线包changelog">离线包Changelog</h1>
+
+<blockquote>
+<p>1.14.4版本</p>
 </blockquote>
 
-<h1 id="概述">概述</h1>
-
-<p>本文教你如何用一条命令构建k8s高可用集群且不依赖haproxy和keepalived，也无需ansible。通过内核ipvs对apiserver进行负载均衡，并且带apiserver健康检测。</p>
-
-<h1 id="快速入门">快速入门</h1>
-
-<p><a href="https://github.com/fanux/sealos">sealos项目地址</a></p>
-
-<h2 id="准备条件">准备条件</h2>
+<p>社区：</p>
 
 <ul>
-<li>装好docker并启动docker</li>
-<li>把<a href="http://store.lameleg.com">离线安装包</a> 下载好拷贝到所有节点的/root目录下, 不需要解压，如果有文件服务器更好，sealos支持从一个服务器上wget到所有节点上</li>
-</ul></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/04/15/sealos2.0/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
+<li>如当kubelet的pods目录（默认为“/ var / lib / kubelet / pods”）符号链接到另一个磁盘设备的目录时，修复kubelet无法删除孤立的pod目录</li>
+<li>修复可能的fd泄漏和关闭dirs</li>
+<li>修复了当pod的重启策略为Never时，kubelet不会重试pod sandbox创建的错误</li>
+<li>将ip-masq-agentv2.3.0以修复漏洞</li>
+<li>修复由于flexvol插件中的损坏的mnt点导致的pod问题</li>
+<li>修复IPVS正常终止中的字符串比较错误，其中不删除UDP真实服务器。</li>
+<li>在升级API服务器时解决了workload控制器的虚假部署，原因是由于pod中的alpha procMount字段的错误默认</li>
+<li>修复了Windows上Kubelet中的内存泄漏问题，这是因为在获取容器指标时没有关闭容器</li>
+</ul>
 
-                        <ul class="pager">
-                            
-                            <li class="previous disabled"><a href="#">&larr; Newer</a></li>
-                            
+<p>sealyun:</p>
 
-                            
-                            <li class="next disabled"><a href="#">Older &rarr;</a></li>
-                            
-                        </ul>
-                    </div>
-                    
+<ul>
+<li>修复ubuntu下kubelet启动依赖找不到sh命令问题，使用/bin/bash绝对路径 [新增]</li>
+<li>支持99年证书</li>
+<li>支持HA</li>
+</ul>
 
-                    
-
-                    
-
-                    <div class="col-md-3">
-
-                        
-
-                        
-
-<div class="panel panel-default sidebar-menu">
-
-    <div class="panel-heading">
-      <h3 class="panel-title">Search</h3>
-    </div>
-
-    <div class="panel-body">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" role="search">
-            <div class="input-group">
-                <input type="search" name="q" class="form-control" placeholder="Search">
-                <input type="hidden" name="sitesearch" value="https://sealyun.com/">
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
-                </span>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
-
-
-
-
-<div class="panel panel-default sidebar-menu">
-
-    <div class="panel-heading">
-      <h3 class="panel-title">Categories</h3>
-    </div>
-
-    <div class="panel-body">
-        <ul class="nav nav-pills nav-stacked">
-            
-            <li><a href="https://sealyun.com/categories/starting">starting (1)</a>
-            </li>
-            
-        </ul>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-<div class="panel sidebar-menu">
-    <div class="panel-heading">
-      <h3 class="panel-title">Tags</h3>
-    </div>
-
-    <div class="panel-body">
-        <ul class="tag-cloud">
-            
-            <li><a href="https://sealyun.com/tags/dotscale"><i class="fa fa-tags"></i> dotscale</a>
-            </li>
-            
-            <li><a href="https://sealyun.com/tags/event"><i class="fa fa-tags"></i> event</a>
-            </li>
-            
-            <li><a href="https://sealyun.com/tags/install"><i class="fa fa-tags"></i> install</a>
-            </li>
-            
-            <li><a href="https://sealyun.com/tags/kubeadm"><i class="fa fa-tags"></i> kubeadm</a>
-            </li>
-            
-            <li><a href="https://sealyun.com/tags/network"><i class="fa fa-tags"></i> network</a>
-            </li>
-            
-            <li><a href="https://sealyun.com/tags/sealos"><i class="fa fa-tags"></i> sealos</a>
-            </li>
-            
-            <li><a href="https://sealyun.com/tags/sketchnote"><i class="fa fa-tags"></i> sketchnote</a>
-            </li>
-            
-        </ul>
-    </div>
-</div>
-
-
-
-
-
-
-                        
+                        </div>
 
                     </div>
-                    
-
-                    
 
                 </div>
                 
+
             </div>
+            
+
             
         </div>
         
