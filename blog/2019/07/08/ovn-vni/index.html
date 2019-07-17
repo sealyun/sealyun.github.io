@@ -223,7 +223,70 @@ var _hmt = _hmt || [];
 
 <p>本文重点讲网络这块,ovn ovs怎么与kubernetes擦出火花</p>
 
-<h1 id="cni原理">CNI原理</h1>
+<h1 id="cni原理简述">CNI原理简述</h1>
+
+<p>CNI不是本文的重点，这里仅做一下简单的介绍<a href="https://github.com/containernetworking/cni/blob/master/SPEC.md">更多详情</a></p>
+
+<p>CNI很简单，本质就是你实现一个命令行工具，kubelet初始化网络时会去调用这个工具，传入一些环境变量，然后根据环境变量工具去做网络配置：</p>
+
+<p>配置完成后标准输出一个CNI规定的json格式，告诉k8s你的IP地址啥的</p>
+
+<p>命令包含三个部分</p>
+
+<ul>
+<li>ADD 创建网络</li>
+<li>DEL 删除网络</li>
+<li>CHECK 检查网络</li>
+</ul>
+
+<p>这里对ADD做一个介绍：</p>
+
+<pre><code>EnvCNIPath        = &quot;CNI_PATH&quot;
+EnvNetDir         = &quot;NETCONFPATH&quot;
+EnvCapabilityArgs = &quot;CAP_ARGS&quot;
+EnvCNIArgs        = &quot;CNI_ARGS&quot;
+EnvCNIIfname      = &quot;CNI_IFNAME&quot; # 网卡名
+
+DefaultNetDir = &quot;/etc/cni/net.d&quot;
+
+CmdAdd   = &quot;add&quot;
+CmdCheck = &quot;check&quot;
+CmdDel   = &quot;del&quot;
+</code></pre>
+
+<p>入参：</p>
+
+<pre><code>容器ID
+网络namespace目录
+网络配置 - 定义哪些容器可以join到此网络
+容器内网卡名
+额外参数
+</code></pre>
+
+<p>标准输出类似这样一个json：</p>
+
+<pre><code>{
+  &quot;cniVersion&quot;: &quot;0.4.0&quot;,
+  &quot;interfaces&quot;: [                                            (this key omitted by IPAM plugins)
+      {
+          &quot;name&quot;: &quot;&lt;name&gt;&quot;,
+          &quot;mac&quot;: &quot;&lt;MAC address&gt;&quot;,                            (required if L2 addresses are meaningful)
+          &quot;sandbox&quot;: &quot;&lt;netns path or hypervisor identifier&gt;&quot; (required for container/hypervisor interfaces, empty/omitted for host interfaces)
+      }
+  ],
+  &quot;ips&quot;: [
+      {
+          &quot;version&quot;: &quot;&lt;4-or-6&gt;&quot;,
+          &quot;address&quot;: &quot;&lt;ip-and-prefix-in-CIDR&gt;&quot;,
+          &quot;gateway&quot;: &quot;&lt;ip-address-of-the-gateway&gt;&quot;,          (optional)
+          &quot;interface&quot;: &lt;numeric index into 'interfaces' list&gt;
+      }
+...
+</code></pre>
+
+<p>那比如想拿到pod的一些元数据怎么办，典型场景是比如pod yaml里定义了属于哪个子网啥的，对不起CNI不传给你，你得拿着podid去apiserver里查，这是一个非常不爽的地方，所以现在ovn的CNI都有一个CNI server的东西去和apiserver交互。</p>
+
+<p>我去实现的话会考虑把信息写到容器的label里，这样CNI工具直接去容器元数据里查找一些信息,少用一个server</p>
 
 <h1 id="ovs与ovn安装与配置">OVS与OVN安装与配置</h1>
 
@@ -882,15 +945,195 @@ output(&quot;sw1-port1&quot;);
 
 <h3 id="重点-把容器挂到逻辑交换机上">重点: 把容器挂到逻辑交换机上</h3>
 
+<p>ovs-docker这个工具里有这样一句：</p>
+
+<pre><code>ip link add &quot;${PORTNAME}_l&quot; type veth peer name &quot;${PORTNAME}_c&quot;
+
+# Add one end of veth to OVS bridge.
+if ovs_vsctl --may-exist add-port &quot;$BRIDGE&quot; &quot;${PORTNAME}_l&quot; \
+       -- set interface &quot;${PORTNAME}_l&quot; \
+</code></pre>
+
+<p>先创建了一个设备对，然后把设备对一端设置成ovs上的一个interface, 这样容器与ovs就关联上了，再把这个ovs上的port与ovn逻辑子网进行关联即可，请看具体例子：</p>
+
 <p>启动容器后是先要把容器设备对的一端挂在物理交换机上，然后通过设置iface-id来与逻辑交换机进行关联。</p>
 
-<p>先从个简单的实验开始：</p>
+<pre><code>ovs-vsctl --may-exist add-port sw0 port0 -- set interface port0 # 把docker挂到ovs上
+ovs-vsctl set Interface port0 external_ids:iface-id=lpor0       # 通过iface-id关联到逻辑端口上
+</code></pre>
 
-<h2 id="子网">子网</h2>
+<p>具体代码可以查看<a href="https://github.com/fanux/ops/blob/master/ovs/ovn/lib/ovn.sh">这里</a> 这封装了一些基操作</p>
 
-<h2 id="多租户">多租户</h2>
+<p>一些具体实现：<a href="https://github.com/fanux/ops/blob/master/ovs/ovn/l2_basic.sh">使用教程</a></p>
 
-<h2 id="ip管理-静态ip与自动分配">IP管理（静态IP与自动分配）</h2>
+<h2 id="逻辑子网">逻辑子网</h2>
+
+<p>这里创建四个端口，都挂在ovs br-int网桥上，但是分别属于不同的逻辑交换机，这样不同的逻辑交换机没有连接路由器的情况下是不通的，同一个逻辑子网下端口可以互通。</p>
+
+<pre><code>ls-create sw0
+ls-add-port sw0 sw0-port1 00:00:00:00:00:01 192.168.33.10/24
+ls-add-port sw0 sw0-port2 00:00:00:00:00:02 192.168.33.20/24
+
+ls-create sw1
+ls-add-port sw1 sw1-port1 00:00:00:00:00:03 192.168.33.30/24
+ls-add-port sw1 sw1-port2 00:00:00:00:00:04 192.168.33.40/24
+
+ovs-add-port br-int lport1 sw0-port1 192.168.33.1
+ovs-add-port br-int lport2 sw0-port2 192.168.33.1
+ovs-add-port br-int lport3 sw1-port1 192.168.33.1
+ovs-add-port br-int lport4 sw1-port2 192.168.33.1
+
+ip netns exec lport1-ns ip addr
+ip netns exec lport2-ns ip addr
+ip netns exec lport3-ns ip addr
+ip netns exec lport4-ns ip addr
+
+ip netns exec lport1-ns ping -c3 192.168.33.20
+ofport=$(ovs-vsctl list interface lport1 | awk '/ofport /{print $3}')
+ovs-appctl ofproto/trace br-int in_port=$ofport,dl_src=00:00:00:00:00:01,dl_dst=00:00:00:00:00:02 -generate
+
+ip netns exec lport1-ns ping -c3 192.168.33.30
+ovs-appctl ofproto/trace br-int in_port=$ofport,dl_src=00:00:00:00:00:01,dl_dst=00:00:00:00:00:03 -generate
+</code></pre>
+
+<p>这里ls-create ls-add-port和ovs-add-port是简单封装了一下命令：</p>
+
+<p>ls-create ls-add-port:</p>
+
+<pre><code>ls-create() {
+    ovn-nbctl --may-exist ls-add $switch
+}
+
+ls-add-port() {
+    switch=$1
+    port=$2
+    mac=$3
+    cidr=$4
+
+    # 逻辑交换机上创建逻辑端口
+    ovn-nbctl --may-exist lsp-add $switch $port
+
+    # 给逻辑端口设置mac地址
+    ovn-nbctl lsp-set-addresses $port $mac
+
+    # 仅允许该端口源或目的mac为对应地址
+    ovn-nbctl lsp-set-port-security $port $mac $cidr
+}
+</code></pre>
+
+<p>穿件网络ns，把interface塞到ns中，再与物理端口相关联，然后给interface配置IP</p>
+
+<pre><code>ovs-add-port() {
+    bridge=$1
+    port=$2
+    lport=$3
+    gateway=$4
+
+    # 创建一个网络ns
+    ip netns add $port-ns
+    # set interface 很重要，要不然就会只有端口没有interface,所以无法把它塞到ns中
+    ovs-vsctl --may-exist add-port $bridge $port -- set interface $port type=internal
+    if [ ! -z &quot;$lport&quot; ]; then
+        # 把逻辑端口与ovs端口进行关联
+        ovs-vsctl set Interface $port external_ids:iface-id=$lport
+    fi
+
+    pscount=$(ovn-nbctl lsp-get-port-security $lport | wc -l)
+    if [ $pscount = 2 ]; then
+        mac=$(ovn-nbctl lsp-get-port-security $lport | head -n 1)
+        cidr=$(ovn-nbctl lsp-get-port-security $lport | tail -n 1)
+        ip link set $port netns $port-ns
+        # ip netns exec $port-ns ip link set dev $port name eth0
+        ip netns exec $port-ns ip link set $port address $mac
+        ip netns exec $port-ns ip addr add $cidr dev $port
+        ip netns exec $port-ns ip link set $port up
+        if [ ! -z &quot;$gateway&quot; ]; then
+            ip netns exec $port-ns ip route add default via $gateway
+        fi
+    fi
+}
+</code></pre>
+
+<p>所以在实现专有网络时只需要创建不同的逻辑交换机即可，不通过路由相连专有网络之间就会相互隔离。</p>
+
+<h2 id="ip管理-dhcp">IP管理（DHCP）</h2>
+
+<p>静态IP比较简单，这里主要讲DHCP实现</p>
+
+<p>DHCP也很简单，主要是给interface设置地址时通过DHCP客户端进行地址配置，其它的同上</p>
+
+<pre><code>ovs-add-port-dhcp() {
+    bridge=$1
+    port=$2
+    lport=$3
+
+    ip netns add $port-ns
+    ovs-vsctl --may-exist add-port $bridge $port -- set interface $port type=internal
+    if [ ! -z &quot;$lport&quot; ]; then
+        ovs-vsctl set Interface $port external_ids:iface-id=$lport
+    fi
+
+    mac=$(ovn-nbctl lsp-get-port-security $lport | head -n 1)
+    ip link set $port netns $port-ns
+    # ip netns exec $port-ns ip link set dev $port name eth0
+    ip netns exec $port-ns ip link set $port address $mac
+    ip netns exec $port-ns ip link set $port up
+    ip netns exec $port-ns dhclient $port # 这里dhclient给interface配置IP地址
+}
+</code></pre>
+
+<p>在逻辑层面因为涉及到IP地址，所以就需要引入逻辑路由器和DHCP配置了</p>
+
+<pre><code>echo &quot;创建两个逻辑交换机分别有一个端口&quot;
+ls-create sw0
+ls-add-port sw0 sw0-port1 00:00:00:00:00:01
+ls-create sw1
+ls-add-port sw1 sw1-port1 00:00:00:00:10:01
+
+# 创建逻辑路由器
+ovn-nbctl lr-add lr0
+
+# 给路由器加个网关接口
+ovn-nbctl lrp-add lr0 sw0gw 00:00:00:01:00:01 192.168.33.1/24
+# 把sw0逻辑交换机挂到sw0gw网关接口上，这里交换机上的端口叫sw0gw-attachment 连接的是sw0gw端口
+ovn-nbctl -- lsp-add sw0 sw0gw-attachment \
+               -- set Logical_Switch_Port sw0gw-attachment \
+                  type=router \
+                  options:router-port=sw0gw \
+                  addresses='&quot;00:00:00:01:00:01 192.168.33.1&quot;'
+
+# 同理操作sw1
+ovn-nbctl lrp-add lr0 sw1gw 00:00:00:01:00:02 192.168.34.1/24
+ovn-nbctl -- lsp-add sw1 sw1gw-attachment \
+               -- set Logical_Switch_Port sw1gw-attachment \
+                  type=router \
+                  options:router-port=sw1gw \
+                  addresses='&quot;00:00:00:01:00:02 192.168.34.1&quot;'
+
+# 设置DHCP配置,这里写死了mac地址与IP地址的映射关系, lease_time是租约时间
+sw0DHCP=&quot;$(ovn-nbctl create DHCP_Options cidr=192.168.33.10/24 \
+options=&quot;\&quot;server_id\&quot;=\&quot;192.168.33.10\&quot; \&quot;server_mac\&quot;=\&quot;00:00:00:00:00:01\&quot; \
+\&quot;lease_time\&quot;=\&quot;3600\&quot; \&quot;router\&quot;=\&quot;192.168.33.1\&quot;&quot;)&quot;
+sw1DHCP=&quot;$(ovn-nbctl create DHCP_Options cidr=192.168.34.10/24 \
+options=&quot;\&quot;server_id\&quot;=\&quot;192.168.34.10\&quot; \&quot;server_mac\&quot;=\&quot;00:00:00:00:10:01\&quot; \
+\&quot;lease_time\&quot;=\&quot;3600\&quot; \&quot;router\&quot;=\&quot;192.168.34.1\&quot;&quot;)&quot;
+ovn-nbctl dhcp-options-list
+
+# 给逻辑交换机端口设置DHCP规则
+ovn-nbctl lsp-set-dhcpv4-options sw0-port1 $sw0DHCP
+ovn-nbctl lsp-get-dhcpv4-options sw0-port1
+
+ovn-nbctl lsp-set-dhcpv4-options sw1-port1 $sw1DHCP
+ovn-nbctl lsp-get-dhcpv4-options sw1-port1
+
+# 逻辑端口与物理端口绑定并通过DHCP获取地址
+ovs-add-port-dhcp br-int lport1 sw0-port1
+ovs-add-port-dhcp br-int lport2 sw1-port1
+</code></pre>
+
+<h1 id="ovn-ovs与cni对接">ovn ovs与CNI对接</h1>
+
+<p>ovn ovs与CNI对接包含两个部分，CNI插件仅需要把容器的设备对一端挂载到ovs网桥上然后配置好地址,与逻辑端口做好映射. 主要是物理面的功能，逻辑管控层面就可以通过CRD进行创建，所以重点是对ovn ovs CNI本身的掌握。</p>
                         </div>
                         
                         
