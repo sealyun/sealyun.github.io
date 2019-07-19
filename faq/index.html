@@ -387,7 +387,7 @@ nameserver 8.8.8.8
 配置好/etc/hosts</p>
 
 <p>或者修改网卡发现机制：
-calico网卡发现：</p>
+calico网卡发现 conf/net/calico.yaml文件：</p>
 
 <pre><code>- name: IP_AUTODETECTION_METHOD
               value: &quot;interface=eth.*&quot;   # 如果你的网卡不是eth开头，换成自己的，在yaml文件里修改
@@ -440,6 +440,21 @@ default         169.254.1.1     0.0.0.0         UG    0      0        0 eth1
 </code></pre>
 
 <p>用<a href="https://github.com/fanux/sealos">sealos</a>时,join别忘记加 <code>--master</code> 参数<a href="https://github.com/fanux/sealos">参考readme</a></p>
+
+<blockquote>
+<p>kubelet能起来但是安装时卡住</p>
+</blockquote>
+
+<p>有位朋友centos7.3上安装master时卡住， docker 1.13.1,原因是系统兼容性问题，如果发现安装过程中kubelet已经能起来了，而容器一个没起，可能就是这个原因，
+起容器会报这个错：</p>
+
+<pre><code> applying cgroup configuration for process caused \\\&quot;Cannot set property TasksAccounting, or unknown property.
+</code></pre>
+
+<p>解决办法：</p>
+
+<pre><code>yum update
+</code></pre>
 
                         </div>
 
