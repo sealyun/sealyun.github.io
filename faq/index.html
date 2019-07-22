@@ -456,6 +456,21 @@ default         169.254.1.1     0.0.0.0         UG    0      0        0 eth1
 <pre><code>yum update
 </code></pre>
 
+<blockquote>
+<p>kubelet起不来</p>
+</blockquote>
+
+<p>在有些系统下可能会有这个问题：</p>
+
+<pre><code>Executable path is not absolute: sh /usr/bin/kubelet-pre-start.sh
+7月 22 13:59:21 ning systemd[1]: /etc/systemd/system/kubelet.service:7: Executable path is not absolute: sh /usr/bin/kubelet-pre-start.sh
+</code></pre>
+
+<p>因为找不到 <code>sh</code>这个命令导致</p>
+
+<p>修改 <code>kube/conf/kubelet.service</code>
+把 <code>ExecStartPre=sh</code> 改成 <code>ExecStartPre=/bin/bash</code></p>
+
                         </div>
 
                     </div>
