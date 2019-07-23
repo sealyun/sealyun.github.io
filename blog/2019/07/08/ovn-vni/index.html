@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
   <meta name="twitter:title" content="从CNI到ovn">
-  <meta name="twitter:image" content="https://sealyun.com/img/ovn-test.png">
+  <meta name="twitter:image" content="https://sealyun.com/img/kube-ovn-vpc.png">
   <meta name="twitter:description" content="Site template made by devcows using hugo">
 
   
@@ -1154,6 +1154,53 @@ ip netns exec vm1 ip addr show vm1
 ip netns exec vm1 ip route show
 </code></pre>
 
+<h2 id="经典网络实现">经典网络实现</h2>
+
+<p><img src="/kube-ovn-classics.jpg" alt="" /></p>
+
+<pre><code>ovn-nbctl lsp-add out outs-wan
+ovn-nbctl lsp-set-addresses outs-wan unknown
+ovn-nbctl lsp-set-type outs-wan localnet # 连接物理网络端口类型
+ovn-nbctl lsp-set-options outs-wan network_name=wanNet # 做bridge mapping时需要
+</code></pre>
+
+<pre><code>ovs-vsctl add-br br-eth
+ovs-vsctl set Open_vSwitch . external-ids:ovn-bridge-mappings=wanNet:br-eth
+ovs-vsctl add-port br-eth eth0
+
+#配置网桥IP
+ip link set br-eth up
+ip addr add 192.168.66.111/23 dev br-eth
+</code></pre>
+
+<p>把虚拟机关联到逻辑网桥上，这样物理网卡与虚拟机就在一个网桥上了</p>
+
+<pre><code>ovs-vsctl set Interface vm1 external_ids:iface-id=vm1
+</code></pre>
+
+<h2 id="fip实现">FIP实现</h2>
+
+<p><img src="/img/kube-ovn-vpc.png" alt="" />
+其它部分的链接参考上文，这里主要是路由相关的操作</p>
+
+<p>vm想要出网那么必须要进行源地址转换，就和我们访问google一样，那我们机器的192.168.x.x的地址就会在路由器上被转化</p>
+
+<pre><code>#对vpc1
+ovn-nbctl -- --id=@nat create nat type=&quot;snat&quot; logical_ip=172.66.1.0/24 \
+external_ip=192.168.66.45 -- add logical_router gateway_route nat @nat
+#会返回uuid
+56ad6c5b-8417-4314-95c4-a0d780b5ef0b
+</code></pre>
+
+<p>这里66.45是我们链接物理网络的一个地址，告诉路由器使用该地址进行转换</p>
+
+<p>实现FIP其实就是snat dnat都做：</p>
+
+<pre><code>#对vm3 172.66.1.103  绑定外网 192.168.66.46 
+ovn-nbctl -- --id=@nat create nat type=&quot;dnat_and_snat&quot; logical_ip=172.66.1.103 \
+external_ip=192.168.66.46 -- add logical_router gateway_route nat @nat
+</code></pre>
+
 <h1 id="ovn-ovs与cni对接">ovn ovs与CNI对接</h1>
 
 <p>ovn ovs与CNI对接包含两个部分，CNI插件仅需要把容器的设备对一端挂载到ovs网桥上然后配置好地址,与逻辑端口做好映射. 主要是物理面的功能，逻辑管控层面就可以通过CRD进行创建，所以重点是对ovn ovs CNI本身的掌握。</p>
@@ -1324,7 +1371,7 @@ ip netns exec vm1 ip route show
                     <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">
                           
-                            <img src="https://sealyun.com//img/ovn-test.png" class="img-responsive" alt="从CNI到ovn">
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="从CNI到ovn">
                           
                         </a>
                     </div>
