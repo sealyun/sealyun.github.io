@@ -407,6 +407,48 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/">kube-proxy源码解析</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on June 20, 2018
+                            </p>
+                            <p class="intro"><blockquote>
+<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes离线安装包，仅需三步</a></p>
+</blockquote>
+
+<h1 id="kube-proxy源码解析">kube-proxy源码解析</h1>
+
+<p>ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptables模式的原理，可以去参考其实现，架构上无差别。</p>
+
+<p>kube-proxy主要功能是监听service和endpoint的事件，然后下放代理策略到机器上。 底层调用<a href="https://github.com/docker/libnetwork">docker/libnetwork</a>, 而libnetwork最终调用了<a href="https://github.com/vishvananda/netlink">netlink</a> 与netns来实现ipvs的创建等动作</p></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2018/05/29/k8s-ipvs/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -527,49 +569,6 @@ var _hmt = _hmt || [];
 <p>此工具生成证书非常方便, pem证书与crt证书,编码一致可直接使用</p></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2018/05/11/k8s-rbac/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2018/05/11/k8s-authenticating/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2018/05/11/k8s-authenticating/">kubernetes对接第三方认证</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on May 11, 2018
-                            </p>
-                            <p class="intro"><h1 id="kubernetes对接第三方认证">kubernetes对接第三方认证</h1>
-
-<p>广告： <a href="http://sealyun.com/pro/products/">安装包地址</a></p>
-
-<h2 id="概述">概述</h2>
-
-<p>本文介绍如何使用github账户去关联自己kubernetes账户。达到如下效果：
-1. 使用github用户email作为kubernetes用户，如fhtjob@hotmail.com
-2. 创建对应的clusterrole绑定给fhtjob@hotmail.com这个用户
-3. 给fhtjob@hotmail这个用户创建一个kubeconfig文件，让改用户可以使用kubectl命令操作集群，且只有部分权限</p></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2018/05/11/k8s-authenticating/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
@@ -705,6 +704,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/01/crd/">
+                          
+                            <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="kubernetes CRD如此简单">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/01/crd/">kubernetes CRD如此简单</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
                           
                             <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
@@ -713,19 +725,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">
-                          
-                            <img src="https://sealyun.com//lxcfs.jpg" class="img-responsive" alt="强隔离容器那些事">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">强隔离容器那些事</a></h5>
                     </div>
                 </div>
                 

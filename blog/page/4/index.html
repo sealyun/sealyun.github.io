@@ -209,6 +209,46 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/">kube-proxy源码解析</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/"><i class="fa fa-calendar-o"></i> June 20, 2018</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><blockquote>
+<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes离线安装包，仅需三步</a></p>
+</blockquote>
+
+<h1 id="kube-proxy源码解析">kube-proxy源码解析</h1>
+
+<p>ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptables模式的原理，可以去参考其实现，架构上无差别。</p>
+
+<p>kube-proxy主要功能是监听service和endpoint的事件，然后下放代理策略到机器上。 底层调用<a href="https://github.com/docker/libnetwork">docker/libnetwork</a>, 而libnetwork最终调用了<a href="https://github.com/vishvananda/netlink">netlink</a> 与netns来实现ipvs的创建等动作</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2018/05/29/k8s-ipvs/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -689,50 +729,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2017/07/11/calico-network-policy/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2017/07/11/calico-network-policy/">calico网络策略</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2017/07/11/calico-network-policy/"><i class="fa fa-calendar-o"></i> July 11, 2017</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><h2 id="calico网络策略">calico网络策略</h2>
-
-<p>使用kubernetes NetworkPolicy让用户定义pod之间的访问策略，精细的控制哪些pod之间有相互访问的权利，如此网络更安全.</p>
-
-<h2 id="教程流程">教程流程</h2>
-
-<ul>
-<li>创建nginx service</li>
-<li>禁止所有入口流量</li>
-<li>允许向内访问nginx</li>
-<li>禁止所有出口流程</li>
-<li>允许出口流量访问kube-dns</li>
-</ul></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2017/07/11/calico-network-policy/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -812,6 +808,9 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
     <div class="panel-body">
         <ul class="tag-cloud">
             
+            <li><a href="https://sealyun.com/tags/dev"><i class="fa fa-tags"></i> dev</a>
+            </li>
+            
             <li><a href="https://sealyun.com/tags/dotscale"><i class="fa fa-tags"></i> dotscale</a>
             </li>
             
@@ -822,6 +821,9 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
             </li>
             
             <li><a href="https://sealyun.com/tags/kubeadm"><i class="fa fa-tags"></i> kubeadm</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/kubernetes"><i class="fa fa-tags"></i> kubernetes</a>
             </li>
             
             <li><a href="https://sealyun.com/tags/network"><i class="fa fa-tags"></i> network</a>
@@ -893,6 +895,19 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/01/crd/">
+                          
+                            <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="kubernetes CRD如此简单">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/01/crd/">kubernetes CRD如此简单</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
                           
                             <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
@@ -901,19 +916,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">
-                          
-                            <img src="https://sealyun.com//lxcfs.jpg" class="img-responsive" alt="强隔离容器那些事">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">强隔离容器那些事</a></h5>
                     </div>
                 </div>
                 

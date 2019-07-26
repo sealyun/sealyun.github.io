@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://sealyun.com/blog/2019/07/01/crd/</loc>
+    <lastmod>2019-07-01T10:54:24+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/blog/2019/06/23/macvtap/</loc>
     <lastmod>2019-06-23T10:54:24+02:00</lastmod>
   </url>
@@ -297,6 +302,12 @@
   </url>
   
   <url>
+    <loc>https://sealyun.com/tags/dev/</loc>
+    <lastmod>2019-07-01T10:54:24+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://sealyun.com/tags/dotscale/</loc>
     <lastmod>2019-06-23T10:54:24+02:00</lastmod>
     <priority>0</priority>
@@ -317,6 +328,12 @@
   <url>
     <loc>https://sealyun.com/tags/kubeadm/</loc>
     <lastmod>2019-04-15T10:54:24+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sealyun.com/tags/kubernetes/</loc>
+    <lastmod>2019-07-01T10:54:24+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -352,7 +369,7 @@
   
   <url>
     <loc>https://sealyun.com/tags/</loc>
-    <lastmod>2019-06-23T10:54:24+02:00</lastmod>
+    <lastmod>2019-07-01T10:54:24+02:00</lastmod>
     <priority>0</priority>
   </url>
   

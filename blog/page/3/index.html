@@ -209,6 +209,57 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2018/12/11/docs/">
+                                          
+                                          <img src="https://sealyun.com/show/dashboard.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2018/12/11/docs/">sealyun kubernetes离线包文档</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2018/12/11/docs/"><i class="fa fa-calendar-o"></i> December 11, 2018</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h1 id="前言">前言</h1>
+
+<ul>
+<li><a href="http://store.lameleg.com/">kubernetes安装包store</a></li>
+<li><a href="http://store.lameleg.com/">官方销售市场</a>：<a href="http://store.lameleg.com/">http://store.lameleg.com/</a><br /></li>
+<li><a href="https://sealyun.com/pro/products/">阿里云市场购买下载地址列表</a>：<a href="https://sealyun.com/pro/products/">https://sealyun.com/pro/products/</a></li>
+</ul>
+
+<h1 id="商品介绍">商品介绍</h1>
+
+<p>安装包通过kubeadm安装kubernetes集群,包含：</p>
+
+<ul>
+<li>核心基础组件 etcd apisver kubelet kube-proxy scheduler manager</li>
+<li>addon组件    dashboard calico promethus grafana alertmanager node-exporter coreDNS</li>
+</ul>
+
+<p>启用IPVS</p>
+
+<p>可以内网环境进行安装，但是不包含docker</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/12/11/docs/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2018/12/04/kubeadm/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -598,46 +649,6 @@ var _hmt = _hmt || [];
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/">kube-proxy源码解析</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/"><i class="fa fa-calendar-o"></i> June 20, 2018</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><blockquote>
-<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes离线安装包，仅需三步</a></p>
-</blockquote>
-
-<h1 id="kube-proxy源码解析">kube-proxy源码解析</h1>
-
-<p>ipvs相对于iptables模式具备较高的性能与稳定性, 本文讲以此模式的源码解析为主，如果想去了解iptables模式的原理，可以去参考其实现，架构上无差别。</p>
-
-<p>kube-proxy主要功能是监听service和endpoint的事件，然后下放代理策略到机器上。 底层调用<a href="https://github.com/docker/libnetwork">docker/libnetwork</a>, 而libnetwork最终调用了<a href="https://github.com/vishvananda/netlink">netlink</a> 与netns来实现ipvs的创建等动作</p></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -717,6 +728,9 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="tag-cloud">
             
+            <li><a href="https://sealyun.com/tags/dev"><i class="fa fa-tags"></i> dev</a>
+            </li>
+            
             <li><a href="https://sealyun.com/tags/dotscale"><i class="fa fa-tags"></i> dotscale</a>
             </li>
             
@@ -727,6 +741,9 @@ var _hmt = _hmt || [];
             </li>
             
             <li><a href="https://sealyun.com/tags/kubeadm"><i class="fa fa-tags"></i> kubeadm</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/kubernetes"><i class="fa fa-tags"></i> kubernetes</a>
             </li>
             
             <li><a href="https://sealyun.com/tags/network"><i class="fa fa-tags"></i> network</a>
@@ -798,6 +815,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/01/crd/">
+                          
+                            <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="kubernetes CRD如此简单">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/01/crd/">kubernetes CRD如此简单</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
                           
                             <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
@@ -806,19 +836,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">
-                          
-                            <img src="https://sealyun.com//lxcfs.jpg" class="img-responsive" alt="强隔离容器那些事">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">强隔离容器那些事</a></h5>
                     </div>
                 </div>
                 

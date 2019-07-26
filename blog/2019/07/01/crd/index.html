@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?2803648cc5852dd3e9e46bbd0bf63366";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kubernetes CRD如此简单</title>
+  <meta name="author" content="" />
+
+  
+  <meta name="keywords" content="devows, hugo, go">	
+  
+
+  
+  <meta name="description" content="Site template made by devcows using hugo">	
+  
+
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.green.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+  
+
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  <link rel="alternate" href="https://sealyun.com/index.xml" type="application/rss+xml" title="SealYun">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="kubernetes CRD如此简单">
+  <meta name="twitter:image" content="https://sealyun.com/img/banners/banner-1.png">
+  <meta name="twitter:description" content="Site template made by devcows using hugo">
+
+  
+  <meta property="og:title" content="kubernetes CRD如此简单" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sealyun.com/blog/2019/07/01/crd//" />
+  <meta property="og:image" content="/img/logo.jpg" />
+
+</head>
+
+
+  <body>
+      <img src="https://sealyun.com/img/qrcode.png" style="width:140px;position:fixed;right:10px;bottom:10px;z-index:10;"/>
+      <img src="http://sealyun.com/img/qrcode1.jpg" style="width:140px;position:fixed;right:10px;bottom:160px;z-index:10;"/>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="https://sealyun.com/">
+                    <img src="https://sealyun.com//img/logo.jpg" alt="kubernetes CRD如此简单 logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo-small.png" alt="kubernetes CRD如此简单 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">kubernetes CRD如此简单 - go to homepage</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">Toggle Navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">首页</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">博客</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="http://store.lameleg.com">kubernetes离线安装</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/">安装文档</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/faq">常见问题</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/changelog">版本变更说明</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>kubernetes CRD如此简单</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">By <a href="#">fanux</a> | July 1, 2019</p>
+
+                        <div id="post-content">
+                          
+
+<p>扩展kubernetes两个最常用最需要掌握的东西：自定义资源CRD 和 adminsion webhook, 本文教你如何十分钟掌握CRD开发.</p>
+
+<h1 id="基本概念">基本概念</h1>
+
+<p>kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。</p>
+
+<p>我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型</p>
+
+<h1 id="kubebuilder-https-github-com-kubernetes-sigs-kubebuilder"><a href="https://github.com/kubernetes-sigs/kubebuilder">kubebuilder</a></h1>
+
+<p>kubebuilder能帮我们节省大量工作，让开发CRD和adminsion webhook变得异常简单。</p>
+
+<h2 id="安装">安装</h2>
+
+<p>通过源码安装：</p>
+
+<pre><code>git clone https://github.com/kubernetes-sigs/kubebuilder
+cd kubebuilder
+make build
+cp bin/kubebuilder $GOPATH/bin
+</code></pre>
+
+<p>或者下载二进制：</p>
+
+<pre><code>os=$(go env GOOS)
+arch=$(go env GOARCH)
+
+# download kubebuilder and extract it to tmp
+curl -sL https://go.kubebuilder.io/dl/2.0.0-beta.0/${os}/${arch} | tar -xz -C /tmp/
+
+# move to a long-term location and put it on your path
+# (you'll need to set the KUBEBUILDER_ASSETS env var if you put it somewhere else)
+sudo mv /tmp/kubebuilder_2.0.0-beta.0_${os}_${arch} /usr/local/kubebuilder
+export PATH=$PATH:/usr/local/kubebuilder/bin
+</code></pre>
+
+<p>还需要装下<a href="https://github.com/kubernetes-sigs/kustomize">kustomize</a> 这可是个渲染yaml的神器，让helm颤抖。</p>
+
+<pre><code>go install sigs.k8s.io/kustomize/v3/cmd/kustomize
+</code></pre>
+
+<h2 id="使用">使用</h2>
+
+<p>注意你得先有个kubernetes集群，<a href="https://github.com/fanux/sealos">一步安装走你</a></p>
+
+<blockquote>
+<p>创建CRD</p>
+</blockquote>
+
+<pre><code>kubebuilder init --domain sealyun.com --license apache2 --owner &quot;fanux&quot;
+kubebuilder create api --group infra --version v1 --kind VirtulMachine
+</code></pre>
+
+<blockquote>
+<p>安装CRD并启动controller</p>
+</blockquote>
+
+<pre><code>make install # 安装CRD
+make run # 启动controller
+</code></pre>
+
+<p>然后我们就可以看到创建的CRD了</p>
+
+<pre><code># kubectl get crd
+NAME                                           AGE
+virtulmachines.infra.genos.io                  52m
+</code></pre>
+
+<p>来创建一个虚拟机：</p>
+
+<pre><code># kubectl apply -f config/samples/
+# kubectl get virtulmachines.infra.genos.io 
+NAME                   AGE
+virtulmachine-sample   49m
+</code></pre>
+
+<p>看一眼yaml文件：</p>
+
+<pre><code># cat config/samples/infra_v1_virtulmachine.yaml 
+apiVersion: infra.genos.io/v1
+kind: VirtulMachine
+metadata:
+  name: virtulmachine-sample
+spec:
+  # Add fields here
+  foo: bar
+</code></pre>
+
+<p>这里仅仅是把yaml存到etcd里了，我们controller监听到创建事件时啥事也没干。</p>
+
+<blockquote>
+<p>把controller部署到集群中</p>
+
+<pre><code>make docker-build docker-push IMG=fanux/infra-controller
+make deploy
+</code></pre>
+
+<p>我是连的远端的kubenetes, make docker-build时test过不去，没有etcd的bin文件，所以先把test关了。</p>
+</blockquote>
+
+<p>修改Makefile:</p>
+
+<pre><code># docker-build: test
+docker-build: 
+</code></pre>
+
+<p>Dockerfile里的<code>gcr.io/distroless/static:latest</code> 这个镜像你也可能拉不下来，随意改改就行，我改成了<code>golang:1.12.7</code></p>
+
+<p>也有可能构建时有些代码拉不下来，启用一下go mod vendor 把依赖打包进去</p>
+
+<pre><code>go mod vendor
+如果你本地有些代码拉不下来，可以用proxy:
+</code></pre>
+
+<p>export GOPROXY=<a href="https://goproxy.io">https://goproxy.io</a></p>
+
+<pre><code></code></pre>
+
+<p>再改下Dockerfile, 加一行, 注释掉download：</p>
+
+<pre><code>COPY vendor/ vendor/
+# RUN go mod download
+</code></pre>
+
+<p>修改后：</p>
+
+<pre><code># Build the manager binary
+FROM golang:1.12.7 as builder
+
+WORKDIR /go/src/github.com/fanux/sealvm
+# Copy the Go Modules manifests
+COPY . . 
+
+# Build
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o manager main.go
+
+# Use distroless as minimal base image to package the manager binary
+# Refer to https://github.com/GoogleContainerTools/distroless for more details
+# FROM gcr.io/distroless/static:latest
+FROM golang:1.12.7
+WORKDIR /
+COPY --from=builder /go/src/github.com/fanux/sealvm/manager .
+ENTRYPOINT [&quot;/manager&quot;]
+</code></pre>
+
+<p><code>make deploy</code> 时报错： <code>Error: json: cannot unmarshal string into Go struct field Kustomization.patches of type types.Patch</code></p>
+
+<p>把 <code>config/default/kustomization.yaml</code> 中的 <code>patches:</code> 改成 <code>patchesStrategicMerge:</code> 即可</p>
+
+<p><code>kustomize build config/default</code> 这个命令就渲染出了controller的yaml文件，可以体验下</p>
+
+<p>看 你的controller已经跑起来了：</p>
+
+<pre><code>kubectl get deploy -n sealvm-system
+NAME                        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+sealvm-controller-manager   1         1         1            0           3m
+kubectl get svc -n sealvm-system
+NAME                                        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+sealvm-controller-manager-metrics-service   ClusterIP   10.98.71.199   &lt;none&gt;        8443/TCP   4m
+</code></pre>
+
+<h2 id="开发">开发</h2>
+
+<p>探讨可加QQ群：98488045</p>
+
+                        </div>
+                        
+                        
+                        <div id="comments">
+                            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "devcows" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        </div>
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Search</h3>
+    </div>
+
+    <div class="panel-body">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" role="search">
+            <div class="input-group">
+                <input type="search" name="q" class="form-control" placeholder="Search">
+                <input type="hidden" name="sitesearch" value="https://sealyun.com/">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Categories</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="https://sealyun.com/categories/starting">starting (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+    <div class="panel-heading">
+      <h3 class="panel-title">Tags</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            <li><a href="https://sealyun.com/tags/dev"><i class="fa fa-tags"></i> dev</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/dotscale"><i class="fa fa-tags"></i> dotscale</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/event"><i class="fa fa-tags"></i> event</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/install"><i class="fa fa-tags"></i> install</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/kubeadm"><i class="fa fa-tags"></i> kubeadm</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/kubernetes"><i class="fa fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/network"><i class="fa fa-tags"></i> network</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/sealos"><i class="fa fa-tags"></i> sealos</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/sketchnote"><i class="fa fa-tags"></i> sketchnote</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            把我们实践过程中好的东西拿出来给大家复用，收点小费，我们很用心，用我们产品也很值得
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>Recent posts</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="从CNI到ovn">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/01/crd/">
+                          
+                            <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="kubernetes CRD如此简单">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/01/crd/">kubernetes CRD如此简单</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
+                          
+                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>Contact</h4>
+
+            <strong>fhtjob@hotmail.com</strong>
+      </p>
+      
+
+
+            <a href="/contact" class="btn btn-small btn-template-main">Go to contact page</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2015 - 2016, Beiming; all rights reserved.</p>
+            
+            <p class="pull-right">
+              Template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+              
+
+              Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="https://sealyun.com/js/hpneo.gmaps.js"></script>
+<script src="https://sealyun.com/js/gmaps.init.js"></script>
+<script src="https://sealyun.com/js/front.js"></script>
+
+
+<script src="https://sealyun.com/js/owl.carousel.min.js"></script>
+
+
+  </body>
+</html>
+
+<style>
+#post-content img {
+    width: 100%;
+    height: 100%;
+}
+</style>

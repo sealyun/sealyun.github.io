@@ -6,10 +6,19 @@
     <description>Recent content in Tags on SealYun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Jun 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dev</title>
+      <link>https://sealyun.com/tags/dev/</link>
+      <pubDate>Mon, 01 Jul 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/tags/dev/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Dotscale</title>
@@ -44,6 +53,15 @@
       <pubDate>Mon, 15 Apr 2019 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/tags/kubeadm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://sealyun.com/tags/kubernetes/</link>
+      <pubDate>Mon, 01 Jul 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/tags/kubernetes/</guid>
       <description></description>
     </item>
     
