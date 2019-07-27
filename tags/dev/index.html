@@ -230,13 +230,11 @@ var _hmt = _hmt || [];
                                             <a href="https://sealyun.com/blog/2019/07/01/crd/"><i class="fa fa-calendar-o"></i> July 1, 2019</a>
                                         </p>
                                     </div>
-                                    <p class="intro">扩展kubernetes两个最常用最需要掌握的东西：自定义资源CRD 和 adminsion webhook, 本文教你如何十分钟掌握CRD开发.
-基本概念 kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。
-我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型
-kubebuilder kubebuilder能帮我们节省大量工作，让开发CRD和adminsion webhook变得异常简单。
-安装 通过源码安装：
-git clone https://github.com/kubernetes-sigs/kubebuilder cd kubebuilder make build cp bin/kubebuilder $GOPATH/bin  或者下载二进制：
-os=$(go env GOOS) arch=$(go env GOARCH) # download kubebuilder and extract it to tmp curl -sL https://go.kubebuilder.io/dl/2.0.0-beta.0/${os}/${arch} | tar -xz -C /tmp/ # move to a long-term location and put it on your path # (you'll need to set the KUBEBUILDER_ASSETS env var if you put it somewhere else) sudo mv /tmp/kubebuilder_2.</p>
+                                    <p class="intro"><p>扩展kubernetes两个最常用最需要掌握的东西：自定义资源CRD 和 adminsion webhook, 本文教你如何十分钟掌握CRD开发.</p>
+
+<p>kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。</p>
+
+<p>我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型</p></p>
                                     <p class="read-more"><a href="https://sealyun.com/blog/2019/07/01/crd/" class="btn btn-template-main">Continue reading</a>
                                     </p>
                                 </div>
