@@ -6,10 +6,23 @@
     <description>Recent content on SealYun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Jul 2019 13:50:46 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jul 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubernetes CRD如此简单</title>
+      <link>https://sealyun.com/blog/2019/07/20/crd/</link>
+      <pubDate>Sat, 20 Jul 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/blog/2019/07/20/crd/</guid>
+      <description>&lt;p&gt;扩展kubernetes两个最常用最需要掌握的东西：自定义资源CRD 和 adminsion webhook, 本文教你如何十分钟掌握CRD开发.&lt;/p&gt;
+
+&lt;p&gt;kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。&lt;/p&gt;
+
+&lt;p&gt;我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>从CNI到ovn</title>
@@ -30,19 +43,6 @@
 &lt;p&gt;openstack底层一些技术还是非常值得学习与应用的，如qemu kvm ovs ovn ceph DPDK等。。。&lt;/p&gt;
 
 &lt;p&gt;本文重点讲网络这块,ovn ovs怎么与kubernetes擦出火花&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>kubernetes CRD如此简单</title>
-      <link>https://sealyun.com/blog/2019/07/01/crd/</link>
-      <pubDate>Mon, 01 Jul 2019 10:54:24 +0200</pubDate>
-      
-      <guid>https://sealyun.com/blog/2019/07/01/crd/</guid>
-      <description>&lt;p&gt;扩展kubernetes两个最常用最需要掌握的东西：自定义资源CRD 和 adminsion webhook, 本文教你如何十分钟掌握CRD开发.&lt;/p&gt;
-
-&lt;p&gt;kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。&lt;/p&gt;
-
-&lt;p&gt;我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on SealYun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jul 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jul 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Dev</title>
       <link>https://sealyun.com/tags/dev/</link>
-      <pubDate>Mon, 01 Jul 2019 10:54:24 +0200</pubDate>
+      <pubDate>Sat, 20 Jul 2019 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/tags/dev/</guid>
       <description></description>
@@ -59,7 +59,7 @@
     <item>
       <title>Kubernetes</title>
       <link>https://sealyun.com/tags/kubernetes/</link>
-      <pubDate>Mon, 01 Jul 2019 10:54:24 +0200</pubDate>
+      <pubDate>Sat, 20 Jul 2019 10:54:24 +0200</pubDate>
       
       <guid>https://sealyun.com/tags/kubernetes/</guid>
       <description></description>
