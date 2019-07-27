@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
   <meta name="twitter:title" content="kubernetes CRD如此简单">
-  <meta name="twitter:image" content="https://sealyun.com/img/banners/banner-1.png">
+  <meta name="twitter:image" content="https://sealyun.com/img/CRD.png">
   <meta name="twitter:description" content="Site template made by devcows using hugo">
 
   
@@ -214,6 +214,8 @@ var _hmt = _hmt || [];
 <p>kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。</p>
 
 <p>我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型</p>
+
+<p><img src="/img/CRD.png" alt="" /></p>
 
 <h1 id="kubebuilder-https-github-com-kubernetes-sigs-kubebuilder"><a href="https://github.com/kubernetes-sigs/kubebuilder">kubebuilder</a></h1>
 
@@ -764,7 +766,7 @@ type StatusClient interface {
                     <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/01/crd/">
                           
-                            <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="kubernetes CRD如此简单">
+                            <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
                           
                         </a>
                     </div>
