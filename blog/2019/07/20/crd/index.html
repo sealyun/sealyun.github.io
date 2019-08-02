@@ -575,6 +575,18 @@ if err := r.Delete(ctx, vm); err != nil {
     }
 </code></pre>
 
+<h3 id="失败重试">失败重试</h3>
+
+<p>假设我们A依赖B而B又后创建，那么在处理A CRD时直接返回失败即可，这样很快会重试</p>
+
+<h3 id="webhook">webhook</h3>
+
+<p>kuberentes有三种webhook,admission webhook, authorization webhook and CRD conversion webhook.</p>
+
+<p>这里比如我们要给CRD设置一些默认值，又或者是用户创建时少填了一些参数，那么我们得禁止创建等等这些事。</p>
+
+<p>使用webhook也非常的简单，只需给定义的结构体实现 <code>Defaulter</code> 和 <code>Validator</code>接口即可.</p>
+
 <h4 id="其它接口">其它接口</h4>
 
 <p>Reconcile结构体聚合了Client接口，所以client的所有方法都是可以直接调用，大部分是对CRD object的相关操作</p>
@@ -795,6 +807,19 @@ type StatusClient interface {
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/20/crd/">
                           
                             <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
@@ -816,19 +841,6 @@ type StatusClient interface {
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
-                          
-                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
                     </div>
                 </div>
                 

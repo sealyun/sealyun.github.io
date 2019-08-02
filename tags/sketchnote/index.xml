@@ -878,29 +878,6 @@ sysctl -w net.ipv4.ip_forward=1&lt;/p&gt;
     </item>
     
     <item>
-      <title>使用kubeadm安装安全高可用kubernetes集群</title>
-      <link>https://sealyun.com/blog/2017/07/11/install-k8s-cluster/</link>
-      <pubDate>Tue, 11 Jul 2017 10:54:24 +0200</pubDate>
-      
-      <guid>https://sealyun.com/blog/2017/07/11/install-k8s-cluster/</guid>
-      <description>&lt;h1 id=&#34;使用kubeadm安装安全高可用kubernetes集群&#34;&gt;使用kubeadm安装安全高可用kubernetes集群&lt;/h1&gt;
-
-&lt;h2 id=&#34;系统架构图&#34;&gt;系统架构图&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;          kubectl dashboard
-                 |
-                 V 
-     +------------------------+ join
-     | LB  10.1.245.94        | &amp;lt;--- Nodes
-     +------------------------+
-     |                                                   
-     |--master1 manager1 schedule1   10.1.245.93                                                
-     |--master2 manager2 schedule2   10.1.245.95    =============&amp;gt;  etcd cluster  http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379
-     |--master3 manager3 schedule3   10.1.245.94                                              
-&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    
-    <item>
       <title>容器信号使用</title>
       <link>https://sealyun.com/blog/2017/07/11/container-stop-timeout/</link>
       <pubDate>Tue, 11 Jul 2017 10:54:24 +0200</pubDate>

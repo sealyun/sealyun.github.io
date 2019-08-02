@@ -401,6 +401,40 @@ var _hmt = _hmt || [];
                         <div class="top">
                             <div class="image" style="overflow:hidden">
                                 
+                                <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2019/07/30/cni/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on July 30, 2019
+                            </p>
+                            <p class="intro"><p>CNI接口很简单，特别一些新手一定有克服恐惧心里，和我一探究竟，本文结合原理与实践，认真读下来一定会对原理理解非常透彻。</p></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2019/07/30/cni/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
                                 <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="" >
                                 
                             </div>
@@ -505,50 +539,6 @@ var _hmt = _hmt || [];
                             <p class="intro"><p>macvtap是虚拟机网络虚拟化常用的一种技术，当然容器也可以用. MACVTAP 的实现基于传统的 MACVLAN. 和 TAP 设备一样，每一个 MACVTAP 设备拥有一个对应的 Linux 字符设备，并拥有和 TAP 设备一样的 IOCTL 接口，因此能直接被 KVM/Qemu使用，方便地完成网络数据交换工作. 引入 MACVTAP 设备的目标是：简化虚拟化环境中的交换网络，代替传统的 Linux TAP 设备加 Bridge 设备组合，同时支持新的虚拟化网络技术，如 802.1 Qbg.</p></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2019/06/23/macvtap/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com//lxcfs.jpg" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/">强隔离容器那些事</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on June 22, 2019
-                            </p>
-                            <p class="intro"><p>探讨可加QQ群：98488045</p>
-
-<p>强隔离容器的那些事</p>
-
-<blockquote>
-<p>为什么需要强隔离容器</p>
-</blockquote>
-
-<p>我们在生产环境中运行容器已久，第一次对强隔离容器诉求是java类应用引起的，如果不配置jvm参数，java虚拟机会根据系统资源信息进行内存gc线程数等配置，在不给容器配额的情况下问题不大，一旦配额了。。。</p>
-
-<p>普通的容器在容器中看到的资源还是宿主机的资源，那么假设宿主机128G而你给容器配额2G，此时堆内存按照128G去分，可想而知后果，同理还有gc线程数等</p></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2019/06/22/kubernetes-vm/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
@@ -671,6 +661,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/20/crd/">
                           
                             <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
@@ -692,19 +695,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
-                          
-                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
                     </div>
                 </div>
                 

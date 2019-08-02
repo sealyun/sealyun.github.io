@@ -209,6 +209,52 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2018/06/21/kube-dev/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2018/06/21/kube-dev/">kubernetes开发指南</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2018/06/21/kube-dev/"><i class="fa fa-calendar-o"></i> June 21, 2018</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><blockquote>
+<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes离线安装包，仅需三步</a></p>
+</blockquote>
+
+<h2 id="官方例子">官方例子</h2>
+
+<p>大部分使用方式调用clientgo即可，我增加一些clientgo事例里没有的一些技巧</p>
+
+<p><a href="https://github.com/kubernetes/client-go/tree/master/examples">clientgo 事例地址</a></p>
+
+<h2 id="初始化客户端">初始化客户端</h2>
+
+<p>这里给了两种初始化kubernetes客户端的方式，一种根据kubeconfig文件的路径，官方有，比较简单</p>
+
+<p>另一种就是根据kubeconfig内容的字符串去初始化一个客户端，这种方式应用场景是比如我们把很多的kubeconfig文件存在了数据库中（多租户时）</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/06/21/kube-dev/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -690,45 +736,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2017/07/11/calico-architecture/">calico架构</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/"><i class="fa fa-calendar-o"></i> July 11, 2017</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><h2 id="安装常见问题">安装常见问题</h2>
-
-<p>calico无法启动：</p>
-
-<pre><code>Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 
-</code></pre>
-
-<p>很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico会经常找docker0网桥，导致clusterIP不通从而calico node连不上etcd</p></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2017/07/11/calico-architecture/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -882,6 +889,19 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/20/crd/">
                           
                             <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
@@ -903,19 +923,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
-                          
-                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
                     </div>
                 </div>
                 

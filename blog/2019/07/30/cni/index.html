@@ -16,7 +16,7 @@ var _hmt = _hmt || [];
   <meta name="robots" content="all,follow">
   <meta name="googlebot" content="index,follow,snippet,archive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>kubernetes启用ipvs</title>
+  <title>彻底理解 kubernetes CNI</title>
   <meta name="author" content="" />
 
   
@@ -68,14 +68,14 @@ var _hmt = _hmt || [];
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
-  <meta name="twitter:title" content="kubernetes启用ipvs">
-  <meta name="twitter:image" content="https://sealyun.com/img/banners/banner-1.png">
+  <meta name="twitter:title" content="彻底理解 kubernetes CNI">
+  <meta name="twitter:image" content="https://sealyun.com/CNI.png">
   <meta name="twitter:description" content="Site template made by devcows using hugo">
 
   
-  <meta property="og:title" content="kubernetes启用ipvs" />
+  <meta property="og:title" content="彻底理解 kubernetes CNI" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sealyun.com/blog/2018/05/29/k8s-ipvs//" />
+  <meta property="og:url" content="https://sealyun.com/blog/2019/07/30/cni//" />
   <meta property="og:image" content="/img/logo.jpg" />
 
 </head>
@@ -96,9 +96,9 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="kubernetes启用ipvs logo" class="hidden-xs hidden-sm">
-                    <img src="https://sealyun.com//img/logo-small.png" alt="kubernetes启用ipvs logo" class="visible-xs visible-sm">
-                    <span class="sr-only">kubernetes启用ipvs - go to homepage</span>
+                    <img src="https://sealyun.com//img/logo.jpg" alt="彻底理解 kubernetes CNI logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo-small.png" alt="彻底理解 kubernetes CNI logo" class="visible-xs visible-sm">
+                    <span class="sr-only">彻底理解 kubernetes CNI - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -190,7 +190,7 @@ var _hmt = _hmt || [];
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>kubernetes启用ipvs</h1>
+                <h1>彻底理解 kubernetes CNI</h1>
             </div>
         </div>
     </div>
@@ -206,166 +206,316 @@ var _hmt = _hmt || [];
 
                     <div class="col-md-9" id="blog-post">
 
-                        <p class="text-muted text-uppercase mb-small text-right">By <a href="#">fanux</a> | May 29, 2018</p>
+                        <p class="text-muted text-uppercase mb-small text-right">By <a href="#">fanux</a> | July 30, 2019</p>
 
                         <div id="post-content">
-                          <blockquote>
-<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes各版本离线安装包</a></p>
+                          <p>CNI接口很简单，特别一些新手一定有克服恐惧心里，和我一探究竟，本文结合原理与实践，认真读下来一定会对原理理解非常透彻。</p>
+
+<p><img src="https://sealyun.com/CNI.png" alt="" /></p>
+
+<h2 id="环境介绍">环境介绍</h2>
+
+<p>我们安装kubernetes时先不安装CNI. 如果使用了<a href="https://store.lameleg.com">sealyun离线包</a> 那么修改下 <code>kube/conf/master.sh</code></p>
+
+<p>只留如下内容即可：</p>
+
+<pre><code>[root@helix105 shell]# cat master.sh 
+kubeadm init --config ../conf/kubeadm.yaml
+mkdir ~/.kube
+cp /etc/kubernetes/admin.conf ~/.kube/config
+
+kubectl taint nodes --all node-role.kubernetes.io/master-
+</code></pre>
+
+<p>清空CNI相关目录：</p>
+
+<pre><code>rm -rf /opt/cni/bin/*
+rm -rf /etc/cni/net.d/*
+</code></pre>
+
+<p>启动kubernetes, 如果已经装过那么kubeadm reset一下:</p>
+
+<pre><code>cd kube/shell &amp;&amp; sh init.sh &amp;&amp; sh master.sh
+</code></pre>
+
+<p>此时你的节点是notready的，你的coredns也没有办法分配到地址：</p>
+
+<pre><code>[root@helix105 shell]# kubectl get pod -n kube-system -o wide
+NAME                                            READY   STATUS    RESTARTS   AGE   IP              NODE                    NOMINATED NODE   READINESS GATES
+coredns-5c98db65d4-5fh6c                        0/1     Pending   0          54s   &lt;none&gt;          &lt;none&gt;                  &lt;none&gt;           &lt;none&gt;
+coredns-5c98db65d4-dbwmq                        0/1     Pending   0          54s   &lt;none&gt;          &lt;none&gt;                  &lt;none&gt;           &lt;none&gt;
+kube-controller-manager-helix105.hfa.chenqian   1/1     Running   0          19s   172.16.60.105   helix105.hfa.chenqian   &lt;none&gt;           &lt;none&gt;
+kube-proxy-k74ld                                1/1     Running   0          54s   172.16.60.105   helix105.hfa.chenqian   &lt;none&gt;           &lt;none&gt;
+kube-scheduler-helix105.hfa.chenqian            1/1     Running   0          14s   172.16.60.105   helix105.hfa.chenqian   &lt;none&gt;           &lt;none&gt;
+[root@helix105 shell]# kubectl get node
+NAME                    STATUS     ROLES    AGE   VERSION
+helix105.hfa.chenqian   NotReady   master   86s   v1.15.0
+</code></pre>
+
+<h2 id="安装cni">安装CNI</h2>
+
+<blockquote>
+<p>创建CNI配置文件</p>
 </blockquote>
 
-<h1 id="1-11-1版本已经修复此bug-如在centos下使用ipvs模式建议升级到-v1-11-1-包地址-http-sealyun-com-pro-products">1.11.1版本已经修复此bug，如在centos下使用ipvs模式建议升级到<a href="http://sealyun.com/pro/products/">v1.11.1,包地址</a></h1>
-
-<h1 id="1-11-0版本ipset-bug说明">1.11.0版本ipset bug说明</h1>
-
-<p>1.11.0版本centos下使用ipvs模式会出问题 <a href="https://github.com/kubernetes/kubernetes/issues/65461">65461</a></p>
-
-<pre><code>Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569    3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for solving hairpin purpose} map[] 0xc42073e1d0} exist, error: error creating ipset KUBE-LOOP-BACK, error: exit status 2
+<pre><code>$ mkdir -p /etc/cni/net.d
+$ cat &gt;/etc/cni/net.d/10-mynet.conf &lt;&lt;EOF
+{
+	&quot;cniVersion&quot;: &quot;0.2.0&quot;,
+	&quot;name&quot;: &quot;mynet&quot;,
+	&quot;type&quot;: &quot;bridge&quot;,
+	&quot;bridge&quot;: &quot;cni0&quot;,
+	&quot;isGateway&quot;: true,
+	&quot;ipMasq&quot;: true,
+	&quot;ipam&quot;: {
+		&quot;type&quot;: &quot;host-local&quot;,
+		&quot;subnet&quot;: &quot;10.22.0.0/16&quot;,
+		&quot;routes&quot;: [
+			{ &quot;dst&quot;: &quot;0.0.0.0/0&quot; }
+		]
+	}
+}
+EOF
+$ cat &gt;/etc/cni/net.d/99-loopback.conf &lt;&lt;EOF
+{
+	&quot;cniVersion&quot;: &quot;0.2.0&quot;,
+	&quot;name&quot;: &quot;lo&quot;,
+	&quot;type&quot;: &quot;loopback&quot;
+}
+EOF
 </code></pre>
 
-<p>主要是ipset不支持comment:</p>
+<p>这里两个配置一个是给容器塞一个网卡挂在网桥上的，另外一个配置负责撸(本地回环)。。</p>
 
-<pre><code>[root@compute063 ~]# ipset create foo hash:ip comment
-ipset v6.19: Unknown argument: `comment'
-Try `ipset help' for more information.
+<p>配置完后会发现节点ready:</p>
+
+<pre><code>[root@helix105 shell]# kubectl get node
+NAME                    STATUS   ROLES    AGE   VERSION
+helix105.hfa.chenqian   Ready    master   15m   v1.15.0
 </code></pre>
 
-<p>尝试升级ipset问题依然没解决</p>
+<p>但是coredns会一直处于ContainerCreating状态,是因为bin文件还没有:</p>
 
-<pre><code>[root@izrj9auny05eigffvcosvbz ipset-6.38]# ipset create foo hash:ip comment
-ipset v6.38: Argument `comment' is supported in the kernel module of the set type hash:ip starting from the revision 2 and you have installed revision 1 only. Your kernel is behind your ipset utility.
-Try `ipset help' for more information.
+<pre><code>failed to find plugin &quot;bridge&quot; in path [/opt/cni/bin]
 </code></pre>
 
-<p>在不改kubernetes情况下可以通过升级内核和ipset解决</p>
+<p><a href="https://github.com/containernetworking/plugins">plugins</a>里实现了很多的CNI,如我们上面配置的bridge.</p>
 
-<h2 id="升级内核">升级内核</h2>
-
-<p><a href="https://github.com/sealyun/kernel/releases/tag/v4.14.49">rpm地址</a></p>
-
-<pre><code>rpm -ivh kernel-4.14.49-1.x86_64.rpm
-rpm -ivh kernel-devel-4.14.49-1.x86_64.rpm
+<pre><code>$ cd $GOPATH/src/github.com/containernetworking/plugins
+$ ./build_linux.sh
+$ cp bin/* /opt/cni/bin
+$ ls bin/
+bandwidth  dhcp      flannel      host-local  loopback  portmap  sbr     tuning
+bridge     firewall  host-device  ipvlan      macvlan   ptp      static  vlan
 </code></pre>
 
-<pre><code>修改grub配置，默认启动新内核
- vi /etc/default/grub
-修改成 GRUB_DEFAULT=0
-grub2-mkconfig -o /boot/grub2/grub.cfg 
+<p>这里有很多二进制，我们学习的话不需要关注所有的，就看ptp(就简单的创建了设备对)或者bridge</p>
+
+<p>再看coredns已经能分配到地址了：</p>
+
+<pre><code>[root@helix105 plugins]# kubectl get pod -n kube-system -o wide
+NAME                                            READY   STATUS    RESTARTS   AGE     IP              NODE                    NOMINATED NODE   READINESS GATES
+coredns-5c98db65d4-5fh6c                        1/1     Running   0          3h10m   10.22.0.8       helix105.hfa.chenqian   &lt;none&gt;           &lt;none&gt;
+coredns-5c98db65d4-dbwmq                        1/1     Running   0          3h10m   10.22.0.9
 </code></pre>
 
-<h2 id="ipset-安装过程">ipset 安装过程</h2>
+<p>看一下网桥,cni0上挂了两个设备,与我们上面的cni配置里配置的一样，type字段指定用哪个bin文件，bridge字段指定网桥名：</p>
 
-<pre><code>yum install -y kernel-devel
-
-yum install -y bzip2
-
-wget http://ipset.netfilter.org/ipset-6.38.tar.bz2
-
-cd ipset-6.38
-
-bzip2 -d ipset-6.38.tar.bz2
-
-tar xvf ipset-6.38.tar
-
-cd /lib/modules/3.10.0-693.2.2.el7.x86_64
-ln -s /usr/src/kernels/3.10.0-862.3.3.el7.x86_64 build
-
-./configure &amp;&amp; make &amp;&amp; make install
+<pre><code>[root@helix105 plugins]# brctl show
+bridge name	bridge id		STP enabled	interfaces
+cni0		8000.8ef6ac49c2f7	no		veth1b28b06f
+            							veth1c093940
 </code></pre>
 
-<h1 id="kubernetes启用ipvs">kubernetes启用ipvs</h1>
+<h2 id="原理">原理</h2>
 
-<p>确保内核开启了ipvs模块</p>
+<p>为了更好理解kubelet干嘛了，我们可以找一个脚本来解释 <a href="https://github.com/containernetworking/cni/tree/master/scripts">script</a> 这个脚本也可以用来测试你的CNI：</p>
 
-<pre><code>[root@k8s ~]# lsmod|grep ip_vs
-ip_vs_sh               12688  0
-ip_vs_wrr              12697  0
-ip_vs_rr               12600  16
-ip_vs                 141092  23 ip_vs_rr,ip_vs_sh,xt_ipvs,ip_vs_wrr
-nf_conntrack          133387  9 ip_vs,nf_nat,nf_nat_ipv4,nf_nat_ipv6,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4,nf_conntrack_ipv6
-libcrc32c              12644  3 ip_vs,nf_nat,nf_conntrack
+<p>为了易读，我删除一些不重要的东西,原版脚本可以在连接中去拿</p>
+
+<pre><code># 先创建一个容器，这里只为了拿到一个net namespace
+contid=$(docker run -d --net=none golang:1.12.7 /bin/sleep 10000000) 
+pid=$(docker inspect -f '{{ .State.Pid }}' $contid)
+netnspath=/proc/$pid/ns/net # 这个我们需要
+
+kubelet启动pod时也是创建好容器就有了pod的network namespaces，再去把ns传给cni 让cni去配置
+
+./exec-plugins.sh add $contid $netnspath # 传入两个参数给下一个脚本，containerid和net namespace路径
+
+docker run --net=container:$contid $@
 </code></pre>
 
-<p>没开启加载方式:</p>
+<pre><code>NETCONFPATH=${NETCONFPATH-/etc/cni/net.d}
 
-<pre><code>modprobe -- ip_vs
-modprobe -- ip_vs_rr
-modprobe -- ip_vs_wrr
-modprobe -- ip_vs_sh
-modprobe -- nf_conntrack_ipv4
+function exec_plugins() {
+        i=0
+        # 获取容器id和网络ns
+        contid=$2 
+        netns=$3
+
+        # 这里设置了几个环境变量，CNI命令行工具就可以获取到这些参数
+        export CNI_COMMAND=$(echo $1 | tr '[:lower:]' '[:upper:]')
+        export PATH=$CNI_PATH:$PATH # 这个指定CNI bin文件的路径
+        export CNI_CONTAINERID=$contid 
+        export CNI_NETNS=$netns
+
+        for netconf in $(echo $NETCONFPATH/10-mynet.conf | sort); do
+                name=$(jq -r '.name' &lt;$netconf)
+                plugin=$(jq -r '.type' &lt;$netconf) # CNI配置文件的type字段对应二进制程序名
+                export CNI_IFNAME=$(printf eth%d $i) # 容器内网卡名
+
+                # 这里执行了命令行工具
+                res=$($plugin &lt;$netconf) # 这里把CNI的配置文件通过标准输入也传给CNI命令行工具
+                if [ $? -ne 0 ]; then
+                        # 把结果输出到标准输出，这样kubelet就可以拿到容器地址等一些信息
+                        errmsg=$(echo $res | jq -r '.msg')
+                        if [ -z &quot;$errmsg&quot; ]; then
+                                errmsg=$res
+                        fi
+
+                        echo &quot;${name} : error executing $CNI_COMMAND: $errmsg&quot;
+                        exit 1
+                let &quot;i=i+1&quot;
+        done
+}
 </code></pre>
 
-<p>1.10以上版本,使用kubeadm安装的，直接修改kube-proxy configmap即可</p>
+<p>总结一下：</p>
 
-<pre><code>kubectl edit configmap kube-proxy -n kube-system
+<pre><code>         CNI配置文件
+         容器ID
+         网络ns
+kubelet --------------&gt;  CNI command
+   ^                        |
+   |                        |
+   +------------------------+
+       结果标准输出
 </code></pre>
 
-<pre><code>    ipvs:
-      minSyncPeriod: 0s
-      scheduler: &quot;&quot;
-      syncPeriod: 30s
-    kind: KubeProxyConfiguration
-    metricsBindAddress: 127.0.0.1:10249
-    mode: &quot;ipvs&quot;                          # 加上这个
-    nodePortAddresses: null
+<h3 id="bridge-cni实现">bridge CNI实现</h3>
+
+<p>既然这么简单，那么就可以去看看实现了：</p>
+
+<p><a href="https://github.com/containernetworking/plugins/tree/master/plugins/main/bridge">bridge CNI代码</a></p>
+
+<pre><code>//cmdAdd 负责创建网络
+func cmdAdd(args *skel.CmdArgs) error 
+
+//入参数都已经写到这里面了，前面的参数从环境变量读取的，CNI配置从stdin读取的
+type CmdArgs struct {
+	ContainerID string
+	Netns       string
+	IfName      string
+	Args        string
+	Path        string
+	StdinData   []byte
+}
 </code></pre>
 
-<p>看到pod如下信息表明成功</p>
+<p>所以CNI配置文件除了name type这些特定字段，你自己也可以加自己的一些字段.然后自己去解析</p>
 
-<pre><code>[root@k8s ~]# kubectl logs kube-proxy-72lg9 -n kube-system
-I0530 03:38:11.455609       1 feature_gate.go:226] feature gates: &amp;{{} map[]}
-I0530 03:38:11.490470       1 server_others.go:183] Using ipvs Proxier.
-W0530 03:38:11.503868       1 proxier.go:304] IPVS scheduler not specified, use rr by default
-I0530 03:38:11.504109       1 server_others.go:209] Tearing down inactive rules.
-I0530 03:38:11.552587       1 server.go:444] Version: v1.10.3
+<p>然后啥事都得靠自己了</p>
+
+<pre><code>//这里创建了设备对，并挂载到cni0王桥上
+hostInterface, containerInterface, err := setupVeth(netns, br, args.IfName, n.MTU, n.HairpinMode, n.Vlan)
 </code></pre>
 
-<p>安装ipvsadm工具</p>
+<p>具体怎么挂的就是调用了<a href="github.com/vishvananda/netlink">netlink</a> 这个库，sealos在做内核负载时同样用了该库。</p>
 
-<pre><code>yum install -y ipvsadm
+<pre><code>err := netns.Do(func(hostNS ns.NetNS) error { //创建设备对
+	hostVeth, containerVeth, err := ip.SetupVeth(ifName, mtu, hostNS)
+    ...
+    //配置容器内的网卡名mac地址等
+	contIface.Name = containerVeth.Name
+	contIface.Mac = containerVeth.HardwareAddr.String()
+	contIface.Sandbox = netns.Path()
+	hostIface.Name = hostVeth.Name
+	return nil
+})
+...
+
+// 根据index找到宿主机设备对名
+hostVeth, err := netlink.LinkByName(hostIface.Name)
+...
+hostIface.Mac = hostVeth.Attrs().HardwareAddr.String()
+
+// 把宿主机端设备对挂给网桥
+if err := netlink.LinkSetMaster(hostVeth, br); err != nil {}
+
+// 设置hairpin mode
+if err = netlink.LinkSetHairpin(hostVeth, hairpinMode); err != nil {
+}
+
+// 设置vlanid
+if vlanID != 0 {
+	err = netlink.BridgeVlanAdd(hostVeth, uint16(vlanID), true, true, false, true)
+}
+
+return hostIface, contIface, nil
 </code></pre>
 
-<p>检查service ipvs配置：</p>
+<p>最后把结果返回：</p>
 
-<pre><code>[root@k8s ~]# ipvsadm -ln
-IP Virtual Server version 1.2.1 (size=4096)
-Prot LocalAddress:Port Scheduler Flags
-  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn
-TCP  172.31.244.239:32000 rr
-  -&gt; 192.168.77.9:8443            Masq    1      0          0
-TCP  172.31.244.239:32001 rr
-  -&gt; 192.168.77.8:3000            Masq    1      0          0
-TCP  10.96.0.1:443 rr persistent 10800
-  -&gt; 172.31.244.239:6443          Masq    1      0          0
-TCP  10.96.0.10:53 rr
-  -&gt; 192.168.77.7:53              Masq    1      0          0
-  -&gt; 192.168.77.10:53             Masq    1      0          0
-TCP  10.96.82.0:80 rr
-  -&gt; 192.168.77.8:3000            Masq    1      0          0
-TCP  10.96.152.25:8086 rr
-  -&gt; 192.168.77.12:8086           Masq    1      0          0
-TCP  10.96.232.136:6666 rr
+<pre><code>type Result struct {
+	CNIVersion string         `json:&quot;cniVersion,omitempty&quot;`
+	Interfaces []*Interface   `json:&quot;interfaces,omitempty&quot;`
+	IPs        []*IPConfig    `json:&quot;ips,omitempty&quot;`
+	Routes     []*types.Route `json:&quot;routes,omitempty&quot;`
+	DNS        types.DNS      `json:&quot;dns,omitempty&quot;`
+}
+
+// 这样kubelet就收到返回信息了
+func (r *Result) PrintTo(writer io.Writer) error {
+	data, err := json.MarshalIndent(r, &quot;&quot;, &quot;    &quot;)
+	if err != nil {
+		return err
+	}
+	_, err = writer.Write(data)
+	return err
+}
 </code></pre>
 
-<p>可以看到我们的dashboard dns什么的都已经配置了，可以验证一下：</p>
+<p>如：</p>
 
-<pre><code>[root@k8s ~]# wget https://172.31.244.239:32000 --no-check-certificate
---2018-05-30 16:17:15--  https://172.31.244.239:32000/
-正在连接 172.31.244.239:32000... 已连接。
-警告: 无法验证 172.31.244.239 的由 “/CN=.” 颁发的证书:
-  出现了自己签名的证书。
-    警告: 证书通用名 “.” 与所要求的主机名 “172.31.244.239” 不符。
-已发出 HTTP 请求，正在等待回应... 200 OK
-长度：990 [text/html]
-正在保存至: “index.html”
-
-100%[=======================================================================================================================================================&gt;] 990         --.-K/s 用时 0s
-
-2018-05-30 16:17:15 (16.3 MB/s) - 已保存 “index.html” [990/990])
+<pre><code>{
+  &quot;cniVersion&quot;: &quot;0.4.0&quot;,
+  &quot;interfaces&quot;: [                                            (this key omitted by IPAM plugins)
+      {
+          &quot;name&quot;: &quot;&lt;name&gt;&quot;,
+          &quot;mac&quot;: &quot;&lt;MAC address&gt;&quot;,                            (required if L2 addresses are meaningful)
+          &quot;sandbox&quot;: &quot;&lt;netns path or hypervisor identifier&gt;&quot; (required for container/hypervisor interfaces, empty/omitted for host interfaces)
+      }
+  ],
+  &quot;ips&quot;: [
+      {
+          &quot;version&quot;: &quot;&lt;4-or-6&gt;&quot;,
+          &quot;address&quot;: &quot;&lt;ip-and-prefix-in-CIDR&gt;&quot;,
+          &quot;gateway&quot;: &quot;&lt;ip-address-of-the-gateway&gt;&quot;,          (optional)
+          &quot;interface&quot;: &lt;numeric index into 'interfaces' list&gt;
+      },
+      ...
+  ],
+  &quot;routes&quot;: [                                                (optional)
+      {
+          &quot;dst&quot;: &quot;&lt;ip-and-prefix-in-cidr&gt;&quot;,
+          &quot;gw&quot;: &quot;&lt;ip-of-next-hop&gt;&quot;                           (optional)
+      },
+      ...
+  ],
+  &quot;dns&quot;: {                                                   (optional)
+    &quot;nameservers&quot;: &lt;list-of-nameservers&gt;                     (optional)
+    &quot;domain&quot;: &lt;name-of-local-domain&gt;                         (optional)
+    &quot;search&quot;: &lt;list-of-additional-search-domains&gt;            (optional)
+    &quot;options&quot;: &lt;list-of-options&gt;                             (optional)
+  }
+}
 </code></pre>
 
-<p>是通的，完全ok</p>
+<h2 id="总结">总结</h2>
 
-<p>这里十分推荐大家使用ipvs模式，iptables出了问题不好调试，而且规则一多性能显著下降，我们甚至出现规则丢失的情况，ipvs稳定很多。</p>
+<p>CNI接口层面是非常简单的，所以更多的就是在CNI本身的实现了，懂了上文这些就可以自己去实现一个CNI了,是不是很酷，也会让大家更熟悉网络以更从容的姿态排查网络问题了。</p>
+
+<p>探讨可加QQ群：98488045</p>
                         </div>
                         
                         

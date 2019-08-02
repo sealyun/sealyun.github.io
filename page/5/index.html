@@ -407,6 +407,47 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2017/07/11/calico-architecture/">calico架构</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on July 11, 2017
+                            </p>
+                            <p class="intro"><h2 id="安装常见问题">安装常见问题</h2>
+
+<p>calico无法启动：</p>
+
+<pre><code>Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 
+</code></pre>
+
+<p>很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico会经常找docker0网桥，导致clusterIP不通从而calico node连不上etcd</p></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2017/07/11/calico-network-policy/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -484,54 +525,6 @@ sysctl -w net.ipv4.ip_forward=1</p>
 </blockquote></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2017/07/11/install-k8s/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2017/07/11/install-k8s-cluster/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2017/07/11/install-k8s-cluster/">使用kubeadm安装安全高可用kubernetes集群</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on July 11, 2017
-                            </p>
-                            <p class="intro"><h1 id="使用kubeadm安装安全高可用kubernetes集群">使用kubeadm安装安全高可用kubernetes集群</h1>
-
-<h2 id="系统架构图">系统架构图</h2>
-
-<pre><code>          kubectl dashboard
-                 |
-                 V 
-     +------------------------+ join
-     | LB  10.1.245.94        | &lt;--- Nodes
-     +------------------------+
-     |                                                   
-     |--master1 manager1 schedule1   10.1.245.93                                                
-     |--master2 manager2 schedule2   10.1.245.95    =============&gt;  etcd cluster  http://10.1.245.93:2379,http://10.1.245.94:2379,http://10.1.245.95:2379
-     |--master3 manager3 schedule3   10.1.245.94                                              
-</code></pre></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2017/07/11/install-k8s-cluster/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
@@ -703,6 +696,19 @@ Options:
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/20/crd/">
                           
                             <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
@@ -724,19 +730,6 @@ Options:
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
-                          
-                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
                     </div>
                 </div>
                 

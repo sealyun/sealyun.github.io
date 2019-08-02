@@ -209,6 +209,38 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                                          
+                                          <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2019/07/30/cni/"><i class="fa fa-calendar-o"></i> July 30, 2019</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><p>CNI接口很简单，特别一些新手一定有克服恐惧心里，和我一探究竟，本文结合原理与实践，认真读下来一定会对原理理解非常透彻。</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/07/30/cni/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2019/07/20/crd/">
                                           
                                           <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="">
@@ -570,55 +602,6 @@ var _hmt = _hmt || [];
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/">关于overlay2存储驱动的磁盘配额问题</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/"><i class="fa fa-calendar-o"></i> March 23, 2019</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><blockquote>
-<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
-</blockquote>
-
-<h1 id="概述">概述</h1>
-
-<p>这篇短文向大家介绍一下正确使用存储驱动的姿势，非常有用。</p>
-
-<h2 id="为啥要用overlay2">为啥要用overlay2</h2>
-
-<ul>
-<li>docker centos（内核3.10）上默认存储驱动是devicemapper 的loop-lvm模式，这种模式是用文件模拟块设备，不推荐生产使用</li>
-<li>direct lvm又不是一个开箱即用的模式，懒得配置</li>
-<li>最关键的是 docker in docker的情况下 device mapper是行不通的，典型的场景就是用drone时，构建docker镜像就不能正常工作</li>
-<li>overlay存储驱动层数过多时会导致文件链接数过多可能会耗尽inode</li>
-</ul>
-
-<p>所以当前overlay2是个比较好的选择</p></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -772,6 +755,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/20/crd/">
                           
                             <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
@@ -793,19 +789,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
-                          
-                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
                     </div>
                 </div>
                 

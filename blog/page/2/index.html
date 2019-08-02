@@ -209,6 +209,55 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/">关于overlay2存储驱动的磁盘配额问题</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/"><i class="fa fa-calendar-o"></i> March 23, 2019</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><blockquote>
+<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
+</blockquote>
+
+<h1 id="概述">概述</h1>
+
+<p>这篇短文向大家介绍一下正确使用存储驱动的姿势，非常有用。</p>
+
+<h2 id="为啥要用overlay2">为啥要用overlay2</h2>
+
+<ul>
+<li>docker centos（内核3.10）上默认存储驱动是devicemapper 的loop-lvm模式，这种模式是用文件模拟块设备，不推荐生产使用</li>
+<li>direct lvm又不是一个开箱即用的模式，懒得配置</li>
+<li>最关键的是 docker in docker的情况下 device mapper是行不通的，典型的场景就是用drone时，构建docker镜像就不能正常工作</li>
+<li>overlay存储驱动层数过多时会导致文件链接数过多可能会耗尽inode</li>
+</ul>
+
+<p>所以当前overlay2是个比较好的选择</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2019/03/11/containerd/">
                                           
                                           <img src="https://sealyun.com//cri.jpg" class="img-responsive" alt="">
@@ -594,58 +643,6 @@ var _hmt = _hmt || [];
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2018/12/25/kube-batch/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2018/12/25/kube-batch/">kube-scheduler定制，支持深度学习批处理任务调度</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2018/12/25/kube-batch/"><i class="fa fa-calendar-o"></i> December 25, 2018</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><blockquote>
-<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
-</blockquote>
-
-<h1 id="什么是批处理任务">什么是批处理任务</h1>
-
-<p>深度学习中经常会出现多机多卡的任务，也就是同事会起多个pod，但是这多个pod属于同一个任务。</p>
-
-<p>这样就会有一个问题</p>
-
-<p>一个任务要起100个pod，每个pod需要一张卡，总共需要100张GPU卡，而集群中只有99张空闲的GPU卡，这样默认的k8s调度器会如何处理？</p>
-
-<p>因为默认调度器是一个一个pod调度的，只会检查单个pod资源够不够，这样前99个都能成功，最后一个pod调度失败。</p>
-
-<p>这样非常有可能造成</p>
-
-<ol>
-<li>任务跑不了<br /></li>
-<li>前99个占着GPU不释放，新的任务无法调度</li>
-<li>严重时整个集群死锁，都“占着茅坑不拉屎”</li>
-</ol></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/12/25/kube-batch/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -799,6 +796,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/20/crd/">
                           
                             <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
@@ -820,19 +830,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/06/23/macvtap/">
-                          
-                            <img src="https://sealyun.com//macvtap.jpg" class="img-responsive" alt="macvtap实践教程">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/06/23/macvtap/">macvtap实践教程</a></h5>
                     </div>
                 </div>
                 
