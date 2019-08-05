@@ -209,7 +209,7 @@ var _hmt = _hmt || [];
                         <p class="text-muted text-uppercase mb-small text-right">By <a href="#">fanux</a> | July 30, 2019</p>
 
                         <div id="post-content">
-                          <p>CNI接口很简单，特别一些新手一定有克服恐惧心里，和我一探究竟，本文结合原理与实践，认真读下来一定会对原理理解非常透彻。</p>
+                          <p>CNI接口很简单，特别一些新手一定要克服恐惧心里，和我一探究竟，本文结合原理与实践，认真读下来一定会对原理理解非常透彻。</p>
 
 <p><img src="https://sealyun.com/CNI.png" alt="" /></p>
 
@@ -347,37 +347,35 @@ docker run --net=container:$contid $@
 
 <pre><code>NETCONFPATH=${NETCONFPATH-/etc/cni/net.d}
 
-function exec_plugins() {
-        i=0
-        # 获取容器id和网络ns
-        contid=$2 
-        netns=$3
+i=0
+# 获取容器id和网络ns
+contid=$2 
+netns=$3
 
-        # 这里设置了几个环境变量，CNI命令行工具就可以获取到这些参数
-        export CNI_COMMAND=$(echo $1 | tr '[:lower:]' '[:upper:]')
-        export PATH=$CNI_PATH:$PATH # 这个指定CNI bin文件的路径
-        export CNI_CONTAINERID=$contid 
-        export CNI_NETNS=$netns
+# 这里设置了几个环境变量，CNI命令行工具就可以获取到这些参数
+export CNI_COMMAND=$(echo $1 | tr '[:lower:]' '[:upper:]')
+export PATH=$CNI_PATH:$PATH # 这个指定CNI bin文件的路径
+export CNI_CONTAINERID=$contid 
+export CNI_NETNS=$netns
 
-        for netconf in $(echo $NETCONFPATH/10-mynet.conf | sort); do
-                name=$(jq -r '.name' &lt;$netconf)
-                plugin=$(jq -r '.type' &lt;$netconf) # CNI配置文件的type字段对应二进制程序名
-                export CNI_IFNAME=$(printf eth%d $i) # 容器内网卡名
+for netconf in $(echo $NETCONFPATH/10-mynet.conf | sort); do
+        name=$(jq -r '.name' &lt;$netconf)
+        plugin=$(jq -r '.type' &lt;$netconf) # CNI配置文件的type字段对应二进制程序名
+        export CNI_IFNAME=$(printf eth%d $i) # 容器内网卡名
 
-                # 这里执行了命令行工具
-                res=$($plugin &lt;$netconf) # 这里把CNI的配置文件通过标准输入也传给CNI命令行工具
-                if [ $? -ne 0 ]; then
-                        # 把结果输出到标准输出，这样kubelet就可以拿到容器地址等一些信息
-                        errmsg=$(echo $res | jq -r '.msg')
-                        if [ -z &quot;$errmsg&quot; ]; then
-                                errmsg=$res
-                        fi
+        # 这里执行了命令行工具
+        res=$($plugin &lt;$netconf) # 这里把CNI的配置文件通过标准输入也传给CNI命令行工具
+        if [ $? -ne 0 ]; then
+                # 把结果输出到标准输出，这样kubelet就可以拿到容器地址等一些信息
+                errmsg=$(echo $res | jq -r '.msg')
+                if [ -z &quot;$errmsg&quot; ]; then
+                        errmsg=$res
+                fi
 
-                        echo &quot;${name} : error executing $CNI_COMMAND: $errmsg&quot;
-                        exit 1
-                let &quot;i=i+1&quot;
-        done
-}
+                echo &quot;${name} : error executing $CNI_COMMAND: $errmsg&quot;
+                exit 1
+        let &quot;i=i+1&quot;
+done
 </code></pre>
 
 <p>总结一下：</p>
@@ -406,7 +404,7 @@ type CmdArgs struct {
 	ContainerID string
 	Netns       string
 	IfName      string
-	Args        string
+	Args        string //这个里面携带一些额外参数, 如pod name等
 	Path        string
 	StdinData   []byte
 }
@@ -510,6 +508,12 @@ func (r *Result) PrintTo(writer io.Writer) error {
   }
 }
 </code></pre>
+
+<blockquote>
+<p>获取pod名称</p>
+</blockquote>
+
+<p>CNI_ARGS 环境变量存了一些额外信息, 值的格式为：<code>FOO=BAR;ABC=123</code>, 比如其中就有我们挺需要的podname. <code>K8S_POD_NAME=xxxx</code></p>
 
 <h2 id="总结">总结</h2>
 
