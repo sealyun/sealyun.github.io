@@ -407,6 +407,49 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2019/01/01/prometheus-operator-envoy/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2019/01/01/prometheus-operator-envoy/">使用prometheus operator监控envoy</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on January 1, 2019
+                            </p>
+                            <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<h1 id="概述">概述</h1>
+
+<p>prometheus operator应当是使用监控系统的最佳实践了，首先它一键构建整个监控系统，通过一些无侵入的手段去配置如监控数据源等
+故障自动恢复，高可用的告警等。。</p>
+
+<p>不过对于新手使用上还是有一丢丢小门槛，本文就结合如何给envoy做监控这个例子来分享使用prometheus operator的正确姿势</p>
+
+<p>至于如何写告警规则，如何配置prometheus查询语句不是本文探讨的重点，会在后续文章中给大家分享，本文着重探讨如何使用prometheus operator</p></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2019/01/01/prometheus-operator-envoy/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2018/12/25/kube-batch/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -547,55 +590,6 @@ var _hmt = _hmt || [];
 
                 </div>
                 
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2018/11/07/kubeadm-dev/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2018/11/07/kubeadm-dev/">修改kubeadm证书过期时间</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on November 7, 2018
-                            </p>
-                            <p class="intro"><blockquote>
-<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
-</blockquote>
-
-<h1 id="修改kubeadm证书过期时间">修改kubeadm证书过期时间</h1>
-
-<p>本文通过修改kubeadm源码让kubeadm默认的一年证书过期时间修改为99年</p>
-
-<p>我已经编译好了一个放在了<a href="https://github.com/fanux/sealos/releases/tag/kubeadm1.12.2">github</a>上，有需要的可以直接下</p>
-
-<p>使用方法:</p>
-
-<pre><code>[root@dev-86-202 ~]# chmod +x kubeadm &amp;&amp; cp kubeadm /usr/bin
-[root@dev-86-202 ~]# rm /etc/kubernetes/pki/ -rf
-[root@dev-86-202 ~]# kubeadm alpha phase certs all --config  kube/conf/kubeadm.yaml
-</code></pre></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2018/11/07/kubeadm-dev/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
 
             </div>
             
@@ -711,6 +705,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
+                          
+                            <img src="https://sealyun.com/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/08/03/kustomize/">kustomize 颤抖吧helm!</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/30/cni/">
                           
                             <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
@@ -732,19 +739,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/20/crd/">kubernetes CRD如此简单</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">
-                          
-                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="从CNI到ovn">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
                     </div>
                 </div>
                 

@@ -9,13 +9,14 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
+    
 
   <head>
   <meta charset="utf-8">
   <meta name="robots" content="all,follow">
   <meta name="googlebot" content="index,follow,snippet,archive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dotscale</title>
+  <title>kustomize 颤抖吧helm!</title>
   <meta name="author" content="" />
 
   
@@ -67,14 +68,14 @@ var _hmt = _hmt || [];
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@GoHugoIO">
-  <meta name="twitter:title" content="Dotscale">
-  <meta name="twitter:image" content="https://sealyun.com/img/twitter-default.png">
+  <meta name="twitter:title" content="kustomize 颤抖吧helm!">
+  <meta name="twitter:image" content="https://sealyun.com/kustomize.jpeg">
   <meta name="twitter:description" content="Site template made by devcows using hugo">
 
   
-  <meta property="og:title" content="Dotscale" />
+  <meta property="og:title" content="kustomize 颤抖吧helm!" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sealyun.com/tags/dotscale//" />
+  <meta property="og:url" content="https://sealyun.com/blog/2019/08/03/kustomize//" />
   <meta property="og:image" content="/img/logo.jpg" />
 
 </head>
@@ -82,7 +83,7 @@ var _hmt = _hmt || [];
 
   <body>
       <img src="https://sealyun.com/img/qrcode.png" style="width:140px;position:fixed;right:10px;bottom:10px;z-index:10;"/>
-      <img src="https://sealyun.com/img/qrcode1.jpg" style="width:140px;position:fixed;right:10px;bottom:160px;z-index:10;"/>
+      <img src="http://sealyun.com/img/qrcode1.jpg" style="width:140px;position:fixed;right:10px;bottom:160px;z-index:10;"/>
 
     <div id="all">
 
@@ -95,9 +96,9 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="Dotscale logo" class="hidden-xs hidden-sm">
-                    <img src="https://sealyun.com//img/logo-small.png" alt="Dotscale logo" class="visible-xs visible-sm">
-                    <span class="sr-only">Dotscale - go to homepage</span>
+                    <img src="https://sealyun.com//img/logo.jpg" alt="kustomize 颤抖吧helm! logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo-small.png" alt="kustomize 颤抖吧helm! logo" class="visible-xs visible-sm">
+                    <span class="sr-only">kustomize 颤抖吧helm! - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -189,7 +190,7 @@ var _hmt = _hmt || [];
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Dotscale</h1>
+                <h1>kustomize 颤抖吧helm!</h1>
             </div>
         </div>
     </div>
@@ -198,60 +199,292 @@ var _hmt = _hmt || [];
 
         <div id="content">
             <div class="container">
+
                 <div class="row">
+
                     
 
-                    <div class="col-md-9" id="blog-listing-medium">
+                    <div class="col-md-9" id="blog-post">
 
+                        <p class="text-muted text-uppercase mb-small text-right">By <a href="#">fanux</a> | August 3, 2019</p>
+
+                        <div id="post-content">
+                          <p>本人是helm的重度用户，但是吧越用越不爽。。。 helm v2版本三大弊病：</p>
+
+<ul>
+<li>多租户支持不了</li>
+<li>搞个tiller服务端，鸡肋</li>
+<li>扯出自己很多概念</li>
+</ul>
+
+<p>v3版本抛弃tiller算是个进步，但是听说要上撸啊（lua）我就瞬间崩溃了，我只是想渲染个yaml文件而已。好在好多chart包貌似生态很繁荣。。。</p>
+
+<p>今天给大家介绍kustomize是如何让helm寝食难安，做梦都在颤抖的.</p>
+
+<p><img src="https://sealyun.com/kustomize.jpeg" alt="" /></p>
+
+<h1 id="安装">安装</h1>
+
+<p>kustomize已经集成在高版本(1.14+)的kubectl里了，可以使用 <code>kubectl apply -k [目录]</code> 来执行</p>
+
+<p>安装太低级不说了，装不上的智商估计就不用往下继续看了。。。</p>
+
+<h1 id="快速开始">快速开始</h1>
+
+<pre><code>mkdir ~/hello
+DEMO_HOME=~/hello
+
+BASE=$DEMO_HOME/base
+mkdir -p $BASE
+
+curl -s -o &quot;$BASE/#1.yaml&quot; &quot;https://raw.githubusercontent.com\
+/kubernetes-sigs/kustomize\
+/master/examples/helloWorld\
+/{configMap,deployment,kustomization,service}.yaml&quot;
+</code></pre>
+
+<p>看下目录结构：</p>
+
+<pre><code>base
+    ├── configMap.yaml
+    ├── deployment.yaml
+    ├── kustomization.yaml
+    └── service.yaml
+</code></pre>
+
+<p>configmap deployment service里就是我们普通的yaml文件，再加个kustomizeation文件：</p>
+
+<p>文件中指定了一些配置，指定我们把哪些个文件进行合并</p>
+
+<pre><code>➜  hello cat base/kustomization.yaml 
+# Example configuration for the webserver
+# at https://github.com/monopole/hello
+commonLabels:
+  app: hello
+
+resources:
+- deployment.yaml
+- service.yaml
+- configMap.yaml
+</code></pre>
+
+<p>build一下就会输出整个yaml了：</p>
+
+<pre><code># kustomize build base
+apiVersion: v1
+data:
+  altGreeting: Good Morning!
+  enableRisky: &quot;false&quot;
+kind: ConfigMap
+metadata:
+  labels:
+    app: hello
+  name: the-map
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello
+  name: the-service
+...
+</code></pre>
+
+<p>很简单吧，是不是发现没什么卵用，咱再继续</p>
+
+<h2 id="预上线配置与生产配置">预上线配置与生产配置</h2>
+
+<p>我们经常会遇到如开发环境与生产环境的配置文件不一样的情况，典型的配额与副本数不一样。 我们现在就来处理这种场景，staging环境与production环境。</p>
+
+<pre><code>OVERLAYS=$DEMO_HOME/overlays
+mkdir -p $OVERLAYS/staging
+mkdir -p $OVERLAYS/production
+</code></pre>
+
+<p>如两个环境的configmap不一样的场景</p>
+
+<pre><code>cat &lt;&lt;'EOF' &gt;$OVERLAYS/staging/kustomization.yaml
+namePrefix: staging-
+commonLabels:
+  variant: staging
+  org: acmeCorporation
+commonAnnotations:
+  note: Hello, I am staging!
+resources:
+- ../../base
+patchesStrategicMerge: # 这里意思是我们要把base里的configmap用下面的configmap overlay一下
+- map.yaml
+EOF
+</code></pre>
+
+<p>这样我们用下面的configmap去更新base中的，这里相当于增加了俩字段。</p>
+
+<pre><code>cat &lt;&lt;EOF &gt;$OVERLAYS/staging/map.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: the-map
+data:
+  altGreeting: &quot;Have a pineapple!&quot;
+  enableRisky: &quot;true&quot;
+EOF
+</code></pre>
+
+<p>再build一下观察configmap变化：</p>
+
+<pre><code>➜  hello kustomize build overlays/staging 
+apiVersion: v1
+data:
+  altGreeting: Have a pineapple!  # 覆盖了base中的data
+  enableRisky: &quot;true&quot;
+kind: ConfigMap
+metadata:
+  annotations:
+    note: Hello, I am staging!  # 新增了配置文件中的commonAnnotations
+  labels:
+    app: hello                  # 继承了base中的label
+    org: acmeCorporation        # 新增了配置文件中的label
+    variant: staging
+  name: staging-the-map
+</code></pre>
+
+<p>production同理不再赘述了， 然后就可以部署到k8s集群中：</p>
+
+<pre><code>kustomize build $OVERLAYS/staging |\
+    kubectl apply -f -
+</code></pre>
+
+<p>或者</p>
+
+<pre><code>kubectl apply -k $OVERLAYS/staging
+</code></pre>
+
+<h1 id="设置字段-如镜像tag">设置字段，如镜像tag</h1>
+
+<p>我们yaml文件中镜像有tag，每次版本更新都去修改文件比较麻烦。特别是在CI/CD时有可能取的是类似 DRONE_TAG的环境变量用作镜像tag。</p>
+
+<pre><code>cd base
+kustomize edit set image monopole/hello=alpine:3.6
+</code></pre>
+
+<p>kustomization.yaml中就可以看到：</p>
+
+<pre><code>images:
+- name: monopole/hello
+  newName: alpine
+  newTag: &quot;3.6&quot;
+</code></pre>
+
+<p>再build时deployment中镜像就变了：</p>
+
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello
+  name: the-deployment
+spec:
+...
+        image: alpine:3.6
+</code></pre>
+
+<p>这样在CI/CD时以DRONE为例就可以直接这样：</p>
+
+<pre><code>deploy:
+   image: kustomize:latest
+   commands:
+     - kustomize edit set image monopole/hello=alpine:{DRONE_TAG=latest}
+     - kubectl apply -k .
+</code></pre>
+
+<p>这样你代码的tag与构建镜像的tag以及yaml文件中的tag就完美保持一致了，再也不用担心上错版本了。</p>
+
+<h1 id="注入k8s运行时数据">注入k8s运行时数据</h1>
+
+<p>kustomize有个很强大的特性就是允许注入k8s运行时的一些数据，举个栗子：</p>
+
+<p>假设部署个php要去连mysql，但是只知道mysql的Servicename 并不知道端口号是啥，那么kubemize就可以帮你解决这个问题：</p>
+
+<p>这里给个获取metadata.name的例子，其它运行时数据一个理</p>
+
+<p>php的yaml文件可以这样写：</p>
+
+<pre><code>apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: init-command
+        image: debian
+        command:
+        - &quot;echo $(WORDPRESS_SERVICE)&quot;
+        - &quot;echo $(MYSQL_SERVICE)&quot;
+      containers:
+      - name: wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: $(MYSQL_SERVICE)
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+</code></pre>
+
+<p>然后配置下kusztomize：</p>
+
+<pre><code>cat &lt;&lt;EOF &gt;&gt;$DEMO_HOME/kustomization.yaml
+vars:
+  - name: WORDPRESS_SERVICE  # 最终被渲染进yaml
+    objref:
+      kind: Service
+      name: wordpress        # 获取叫wordpress的Service
+      apiVersion: v1
+    fieldref:
+      fieldpath: metadata.name # 最终获取service中的metadata.name作为WORDPRESS_SERVICE 
+  - name: MYSQL_SERVICE
+    objref:
+      kind: Service
+      name: mysql
+      apiVersion: v1
+EOF
+</code></pre>
+
+<p>这是个十分强大的特性，比如有时我们觉得DNS不够稳定或者短链接多不想走DNS服务发现，A访问B时想直接用B的clusterip，但是B部署之前又不知道IP是啥，就可以</p>
+
+<p>通过这种方式获取到clusterip，理解了这个原理就可以随意发挥了.</p>
+
+<p>探讨可加QQ群：98488045</p>
+                        </div>
                         
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2014/07/11/keep_containers_alive_deamon_downtme/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2014/07/11/keep_containers_alive_deamon_downtme/">配置docker engine使engine挂掉时容器继续运行</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2014/07/11/keep_containers_alive_deamon_downtme/"><i class="fa fa-calendar-o"></i> July 11, 2014</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><h2 id="配置docker-engine使engine挂掉时容器继续运行">配置docker engine使engine挂掉时容器继续运行</h2>
-
-<p>两种方式：
-* 修改/etc/docker/daemon.json 如果不想engine重启，给engine发送SIGHUP信号使engine重新加载配置文件
-* 直接加启动参数：&ndash;live-restore,  如用systemd管理修改这个配置文件：/usr/lib/systemd/system/docker.service,
-  然后执行systemctl daemon-reload &amp;&amp; service docker restart</p></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2014/07/11/keep_containers_alive_deamon_downtme/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
+                        <div id="comments">
+                            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "devcows" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        </div>
                         
 
-                        <ul class="pager">
-                            
-                            <li class="previous"><a href="https://sealyun.com//tags/dotscale/page/5/">&larr; Newer</a></li>
-                            
-
-                            
-                            <li class="next disabled"><a href="#">Older &rarr;</a></li>
-                            
-                        </ul>
                     </div>
                     
 
@@ -366,6 +599,7 @@ var _hmt = _hmt || [];
 
                 </div>
                 
+
             </div>
             
         </div>
@@ -510,3 +744,10 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
+
+<style>
+#post-content img {
+    width: 100%;
+    height: 100%;
+}
+</style>

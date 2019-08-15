@@ -1110,6 +1110,8 @@ clean() {
 
 <h2 id="动态获取ip地址">动态获取IP地址</h2>
 
+<p><a href="https://developers.redhat.com/blog/2018/09/03/ovn-dynamic-ip-address-management/">参考文章</a></p>
+
 <p>ovn支持管理你的IP地址，只需要指定一个子网，就会给借口分配未被占用的IP地址：</p>
 
 <p>大部分操作与静态IP一样，注意下面几个重点注释地方：</p>
@@ -1152,6 +1154,42 @@ ovs-vsctl set Interface vm1 external_ids:iface-id=vpc1-vm1
 ip netns exec vm1 dhclient vm1
 ip netns exec vm1 ip addr show vm1
 ip netns exec vm1 ip route show
+</code></pre>
+
+<p>可以查看到已分配的地址：</p>
+
+<pre><code>$ ovn-nbctl list logical_switch_port
+_uuid : 2d1fe408-f119-48d6-88c9-dff237c92856
+addresses : [dynamic]
+dhcpv4_options : []
+dhcpv6_options : []
+dynamic_addresses : &quot;0a:00:00:00:00:01 192.168.0.2 fdd6:8cf5:9dc2:c30a:800:ff:fe00:1&quot;
+enabled : []
+external_ids : {}
+name : &quot;port1&quot;
+options : {}
+parent_name : []
+port_security : []
+tag : []
+tag_request : []
+type : &quot;&quot;
+up : false
+
+_uuid : 43867394-8d3b-4e36-a90d-5f635d6a084c
+addresses : [&quot;00:ac:00:ff:01:01 dynamic&quot;]
+dhcpv4_options : []
+dhcpv6_options : []
+dynamic_addresses : &quot;00:ac:00:ff:01:01 192.168.0.3 fdd6:8cf5:9dc2:c30a:2ac:ff:feff:101&quot;
+enabled : []
+external_ids : {}
+name : &quot;port2&quot;
+options : {}
+parent_name : []
+port_security : []
+tag : []
+tag_request : []
+type : &quot;&quot;
+up : false
 </code></pre>
 
 <h2 id="经典网络实现">经典网络实现</h2>
@@ -1375,6 +1413,19 @@ external_ip=192.168.66.46 -- add logical_router gateway_route nat @nat
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
+                          
+                            <img src="https://sealyun.com/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/08/03/kustomize/">kustomize 颤抖吧helm!</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/30/cni/">
                           
                             <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
@@ -1396,19 +1447,6 @@ external_ip=192.168.66.46 -- add logical_router gateway_route nat @nat
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/20/crd/">kubernetes CRD如此简单</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">
-                          
-                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="从CNI到ovn">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
                     </div>
                 </div>
                 

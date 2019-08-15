@@ -6,10 +6,29 @@
     <description>Recent content in Blogs on SealYun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 30 Jul 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 03 Aug 2019 10:54:24 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kustomize 颤抖吧helm!</title>
+      <link>https://sealyun.com/blog/2019/08/03/kustomize/</link>
+      <pubDate>Sat, 03 Aug 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/blog/2019/08/03/kustomize/</guid>
+      <description>&lt;p&gt;本人是helm的重度用户，但是吧越用越不爽。。。 helm v2版本三大弊病：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;多租户支持不了&lt;/li&gt;
+&lt;li&gt;搞个tiller服务端，鸡肋&lt;/li&gt;
+&lt;li&gt;扯出自己很多概念&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;v3版本抛弃tiller算是个进步，但是听说要上撸啊（lua）我就瞬间崩溃了，我只是想渲染个yaml文件而已。好在好多chart包貌似生态很繁荣。。。&lt;/p&gt;
+
+&lt;p&gt;今天给大家介绍kustomize是如何让helm寝食难安，做梦都在颤抖的.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>彻底理解 kubernetes CNI</title>

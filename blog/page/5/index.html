@@ -209,6 +209,49 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2017/07/11/calico/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2017/07/11/calico/">calico 网络原理</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2017/07/11/calico/"><i class="fa fa-calendar-o"></i> July 11, 2017</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h1 id="calico-网络原理">calico 网络原理</h1>
+
+<h3 id="node节点-装网络之前路由">node节点 装网络之前路由</h3>
+
+<pre><code>[root@iZj6c3cqwumhn5jov661z7Z ~]# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.31.255.253  0.0.0.0         UG    0      0        0 eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+172.31.240.0    0.0.0.0         255.255.240.0   U     0      0        0 eth0
+</code></pre></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2017/07/11/calico/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -611,50 +654,6 @@ Options:
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2014/07/11/kubernetes-dns/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2014/07/11/kubernetes-dns/">dns之锅TODO</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2014/07/11/kubernetes-dns/"><i class="fa fa-calendar-o"></i> July 11, 2014</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><h2 id="dns之锅">dns之锅</h2>
-
-<pre><code>kubectl run --namespace=kube-system access -it --image busybox -- /bin/sh
-[root@fortest1513671663-master-00 ~]# kubectl exec access-79f4758b79-qwl8s nslookup kubernetes-dashboard.kube-system.svc -n kube-system
-Server:    10.96.0.10
-Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local
-
-Name:      kubernetes-dashboard.kube-system.svc
-Address 1: 10.110.146.248 kubernetes-dashboard.kube-system.svc.cluster.local
-[root@fortest1513671663-master-00 ~]# kubectl get svc kubernetes-dashboard -n kube-system
-NAME                   TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)         AGE
-kubernetes-dashboard   NodePort   10.110.146.248   &lt;none&gt;        443:30089/TCP   27m
-</code></pre></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2014/07/11/kubernetes-dns/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -808,6 +807,19 @@ kubernetes-dashboard   NodePort   10.110.146.248   &lt;none&gt;        443:30089
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
+                          
+                            <img src="https://sealyun.com/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/08/03/kustomize/">kustomize 颤抖吧helm!</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/30/cni/">
                           
                             <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
@@ -829,19 +841,6 @@ kubernetes-dashboard   NodePort   10.110.146.248   &lt;none&gt;        443:30089
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/20/crd/">kubernetes CRD如此简单</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">
-                          
-                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="从CNI到ovn">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/08/ovn-vni/">从CNI到ovn</a></h5>
                     </div>
                 </div>
                 
