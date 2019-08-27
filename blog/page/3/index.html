@@ -75,7 +75,7 @@ var _hmt = _hmt || [];
   <meta property="og:title" content="Blogs" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sealyun.com/blog//" />
-  <meta property="og:image" content="/img/logo.jpg" />
+  <meta property="og:image" content="/img/logo.png" />
 
 </head>
 
@@ -95,7 +95,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="Blogs logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo.png" alt="Blogs logo" class="hidden-xs hidden-sm">
                     <img src="https://sealyun.com//img/logo-small.png" alt="Blogs logo" class="visible-xs visible-sm">
                     <span class="sr-only">Blogs - go to homepage</span>
                 </a>
@@ -204,6 +204,48 @@ var _hmt = _hmt || [];
                     <div class="col-md-9" id="blog-listing-medium">
 
                         
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
+                                      <a href="https://sealyun.com/blog/2019/01/06/referrer/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2019/01/06/referrer/">关于sealyun营销系统</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2019/01/06/referrer/"><i class="fa fa-calendar-o"></i> January 6, 2019</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h1 id="概述">概述</h1>
+
+<p>任何用户都可以通过sealyun赚钱，很方便的获取到一个分享链接，如果别的用户是通过你的分享链接购买商品的那么您将获得一笔不错的提成，目前是交易金额的60%，</p>
+
+<p>也就是如商品50元，别的用户通过您的链接购买成功，您可获得30元，平台获得20元</p>
+
+<h1 id="操作步骤">操作步骤</h1>
+
+<ol>
+<li>获取营销链接 <a href="http://store.lameleg.com/">网站地址http://store.lameleg.com/</a></li>
+</ol></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/01/06/referrer/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
                         
                         <section class="post">
                             <div class="row">
@@ -604,45 +646,6 @@ var _hmt = _hmt || [];
 
 <p>生产环境中给etcd配置证书相当重要，如果没有证书，那么k8s集群很容易被黑客利用而去挖矿什么的。做法非常简单，比如你下了一个不安全的镜像，通过程序扫描到etcd的ip和端口，那么黑客就可以绕开apiserver的认证直接写数据，写一些deployment pod等等，apiserver就会读到这些，从而去部署黑客的程序。 我们就有一个集群这样被利用去挖矿了,安全无小事，如果黑客恶意攻击也可轻松删除你的所有数据，所以证书与定期备份都很重要,即便有多个etcd节点，本文深入探讨etcd管理的重要的几个东西。</p></p>
                                     <p class="read-more"><a href="https://sealyun.com/blog/2018/08/12/etcd-manage/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2018/08/10/heapster-error/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2018/08/10/heapster-error/">kubernetes dashboard监控数据无法正常显示</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2018/08/10/heapster-error/"><i class="fa fa-calendar-o"></i> August 10, 2018</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
-
-<h1 id="kubernetes1-12-0版本dashboard使用heapster无法正常显示监控数据">kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据</h1>
-
-<p>查看heapster日志：</p>
-
-<pre><code>E0228 20:01:05.019281       1 manager.go:101] Error in scraping containers from kubelet:30.0.1.4:10255: failed to get all container stats from Kubelet URL &quot;http://30.0.1.4:10255/stats/container/&quot;: Post http://30.0.1.4:10255/stats/container/: dial tcp 30.0.1.4:10255: getsockopt: connection refused
-</code></pre></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/08/10/heapster-error/" class="btn btn-template-main">Continue reading</a>
                                     </p>
                                 </div>
                             </div>

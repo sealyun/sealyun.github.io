@@ -75,7 +75,7 @@ var _hmt = _hmt || [];
   <meta property="og:title" content="Blogs" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sealyun.com/blog//" />
-  <meta property="og:image" content="/img/logo.jpg" />
+  <meta property="og:image" content="/img/logo.png" />
 
 </head>
 
@@ -95,7 +95,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="Blogs logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo.png" alt="Blogs logo" class="hidden-xs hidden-sm">
                     <img src="https://sealyun.com//img/logo-small.png" alt="Blogs logo" class="visible-xs visible-sm">
                     <span class="sr-only">Blogs - go to homepage</span>
                 </a>
@@ -204,6 +204,45 @@ var _hmt = _hmt || [];
                     <div class="col-md-9" id="blog-listing-medium">
 
                         
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
+                                      <a href="https://sealyun.com/blog/2018/08/10/heapster-error/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2018/08/10/heapster-error/">kubernetes dashboard监控数据无法正常显示</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2018/08/10/heapster-error/"><i class="fa fa-calendar-o"></i> August 10, 2018</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<h1 id="kubernetes1-12-0版本dashboard使用heapster无法正常显示监控数据">kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据</h1>
+
+<p>查看heapster日志：</p>
+
+<pre><code>E0228 20:01:05.019281       1 manager.go:101] Error in scraping containers from kubelet:30.0.1.4:10255: failed to get all container stats from Kubelet URL &quot;http://30.0.1.4:10255/stats/container/&quot;: Post http://30.0.1.4:10255/stats/container/: dial tcp 30.0.1.4:10255: getsockopt: connection refused
+</code></pre></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/08/10/heapster-error/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
                         
                         <section class="post">
                             <div class="row">
@@ -691,51 +730,6 @@ var _hmt = _hmt || [];
 <p>我们专注于k8s离线包的制作，优化细节，让大家可以很方便快速的安装k8s集群。
 下面详细介绍安装包的原理以及如何去制作一个这样的包，大家参考我的方法也可以制作自己想要的版本然后用于自己的离线环境</p></p>
                                     <p class="read-more"><a href="https://sealyun.com/blog/2018/04/24/sealyun-k8s-offline/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2017/07/11/docker-architech/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2017/07/11/docker-architech/">Docker架构分析</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2017/07/11/docker-architech/"><i class="fa fa-calendar-o"></i> July 11, 2017</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><h2 id="docker架构分析">Docker架构分析</h2>
-
-<pre><code>[root@docker-build-86-050 ~]# ls /usr/bin |grep docker
-docker
-docker-compose
-docker-containerd
-docker-containerd-ctr
-docker-containerd-shim
-dockerd
-docker-proxy
-docker-runc
-</code></pre>
-
-<p>大家一定很困惑 dockerd, containerd, ctr,shim, runc,等这几个进程的关系到底是啥</p></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2017/07/11/docker-architech/" class="btn btn-template-main">Continue reading</a>
                                     </p>
                                 </div>
                             </div>

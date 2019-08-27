@@ -76,7 +76,7 @@ var _hmt = _hmt || [];
   <meta property="og:title" content="SealYun" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sealyun.com//" />
-  <meta property="og:image" content="/img/logo.jpg" />
+  <meta property="og:image" content="/img/logo.png" />
 
 </head>
 
@@ -122,7 +122,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="https://sealyun.com/">
-                    <img src="https://sealyun.com//img/logo.jpg" alt="SealYun logo" class="hidden-xs hidden-sm">
+                    <img src="https://sealyun.com//img/logo.png" alt="SealYun logo" class="hidden-xs hidden-sm">
                     <img src="https://sealyun.com//img/logo-small.png" alt="SealYun logo" class="visible-xs visible-sm">
                     <span class="sr-only">SealYun - go to homepage</span>
                 </a>
@@ -407,6 +407,47 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2018/08/10/heapster-error/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2018/08/10/heapster-error/">kubernetes dashboard监控数据无法正常显示</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on August 10, 2018
+                            </p>
+                            <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<h1 id="kubernetes1-12-0版本dashboard使用heapster无法正常显示监控数据">kubernetes1.12.0版本dashboard使用heapster无法正常显示监控数据</h1>
+
+<p>查看heapster日志：</p>
+
+<pre><code>E0228 20:01:05.019281       1 manager.go:101] Error in scraping containers from kubelet:30.0.1.4:10255: failed to get all container stats from Kubelet URL &quot;http://30.0.1.4:10255/stats/container/&quot;: Post http://30.0.1.4:10255/stats/container/: dial tcp 30.0.1.4:10255: getsockopt: connection refused
+</code></pre></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2018/08/10/heapster-error/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2018/07/30/istio-quickstart/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -529,51 +570,6 @@ var _hmt = _hmt || [];
 <p>kube-proxy主要功能是监听service和endpoint的事件，然后下放代理策略到机器上。 底层调用<a href="https://github.com/docker/libnetwork">docker/libnetwork</a>, 而libnetwork最终调用了<a href="https://github.com/vishvananda/netlink">netlink</a> 与netns来实现ipvs的创建等动作</p></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2018/06/20/kube-proxy-src/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2018/05/29/k8s-ipvs/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2018/05/29/k8s-ipvs/">kubernetes启用ipvs</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on May 29, 2018
-                            </p>
-                            <p class="intro"><blockquote>
-<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes各版本离线安装包</a></p>
-</blockquote>
-
-<h1 id="1-11-1版本已经修复此bug-如在centos下使用ipvs模式建议升级到-v1-11-1-包地址-http-sealyun-com-pro-products">1.11.1版本已经修复此bug，如在centos下使用ipvs模式建议升级到<a href="http://sealyun.com/pro/products/">v1.11.1,包地址</a></h1>
-
-<h1 id="1-11-0版本ipset-bug说明">1.11.0版本ipset bug说明</h1>
-
-<p>1.11.0版本centos下使用ipvs模式会出问题 <a href="https://github.com/kubernetes/kubernetes/issues/65461">65461</a></p>
-
-<pre><code>Jun 25 20:50:00 VM_3_4_centos kube-proxy[3828]: E0625 20:50:00.312569    3828 ipset.go:156] Failed to make sure ip set: &amp;{{KUBE-LOOP-BACK hash:ip,port,ip inet 1024 65536 0-65535 Kubernetes endpoints dst ip:port, source ip for solving hairpin purpose} map[] 0xc42073e1d0} exist, error: error creating ipset KUBE-LOOP-BACK, error: exit status 2
-</code></pre></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2018/05/29/k8s-ipvs/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
