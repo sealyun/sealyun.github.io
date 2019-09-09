@@ -426,6 +426,35 @@ metadata:
 
 <p>你可以把一个CNI的流量打满，那么新创建的pod就会自动选择别的CNI</p>
 
+<h3 id="从指定ip地址池内分配地址">从指定IP地址池内分配地址</h3>
+
+<pre><code>apiVersion: alpha.network.k8s.io/v1
+kind: Logicalnetwork
+metadata:
+  name: net1
+  namespace: default
+spec:
+  physicalNet: &quot;phynet1&quot;
+  sub_subnet: &quot;10.32.0.0/24&quot;
+</code></pre>
+
+<p>pod 使用时用 networks字段指定即可</p>
+
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-single-network-pod
+  labels:
+    app: web
+  annotations:
+    cni: &quot;&quot;
+    networks: net1
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>genie在很多复杂网络场景还是非常有作用的，我们主要用其来管理虚拟机网络，以达到虚拟机与容器在同一个平台上运行</p>
+
 <p>探讨可加QQ群：98488045</p>
                         </div>
                         
