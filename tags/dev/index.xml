@@ -31,6 +31,15 @@
     </item>
     
     <item>
+      <title>CNI 小精灵 genie</title>
+      <link>https://sealyun.com/blog/2019/07/30/genie/</link>
+      <pubDate>Tue, 30 Jul 2019 10:54:24 +0200</pubDate>
+      
+      <guid>https://sealyun.com/blog/2019/07/30/genie/</guid>
+      <description>&lt;p&gt;想同时使用多个CNI? 想往容器里塞多张网卡？试试这款CNI插件 &lt;a href=&#34;https://github.com/cni-genie/CNI-Genie&#34;&gt;CNI-Genie&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>彻底理解 kubernetes CNI</title>
       <link>https://sealyun.com/blog/2019/07/30/cni/</link>
       <pubDate>Tue, 30 Jul 2019 10:54:24 +0200</pubDate>

@@ -209,6 +209,54 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2019/01/10/keepalived/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2019/01/10/keepalived/">keepalived in docker</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2019/01/10/keepalived/"><i class="fa fa-calendar-o"></i> January 10, 2019</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<h1 id="概述">概述</h1>
+
+<p>目前keepalived作为kubernetes集群高可用的重要组件，保障虚拟ip可以在多个主机间漂移，<a href="https://github.com/fanux/sealos">sealos</a> 也是使用了，只是在方案上与传统的方式有很大区别</p>
+
+<p>首先把keepalived放到容器里了，版本也用了比较新的2.x.x以上</p>
+
+<p>然后使用kubernetes static pod去管理keepalived服务</p>
+
+<h1 id="keepalived放到容器里的好处">keepalived放到容器里的好处</h1>
+
+<ul>
+<li>安装成功率更高，更跨平台, 传统方式如用yum安装或者其它，如果采用那些办法在别的一些发型版系统上sealos就不可用。其次，很多系统的源不一样导致版本不一致造成问题，如果通过源码编译可能一些系统库版本直接导致编译不通过，所以为了提高高可用的安装成功率，放容器里是最好的方式</li>
+<li>无需额外对keepalived增加监控, 因为是pod，而sealos又已经集成了prometheus，所以不需要再额外添加监控信息</li>
+<li>统一管理, keepalived异常退出什么的kubelet也会将其拉起，与其它的kubernetes组件就有了一个统一的方式管理</li>
+</ul></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/01/10/keepalived/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2019/01/06/referrer/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -613,44 +661,6 @@ var _hmt = _hmt || [];
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2018/08/12/etcd-manage/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2018/08/12/etcd-manage/">etcd管理指南</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2018/08/12/etcd-manage/"><i class="fa fa-calendar-o"></i> August 12, 2018</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><blockquote>
-<p>广告 | <a href="http://sealyun.com/pro/products/">kubernetes各版本离线安装包</a></p>
-</blockquote>
-
-<h1 id="etcd-证书配置">etcd 证书配置</h1>
-
-<p>生产环境中给etcd配置证书相当重要，如果没有证书，那么k8s集群很容易被黑客利用而去挖矿什么的。做法非常简单，比如你下了一个不安全的镜像，通过程序扫描到etcd的ip和端口，那么黑客就可以绕开apiserver的认证直接写数据，写一些deployment pod等等，apiserver就会读到这些，从而去部署黑客的程序。 我们就有一个集群这样被利用去挖矿了,安全无小事，如果黑客恶意攻击也可轻松删除你的所有数据，所以证书与定期备份都很重要,即便有多个etcd节点，本文深入探讨etcd管理的重要的几个东西。</p></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/08/12/etcd-manage/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -817,6 +827,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/genie/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="CNI 小精灵 genie">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/30/cni/">
                           
                             <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
@@ -825,19 +848,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/20/crd/">
-                          
-                            <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/20/crd/">kubernetes CRD如此简单</a></h5>
                     </div>
                 </div>
                 

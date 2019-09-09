@@ -407,6 +407,56 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2019/01/10/keepalived/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2019/01/10/keepalived/">keepalived in docker</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on January 10, 2019
+                            </p>
+                            <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<h1 id="概述">概述</h1>
+
+<p>目前keepalived作为kubernetes集群高可用的重要组件，保障虚拟ip可以在多个主机间漂移，<a href="https://github.com/fanux/sealos">sealos</a> 也是使用了，只是在方案上与传统的方式有很大区别</p>
+
+<p>首先把keepalived放到容器里了，版本也用了比较新的2.x.x以上</p>
+
+<p>然后使用kubernetes static pod去管理keepalived服务</p>
+
+<h1 id="keepalived放到容器里的好处">keepalived放到容器里的好处</h1>
+
+<ul>
+<li>安装成功率更高，更跨平台, 传统方式如用yum安装或者其它，如果采用那些办法在别的一些发型版系统上sealos就不可用。其次，很多系统的源不一样导致版本不一致造成问题，如果通过源码编译可能一些系统库版本直接导致编译不通过，所以为了提高高可用的安装成功率，放容器里是最好的方式</li>
+<li>无需额外对keepalived增加监控, 因为是pod，而sealos又已经集成了prometheus，所以不需要再额外添加监控信息</li>
+<li>统一管理, keepalived异常退出什么的kubelet也会将其拉起，与其它的kubernetes组件就有了一个统一的方式管理</li>
+</ul></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2019/01/10/keepalived/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2019/01/06/referrer/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -530,59 +580,6 @@ var _hmt = _hmt || [];
 </ol></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2018/12/25/kube-batch/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/show/dashboard.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2018/12/11/docs/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2018/12/11/docs/">sealyun kubernetes离线包文档</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on December 11, 2018
-                            </p>
-                            <p class="intro"><h1 id="前言">前言</h1>
-
-<ul>
-<li><a href="http://store.lameleg.com/">kubernetes安装包store</a></li>
-<li><a href="http://store.lameleg.com/">官方销售市场</a>：<a href="http://store.lameleg.com/">http://store.lameleg.com/</a><br /></li>
-<li><a href="https://sealyun.com/pro/products/">阿里云市场购买下载地址列表</a>：<a href="https://sealyun.com/pro/products/">https://sealyun.com/pro/products/</a></li>
-</ul>
-
-<h1 id="商品介绍">商品介绍</h1>
-
-<p>安装包通过kubeadm安装kubernetes集群,包含：</p>
-
-<ul>
-<li>核心基础组件 etcd apisver kubelet kube-proxy scheduler manager</li>
-<li>addon组件    dashboard calico promethus grafana alertmanager node-exporter coreDNS</li>
-</ul>
-
-<p>启用IPVS</p>
-
-<p>可以内网环境进行安装，但是不包含docker</p></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2018/12/11/docs/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
@@ -718,6 +715,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/07/30/genie/">
+                          
+                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="CNI 小精灵 genie">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/07/30/cni/">
                           
                             <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
@@ -726,19 +736,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/20/crd/">
-                          
-                            <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="kubernetes CRD如此简单">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/20/crd/">kubernetes CRD如此简单</a></h5>
                     </div>
                 </div>
                 
