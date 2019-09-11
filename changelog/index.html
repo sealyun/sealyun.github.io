@@ -211,6 +211,29 @@ var _hmt = _hmt || [];
 <h1 id="离线包changelog">离线包Changelog</h1>
 
 <blockquote>
+<p>1.15.3版本</p>
+</blockquote>
+
+<p>社区：</p>
+
+<ul>
+<li>更新golang/x/net依赖项以引入CVE-2019-9512，CVE-2019-9514</li>
+<li>修复了使用内联卷源创建的VolumeAttachment API对象的验证。（＃80945，@tedyu）</li>
+<li>KUBE-插件管理器已更新至v9.0.2固定在党魁选举中的错误（<a href="https://github.com/kubernetes/kubernetes/pull/80575）（＃80861，@mborsz）">https://github.com/kubernetes/kubernetes/pull/80575）（＃80861，@mborsz）</a></li>
+<li>修复了ListOptions.AllowWatchBookmarks未在kube-apiserver中正确传播的错误。（＃80157，@ wojtek -t）</li>
+<li>CSI的节点上的传递卷MountOptions到全局挂载（NodeStageVolume）（＃80191，@ davidz627）</li>
+<li>kubeadm join &ndash;discovery-file使用具有嵌入凭据的发现文件时修复错误（＃80675，@ fabiziopandini）</li>
+<li>修正：支持原始块的csi插件不需要附加挂载失败（＃79920，@ cwdsuzhou）</li>
+</ul>
+
+<p>sealyun:</p>
+
+<ul>
+<li>使用patch的方式更新kubeadm代码</li>
+<li>maxage 增加到99年</li>
+</ul>
+
+<blockquote>
 <p>1.14.5 与1.15.2版本</p>
 </blockquote>
 
