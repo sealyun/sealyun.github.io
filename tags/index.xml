@@ -6,10 +6,28 @@
     <description>Recent content in Tags on SealYun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 03 Aug 2019 10:54:24 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 08 Sep 2019 13:50:46 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Client Go</title>
+      <link>https://sealyun.com/tags/client-go/</link>
+      <pubDate>Sun, 08 Sep 2019 13:50:46 +0200</pubDate>
+      
+      <guid>https://sealyun.com/tags/client-go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crd</title>
+      <link>https://sealyun.com/tags/crd/</link>
+      <pubDate>Sun, 08 Sep 2019 13:50:46 +0200</pubDate>
+      
+      <guid>https://sealyun.com/tags/crd/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Dev</title>

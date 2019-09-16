@@ -209,6 +209,48 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2018/10/10/ci-cd/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2018/10/10/ci-cd/">基于drone构建CI/CD系统,对接k8s</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2018/10/10/ci-cd/"><i class="fa fa-calendar-o"></i> October 10, 2018</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h1 id="kubernetes集群三步安装-https-sealyun-com-pro-products"><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></h1>
+
+<h1 id="ci-概述">CI 概述</h1>
+
+<h3 id="用一个可描述的配置定义整个工作流">用一个可描述的配置定义整个工作流</h3>
+
+<p>程序员是很懒的动物，所以想各种办法解决重复劳动的问题，如果你的工作流中还在重复一些事，那么可能就得想想如何优化了</p>
+
+<p>持续集成就是可以帮助我们解决重复的代码构建，自动化测试，发布等重复劳动，通过简单一个提交代码的动作，解决接下来要做的很多事。</p>
+
+<p>容器技术使这一切变得更完美。</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/10/10/ci-cd/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2018/08/12/etcd-manage/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -589,144 +631,6 @@ var _hmt = _hmt || [];
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/">kubernetes高可用相关配置</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/"><i class="fa fa-calendar-o"></i> May 11, 2018</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><p><a href="https://kubernetes.io/docs/setup/independent/high-availability/">kubeadm HA教程</a></p>
-
-<h2 id="机器">机器</h2>
-
-<table>
-<thead>
-<tr>
-<th>IP</th>
-<th>用途</th>
-<th>备注</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>10.100.81.11</td>
-<td>master、etcd</td>
-<td>主节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.12</td>
-<td>master、etcd、keepalived、haproxy</td>
-<td>主节点，同时部署keepalived、haproxy，保证master高可用</td>
-</tr>
-
-<tr>
-<td>10.100.81.13</td>
-<td>master、etcd、keepalived、haproxy</td>
-<td>主节点，同时部署keepalived、haproxy，保证master高可用</td>
-</tr>
-
-<tr>
-<td>10.100.81.14</td>
-<td>node、etcd</td>
-<td>非业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.15</td>
-<td>node、etcd</td>
-<td>非业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.16</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.17</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.18</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.19</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.20</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.21</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.22</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.23</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.24</td>
-<td>node、harbor</td>
-<td>业务节点</td>
-</tr>
-
-<tr>
-<td>10.100.81.25</td>
-<td>node</td>
-<td>业务节点</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="组件版本">组件版本</h2></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -784,7 +688,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="nav nav-pills nav-stacked">
             
-            <li><a href="https://sealyun.com/categories/starting">starting (1)</a>
+            <li><a href="https://sealyun.com/categories/starting">starting (2)</a>
             </li>
             
         </ul>
@@ -805,6 +709,12 @@ var _hmt = _hmt || [];
 
     <div class="panel-body">
         <ul class="tag-cloud">
+            
+            <li><a href="https://sealyun.com/tags/client-go"><i class="fa fa-tags"></i> client-go</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/crd"><i class="fa fa-tags"></i> crd</a>
+            </li>
             
             <li><a href="https://sealyun.com/tags/dev"><i class="fa fa-tags"></i> dev</a>
             </li>
@@ -880,6 +790,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="使用client-go操作CRD">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                           
                             <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
@@ -901,19 +824,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
-                          
-                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
                     </div>
                 </div>
                 

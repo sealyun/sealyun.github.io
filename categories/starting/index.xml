@@ -6,10 +6,26 @@
     <description>Recent content in Starting on SealYun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Jul 2019 13:50:46 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 08 Sep 2019 13:50:46 +0200</lastBuildDate>
     
 	<atom:link href="https://sealyun.com/categories/starting/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用client-go操作CRD</title>
+      <link>https://sealyun.com/blog/2019/09/08/client-go-crd/</link>
+      <pubDate>Sun, 08 Sep 2019 13:50:46 +0200</pubDate>
+      
+      <guid>https://sealyun.com/blog/2019/09/08/client-go-crd/</guid>
+      <description>&lt;p&gt;使用client-go包访问Kubernetes CRD
+Kubernetes API服务器可通过自定义资源定义轻松扩展。但是，用client-go库访问这些资源有点麻烦，官方也没有完整的文档。如kubebuilder operator-framework都能很方便的帮助我们去创建实现一个controller，但是封装的过于好导致我们并不清楚内部是怎么调用client-go的，很多场景我们是需要自己去调用接口操作CRD的而不是在controller中去访问CRD。&lt;/p&gt;
+
+&lt;p&gt;本文非常实用，比较全比较完善的相关文档也比较难找到。&lt;/p&gt;
+
+&lt;p&gt;举个栗子：&lt;/p&gt;
+
+&lt;p&gt;我们在实现虚拟机CRD时，节点上agent需要查询虚拟机CRD，这种情况显然我们不会通过controller进行操作，此时我们就需要知道怎么直接用client-go操作CRD。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>从CNI到ovn</title>

@@ -401,6 +401,45 @@ var _hmt = _hmt || [];
                         <div class="top">
                             <div class="image" style="overflow:hidden">
                                 
+                                <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h4>
+                            <p class="author-category">
+                            
+                            on September 8, 2019
+                            </p>
+                            <p class="intro"><p>使用client-go包访问Kubernetes CRD
+Kubernetes API服务器可通过自定义资源定义轻松扩展。但是，用client-go库访问这些资源有点麻烦，官方也没有完整的文档。如kubebuilder operator-framework都能很方便的帮助我们去创建实现一个controller，但是封装的过于好导致我们并不清楚内部是怎么调用client-go的，很多场景我们是需要自己去调用接口操作CRD的而不是在controller中去访问CRD。</p>
+
+<p>本文非常实用，比较全比较完善的相关文档也比较难找到。</p>
+
+<p>举个栗子：</p>
+
+<p>我们在实现虚拟机CRD时，节点上agent需要查询虚拟机CRD，这种情况显然我们不会通过controller进行操作，此时我们就需要知道怎么直接用client-go操作CRD。</p></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
                                 <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="" >
                                 
                             </div>
@@ -501,44 +540,6 @@ var _hmt = _hmt || [];
                             <p class="intro"><p>CNI接口很简单，特别一些新手一定要克服恐惧心里，和我一探究竟，本文结合原理与实践，认真读下来一定会对原理理解非常透彻。</p></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2019/07/30/cni/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/CRD.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2019/07/20/crd/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2019/07/20/crd/">kubernetes CRD如此简单</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on July 20, 2019
-                            </p>
-                            <p class="intro"><p>扩展kubernetes两个最常用最需要掌握的东西：自定义资源CRD 和 adminsion webhook, 本文教你如何十分钟掌握CRD开发.</p>
-
-<p>kubernetes允许用户自定义自己的资源对象，就如同deployment statefulset一样，这个应用非常广泛，比如prometheus opterator就自定义Prometheus对象，再加上一个自定义的controller监听到kubectl create Prometheus时就去创建Pod组成一个pormetheus集群。rook等等同理。</p>
-
-<p>我需要用kubernetes调度虚拟机，所以这里自定义一个 VirtualMachine 类型</p></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2019/07/20/crd/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
@@ -661,6 +662,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="使用client-go操作CRD">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                           
                             <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
@@ -682,19 +696,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
-                          
-                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
                     </div>
                 </div>
                 

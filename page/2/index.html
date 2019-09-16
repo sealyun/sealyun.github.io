@@ -407,6 +407,57 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2019/04/15/sealos2.0/">最简单的kubernetes HA安装方式-sealos详解</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on April 15, 2019
+                            </p>
+                            <p class="intro"><blockquote>
+<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
+</blockquote>
+
+<h1 id="概述">概述</h1>
+
+<p>本文教你如何用一条命令构建k8s高可用集群且不依赖haproxy和keepalived，也无需ansible。通过内核ipvs对apiserver进行负载均衡，并且带apiserver健康检测。</p>
+
+<h1 id="快速入门">快速入门</h1>
+
+<p><a href="https://github.com/fanux/sealos">sealos项目地址</a></p>
+
+<h2 id="准备条件">准备条件</h2>
+
+<ul>
+<li>装好docker并启动docker</li>
+<li>把<a href="http://store.lameleg.com">离线安装包</a> 下载好拷贝到所有节点的/root目录下, 不需要解压，如果有文件服务器更好，sealos支持从一个服务器上wget到所有节点上</li>
+</ul></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2019/04/15/sealos-docs/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -519,57 +570,6 @@ sealos特性与优势：
 <p>Tekton Pipeline,是一个k8s native的pipeline, 任务跑在pod中，通过自定义CRD去管理任务与工作流等等，我看完tekton之后感觉是功能很强大，但是有点过度设计了，没有drone的简约大方灵活之感</p></p>
                             <p class="read-more">
                               <a href="https://sealyun.com/blog/2019/03/27/tektoncd-pipeline/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/">关于overlay2存储驱动的磁盘配额问题</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on March 23, 2019
-                            </p>
-                            <p class="intro"><blockquote>
-<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
-</blockquote>
-
-<h1 id="概述">概述</h1>
-
-<p>这篇短文向大家介绍一下正确使用存储驱动的姿势，非常有用。</p>
-
-<h2 id="为啥要用overlay2">为啥要用overlay2</h2>
-
-<ul>
-<li>docker centos（内核3.10）上默认存储驱动是devicemapper 的loop-lvm模式，这种模式是用文件模拟块设备，不推荐生产使用</li>
-<li>direct lvm又不是一个开箱即用的模式，懒得配置</li>
-<li>最关键的是 docker in docker的情况下 device mapper是行不通的，典型的场景就是用drone时，构建docker镜像就不能正常工作</li>
-<li>overlay存储驱动层数过多时会导致文件链接数过多可能会耗尽inode</li>
-</ul>
-
-<p>所以当前overlay2是个比较好的选择</p></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2019/03/23/docker-oerlay2/" class="btn btn-template-main">Continue reading</a>
                             </p>
                         </div>
                     </div>
@@ -692,6 +692,19 @@ sealos特性与优势：
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="使用client-go操作CRD">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                           
                             <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
@@ -713,19 +726,6 @@ sealos特性与优势：
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
-                          
-                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
                     </div>
                 </div>
                 

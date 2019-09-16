@@ -209,6 +209,55 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2016/07/11/docker-network/">
+                                          
+                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2016/07/11/docker-network/">容器网络概述</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          By <a href="#">fanux</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2016/07/11/docker-network/"><i class="fa fa-calendar-o"></i> July 11, 2016</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><h2 id="网络概述">网络概述</h2>
+
+<ol>
+<li><p>端口映射：</p>
+
+<pre><code>$ docker run -p 8080:80 nginx:latest
+</code></pre>
+
+<p>如果没有这个-p，会发现启动了nginx但是无法通过宿主机访问到web服务，而使用了-p参数后就可以通过访问主机的8080断开去访问nginx了。
+端口映射的原理是作了net转发</p></li>
+
+<li><p>共享主机网络:</p>
+
+<pre><code>$ docker run --net=host nginx:latest
+</code></pre>
+
+<p>这种容器没有自己的网络，完全共享主机的网络，所以可以通过主机ip直接访问容器服务。 坏处是容器与其它容器端口冲突</p></li>
+</ol></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2016/07/11/docker-network/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2016/05/11/iptables/">
                                           
                                           <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
@@ -623,7 +672,7 @@ ENTRYPOINT [&quot;/p&quot;]
     <div class="panel-body">
         <ul class="nav nav-pills nav-stacked">
             
-            <li><a href="https://sealyun.com/categories/starting">starting (1)</a>
+            <li><a href="https://sealyun.com/categories/starting">starting (2)</a>
             </li>
             
         </ul>
@@ -644,6 +693,12 @@ ENTRYPOINT [&quot;/p&quot;]
 
     <div class="panel-body">
         <ul class="tag-cloud">
+            
+            <li><a href="https://sealyun.com/tags/client-go"><i class="fa fa-tags"></i> client-go</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/crd"><i class="fa fa-tags"></i> crd</a>
+            </li>
             
             <li><a href="https://sealyun.com/tags/dev"><i class="fa fa-tags"></i> dev</a>
             </li>
@@ -719,6 +774,19 @@ ENTRYPOINT [&quot;/p&quot;]
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="使用client-go操作CRD">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                           
                             <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
@@ -740,19 +808,6 @@ ENTRYPOINT [&quot;/p&quot;]
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
-                          
-                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
                     </div>
                 </div>
                 

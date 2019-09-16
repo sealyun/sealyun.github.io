@@ -407,6 +407,146 @@ var _hmt = _hmt || [];
                             <div class="bg"></div>
                             <div class="text">
                                 <p class="buttons">
+                                    <a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h4><a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/">kubernetes高可用相关配置</a></h4>
+                            <p class="author-category">
+                            
+                            By <a href="#">fanux</a>
+                            
+                            on May 11, 2018
+                            </p>
+                            <p class="intro"><p><a href="https://kubernetes.io/docs/setup/independent/high-availability/">kubeadm HA教程</a></p>
+
+<h2 id="机器">机器</h2>
+
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>用途</th>
+<th>备注</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>10.100.81.11</td>
+<td>master、etcd</td>
+<td>主节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.12</td>
+<td>master、etcd、keepalived、haproxy</td>
+<td>主节点，同时部署keepalived、haproxy，保证master高可用</td>
+</tr>
+
+<tr>
+<td>10.100.81.13</td>
+<td>master、etcd、keepalived、haproxy</td>
+<td>主节点，同时部署keepalived、haproxy，保证master高可用</td>
+</tr>
+
+<tr>
+<td>10.100.81.14</td>
+<td>node、etcd</td>
+<td>非业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.15</td>
+<td>node、etcd</td>
+<td>非业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.16</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.17</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.18</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.19</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.20</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.21</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.22</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.23</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.24</td>
+<td>node、harbor</td>
+<td>业务节点</td>
+</tr>
+
+<tr>
+<td>10.100.81.25</td>
+<td>node</td>
+<td>业务节点</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="组件版本">组件版本</h2></p>
+                            <p class="read-more">
+                              <a href="https://sealyun.com/blog/2018/05/11/k8s-ha-conf/" class="btn btn-template-main">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="box-image-text blog">
+                        <div class="top">
+                            <div class="image" style="overflow:hidden">
+                                
+                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
+                                
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
                                     <a href="https://sealyun.com/blog/2018/04/24/sealyun-k8s-offline/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
                                 </p>
                             </div>
@@ -536,47 +676,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 
                 </div>
                 
-                <div class="col-md-3 col-sm-6">
-                    <div class="box-image-text blog">
-                        <div class="top">
-                            <div class="image" style="overflow:hidden">
-                                
-                                <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="" >
-                                
-                            </div>
-                            <div class="bg"></div>
-                            <div class="text">
-                                <p class="buttons">
-                                    <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i> Read more</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content">
-                            <h4><a href="https://sealyun.com/blog/2017/07/11/calico-architecture/">calico架构</a></h4>
-                            <p class="author-category">
-                            
-                            By <a href="#">fanux</a>
-                            
-                            on July 11, 2017
-                            </p>
-                            <p class="intro"><h2 id="安装常见问题">安装常见问题</h2>
-
-<p>calico无法启动：</p>
-
-<pre><code>Readiness probe failed: calico/node is not ready: felix is not ready: Get http://localhost:9099/readiness: dial tcp [::1]:9099: connect: connection refused 
-</code></pre>
-
-<p>很可能是网卡发现有问题，calico虚拟化时没找对网卡，calico会经常找docker0网桥，导致clusterIP不通从而calico node连不上etcd</p></p>
-                            <p class="read-more">
-                              <a href="https://sealyun.com/blog/2017/07/11/calico-architecture/" class="btn btn-template-main">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                </div>
-                
 
             </div>
             
@@ -692,6 +791,19 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="使用client-go操作CRD">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                           
                             <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
@@ -713,19 +825,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
-                          
-                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
                     </div>
                 </div>
                 

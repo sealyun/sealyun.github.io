@@ -209,6 +209,47 @@ var _hmt = _hmt || [];
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
+                                      <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                                          
+                                          <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="">
+                                          
+                                      </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          
+                                          
+                                          
+                                          in <a href="https://sealyun.com/categories/starting">starting</a>
+                                          
+                                          
+
+                                        </p>
+                                        <p class="date-comments">
+                                            <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/"><i class="fa fa-calendar-o"></i> September 8, 2019</a>
+                                        </p>
+                                    </div>
+                                    <p class="intro"><p>使用client-go包访问Kubernetes CRD
+Kubernetes API服务器可通过自定义资源定义轻松扩展。但是，用client-go库访问这些资源有点麻烦，官方也没有完整的文档。如kubebuilder operator-framework都能很方便的帮助我们去创建实现一个controller，但是封装的过于好导致我们并不清楚内部是怎么调用client-go的，很多场景我们是需要自己去调用接口操作CRD的而不是在controller中去访问CRD。</p>
+
+<p>本文非常实用，比较全比较完善的相关文档也比较难找到。</p>
+
+<p>举个栗子：</p>
+
+<p>我们在实现虚拟机CRD时，节点上agent需要查询虚拟机CRD，这种情况显然我们不会通过controller进行操作，此时我们就需要知道怎么直接用client-go操作CRD。</p></p>
+                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/" class="btn btn-template-main">Continue reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="image">
                                       <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                                           
                                           <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="">
@@ -551,55 +592,6 @@ var _hmt = _hmt || [];
                             </div>
                         </section>
                         
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/">
-                                          
-                                          <img src="https://sealyun.com/img/banners/banner-1.png" class="img-responsive" alt="">
-                                          
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://sealyun.com/blog/2019/04/15/sealos2.0/">最简单的kubernetes HA安装方式-sealos详解</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          
-                                          By <a href="#">fanux</a>
-                                          
-                                          
-
-                                        </p>
-                                        <p class="date-comments">
-                                            <a href="https://sealyun.com/blog/2019/04/15/sealos2.0/"><i class="fa fa-calendar-o"></i> April 15, 2019</a>
-                                        </p>
-                                    </div>
-                                    <p class="intro"><blockquote>
-<p><a href="https://sealyun.com/pro/products/">kubernetes集群三步安装</a></p>
-</blockquote>
-
-<h1 id="概述">概述</h1>
-
-<p>本文教你如何用一条命令构建k8s高可用集群且不依赖haproxy和keepalived，也无需ansible。通过内核ipvs对apiserver进行负载均衡，并且带apiserver健康检测。</p>
-
-<h1 id="快速入门">快速入门</h1>
-
-<p><a href="https://github.com/fanux/sealos">sealos项目地址</a></p>
-
-<h2 id="准备条件">准备条件</h2>
-
-<ul>
-<li>装好docker并启动docker</li>
-<li>把<a href="http://store.lameleg.com">离线安装包</a> 下载好拷贝到所有节点的/root目录下, 不需要解压，如果有文件服务器更好，sealos支持从一个服务器上wget到所有节点上</li>
-</ul></p>
-                                    <p class="read-more"><a href="https://sealyun.com/blog/2019/04/15/sealos2.0/" class="btn btn-template-main">Continue reading</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                        
 
                         <ul class="pager">
                             
@@ -657,7 +649,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="nav nav-pills nav-stacked">
             
-            <li><a href="https://sealyun.com/categories/starting">starting (1)</a>
+            <li><a href="https://sealyun.com/categories/starting">starting (2)</a>
             </li>
             
         </ul>
@@ -678,6 +670,12 @@ var _hmt = _hmt || [];
 
     <div class="panel-body">
         <ul class="tag-cloud">
+            
+            <li><a href="https://sealyun.com/tags/client-go"><i class="fa fa-tags"></i> client-go</a>
+            </li>
+            
+            <li><a href="https://sealyun.com/tags/crd"><i class="fa fa-tags"></i> crd</a>
+            </li>
             
             <li><a href="https://sealyun.com/tags/dev"><i class="fa fa-tags"></i> dev</a>
             </li>
@@ -753,6 +751,19 @@ var _hmt = _hmt || [];
                 
                 <div class="item same-height-row clearfix">
                     <div class="image same-height-always">
+                        <a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">
+                          
+                            <img src="https://sealyun.com//img/kube-ovn-vpc.png" class="img-responsive" alt="使用client-go操作CRD">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="https://sealyun.com/blog/2019/09/08/client-go-crd/">使用client-go操作CRD</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
                         <a href="https://sealyun.com/blog/2019/08/03/kustomize/">
                           
                             <img src="https://sealyun.com/img/kustomize.jpeg" class="img-responsive" alt="kustomize 颤抖吧helm!">
@@ -774,19 +785,6 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="name same-height-always">
                         <h5><a href="https://sealyun.com/blog/2019/07/30/genie/">CNI 小精灵 genie</a></h5>
-                    </div>
-                </div>
-                
-                <div class="item same-height-row clearfix">
-                    <div class="image same-height-always">
-                        <a href="https://sealyun.com/blog/2019/07/30/cni/">
-                          
-                            <img src="https://sealyun.com/CNI.png" class="img-responsive" alt="彻底理解 kubernetes CNI">
-                          
-                        </a>
-                    </div>
-                    <div class="name same-height-always">
-                        <h5><a href="https://sealyun.com/blog/2019/07/30/cni/">彻底理解 kubernetes CNI</a></h5>
                     </div>
                 </div>
                 
