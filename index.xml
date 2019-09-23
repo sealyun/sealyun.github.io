@@ -1299,14 +1299,18 @@ ENTRYPOINT [&amp;quot;/p&amp;quot;]
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sealyun.com/changelog/</guid>
-      <description>离线包Changelog  1.15.3版本
+      <description>离线包Changelog  1.16.0尝鲜版本
+  .0版本不推荐上生产，免费供大家测试和尝鲜新功能使用   1.15.4 1.14.7 版本
+ 社区：
+ bug修复为主  sealyun:
+ 精简包，仅包含核心组件+coreDNS+calico. dashboard prometheus等以单独的APP提供, 包体积从700多M降到300多M   1.15.3版本
  社区：
  更新golang/x/net依赖项以引入CVE-2019-9512，CVE-2019-9514 修复了使用内联卷源创建的VolumeAttachment API对象的验证。（＃80945，@tedyu） KUBE-插件管理器已更新至v9.0.2固定在党魁选举中的错误（https://github.com/kubernetes/kubernetes/pull/80575）（＃80861，@mborsz） 修复了ListOptions.AllowWatchBookmarks未在kube-apiserver中正确传播的错误。（＃80157，@ wojtek -t） CSI的节点上的传递卷MountOptions到全局挂载（NodeStageVolume）（＃80191，@ davidz627） kubeadm join &amp;ndash;discovery-file使用具有嵌入凭据的发现文件时修复错误（＃80675，@ fabiziopandini） 修正：支持原始块的csi插件不需要附加挂载失败（＃79920，@ cwdsuzhou）  sealyun:
  使用patch的方式更新kubeadm代码 maxage 增加到99年   1.14.5 与1.15.2版本
  社区：
  无重大更新  sealyun:
 更新kubelet开机启动依赖, 开机自动启动ipvs，自动拉起其它所有服务：
-[root@iZj6cgg9qmj6d5vq9wthk3Z ~]# cat /etc/systemd/system/kubelet.service [Unit] Description=kubelet: The Kubernetes Node Agent Documentation=http://kubernetes.io/docs/ [Service] ExecStart=/usr/bin/kubelet ExecStartPre=/usr/bin/kubelet-pre-start.sh  [root@iZj6cgg9qmj6d5vq9wthk3Z ~]# cat /usr/bin/kubelet-pre-start.sh #!/bin/bash # Open ipvs modprobe -- ip_vs modprobe -- ip_vs_rr modprobe -- ip_vs_wrr modprobe -- ip_vs_sh modprobe -- nf_conntrack_ipv4 cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/sysctl.</description>
+[root@iZj6cgg9qmj6d5vq9wthk3Z ~]# cat /etc/systemd/system/kubelet.service [Unit] Description=kubelet: The Kubernetes Node Agent Documentation=http://kubernetes.</description>
     </item>
     
     <item>
