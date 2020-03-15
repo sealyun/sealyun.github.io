@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>sealyun | kubernetes安装</title>
-    <meta name="description" content="">
-    <meta name="theme-color" content="#007af5">
+    <title>使用教程 | sealos | kubernetes安装</title>
+    <meta name="description" content="一键离线安装高可用kubernetes集群，不依赖ansible haproxy keepalived，内核ipvs负载">
+    <meta name="generator" content="VuePress 1.3.1">
+    <meta name="theme-color" content="#3eaf7c">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <script>
@@ -18,31 +19,224 @@
     })();
   </script>
     
-    <link rel="preload" href="/assets/css/0.styles.943dcab2.css" as="style"><link rel="preload" href="/assets/js/app.2ef0ffd4.js" as="script"><link rel="preload" href="/assets/js/2.bc760f0a.js" as="script"><link rel="preload" href="/assets/js/18.4d1c9315.js" as="script"><link rel="prefetch" href="/assets/js/10.f32c1b3a.js"><link rel="prefetch" href="/assets/js/11.c27ea7e3.js"><link rel="prefetch" href="/assets/js/12.7a4c12f1.js"><link rel="prefetch" href="/assets/js/13.7a5ce34d.js"><link rel="prefetch" href="/assets/js/14.a4b68835.js"><link rel="prefetch" href="/assets/js/15.d90caf92.js"><link rel="prefetch" href="/assets/js/16.9234ec9c.js"><link rel="prefetch" href="/assets/js/17.179a79f0.js"><link rel="prefetch" href="/assets/js/19.39aade44.js"><link rel="prefetch" href="/assets/js/20.1f42024f.js"><link rel="prefetch" href="/assets/js/21.c0f0b1df.js"><link rel="prefetch" href="/assets/js/22.3e115eba.js"><link rel="prefetch" href="/assets/js/23.ef2522ec.js"><link rel="prefetch" href="/assets/js/3.717e3044.js"><link rel="prefetch" href="/assets/js/4.1ba98b6c.js"><link rel="prefetch" href="/assets/js/5.06dd2038.js"><link rel="prefetch" href="/assets/js/6.0032a2d9.js"><link rel="prefetch" href="/assets/js/7.ec8ea37b.js"><link rel="prefetch" href="/assets/js/8.5336e325.js"><link rel="prefetch" href="/assets/js/9.6335d7ac.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.943dcab2.css">
+    <link rel="preload" href="/assets/css/0.styles.d244bdc7.css" as="style"><link rel="preload" href="/assets/js/app.bc598451.js" as="script"><link rel="preload" href="/assets/js/2.9036d852.js" as="script"><link rel="preload" href="/assets/js/15.4220d1f9.js" as="script"><link rel="prefetch" href="/assets/js/10.7c61db0c.js"><link rel="prefetch" href="/assets/js/11.6a88d09d.js"><link rel="prefetch" href="/assets/js/12.f485fd16.js"><link rel="prefetch" href="/assets/js/13.d038045b.js"><link rel="prefetch" href="/assets/js/14.bd7e8e43.js"><link rel="prefetch" href="/assets/js/16.7e16486c.js"><link rel="prefetch" href="/assets/js/17.578aef0e.js"><link rel="prefetch" href="/assets/js/18.0bc40b28.js"><link rel="prefetch" href="/assets/js/19.df15fad8.js"><link rel="prefetch" href="/assets/js/3.441d6bf3.js"><link rel="prefetch" href="/assets/js/4.c2bc232e.js"><link rel="prefetch" href="/assets/js/5.033e24d6.js"><link rel="prefetch" href="/assets/js/6.115ea91a.js"><link rel="prefetch" href="/assets/js/7.00ec4277.js"><link rel="prefetch" href="/assets/js/8.ef0f5968.js"><link rel="prefetch" href="/assets/js/9.091025e8.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d244bdc7.css">
   </head>
   <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="https://sealyun.com/img/logo.png" alt="sealyun | kubernetes安装" class="logo"> <span class="site-name can-hide">sealyun | kubernetes安装</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="http://store.lameleg.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="https://sealyun.com/img/logo.png" alt="sealos | kubernetes安装" class="logo"> <span class="site-name can-hide">sealos | kubernetes安装</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link router-link-active">
+  使用文档
+</a></div><div class="nav-item"><a href="https://blog.sealyun.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="http://store.lameleg.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
   离线包下载
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/faq/" class="nav-link">常见问题</a></div><div class="nav-item"><a href="/changelog/" class="nav-link">版本变更</a></div><div class="nav-item"><a href="/github/" class="nav-link">开源项目</a></div><div class="nav-item"><a href="/contact/" class="nav-link">联系方式</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="友情连接" class="dropdown-title"><span class="title">友情连接</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://fuckcloudnative.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/faq/" class="nav-link">
+  常见问题
+</a></div><div class="nav-item"><a href="/changelog/" class="nav-link">
+  版本变更
+</a></div><div class="nav-item"><a href="/github/" class="nav-link">
+  开源项目
+</a></div><div class="nav-item"><a href="/contact/" class="nav-link">
+  联系方式
+</a></div><div class="nav-item"><a href="http://store.lameleg.com:8536/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  论坛
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="友情连接" class="dropdown-title"><span class="title">友情连接</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://fuckcloudnative.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   云原生实验室
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://kuboard.cn/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://kuboard.cn/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   kuboard
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.qikqiak.com/?utm_source=sealyun.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.qikqiak.com/?utm_source=sealyun.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
   阳明的博客
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://zhangguanzhang.github.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://zhangguanzhang.github.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   张馆长的博客
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="http://store.lameleg.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link router-link-active">
+  使用文档
+</a></div><div class="nav-item"><a href="https://blog.sealyun.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="http://store.lameleg.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
   离线包下载
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/faq/" class="nav-link">常见问题</a></div><div class="nav-item"><a href="/changelog/" class="nav-link">版本变更</a></div><div class="nav-item"><a href="/github/" class="nav-link">开源项目</a></div><div class="nav-item"><a href="/contact/" class="nav-link">联系方式</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="友情连接" class="dropdown-title"><span class="title">友情连接</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://fuckcloudnative.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/faq/" class="nav-link">
+  常见问题
+</a></div><div class="nav-item"><a href="/changelog/" class="nav-link">
+  版本变更
+</a></div><div class="nav-item"><a href="/github/" class="nav-link">
+  开源项目
+</a></div><div class="nav-item"><a href="/contact/" class="nav-link">
+  联系方式
+</a></div><div class="nav-item"><a href="http://store.lameleg.com:8536/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  论坛
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="友情连接" class="dropdown-title"><span class="title">友情连接</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://fuckcloudnative.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   云原生实验室
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://kuboard.cn/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://kuboard.cn/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   kuboard
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.qikqiak.com/?utm_source=sealyun.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.qikqiak.com/?utm_source=sealyun.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
   阳明的博客
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://zhangguanzhang.github.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://zhangguanzhang.github.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   张馆长的博客
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div> <!----></nav>  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.2ef0ffd4.js" defer></script><script src="/assets/js/2.bc760f0a.js" defer></script><script src="/assets/js/18.4d1c9315.js" defer></script>
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/" class="sidebar-link">快速开始</a></li><li><a href="/docs/tutorial.html" class="active sidebar-link">使用教程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/tutorial.html#前提条件" class="sidebar-link">前提条件</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#安装教程" class="sidebar-link">安装教程</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#清理" class="sidebar-link">清理</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#视频教程" class="sidebar-link">视频教程</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#增加节点" class="sidebar-link">增加节点</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#增加node节点" class="sidebar-link">增加node节点</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#增加master节点" class="sidebar-link">增加master节点</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#自定义网络" class="sidebar-link">自定义网络</a></li><li class="sidebar-sub-header"><a href="/docs/tutorial.html#使用自定义kubeadm配置文件" class="sidebar-link">使用自定义kubeadm配置文件</a></li></ul></li><li><a href="/docs/app.html" class="sidebar-link">应用安装</a></li><li><a href="/docs/design.html" class="sidebar-link">设计理念</a></li><li><a href="/docs/theory.html" class="sidebar-link">设计原理</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="使用教程"><a href="#使用教程" class="header-anchor">#</a> 使用教程</h1> <h2 id="前提条件"><a href="#前提条件" class="header-anchor">#</a> 前提条件</h2> <ul><li>安装并启动docker, 高版本离线包自带docker，如没安装docker会自动安装</li> <li>下载<a href="http://store.lameleg.com" target="_blank" rel="noopener noreferrer">kubernetes 离线安装包<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</li> <li>下载<a href="https://github.com/fanux/sealos/releases" target="_blank" rel="noopener noreferrer">最新版本sealos<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</li> <li>务必同步服务器时间</li> <li>主机名不可重复</li> <li>master节点CPU必须2C以上</li></ul> <h2 id="安装教程"><a href="#安装教程" class="header-anchor">#</a> 安装教程</h2> <p>多master HA:</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos init --master <span class="token number">192.168</span>.0.2 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.3 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.4 <span class="token punctuation">\</span>
+    --node <span class="token number">192.168</span>.0.5 <span class="token punctuation">\</span>
+    --user root <span class="token punctuation">\</span>
+    --passwd your-server-password <span class="token punctuation">\</span>
+    --version v1.14.1 <span class="token punctuation">\</span>
+    --pkg-url /root/kube1.14.1.tar.gz     
+</code></pre></div><p>或者单master多node:</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos init --master <span class="token number">192.168</span>.0.2 <span class="token punctuation">\</span>
+    --node <span class="token number">192.168</span>.0.5 <span class="token punctuation">\</span>
+    --user root <span class="token punctuation">\</span>
+    --passwd your-server-password <span class="token punctuation">\</span>
+    --version v1.14.1 <span class="token punctuation">\</span>
+    --pkg-url /root/kube1.14.1.tar.gz 
+</code></pre></div><p>使用免密钥或者密钥对：</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos init --master <span class="token number">172.16</span>.198.83 <span class="token punctuation">\</span>
+    --node <span class="token number">172.16</span>.198.84 <span class="token punctuation">\</span>
+    --pkg-url https://YOUR_HTTP_SERVER/kube1.15.0.tar.gz <span class="token punctuation">\</span>
+    --pk /root/kubernetes.pem <span class="token punctuation">\</span>
+    --version v1.15.0
+</code></pre></div><p>自定义ssh端口号,如2022：</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos init --master <span class="token number">172.16</span>.198.83:2022 <span class="token punctuation">\</span>
+    --pkg-url https://YOUR_HTTP_SERVER/kube1.15.0.tar.gz <span class="token punctuation">\</span>
+    --pk /root/kubernetes.pem <span class="token punctuation">\</span>
+    --version v1.15.0
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>--master   master服务器地址列表
+--node     node服务器地址列表
+--user     服务器ssh用户名
+--passwd   服务器ssh用户密码
+--pkg-url  离线包位置，可以放在本地目录，也可以放在一个http服务器上，sealos会wget到安装目标机
+--version  kubernetes版本
+--pk       ssh私钥地址，配置免密钥默认就是/root/.ssh/id_rsa
+</code></pre></div><p>其它参数:</p> <div class="language- extra-class"><pre class="language-text"><code> --kubeadm-config string   kubeadm-config.yaml kubeadm配置文件，可自定义kubeadm配置文件
+ --vip string              virtual ip (default &quot;10.103.97.2&quot;) 本地负载时虚拟ip，不推荐修改，集群外不可访问
+</code></pre></div><p>检查安装是否正常:</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token punctuation">[</span>root@iZj6cdqfqw4o4o9tc0q44rZ ~<span class="token punctuation">]</span><span class="token comment"># kubectl get node</span>
+NAME                      STATUS   ROLES    AGE     VERSION
+izj6cdqfqw4o4o9tc0q44rz   Ready    master   2m25s   v1.14.1
+izj6cdqfqw4o4o9tc0q44sz   Ready    master   119s    v1.14.1
+izj6cdqfqw4o4o9tc0q44tz   Ready    master   63s     v1.14.1
+izj6cdqfqw4o4o9tc0q44uz   Ready    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>   38s     v1.14.1
+<span class="token punctuation">[</span>root@iZj6cdqfqw4o4o9tc0q44rZ ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod --all-namespaces</span>
+NAMESPACE     NAME                                              READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-5cbcccc885-9n2p8          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m1s
+kube-system   calico-node-656zn                                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>          93s
+kube-system   calico-node-bv5hn                                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m54s
+kube-system   calico-node-f2vmd                                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m1s
+kube-system   calico-node-tbd5l                                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>          118s
+kube-system   coredns-fb8b8dccf-8bnkv                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m1s
+kube-system   coredns-fb8b8dccf-spq7r                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m1s
+kube-system   etcd-izj6cdqfqw4o4o9tc0q44rz                      <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m25s
+kube-system   etcd-izj6cdqfqw4o4o9tc0q44sz                      <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m53s
+kube-system   etcd-izj6cdqfqw4o4o9tc0q44tz                      <span class="token number">1</span>/1     Running   <span class="token number">0</span>          118s
+kube-system   kube-apiserver-izj6cdqfqw4o4o9tc0q44rz            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m15s
+kube-system   kube-apiserver-izj6cdqfqw4o4o9tc0q44sz            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m54s
+kube-system   kube-apiserver-izj6cdqfqw4o4o9tc0q44tz            <span class="token number">1</span>/1     Running   <span class="token number">1</span>          47s
+kube-system   kube-controller-manager-izj6cdqfqw4o4o9tc0q44rz   <span class="token number">1</span>/1     Running   <span class="token number">1</span>          2m43s
+kube-system   kube-controller-manager-izj6cdqfqw4o4o9tc0q44sz   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m54s
+kube-system   kube-controller-manager-izj6cdqfqw4o4o9tc0q44tz   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          63s
+kube-system   kube-proxy-b9b9z                                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m54s
+kube-system   kube-proxy-nf66n                                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m1s
+kube-system   kube-proxy-q2bqp                                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          118s
+kube-system   kube-proxy-s5g2k                                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          93s
+kube-system   kube-scheduler-izj6cdqfqw4o4o9tc0q44rz            <span class="token number">1</span>/1     Running   <span class="token number">1</span>          2m43s
+kube-system   kube-scheduler-izj6cdqfqw4o4o9tc0q44sz            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m54s
+kube-system   kube-scheduler-izj6cdqfqw4o4o9tc0q44tz            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          61s
+kube-system   kube-sealyun-lvscare-izj6cdqfqw4o4o9tc0q44uz      <span class="token number">1</span>/1     Running   <span class="token number">0</span>          86s
+</code></pre></div><h2 id="清理"><a href="#清理" class="header-anchor">#</a> 清理</h2> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos clean <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.2 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.3 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.4 <span class="token punctuation">\</span>
+    --node <span class="token number">192.168</span>.0.5 <span class="token punctuation">\</span>
+    --user root <span class="token punctuation">\</span>
+    --passwd your-server-password
+</code></pre></div><h2 id="视频教程"><a href="#视频教程" class="header-anchor">#</a> <a href="http://mp.weixin.qq.com/mp/video?__biz=Mzg2NzAzODE5Ng==&amp;mid=100000268&amp;sn=e932ef75dfc38414c21b6b365df07c8e&amp;vid=wxv_1003349861900664832&amp;idx=1&amp;vidsn=e934d4cf8bacd1f569514b69c1344cf6&amp;fromid=1&amp;scene=18&amp;xtrack=1#wechat_redirect" target="_blank" rel="noopener noreferrer">视频教程<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <h2 id="增加节点"><a href="#增加节点" class="header-anchor">#</a> 增加节点</h2> <p>无论是增加master还是增加node，都需要先导入二进制和镜像文件，把资源包拷贝到新的节点上执行：</p> <div class="language- extra-class"><pre class="language-text"><code>tar zxvf kube1.17.0.tar.gz
+cd kube/shell &amp;&amp; sh init.sh
+</code></pre></div><h2 id="增加node节点"><a href="#增加node节点" class="header-anchor">#</a> 增加node节点</h2> <p>获取 join command, 在master上执行:</p> <div class="language- extra-class"><pre class="language-text"><code>kubeadm token create --print-join-command
+</code></pre></div><p>可以使用super kubeadm, 但是join时需要增加一个<code>--master</code> 参数:</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">cd</span> kube/shell <span class="token operator">&amp;&amp;</span> init.sh
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;10.103.97.2 apiserver.cluster.local&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/hosts   <span class="token comment"># using vip</span>
+kubeadm <span class="token function">join</span> <span class="token number">10.103</span>.97.2:6443 --token 9vr73a.a8uxyaju799qwdjv <span class="token punctuation">\</span>
+    --master <span class="token number">10.103</span>.97.100:6443 <span class="token punctuation">\</span>
+    --master <span class="token number">10.103</span>.97.101:6443 <span class="token punctuation">\</span>
+    --master <span class="token number">10.103</span>.97.102:6443 <span class="token punctuation">\</span>
+    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+</code></pre></div><p>也可以用sealos join命令：</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos <span class="token function">join</span> 
+    --master <span class="token number">192.168</span>.0.2 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.3 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.4 <span class="token punctuation">\</span>
+    --vip <span class="token number">10.103</span>.97.2 <span class="token punctuation">\</span>       
+    --node <span class="token number">192.168</span>.0.5 <span class="token punctuation">\</span>            
+    --user root <span class="token punctuation">\</span>             
+    --passwd your-server-password <span class="token punctuation">\</span>
+    --pkg-url /root/kube1.15.0.tar.gz 
+</code></pre></div><h2 id="增加master节点"><a href="#增加master节点" class="header-anchor">#</a> 增加master节点</h2> <p>获取join master命令：</p> <p>先用下面命令拿到key，这个安装时日志也会输出，忘记保存就用下面命令获取</p> <div class="language-sh extra-class"><pre class="language-sh"><code>kubeadm init phase upload-certs --upload-certs
+W1216 09:06:54.668668   <span class="token number">14269</span> validation.go:28<span class="token punctuation">]</span> Cannot validate kube-proxy config - no validator is available
+W1216 09:06:54.668720   <span class="token number">14269</span> validation.go:28<span class="token punctuation">]</span> Cannot validate kubelet config - no validator is available
+<span class="token punctuation">[</span>upload-certs<span class="token punctuation">]</span> Storing the certificates <span class="token keyword">in</span> Secret <span class="token string">&quot;kubeadm-certs&quot;</span> <span class="token keyword">in</span> the <span class="token string">&quot;kube-system&quot;</span> Namespace
+<span class="token punctuation">[</span>upload-certs<span class="token punctuation">]</span> Using certificate key:
+5e091dae31844423d69d585a6f3898356b8d9ff1dfd727c2ffee7244463d0c2d
+</code></pre></div><p>然后就下面命令获取join命令：</p> <div class="language-sh extra-class"><pre class="language-sh"><code>kubeadm token create --certificate-key 5e091dae31844423d69d585a6f3898356b8d9ff1dfd727c2ffee7244463d0c2d --print-join-command
+W1216 09:08:10.104418   <span class="token number">16674</span> validation.go:28<span class="token punctuation">]</span> Cannot validate kube-proxy config - no validator is available
+W1216 09:08:10.104457   <span class="token number">16674</span> validation.go:28<span class="token punctuation">]</span> Cannot validate kubelet config - no validator is available
+kubeadm <span class="token function">join</span> apiserver.cluster.local:6443 --token o1mq4r.b9ff55967s737jxm     --discovery-token-ca-cert-hash sha256:5c1a852e612cbaf2921364095e06b3d9e7f52ca67b7397abfa48cd0de7eb4ed1     --control-plane --certificate-key 5e091dae31844423d69d585a6f3898356b8d9ff1dfd727c2ffee7244463d0c2d
+</code></pre></div><p>不要直接执行输出的命令，请往下看：</p> <p>增加master节点稍微麻烦一点, 如新加一个master 10.103.97.102, 10.103.97.100是master0：</p> <p>master2 10.103.97.102 上</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">echo</span> <span class="token string">&quot;10.103.97.100 apiserver.cluster.local&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/hosts
+kubeadm <span class="token function">join</span> <span class="token number">10.103</span>.97.100:6443 --token o1mq4r.b9ff55967s737jxm  <span class="token punctuation">\</span>
+    --discovery-token-ca-cert-hash sha256:5c1a852e612cbaf2921364095e06b3d9e7f52ca67b7397abfa48cd0de7eb4ed1  <span class="token punctuation">\</span>
+    --control-plane <span class="token punctuation">\</span>
+    --certificate-key 5e091dae31844423d69d585a6f3898356b8d9ff1dfd727c2ffee7244463d0c2d
+
+<span class="token function">sed</span> <span class="token string">&quot;s/10.103.97.100/10.103.97.101/g&quot;</span> -i /etc/hosts
+</code></pre></div><p>注意：1.15以下用--experimental-control-plane 代替--control-plane</p> <p>这时新的master便加进去了，但是node的本地负载也需要加一下这个master,所有节点修改一下lvscare配置即可在node /etc/kubernetes/manifests目录下。</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">vim</span>  /etc/kubernetes/manifests/kube-sealyun-lvscare-xxx
+增加 --rs <span class="token number">10.103</span>.97.102:6443
+</code></pre></div><p>ipvsadm -Ln 就可以在node上看到新的master已经代理上了</p> <h2 id="自定义网络"><a href="#自定义网络" class="header-anchor">#</a> 自定义网络</h2> <ul><li>podcidr 参数指定自定义pod网段 如 --podcidr 100.64.0.0/10</li> <li>svccidr 参数指定clusterip网段 如 --svccidr 10.96.0.0/12</li> <li>without-cni sealos自带calico网络，如果你想自己装CNI不用默认可加此参数， 如 sealos init --without-cni .....</li></ul> <h2 id="使用自定义kubeadm配置文件"><a href="#使用自定义kubeadm配置文件" class="header-anchor">#</a> 使用自定义kubeadm配置文件</h2> <p>比如我们需要在证书里加入 <code>sealyun.com</code>:</p> <p>先获取配置文件模板：</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos config -t kubeadm <span class="token operator">&gt;&gt;</span>  kubeadm-config.yaml.tmpl
+</code></pre></div><p>修改<code>kubeadm-config.yaml.tmpl</code>,文件即可， 编辑增加 <code>sealyun.com</code>, 注意其它部分不用动，sealos会自动填充模板里面的内容:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeadm.k8s.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterConfiguration
+<span class="token key atrule">kubernetesVersion</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.Version<span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">controlPlaneEndpoint</span><span class="token punctuation">:</span> <span class="token string">&quot;apiserver.cluster.local:6443&quot;</span>
+<span class="token key atrule">networking</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSubnet</span><span class="token punctuation">:</span> 100.64.0.0/10
+<span class="token key atrule">apiServer</span><span class="token punctuation">:</span>
+        <span class="token key atrule">certSANs</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> sealyun.com <span class="token comment"># this is what I added</span>
+        <span class="token punctuation">-</span> 127.0.0.1
+        <span class="token punctuation">-</span> apiserver.cluster.local
+        <span class="token punctuation">{</span><span class="token punctuation">{</span>range .Masters <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.<span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span>end <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.VIP<span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeproxy.config.k8s.io/v1alpha1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> KubeProxyConfiguration
+<span class="token key atrule">mode</span><span class="token punctuation">:</span> <span class="token string">&quot;ipvs&quot;</span>
+<span class="token key atrule">ipvs</span><span class="token punctuation">:</span>
+        <span class="token key atrule">excludeCIDRs</span><span class="token punctuation">:</span> 
+        <span class="token punctuation">-</span> <span class="token string">&quot;{{.VIP}}/32&quot;</span>
+</code></pre></div><p>使用 --kubeadm-config 指定配置文件模板即可:</p> <div class="language-sh extra-class"><pre class="language-sh"><code>sealos init --kubeadm-config kubeadm-config.yaml.tmpl <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.2 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.3 <span class="token punctuation">\</span>
+    --master <span class="token number">192.168</span>.0.4 <span class="token punctuation">\</span>
+    --node <span class="token number">192.168</span>.0.5 <span class="token punctuation">\</span>
+    --user root <span class="token punctuation">\</span>
+    --passwd your-server-password <span class="token punctuation">\</span>
+    --version v1.14.1 <span class="token punctuation">\</span>
+    --pkg-url /root/kube1.14.1.tar.gz 
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/" class="prev router-link-active">
+        快速开始
+      </a></span> <span class="next"><a href="/docs/app.html">
+        应用安装
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.bc598451.js" defer></script><script src="/assets/js/2.9036d852.js" defer></script><script src="/assets/js/15.4220d1f9.js" defer></script>
   </body>
 </html>
