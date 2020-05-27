@@ -18,7 +18,7 @@
     <meta name="theme-color" content="#3eaf7c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="preload" href="/assets/css/0.styles.7acce052.css" as="style"><link rel="preload" href="/assets/js/app.26459a2b.js" as="script"><link rel="preload" href="/assets/js/2.73f25736.js" as="script"><link rel="preload" href="/assets/js/14.a02ee241.js" as="script"><link rel="prefetch" href="/assets/js/10.09425f84.js"><link rel="prefetch" href="/assets/js/11.5155bfb1.js"><link rel="prefetch" href="/assets/js/12.384eb47d.js"><link rel="prefetch" href="/assets/js/13.50b93c7c.js"><link rel="prefetch" href="/assets/js/15.1f0cbb9f.js"><link rel="prefetch" href="/assets/js/16.b9b17e0a.js"><link rel="prefetch" href="/assets/js/17.ce38dc2a.js"><link rel="prefetch" href="/assets/js/18.3cdea1f8.js"><link rel="prefetch" href="/assets/js/3.f1178803.js"><link rel="prefetch" href="/assets/js/4.fcacde50.js"><link rel="prefetch" href="/assets/js/5.4cf57242.js"><link rel="prefetch" href="/assets/js/6.ee0803e3.js"><link rel="prefetch" href="/assets/js/7.4ada04db.js"><link rel="prefetch" href="/assets/js/8.34b8c27f.js"><link rel="prefetch" href="/assets/js/9.d3fbb1e5.js">
+    <link rel="preload" href="/assets/css/0.styles.7acce052.css" as="style"><link rel="preload" href="/assets/js/app.2c551c70.js" as="script"><link rel="preload" href="/assets/js/2.73f25736.js" as="script"><link rel="preload" href="/assets/js/14.08e3f7ba.js" as="script"><link rel="prefetch" href="/assets/js/10.64257225.js"><link rel="prefetch" href="/assets/js/11.bd662575.js"><link rel="prefetch" href="/assets/js/12.82254868.js"><link rel="prefetch" href="/assets/js/13.7bd4e8c8.js"><link rel="prefetch" href="/assets/js/15.bc88f46b.js"><link rel="prefetch" href="/assets/js/16.78e83271.js"><link rel="prefetch" href="/assets/js/17.0a6def98.js"><link rel="prefetch" href="/assets/js/18.9becd6c9.js"><link rel="prefetch" href="/assets/js/3.f1178803.js"><link rel="prefetch" href="/assets/js/4.fcacde50.js"><link rel="prefetch" href="/assets/js/5.4cf57242.js"><link rel="prefetch" href="/assets/js/6.ee0803e3.js"><link rel="prefetch" href="/assets/js/7.4ada04db.js"><link rel="prefetch" href="/assets/js/8.34b8c27f.js"><link rel="prefetch" href="/assets/js/9.b3d545bb.js">
     <link rel="stylesheet" href="/assets/css/0.styles.7acce052.css">
   </head>
   <body>
@@ -86,7 +86,7 @@
           
         </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://zhangguanzhang.github.io/#sealyun" target="_blank" rel="noopener noreferrer" class="nav-link external">
   张馆长的博客
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/" class="sidebar-link">快速开始</a></li><li><a href="/docs/tutorial.html" class="sidebar-link">使用教程</a></li><li><a href="/docs/app.html" class="sidebar-link">应用安装</a></li><li><a href="/docs/design.html" class="sidebar-link">设计理念</a></li><li><a href="/docs/theory.html" class="active sidebar-link">设计原理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/theory.html#执行流程" class="sidebar-link">执行流程</a></li><li class="sidebar-sub-header"><a href="/docs/theory.html#本地内核负载" class="sidebar-link">本地内核负载</a></li><li class="sidebar-sub-header"><a href="/docs/theory.html#定制kubeadm" class="sidebar-link">定制kubeadm</a></li><li class="sidebar-sub-header"><a href="/docs/theory.html#离线包结构分析" class="sidebar-link">离线包结构分析</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="设计原理"><a href="#设计原理" class="header-anchor">#</a> 设计原理</h1> <h2 id="执行流程"><a href="#执行流程" class="header-anchor">#</a> 执行流程</h2> <ul><li><p>通过sftp或者wget把离线安装包拷贝到目标机器上（masters和nodes）</p></li> <li><p>在master0上执行kubeadm init</p></li> <li><p>在其它master上执行kubeadm join 并设置控制面，这个过程会在其它master上起etcd并与master0的etcd组成集群，并启动控制组建（apiserver controller等）</p></li> <li><p>join node节点，会在node上配置ipvs规则，配置/etc/hosts等</p> <p>有个细节是所有对apiserver进行访问都是通过域名，因为master上连接自己就行，node需要通过虚拟ip链接多个master，这个每个节点的kubelet与kube-proxy访问apiserver的地址是不一样的，而kubeadm又只能在配置文件中指定一个地址，所以使用一个域名但是每个节点解析不同。</p></li></ul> <p>使用域名的好处还有就是IP地址发生变化时仅需要修改解析即可。</p> <h2 id="本地内核负载"><a href="#本地内核负载" class="header-anchor">#</a> 本地内核负载</h2> <p>通过这样的方式实现每个node上通过本地内核负载均衡访问masters：</p> <div class="language- extra-class"><pre class="language-text"><code>  +----------+                       +---------------+  virturl server: 127.0.0.1:6443
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/" class="sidebar-link">快速开始</a></li><li><a href="/docs/tutorial.html" class="sidebar-link">使用教程</a></li><li><a href="/docs/app.html" class="sidebar-link">应用安装</a></li><li><a href="/docs/design.html" class="sidebar-link">设计理念</a></li><li><a href="/docs/theory.html" class="active sidebar-link">设计原理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/theory.html#执行流程" class="sidebar-link">执行流程</a></li><li class="sidebar-sub-header"><a href="/docs/theory.html#本地内核负载" class="sidebar-link">本地内核负载</a></li><li class="sidebar-sub-header"><a href="/docs/theory.html#离线包结构分析" class="sidebar-link">离线包结构分析</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="设计原理"><a href="#设计原理" class="header-anchor">#</a> 设计原理</h1> <h2 id="执行流程"><a href="#执行流程" class="header-anchor">#</a> 执行流程</h2> <ul><li>在执行机器上生成证书和kubeconfig文件</li> <li>在执行机器上wget下载离线包和sealos二进制使用scp拷贝到目标机器上（masters和nodes）</li> <li>在master0上执行kubeadm init</li> <li>在其它master上执行kubeadm join 并设置控制面，这个过程会在其它master上起etcd并与master0的etcd组成集群，并启动控制组建（apiserver controller等）</li> <li>join node节点，会在node上配置ipvs规则，配置/etc/hosts等</li></ul> <p>有个细节是所有对apiserver进行访问都是通过域名，因为master上连接自己就行，node需要通过虚拟ip链接多个master，这个每个节点的kubelet与kube-proxy访问apiserver的地址是不一样的，而kubeadm又只能在配置文件中指定一个地址，所以使用一个域名但是每个节点解析不同。</p> <p>使用域名的好处还有就是IP地址发生变化时仅需要修改解析即可。</p> <h2 id="本地内核负载"><a href="#本地内核负载" class="header-anchor">#</a> 本地内核负载</h2> <p>通过这样的方式实现每个node上通过本地内核负载均衡访问masters：</p> <div class="language- extra-class"><pre class="language-text"><code>  +----------+                       +---------------+  virturl server: 127.0.0.1:6443
   | mater0   |&lt;----------------------| ipvs nodes    |    real servers:
   +----------+                      |+---------------+            10.103.97.200:6443
                                     |                             10.103.97.201:6443
@@ -100,83 +100,39 @@
 </code></pre></div><p>在node上起了一个lvscare的static pod去守护这个 ipvs, 一旦apiserver不可访问了，会自动清理掉所有node上对应的ipvs规则， master恢复正常时添加回来。</p> <p>所以在你的node上加了三个东西，可以直观的看到：</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token function">cat</span> /etc/kubernetes/manifests   <span class="token comment"># 这下面增加了lvscare的static pod</span>
 ipvsadm -Ln                     <span class="token comment"># 可以看到创建的ipvs规则</span>
 <span class="token function">cat</span> /etc/hosts                  <span class="token comment"># 增加了虚拟IP的地址解析</span>
-</code></pre></div><h2 id="定制kubeadm"><a href="#定制kubeadm" class="header-anchor">#</a> 定制kubeadm</h2> <p>对kubeadm改动非常少，主要是证书时间延长和join命令的扩展,主要讲讲join命令的改造：</p> <p>首先join命令增加--master参数用于指定master地址列表</p> <div class="language-go extra-class"><pre class="language-go"><code>flagSet<span class="token punctuation">.</span><span class="token function">StringSliceVar</span><span class="token punctuation">(</span>
-	<span class="token operator">&amp;</span>locallb<span class="token punctuation">.</span>LVScare<span class="token punctuation">.</span>Masters<span class="token punctuation">,</span> <span class="token string">&quot;master&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-	<span class="token string">&quot;A list of ha masters, --master 192.168.0.2:6443  --master 192.168.0.2:6443  --master 192.168.0.2:6443&quot;</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-</code></pre></div><p>这样就可以拿到master地址列表去做ipvs了</p> <p>如果不是控制节点且不是单master，那么就创建一条ipvs规则,控制节点上不需要创建，连自己的apiserver即可：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">if</span> data<span class="token punctuation">.</span>cfg<span class="token punctuation">.</span>ControlPlane <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;This is not a control plan&quot;</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>locallb<span class="token punctuation">.</span>LVScare<span class="token punctuation">.</span>Masters<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
-        locallb<span class="token punctuation">.</span><span class="token function">CreateLocalLB</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span> 
-</code></pre></div><p>然后再去创建lvscare static pod去守护ipvs:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>locallb<span class="token punctuation">.</span>LVScare<span class="token punctuation">.</span>Masters<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
-    locallb<span class="token punctuation">.</span><span class="token function">LVScareStaticPodToDisk</span><span class="token punctuation">(</span><span class="token string">&quot;/etc/kubernetes/manifests&quot;</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-</code></pre></div><p>所以哪怕你不使用sealos，也可以直接用定制过的kubeadm去装集群，只是麻烦一些：</p> <h4 id="kubeadm配置文件"><a href="#kubeadm配置文件" class="header-anchor">#</a> kubeadm配置文件</h4> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeadm.k8s.io/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterConfiguration
-<span class="token key atrule">kubernetesVersion</span><span class="token punctuation">:</span> v1.14.0
-<span class="token key atrule">controlPlaneEndpoint</span><span class="token punctuation">:</span> <span class="token string">&quot;apiserver.cluster.local:6443&quot;</span> <span class="token comment"># apiserver DNS name</span>
-<span class="token key atrule">apiServer</span><span class="token punctuation">:</span>
-        <span class="token key atrule">certSANs</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> 127.0.0.1
-        <span class="token punctuation">-</span> apiserver.cluster.local
-        <span class="token punctuation">-</span> 172.20.241.205
-        <span class="token punctuation">-</span> 172.20.241.206
-        <span class="token punctuation">-</span> 172.20.241.207
-        <span class="token punctuation">-</span> 172.20.241.208
-        <span class="token punctuation">-</span> 10.103.97.1          <span class="token comment"># virturl ip</span>
-<span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeproxy.config.k8s.io/v1alpha1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> KubeProxyConfiguration
-<span class="token key atrule">mode</span><span class="token punctuation">:</span> <span class="token string">&quot;ipvs&quot;</span>
-<span class="token key atrule">ipvs</span><span class="token punctuation">:</span>
-        <span class="token key atrule">excludeCIDRs</span><span class="token punctuation">:</span> 
-        <span class="token punctuation">-</span> <span class="token string">&quot;10.103.97.1/32&quot;</span> <span class="token comment"># 注意不加这个kube-proxy会清理你的规则</span>
-</code></pre></div><h4 id="master0-10-103-97-100-上"><a href="#master0-10-103-97-100-上" class="header-anchor">#</a> master0 10.103.97.100 上</h4> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">echo</span> <span class="token string">&quot;10.103.97.100 apiserver.cluster.local&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/hosts <span class="token comment"># 解析的是master0的地址</span>
-kubeadm init --config<span class="token operator">=</span>kubeadm-config.yaml --experimental-upload-certs  
-<span class="token function">mkdir</span> ~/.kube <span class="token operator">&amp;&amp;</span> <span class="token function">cp</span> /etc/kubernetes/admin.conf ~/.kube/config
-kubectl apply -f https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
-</code></pre></div><h4 id="master1-10-103-97-101-上"><a href="#master1-10-103-97-101-上" class="header-anchor">#</a> master1 10.103.97.101 上</h4> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">echo</span> <span class="token string">&quot;10.103.97.100 apiserver.cluster.local&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/hosts <span class="token comment">#解析的是master0的地址,为了能正常join进去</span>
-kubeadm <span class="token function">join</span> <span class="token number">10.103</span>.97.100:6443 --token 9vr73a.a8uxyaju799qwdjv <span class="token punctuation">\</span>
-    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 <span class="token punctuation">\</span>
-    --experimental-control-plane <span class="token punctuation">\</span>
-    --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07 
-
-<span class="token function">sed</span> <span class="token string">&quot;s/10.103.97.100/10.103.97.101/g&quot;</span> -i /etc/hosts  <span class="token comment"># 解析再换成自己的地址，否则就都依赖master0的伪高可用了</span>
-</code></pre></div><h4 id="master2-10-103-97-102-上，同master1"><a href="#master2-10-103-97-102-上，同master1" class="header-anchor">#</a> master2 10.103.97.102 上，同master1</h4> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">echo</span> <span class="token string">&quot;10.103.97.100 apiserver.cluster.local&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/hosts
-kubeadm <span class="token function">join</span> <span class="token number">10.103</span>.97.100:6443 --token 9vr73a.a8uxyaju799qwdjv <span class="token punctuation">\</span>
-    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 <span class="token punctuation">\</span>
-    --experimental-control-plane <span class="token punctuation">\</span>
-    --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07  
-
-<span class="token function">sed</span> <span class="token string">&quot;s/10.103.97.100/10.103.97.101/g&quot;</span> -i /etc/hosts
-</code></pre></div><h4 id="nodes-上"><a href="#nodes-上" class="header-anchor">#</a> nodes 上</h4> <p>join时加上--master指定master地址列表</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token builtin class-name">echo</span> <span class="token string">&quot;10.103.97.1 apiserver.cluster.local&quot;</span> <span class="token operator">&gt;&gt;</span> /etc/hosts   <span class="token comment"># 需要解析成虚拟ip</span>
-kubeadm <span class="token function">join</span> <span class="token number">10.103</span>.97.1:6443 --token 9vr73a.a8uxyaju799qwdjv <span class="token punctuation">\</span>
-    --master <span class="token number">10.103</span>.97.100:6443 <span class="token punctuation">\</span>
-    --master <span class="token number">10.103</span>.97.101:6443 <span class="token punctuation">\</span>
-    --master <span class="token number">10.103</span>.97.102:6443 <span class="token punctuation">\</span>
-    --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
-</code></pre></div><h2 id="离线包结构分析"><a href="#离线包结构分析" class="header-anchor">#</a> 离线包结构分析</h2> <div class="language- extra-class"><pre class="language-text"><code>.
-├── bin  # 指定版本的bin文件，只需要这三个，其它组件跑容器里
-│   ├── kubeadm
-│   ├── kubectl
-│   └── kubelet
-├── conf
-│   ├── 10-kubeadm.conf  # 这个文件新版本没用到，我在shell里直接生成，这样可以检测cgroup driver
-│   ├── kubeadm.yaml # kubeadm的配置文件
-│   ├── kubelet.service  # kubelet systemd配置文件
-├── images  # 所有镜像包
-│   └── images.tar
-└── shell
-    ├── init.sh  # 初始化脚本
-    └── master.sh # 运行master脚本
-</code></pre></div><p>init.sh脚本中拷贝bin文件到$PATH下面，配置systemd，关闭swap防火墙等，然后导入集群所需要的镜像。</p> <p>master.sh主要执行了kubeadm init</p> <p>conf下面有有我需要的如kubeadm的配置文件，calico yaml文件等等</p> <p>sealos会会调用二者。 所以大部分兼容不同版本都可以微调脚本做到。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+</code></pre></div><p><strong>sealos已经把lvscare本地负载和百年证书已经在sealos中支持，使用起来极其方便！！！</strong></p> <h2 id="离线包结构分析"><a href="#离线包结构分析" class="header-anchor">#</a> 离线包结构分析</h2> <div class="language- extra-class"><pre class="language-text"><code>.
+|____docker # docker的离线包
+| |____docker.tgz
+| |____README.md
+|____bin # 指定版本的bin文件
+| |____conntrack
+| |____kubeadm
+| |____kubelet
+| |____sealos
+| |____kubelet-pre-start.sh
+| |____kubectl
+| |____crictl
+|____images # kubernetes的离线镜像
+| |____images.tar
+| |____README.md
+|____shell # 离线包的部署脚本,sealos会自动调用
+| |____master.sh
+| |____init.sh
+| |____docker.sh
+|____README.md
+|____conf
+| |____net   # 高版本的sealos已经集成
+| | |____calico.yaml
+| |____10-kubeadm.conf # kubeadm的配置文件
+| |____calico.yaml
+| |____kubeadm.yaml
+| |____kubelet.service
+| |____docker.servic
+</code></pre></div><p>init.sh脚本中拷贝bin文件到$PATH下面，配置systemd，关闭swap防火墙等，然后导入集群所需要的镜像。</p> <p>master.sh主要执行了kubeadm init</p> <p>conf下面有有我需要的如kubeadm的配置文件，calico yaml文件等等</p> <p>sealos会调用二者。 所以大部分兼容不同版本都可以微调脚本做到。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
       ←
       <a href="/docs/design.html" class="prev">
         设计理念
       </a></span> <!----></p></div> </main></div><div class="global-ui"><!----></div></div>
-    <script src="/assets/js/app.26459a2b.js" defer></script><script src="/assets/js/2.73f25736.js" defer></script><script src="/assets/js/14.a02ee241.js" defer></script>
+    <script src="/assets/js/app.2c551c70.js" defer></script><script src="/assets/js/2.73f25736.js" defer></script><script src="/assets/js/14.08e3f7ba.js" defer></script>
   </body>
 </html>
